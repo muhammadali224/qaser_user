@@ -1,0 +1,82 @@
+name: qaser_user
+description: A new Flutter project.
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.5+6
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  get:
+  flutter_otp_text_field:
+  jiffy:
+  http: ^1.1.0
+  cached_network_image: ^3.3.0
+  google_maps_flutter:
+  geolocator: ^10.1.0
+  geocoding:
+  firebase_messaging:
+  firebase_core:
+  flutter_local_notifications: ^16.0.0+1
+  shared_preferences:
+  path:
+  url_launcher:
+  dartz:
+  image_picker:
+  lottie:
+  firebase_analytics:
+#  firebase_analytics: ^10.2.1
+  string_capitalize: ^0.0.10
+  badges: ^3.1.1
+  flutter_ringtone_player: ^3.2.0
+  rating_dialog: ^2.0.4
+  flutter_launcher_icons: ^0.13.1
+  change_app_package_name: ^1.1.0
+  flutter_swiper_view: ^1.1.8
+  dropdown_button2: ^2.3.8
+  icon_broken:
+#  icon_broken: ^1.1.0
+  dependency_validator:
+#  dependency_validator: ^3.2.2
+  animated_text_kit: ^4.2.2
+  connectivity_plus:
+  flutter_smart_dialog: ^4.9.4
+  dotted_dashed_line: ^0.0.3
+  animated_flip_counter: ^0.2.6
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo_2.jpg"
+  min_sdk_android: 21
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo/Cairo-Regular.ttf
+        - asset: assets/fonts/Cairo/Cairo-Bold.ttf
+          weight: 700
+
+    - family: PlayfairDisplay
+      fonts:
+        - asset: assets/fonts/PlayfairDisplay/PlayfairDisplay-Regular.ttf
+        - asset: assets/fonts/PlayfairDisplay/PlayfairDisplay-Bold.ttf
+          weight: 700
+
+  assets:
+    - assets/lottie/
+    - assets/images/
+    - assets/

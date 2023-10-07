@@ -1,0 +1,35 @@
+class AppRoutes {
+  static const String home = "/home";
+  static const String login = "/login";
+  static const String onBoarding = "/onBoarding";
+  static const String signUp = "/signUp";
+  static const String forgetPassword = "/forgetPassword";
+  static const String verificationCode = "/verificationCode";
+  static const String resetPassword = "/resetPassword";
+  static const String successReset = "/successReset";
+  static const String successSignUp = "/successSignUp";
+  static const String verificationSignup = "/verificationSignup";
+  static const String items = "/items";
+  static const String itemDetails = "/itemDetails";
+  static const String myFavorite = "/myFavorite";
+  static const String cart = "/cart";
+  static const String addressView = "/addressView";
+  static const String addressAdd = "/addressAdd";
+  static const String addressEdit = "/addressEdit";
+  static const String addLocationDetails = "/addLocationDetails";
+  static const String checkout = "/checkout";
+  static const String orders = "/orders";
+  static const String ordersDetails = "/ordersDetails";
+  static const String offers = "/offers";
+  static const String ordersRating = "/ordersRating";
+  static const String userSettings = "/userSettings";
+  static const String changeUserName = "/changeUserName";
+  static const String changePassword = "/changePassword";
+  static const String changeEmail = "/changeEmail";
+  static const String changeUserPhone = "/changeUserPhone";
+  static const String changeUserPin = "/changeUserPin";
+  static const String enterPin = "/enterPin";
+  static const String notifications = "/notifications";
+  static const String appSettings = "/appSettings";
+  static const String searchResult = "/searchResult";
+}
