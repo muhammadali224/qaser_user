@@ -5,7 +5,6 @@ import 'package:icon_broken/icon_broken.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/color.dart';
-import '../../core/constant/image_assets.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/services/services.dart';
@@ -14,6 +13,7 @@ import '../../data/model/item_count_model.dart';
 import '../../data/shared/user_details.dart';
 import '../../data/source/remote/cart_data.dart';
 import '../../data/source/remote/checkout_data.dart';
+import '../../generated/assets.dart';
 import '../address_controller/view_address_controller.dart';
 
 abstract class CartController extends GetxController {
@@ -64,11 +64,11 @@ class CartControllerImp extends CartController {
   List orderMethod = [
     {
       "title": "pickup",
-      'icon': AppImageAssets.pickup,
+      'icon': Assets.lottiePickup,
     },
     {
       "title": "delivery",
-      'icon': AppImageAssets.delivery,
+      'icon': Assets.lottieDelivery,
     },
   ];
 

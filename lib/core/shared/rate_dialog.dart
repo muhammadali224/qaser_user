@@ -5,7 +5,7 @@ import 'package:rating_dialog/rating_dialog.dart';
 
 import '../../controller/orders/orders_controller.dart';
 import '../../controller/orders/rate_order_controller.dart';
-import '../constant/image_assets.dart';
+import '../../generated/assets.dart';
 
 showRatingDialog(BuildContext context, String orderId,
     {bool isOrderScreen = false}) {
@@ -29,14 +29,14 @@ showRatingDialog(BuildContext context, String orderId,
               style: const TextStyle(fontSize: 15),
             ),
             // your app's logo?
-            image: Lottie.asset(AppImageAssets.rating, height: 200, width: 200),
+            image: Lottie.asset(Assets.lottieRating, height: 200, width: 200),
             submitButtonText: 'submit'.tr,
             commentHint: 'rateHint'.tr,
             onSubmitted: (response) {
               if (isOrderScreen == true) {
-                OrdersController ordercontroller = Get.find();
+                OrdersController orderController = Get.find();
 
-                ordercontroller.rateOrder(
+                orderController.rateOrder(
                     response.rating.toString(), response.comment, orderId);
               } else {
                 RateOrdersController controller = Get.find();

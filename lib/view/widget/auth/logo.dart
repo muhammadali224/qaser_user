@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constant/image_assets.dart';
+import '../../../generated/assets.dart';
 
 class LogoAuth extends StatelessWidget {
   const LogoAuth({Key? key}) : super(key: key);
@@ -8,7 +8,7 @@ class LogoAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      AppImageAssets.logoImage,
+      Assets.imagesLogo,
       height: 175,
     );
   }

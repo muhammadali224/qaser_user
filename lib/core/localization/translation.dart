@@ -224,6 +224,15 @@ class MyTranslation extends Translations {
           "weight": "الحجم",
           "pressToSelectSubItems": "إضغط لأختيار الوزن او الحجم",
           "branch_401": "عذرا هذا الفرع مغلق حاليا",
+          "accept": "قبول",
+          "reject": "رفض",
+          "rejected": "مرفوض",
+          "order_state_1": "تم قبول الطلب بنجاح",
+          "order_state_2": "الطلب الان في الطريق اليك",
+          "order_state_3":
+              "تم توصيل طلبك بنجاح الرجاء تقييم الطلب من خلال صفحة التقيمات",
+          "order_state_4": "تم إلغاء الطلب ",
+          "order_state_5": "تم رفض الطلب من قبل المتجر",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -448,6 +457,15 @@ class MyTranslation extends Translations {
           "weight": "Weight",
           "pressToSelectSubItems": "Click To Select Weight or Size",
           "branch_401": "Sorry,Branch is Closed Now,",
+          "accept": "Accept",
+          "reject": "Reject",
+          "rejected": "Rejected",
+          "order_state_1": "Order Accepted Successfully",
+          "order_state_2": "Your order on the road ,Be Ready",
+          "order_state_3":
+              "Order Delivered Successfully, Please Rate The Order from Rate Page in Settings",
+          "order_state_4": "Order Cancelled Successfully",
+          "order_state_5": "The Order is Rejected by the Store",
         },
       };
 }

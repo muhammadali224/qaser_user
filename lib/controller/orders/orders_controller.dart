@@ -22,6 +22,7 @@ class OrdersController extends GetxController {
     '2': 'onTheRoad',
     '3': 'completed',
     '4': 'canceled',
+    '5': 'canceled',
   };
   Map orderType = {
     '0': 'pickup',
@@ -64,7 +65,8 @@ class OrdersController extends GetxController {
             .where((element) => element.ordersState == "3"));
         dataCanceled.addAll(responseData
             .map((e) => OrdersModel.fromJson(e))
-            .where((element) => element.ordersState == "4"));
+            .where((element) =>
+                element.ordersState == "4" || element.ordersState == "5"));
       } else {
         statusRequest = StatusRequest.failed;
       }

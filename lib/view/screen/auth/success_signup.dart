@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../controller/auth_controller/success_signup_controller.dart';
 import '../../../core/constant/color.dart';
-import '../../../core/constant/image_assets.dart';
+import '../../../generated/assets.dart';
 import '../../widget/auth/auth_button.dart';
 import '../../widget/auth/body_text.dart';
 import '../../widget/auth/herder_text.dart';
@@ -32,7 +32,7 @@ class SuccessSignUp extends StatelessWidget {
         child: Column(
           children: [
             Center(
-              child: Lottie.asset(AppImageAssets.accountCreated,
+              child: Lottie.asset(Assets.lottieAccountCreated,
                   height: 300, fit: BoxFit.fill),
             ),
             const CustomHeader(headerText: 'cong'),

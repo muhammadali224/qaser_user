@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../core/constant/image_assets.dart';
+import '../../../generated/assets.dart';
 
 class SuccessCoupon extends StatelessWidget {
   final String couponName;
@@ -19,7 +19,7 @@ class SuccessCoupon extends StatelessWidget {
           Row(
             children: [
               Text(couponName),
-              Lottie.asset(AppImageAssets.success,
+              Lottie.asset(Assets.lottieSuccess,
                   height: 35, width: 40, repeat: false),
             ],
           )

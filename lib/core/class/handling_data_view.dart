@@ -4,7 +4,6 @@ import 'package:lottie/lottie.dart';
 
 import '../../generated/assets.dart';
 import '../constant/color.dart';
-import '../constant/image_assets.dart';
 import 'status_request.dart';
 
 class HandlingDataView extends StatelessWidget {
@@ -21,7 +20,7 @@ class HandlingDataView extends StatelessWidget {
             child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Lottie.asset(AppImageAssets.loading, height: 250, width: 250),
+              Lottie.asset(Assets.lottieLoading, height: 250, width: 250),
               Text("loading".tr,
                   style: Theme.of(context).textTheme.displayLarge),
             ],
@@ -31,8 +30,7 @@ class HandlingDataView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset(AppImageAssets.offline,
-                        height: 250, width: 250),
+                    Lottie.asset(Assets.lottieOffline, height: 250, width: 250),
                     Text("statusOffline".tr,
                         style: Theme.of(context).textTheme.displayLarge),
                   ],
@@ -43,7 +41,7 @@ class HandlingDataView extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Lottie.asset(AppImageAssets.serverError,
+                        Lottie.asset(Assets.lottieServerError,
                             height: 250, width: 250),
                         Text("statusServer".tr,
                             style: Theme.of(context)
@@ -58,7 +56,7 @@ class HandlingDataView extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Lottie.asset(AppImageAssets.noData,
+                            Lottie.asset(Assets.lottieNoData,
                                 height: 250, width: 250, repeat: false),
                             Text("statusFailed".tr,
                                 style:
@@ -112,7 +110,7 @@ class HandlingDataRequest extends StatelessWidget {
             child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Lottie.asset(AppImageAssets.loading, height: 250, width: 250),
+              Lottie.asset(Assets.lottieLoading, height: 250, width: 250),
               Text("loading".tr,
                   style: Theme.of(context).textTheme.displayLarge),
             ],
@@ -122,8 +120,7 @@ class HandlingDataRequest extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset(AppImageAssets.offline,
-                        height: 250, width: 250),
+                    Lottie.asset(Assets.lottieOffline, height: 250, width: 250),
                     Text("statusOffline".tr,
                         style: Theme.of(context).textTheme.displayLarge),
                   ],
@@ -134,7 +131,7 @@ class HandlingDataRequest extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Lottie.asset(AppImageAssets.serverError,
+                        Lottie.asset(Assets.lottieServerError,
                             height: 250, width: 250),
                         Text("statusServer".tr,
                             style: Theme.of(context)

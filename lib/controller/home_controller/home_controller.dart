@@ -94,7 +94,7 @@ class HomeControllerImp extends HomeController {
     var response = await homeData.getData(branchId, userId);
     statusRequest = handlingData(response);
 
-    if (StatusRequest.success == statusRequest) {
+    if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
         if (response['categories']['status'] == 'success') {
           List responseDataCategories = response['categories']['data'];
@@ -135,15 +135,17 @@ class HomeControllerImp extends HomeController {
   @override
   updateUserBranch(branchId) async {
     var response = await homeData.updateBranch(branchId, userId);
-    if (response['status'] == 'success') {
-      await getUserDetails();
-      getData(branchId);
-      cartController.getCart();
-      update();
-    } else {
-      statusRequest = StatusRequest.failed;
+    statusRequest = handlingData(response);
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == 'success') {
+        await getUserDetails();
+        getData(branchId);
+        cartController.getCart();
+        update();
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
     }
-
     update();
   }
 
@@ -158,45 +160,49 @@ class HomeControllerImp extends HomeController {
   getUserDetails() async {
     statusRequest = StatusRequest.loading;
     update();
+
     var response = await homeData.getUserDetails(userId);
-    if (response['status'] == 'success') {
-      userData = UserModel.fromJson(response['data']);
-      if (userData.branchIsOpen == "0") {
-        SmartDialog.show(
-            builder: (_) => Container(
-                  width: double.infinity,
-                  // height: Get.height / 3,
-                  color: Colors.grey[200],
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Lottie.asset(
-                          Assets.lottieBranchClose,
-                          fit: BoxFit.contain,
+    statusRequest = handlingData(response);
+    if (statusRequest == StatusRequest.success) {
+      if (response['status'] == 'success') {
+        userData = UserModel.fromJson(response['data']);
+        if (userData.branchIsOpen == "0") {
+          SmartDialog.show(
+              builder: (_) => Container(
+                    width: double.infinity,
+                    // height: Get.height / 3,
+                    color: Colors.grey[200],
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Lottie.asset(
+                            Assets.lottieBranchClose,
+                            fit: BoxFit.contain,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "branchClose".tr,
-                          style: const TextStyle(fontSize: 20),
+                        Expanded(
+                          child: Text(
+                            "branchClose".tr,
+                            style: const TextStyle(fontSize: 20),
+                          ),
                         ),
-                      ),
-                      Container(
-                          padding: const EdgeInsets.symmetric(vertical: 40),
-                          child: ElevatedButton(
-                              onPressed: () => SmartDialog.dismiss(),
-                              child: Text("back".tr)))
-                    ],
-                  ),
-                ));
-        selectedValue = "1";
-        updateUserBranch("1");
-        update();
+                        Container(
+                            padding: const EdgeInsets.symmetric(vertical: 40),
+                            child: ElevatedButton(
+                                onPressed: () => SmartDialog.dismiss(),
+                                child: Text("back".tr)))
+                      ],
+                    ),
+                  ));
+          selectedValue = "1";
+          updateUserBranch("1");
+          update();
+        }
+      } else {
+        statusRequest = StatusRequest.failed;
       }
-    } else {
-      statusRequest = StatusRequest.failed;
     }
 
     update();
