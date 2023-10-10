@@ -21,48 +21,51 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeControllerImp controller = Get.put(HomeControllerImp());
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const BranchDropDownList(),
-        leading: LeadingAppbar(
-          onTap: () => controller.goToCart(),
+    return RefreshIndicator(
+      onRefresh: () => controller.initData(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const BranchDropDownList(),
+          leading: LeadingAppbar(
+            onTap: () => controller.goToCart(),
+          ),
+          actions: actionList,
         ),
-        actions: actionList,
-      ),
-      body: GetBuilder<HomeControllerImp>(
-        builder: (controller) => ListView(
-          children: [
-            HandlingDataView(
-                statusRequest: controller.statusRequest,
-                widget: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    HeaderHelloText(
-                      name: controller.userName,
-                      onTapped: () => controller.goToSettings(),
-                    ),
-                    SearchFormField(
-                      controller: controller.search,
-                      hintTitle: 'findProduct',
-                      onSearchTap: () => controller.onSearchItems(),
-                      onSearchSubmitted: (val) => controller.onSearchItems(),
-                      // onChanged: (val) => controller.checkSearch(val),
-                    ),
-                    const SwiperCard(),
-                    const CustomHomeTitle(title: 'categories'),
-                    const HomeCategoriesList(),
-                    CustomHomeTitle(
-                      title: 'offers',
-                      withSeeAll: true,
-                      seeAllOnPressed: () => controller.goToOffers(),
-                    ),
-                    const ListOffersHome(),
-                    const CustomHomeTitle(title: 'topSelling'),
-                    const ListTopSellingHome(),
-                  ],
-                ))
-          ],
+        body: GetBuilder<HomeControllerImp>(
+          builder: (controller) => ListView(
+            children: [
+              HandlingDataView(
+                  statusRequest: controller.statusRequest,
+                  widget: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      HeaderHelloText(
+                        name: controller.userName,
+                        onTapped: () => controller.goToSettings(),
+                      ),
+                      SearchFormField(
+                        controller: controller.search,
+                        hintTitle: 'findProduct',
+                        onSearchTap: () => controller.onSearchItems(),
+                        onSearchSubmitted: (val) => controller.onSearchItems(),
+                        // onChanged: (val) => controller.checkSearch(val),
+                      ),
+                      const SwiperCard(),
+                      const CustomHomeTitle(title: 'categories'),
+                      const HomeCategoriesList(),
+                      CustomHomeTitle(
+                        title: 'offers',
+                        withSeeAll: true,
+                        seeAllOnPressed: () => controller.goToOffers(),
+                      ),
+                      const ListOffersHome(),
+                      const CustomHomeTitle(title: 'topSelling'),
+                      const ListTopSellingHome(),
+                    ],
+                  ))
+            ],
+          ),
         ),
       ),
     );

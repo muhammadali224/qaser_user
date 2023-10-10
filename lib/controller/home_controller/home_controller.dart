@@ -75,7 +75,7 @@ class HomeControllerImp extends HomeController {
     initLocalJiffy();
 
     cartController.getCart();
-    getData("1");
+    getData(userData.userFavBranchId ?? "1");
   }
 
   getBranchName() {

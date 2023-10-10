@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:jiffy/jiffy.dart';
 
 import '../../../controller/orders/order_details_controller.dart';
 import '../../../core/class/handling_data_view.dart';
@@ -61,7 +62,8 @@ class OrdersDetails extends StatelessWidget {
                         "${controller.orderType[controller.ordersModel.ordersType!]}"),
                 SubtitleDetails(
                     title: 'orderTime',
-                    subtitle: controller.ordersModel.ordersTime!),
+                    subtitle: Jiffy.parse(controller.ordersModel.ordersTime!)
+                        .format(pattern: "dd/MM/yyyy  HH:mm a")),
                 SubtitleDetails(
                     title: 'branch',
                     subtitle: translateDatabase(
@@ -96,9 +98,10 @@ class OrdersDetails extends StatelessWidget {
                       )),
                 const SizedBox(height: 20),
                 const HeadersOrderDetails(title: 'paymentInfo'),
-                SubtitleDetails(
-                    title: 'deliveryCharge',
-                    subtitle: "${controller.ordersModel.ordersDeliveryFee}"),
+                if (controller.ordersModel.ordersType == "1")
+                  SubtitleDetails(
+                      title: 'deliveryCharge',
+                      subtitle: "${controller.ordersModel.ordersDeliveryFee}"),
                 SubtitleDetails(
                     title: 'discount',
                     name: controller.ordersModel.couponName,

@@ -70,11 +70,10 @@ class OrderTableDetails extends GetView<OrderDetailsController> {
                 Text(controller.data[index].countitems!,
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 18)),
-                Text(controller.data[index].itemDiscounntPrice!,
+                Text(controller.data[index].cartItemPrice!,
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 18)),
-                Text(
-                    "${int.parse(controller.data[index].itemDiscounntPrice!) * int.parse(controller.data[index].countitems!)}",
+                Text(controller.data[index].itemsprice!,
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 18))
               ]),
