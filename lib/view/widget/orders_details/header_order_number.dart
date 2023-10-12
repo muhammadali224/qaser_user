@@ -5,7 +5,7 @@ import '../../../core/constant/color.dart';
 
 class HeaderOrderNumber extends StatelessWidget {
   final String title;
-  final String number;
+  final int number;
   const HeaderOrderNumber({Key? key, required this.title, required this.number})
       : super(key: key);
 

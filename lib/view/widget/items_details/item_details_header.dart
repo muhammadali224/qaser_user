@@ -37,7 +37,7 @@ class ItemDetailsHeader extends StatelessWidget {
               count: controller.itemsCount,
               onAdd: () => controller.add(),
               onRemove: () => controller.remove(),
-              price: controller.itemsModel.itemDiscountPrice.toString(),
+              price: controller.itemsModel.itemDiscounntPrice!,
             ),
             if (controller.weightAndSize.isNotEmpty)
               Container(

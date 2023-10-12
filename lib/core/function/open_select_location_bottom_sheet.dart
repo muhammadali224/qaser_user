@@ -3,14 +3,16 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 import '../../controller/cart_controller/cart_controller.dart';
-import '../../data/shared/user_details.dart';
 import '../../view/widget/cart/checkout_location.dart';
 import '../../view/widget/cart/checkout_title.dart';
 import '../constant/routes.dart';
+import '../services/user_preference.dart';
 import 'get_polyline.dart';
 
 openLocationBottomSheet() {
   CartControllerImp controller = Get.find();
+  final UserPreferences userManagement = Get.find<UserPreferences>();
+
   return Get.bottomSheet(
     Container(
       decoration: const BoxDecoration(
@@ -41,16 +43,16 @@ openLocationBottomSheet() {
                                   SmartDialog.showLoading(
                                       msg: "calculateDelivery".tr);
                                   await getDistance(
-                                    lat2: double.parse(controller
+                                    lat2: controller
                                         .addressController
                                         .data[controller.locationList]
-                                        .addressLat!),
-                                    lon2: double.parse(controller
+                                        .addressLat!,
+                                    lon2: controller
                                         .addressController
                                         .data[controller.locationList]
-                                        .addressLong!),
-                                    lat1: double.parse(userData.branchLat!),
-                                    lon1: double.parse(userData.branchLang!),
+                                        .addressLong!,
+                                    lat1: userManagement.user.branchLat!,
+                                    lon1: userManagement.user.branchLang!,
                                   );
                                   controller.distance = double.parse(dest!);
                                   await controller.calculateDeliveryCharge();
@@ -63,7 +65,8 @@ openLocationBottomSheet() {
                           onPressed: () => Get.toNamed(AppRoutes.addressAdd),
                           child: Text(
                             "goToLocation".tr,
-                            style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 22),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 22),
                           )),
                     ),
                   ],

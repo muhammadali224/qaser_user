@@ -6,7 +6,7 @@ import '../../core/function/handling_data_controller.dart';
 import '../../data/source/remote/auth/verify_data.dart';
 
 abstract class VerifiedSignUpController extends GetxController {
-  checkCode(String code);
+  checkCode(int code);
   resendVerify();
   goToSuccessPassword();
 }
@@ -18,7 +18,7 @@ class VerifiedSignUpControllerImp extends VerifiedSignUpController {
   StatusRequest statusRequest = StatusRequest.none;
 
   @override
-  checkCode(String code) async {
+  checkCode(int code) async {
     statusRequest = StatusRequest.loading;
     update();
     var response = await verifyData.postData(email!, code);

@@ -1,10 +1,10 @@
 class ItemCountModel {
-  String? countItems;
-  String? weightSizeId;
+  int? countItems;
+  int? weightSizeId;
   String? subItemName;
   String? subItemNameAr;
-  String? subItemValue;
-  String? cartItemPrice;
+  num? subItemValue;
+  num? cartItemPrice;
 
   ItemCountModel({
     this.countItems,

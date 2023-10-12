@@ -22,12 +22,12 @@ class ItemsDetailsTitle extends StatelessWidget {
               .displayMedium!
               .copyWith(color: AppColor.fourthColor),
         ),
-        if (itemsModel.itemsDiscount != "0")
+        if (itemsModel.itemsDiscount != 0)
           RichText(
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: itemsModel.itemsPrice!,
+                  text: itemsModel.itemsPrice.toString(),
                   style: DefaultTextStyle.of(context).style.copyWith(
                       decoration: TextDecoration.lineThrough, fontSize: 22),
                 ),

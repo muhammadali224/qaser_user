@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
 
 import '../../../core/constant/api_link.dart';
-import '../../../data/shared/user_details.dart';
 
 class HeaderCardSetting extends StatelessWidget {
   final Color? cardColor;
@@ -12,6 +11,7 @@ class HeaderCardSetting extends StatelessWidget {
   final Color? backgroundMotifColor;
   final VoidCallback? onTap;
   final String? userName;
+  final String? imageUrl;
 
   // final String? userEmail;
   final Widget? userMoreInfo;
@@ -24,6 +24,7 @@ class HeaderCardSetting extends StatelessWidget {
     this.backgroundMotifColor = Colors.white,
     this.userMoreInfo,
     required this.onTap,
+    this.imageUrl,
   });
 
   @override
@@ -68,8 +69,7 @@ class HeaderCardSetting extends StatelessWidget {
                               backgroundImage: imageProvider,
                               radius: Get.height / 15,
                             ),
-                        imageUrl:
-                            "${AppLink.imageUserProfile}${userData.usersImage}",
+                        imageUrl: "${AppLink.imageUserProfile}$imageUrl",
                         placeholder: (context, url) =>
                             const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) => const Center(

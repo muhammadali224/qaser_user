@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
 
-import '../../controller/orders/rate_order_controller.dart';
-import '../../core/class/handling_data_view.dart';
-import '../widget/rating/completed_list_card.dart';
+import '../../../controller/orders/rate_order_controller.dart';
+import '../../../core/class/handling_data_view.dart';
+import '../../widget/rating/completed_list_card.dart';
 
 class OrdersRating extends StatelessWidget {
   const OrdersRating({Key? key}) : super(key: key);

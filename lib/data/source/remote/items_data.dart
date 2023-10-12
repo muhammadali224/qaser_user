@@ -1,31 +1,30 @@
 import '../../../core/class/crud.dart';
 import '../../../core/constant/api_link.dart';
-import '../../shared/user_details.dart';
 
 class ItemsData {
   CRUD crud;
 
   ItemsData(this.crud);
 
-  getData(String id, String userId) async {
+  getData(int id, int userId, int branchId) async {
     var response = await crud.postData(AppLink.items, {
       'id': id.toString(),
-      'userid': userId,
-      'branch_id': userData.userFavBranchId,
+      'userid': userId.toString(),
+      'branch_id': branchId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }
 
-  getOffers() async {
+  getOffers(int branchId) async {
     var response = await crud.postData(AppLink.offersItems, {
-      'branch_id': userData.userFavBranchId,
+      'branch_id': branchId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }
 
-  getSubItems(String itemId) async {
+  getSubItems(int itemId) async {
     var response = await crud.postData(AppLink.subItems, {
-      'item_id': itemId,
+      'item_id': itemId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }

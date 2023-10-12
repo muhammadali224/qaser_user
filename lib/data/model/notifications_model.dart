@@ -1,10 +1,10 @@
 class NotificationsModel {
-  String? notificationsId;
+  int? notificationsId;
   String? notificationsTitle;
   String? notificationsBody;
-  String? notificationsUserid;
+  int? notificationsUserid;
   String? notificationsTime;
-  String? notificationsIsRead;
+  int? notificationsIsRead;
 
   NotificationsModel(
       {this.notificationsId,

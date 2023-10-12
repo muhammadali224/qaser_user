@@ -18,7 +18,7 @@ class CategoriesChips extends GetView<ItemsControllerImp> {
     return GetBuilder<ItemsControllerImp>(
       builder: (controller) => ChoiceChip(
         onSelected: (value) {
-          controller.changeChips(i, categoriesModel.categoriesId.toString());
+          controller.changeChips(i, categoriesModel.categoriesId);
         },
         labelStyle: TextStyle(
             color:

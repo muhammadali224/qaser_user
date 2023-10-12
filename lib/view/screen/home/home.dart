@@ -41,6 +41,7 @@ class Home extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       HeaderHelloText(
+                        imageUrl: controller.userManagement.user.usersImage!,
                         name: controller.userName,
                         onTapped: () => controller.goToSettings(),
                       ),

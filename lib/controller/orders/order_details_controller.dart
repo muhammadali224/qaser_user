@@ -17,13 +17,14 @@ class OrderDetailsController extends GetxController {
   List<Marker> markers = [];
   CameraPosition? kGooglePlex;
   Map orderType = {
-    '0': 'pickup',
-    '1': 'delivery',
+    0: 'pickup',
+    1: 'delivery',
   };
+
   Map paymentType = {
-    '0': 'cash',
-    '1': 'creditCard',
-    '2': 'paypal',
+    0: 'cash',
+    1: 'creditCard',
+    2: 'paypal',
   };
   StatusRequest statusRequest = StatusRequest.none;
   List<OrderDetailsModel> data = [];
@@ -31,17 +32,16 @@ class OrderDetailsController extends GetxController {
 
   initData() {
     completerController = Completer<GoogleMapController>();
-    if (ordersModel.ordersType == "1") {
+    if (ordersModel.ordersType == 1) {
       kGooglePlex = CameraPosition(
-        target: LatLng(double.parse(ordersModel.addressLat!),
-            double.parse(ordersModel.addressLong!)),
+        target: LatLng(ordersModel.addressLat!, ordersModel.addressLong!),
         zoom: 17,
       );
       markers.add(Marker(
         markerId: const MarkerId("1"),
         position: LatLng(
-          double.parse(ordersModel.addressLat!),
-          double.parse(ordersModel.addressLong!),
+          ordersModel.addressLat!,
+          ordersModel.addressLong!,
         ),
       ));
     }

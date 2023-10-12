@@ -6,49 +6,55 @@ class CartData {
 
   CartData(this.crud);
 
-  addToCart(String userId, String itemId, String? weightAndSizeId,
-      String cartItemPrice) async {
+  addToCart(int userId, int itemId, String? weightAndSizeId,
+      num cartItemPrice) async {
     var response = await crud.postData(AppLink.addCart, {
-      'userid': userId,
-      'itemid': itemId,
+      'userid': userId.toString(),
+      'itemid': itemId.toString(),
       'weight_size_id': weightAndSizeId ?? "",
-      'cart_item_price': cartItemPrice,
+      'cart_item_price': cartItemPrice.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }
 
-  addNoteToItem(String userId, String itemId, String note) async {
+  addNoteToItem(int userId, int itemId, String note) async {
     var response = await crud.postData(AppLink.addNoteToItem, {
-      'userid': userId,
-      'cartid': itemId,
+      'userid': userId.toString(),
+      'cartid': itemId.toString(),
       'cart_item_note': note,
     });
     return response.fold((l) => l, (r) => r);
   }
 
-  removeFromCart(String userId, String itemId) async {
+  removeFromCart(int userId, int itemId) async {
     var response = await crud.postData(
-        AppLink.removeCartItems, {'userid': userId, 'itemid': itemId});
+      AppLink.removeCartItems,
+      {
+        'userid': userId.toString(),
+        'itemid': itemId.toString(),
+      },
+    );
     return response.fold((l) => l, (r) => r);
   }
 
-  getCountItem(String userId, String itemId) async {
-    var response = await crud
-        .postData(AppLink.getCount, {'userid': userId, 'itemid': itemId});
-    return response.fold((l) => l, (r) => r);
-  }
-
-  getOrderCount(
-    String userId,
-  ) async {
+  getCountItem(int userId, int itemId) async {
     var response = await crud.postData(AppLink.getCount, {
-      'userid': userId,
+      'userid': userId.toString(),
+      'itemid': itemId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }
 
-  getCart(String userId) async {
-    var response = await crud.postData(AppLink.getCart, {'id': userId});
+  getOrderCount(int userId) async {
+    var response = await crud.postData(AppLink.getCount, {
+      'userid': userId.toString(),
+    });
+    return response.fold((l) => l, (r) => r);
+  }
+
+  getCart(int userId) async {
+    var response =
+        await crud.postData(AppLink.getCart, {'id': userId.toString()});
     return response.fold((l) => l, (r) => r);
   }
 }

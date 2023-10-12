@@ -7,7 +7,7 @@ import '../../controller/orders/orders_controller.dart';
 import '../../controller/orders/rate_order_controller.dart';
 import '../../generated/assets.dart';
 
-showRatingDialog(BuildContext context, String orderId,
+showRatingDialog(BuildContext context, int orderId,
     {bool isOrderScreen = false}) {
   showDialog(
       context: context,

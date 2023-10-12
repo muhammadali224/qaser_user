@@ -1,53 +1,52 @@
 class UserModel {
-  String? usersId;
+  int? usersId;
   String? usersName;
   String? usersEmail;
   String? usersPassword;
   String? usersPhone;
   String? usersImage;
-  String? usersVerifycode;
-  String? usersApprove;
+  int? usersVerifycode;
+  int? usersApprove;
   String? usersCreate;
-  String? userFavBranchId;
-  String? branchId;
+  int? userFavBranchId;
+  int? branchId;
   String? branchNameAr;
   String? branchNameEn;
-  String? branchIsOpen;
-  String? branchLang;
-  String? branchLat;
+  int? branchIsOpen;
+  double? branchLang;
+  double? branchLat;
   String? branchPhone1;
   String? branchPhone2;
   String? branchFacebookUrl;
-  String? branchDeliveryCharge;
-  String? branchIsFixed;
-  String? branchZone;
-  String? branchDeliveryChargeFix;
+  double? branchDeliveryCharge;
+  int? branchIsFixed;
+  int? branchZone;
+  int? branchDeliveryFixCharge;
 
-  UserModel({
-    this.usersId,
-    this.usersName,
-    this.usersEmail,
-    this.usersPassword,
-    this.usersPhone,
-    this.usersImage,
-    this.usersVerifycode,
-    this.usersApprove,
-    this.usersCreate,
-    this.userFavBranchId,
-    this.branchId,
-    this.branchNameAr,
-    this.branchNameEn,
-    this.branchIsOpen,
-    this.branchLang,
-    this.branchLat,
-    this.branchPhone1,
-    this.branchPhone2,
-    this.branchFacebookUrl,
-    this.branchDeliveryCharge,
-    this.branchIsFixed,
-    this.branchZone,
-    this.branchDeliveryChargeFix,
-  });
+  UserModel(
+      {this.usersId,
+      this.usersName,
+      this.usersEmail,
+      this.usersPassword,
+      this.usersPhone,
+      this.usersImage,
+      this.usersVerifycode,
+      this.usersApprove,
+      this.usersCreate,
+      this.userFavBranchId,
+      this.branchId,
+      this.branchNameAr,
+      this.branchNameEn,
+      this.branchIsOpen,
+      this.branchLang,
+      this.branchLat,
+      this.branchPhone1,
+      this.branchPhone2,
+      this.branchFacebookUrl,
+      this.branchDeliveryCharge,
+      this.branchIsFixed,
+      this.branchZone,
+      this.branchDeliveryFixCharge});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     usersId = json['users_id'];
@@ -72,7 +71,7 @@ class UserModel {
     branchDeliveryCharge = json['branch_delivery_charge'];
     branchIsFixed = json['branch_isFixed'];
     branchZone = json['branch_zone'];
-    branchDeliveryChargeFix = json['branch_delivery_fix_charge'];
+    branchDeliveryFixCharge = json['branch_delivery_fix_charge'];
   }
 
   Map<String, dynamic> toJson() {
@@ -99,7 +98,7 @@ class UserModel {
     data['branch_delivery_charge'] = branchDeliveryCharge;
     data['branch_isFixed'] = branchIsFixed;
     data['branch_zone'] = branchZone;
-    data['branch_delivery_fix_charge'] = branchDeliveryChargeFix;
+    data['branch_delivery_fix_charge'] = branchDeliveryFixCharge;
     return data;
   }
 }

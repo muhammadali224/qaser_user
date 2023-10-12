@@ -1,7 +1,7 @@
 class OffersImageModel {
-  String? id;
+  int? id;
   String? offerImageUrl;
-  String? isActive;
+  int? isActive;
 
   OffersImageModel({this.id, this.offerImageUrl, this.isActive});
 

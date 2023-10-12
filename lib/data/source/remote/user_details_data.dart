@@ -8,31 +8,32 @@ class UserDetailsData {
 
   UserDetailsData(this.crud);
 
-  getUserData(String id) async {
-    var response = await crud.postData(AppLink.getUserDetails, {'id': id});
+  getUserData(int id) async {
+    var response =
+        await crud.postData(AppLink.getUserDetails, {'id': id.toString()});
     return response.fold((l) => l, (r) => r);
   }
 
-  changeUserPassword(String id, String password, String oldPassword) async {
+  changeUserPassword(int id, String password, String oldPassword) async {
     var response = await crud.postData(AppLink.changePassword, {
-      'id': id,
+      'id': id.toString(),
       'password': password,
       'oldPassword': oldPassword,
     });
     return response.fold((l) => l, (r) => r);
   }
 
-  changeUserName(String id, String userName) async {
+  changeUserName(int id, String userName) async {
     var response = await crud.postData(AppLink.changeUserName, {
-      'id': id,
+      'id': id.toString(),
       'userName': userName,
     });
     return response.fold((l) => l, (r) => r);
   }
 
-  changeUserPhone(String id, String phone) async {
+  changeUserPhone(int id, String phone) async {
     var response = await crud.postData(AppLink.changePhone, {
-      'id': id,
+      'id': id.toString(),
       'phone': phone,
     });
     return response.fold((l) => l, (r) => r);
@@ -47,19 +48,18 @@ class UserDetailsData {
     return response.fold((l) => l, (r) => r);
   }
 
-  deleteUserImage(String id, String imageName) async {
-    var response = await crud
-        .postData(AppLink.deleteImage, {'id': id, 'image_name': imageName});
+  deleteUserImage(int id, String imageName) async {
+    var response = await crud.postData(
+        AppLink.deleteImage, {'id': id.toString(), 'image_name': imageName});
     return response.fold((l) => l, (r) => r);
   }
 
-  verifyCode(
-      String id, String email, String oldEmail, String verifyCode) async {
+  verifyCode(int id, String email, String oldEmail, int verifyCode) async {
     var response = await crud.postData(AppLink.verifyChangedEmail, {
-      'id': id,
+      'id': id.toString(),
       'email': email,
       'oldEmail': oldEmail,
-      'verifyCode': verifyCode,
+      'verifyCode': verifyCode.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }
@@ -71,9 +71,9 @@ class UserDetailsData {
     return response.fold((l) => l, (r) => r);
   }
 
-  checkEmail(String id, String email) async {
+  checkEmail(int id, String email) async {
     var response = await crud.postData(AppLink.checkChangedEmail, {
-      'id': id,
+      'id': id.toString(),
       'email': email,
     });
     return response.fold((l) => l, (r) => r);

@@ -55,10 +55,7 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                         ),
                         Badge(
                           showBadge:
-                              itemsModel.itemsDiscount == "0" ? false : true,
-                          // position:
-                          //     BadgePosition.topStart(top: -10, start: -12),
-
+                              itemsModel.itemsDiscount == 0 ? false : true,
                           badgeContent: Text(
                             "${itemsModel.itemsDiscount}%",
                             style: TextStyle(
@@ -115,20 +112,19 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                           builder: (controller) => IconButton(
                               onPressed: () {
                                 if (controller.isFavorite[itemsModel.itemsId] ==
-                                    "1") {
+                                    1) {
                                   controller.setFavorite(
-                                      itemsModel.itemsId!, "0");
-                                  controller.removeFavorite(
-                                      itemsModel.itemsId.toString());
+                                      itemsModel.itemsId!, 0);
+                                  controller
+                                      .removeFavorite(itemsModel.itemsId!);
                                 } else {
                                   controller.setFavorite(
-                                      itemsModel.itemsId!, "1");
-                                  controller.addFavorite(
-                                      itemsModel.itemsId.toString());
+                                      itemsModel.itemsId!, 1);
+                                  controller.addFavorite(itemsModel.itemsId!);
                                 }
                               },
                               icon: Icon(
-                                controller.isFavorite[itemsModel.itemsId] == "1"
+                                controller.isFavorite[itemsModel.itemsId] == 1
                                     ? Icons.favorite
                                     : Icons.favorite_border_outlined,
                                 color: AppColor.red,

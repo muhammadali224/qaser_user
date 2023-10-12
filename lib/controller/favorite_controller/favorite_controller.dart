@@ -3,26 +3,28 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/services.dart';
+import '../../core/services/user_preference.dart';
 import '../../data/source/remote/favorite_data.dart';
 
 class FavoriteController extends GetxController {
+  final UserPreferences userManagement = Get.find<UserPreferences>();
+
   FavoriteData favoriteData = FavoriteData(Get.find());
   Map isFavorite = {};
   List data = [];
-  MyServices myServices = Get.find();
+
   StatusRequest statusRequest = StatusRequest.none;
 
-  setFavorite(String id, String val) {
+  setFavorite(int id, int val) {
     isFavorite[id] = val;
     update();
   }
 
-  addFavorite(String itemsId) async {
+  addFavorite(int itemsId) async {
     data.clear();
     statusRequest = StatusRequest.loading;
-    var response = await favoriteData.addFavorite(
-        myServices.sharedPref.getString('userId')!, itemsId);
+    var response =
+        await favoriteData.addFavorite(userManagement.user.usersId!, itemsId);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
@@ -43,10 +45,10 @@ class FavoriteController extends GetxController {
     }
   }
 
-  removeFavorite(String itemsId) async {
+  removeFavorite(int itemsId) async {
     statusRequest = StatusRequest.loading;
     var response = await favoriteData.removeFavorite(
-        myServices.sharedPref.getString('userId')!, itemsId);
+        userManagement.user.usersId!, itemsId);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
@@ -64,5 +66,11 @@ class FavoriteController extends GetxController {
         statusRequest = StatusRequest.failed;
       }
     }
+  }
+
+  @override
+  void onInit() async {
+    await userManagement.initUser();
+    super.onInit();
   }
 }

@@ -54,7 +54,7 @@ class CustomListCartItems extends GetView<CartControllerImp> {
                           style: TextStyle(color: AppColor.black, fontSize: 17),
                         ),
                         Text(
-                          "${double.parse(cartModel.cartItemPrice!)} ${"jd".tr}",
+                          "${cartModel.cartItemPrice!} ${"jd".tr}",
                           style: TextStyle(
                               color: AppColor.primaryColor,
                               fontSize: 15,

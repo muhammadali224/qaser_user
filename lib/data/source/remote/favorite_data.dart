@@ -3,26 +3,32 @@ import '../../../core/constant/api_link.dart';
 
 class FavoriteData {
   CRUD crud;
+
   FavoriteData(this.crud);
-  addFavorite(String userId, String itemId) async {
-    var response = await crud
-        .postData(AppLink.addFavorite, {'userid': userId, 'itemid': itemId});
+
+  addFavorite(int userId, int itemId) async {
+    var response = await crud.postData(AppLink.addFavorite,
+        {'userid': userId.toString(), 'itemid': itemId.toString()});
     return response.fold((l) => l, (r) => r);
   }
 
-  removeFavorite(String userId, String itemId) async {
-    var response = await crud
-        .postData(AppLink.removeFavorite, {'userid': userId, 'itemid': itemId});
+  removeFavorite(int userId, int itemId) async {
+    var response = await crud.postData(AppLink.removeFavorite, {
+      'userid': userId.toString(),
+      'itemid': itemId.toString(),
+    });
     return response.fold((l) => l, (r) => r);
   }
 
-  getFavorite(String userId) async {
-    var response = await crud.postData(AppLink.getFavorite, {'id': userId});
+  getFavorite(int userId) async {
+    var response =
+        await crud.postData(AppLink.getFavorite, {'id': userId.toString()});
     return response.fold((l) => l, (r) => r);
   }
 
-  deleteFavoriteItems(String id) async {
-    var response = await crud.postData(AppLink.deleteFromFavorite, {'id': id});
+  deleteFavoriteItems(int id) async {
+    var response =
+        await crud.postData(AppLink.deleteFromFavorite, {'id': id.toString()});
     return response.fold((l) => l, (r) => r);
   }
 }

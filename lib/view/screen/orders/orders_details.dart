@@ -32,13 +32,13 @@ class OrdersDetails extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: myController.ordersModel.ordersState == "0"
+      bottomNavigationBar: myController.ordersModel.ordersState == 0
           ? ButtomNavigatButton(
               onPressed: () => myController.orderCancel(),
               color: AppColor.primaryColor,
               title: 'cancel',
               icon: Icons.cancel_outlined)
-          : myController.ordersModel.ordersState == "4"
+          : myController.ordersModel.ordersState == 4
               ? ButtomNavigatButton(
                   onPressed: () => myController.orderDelete(),
                   color: AppColor.primaryColor,
@@ -72,9 +72,9 @@ class OrdersDetails extends StatelessWidget {
                 const SizedBox(height: 20),
                 const OrderTableDetails(),
                 const SizedBox(height: 20),
-                if (controller.ordersModel.ordersType == "1")
+                if (controller.ordersModel.ordersType == 1)
                   const HeadersOrderDetails(title: 'deliverTo'),
-                if (controller.ordersModel.ordersType == "1")
+                if (controller.ordersModel.ordersType == 1)
                   ListTile(
                     title: Text(
                         "${controller.ordersModel.addressName}, ${controller.ordersModel.addressCity}, ${controller.ordersModel.addressStreet}",
@@ -83,7 +83,7 @@ class OrdersDetails extends StatelessWidget {
                           color: AppColor.black,
                         )),
                   ),
-                if (controller.ordersModel.ordersType == "1")
+                if (controller.ordersModel.ordersType == 1)
                   SizedBox(
                       height: 200,
                       width: double.infinity,
@@ -98,7 +98,7 @@ class OrdersDetails extends StatelessWidget {
                       )),
                 const SizedBox(height: 20),
                 const HeadersOrderDetails(title: 'paymentInfo'),
-                if (controller.ordersModel.ordersType == "1")
+                if (controller.ordersModel.ordersType == 1)
                   SubtitleDetails(
                       title: 'deliveryCharge',
                       subtitle: "${controller.ordersModel.ordersDeliveryFee}"),

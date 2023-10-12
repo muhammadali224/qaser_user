@@ -3,16 +3,16 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/services.dart';
+import '../../core/services/user_preference.dart';
 import '../../data/source/remote/user_details_data.dart';
 import 'user_setting_controller.dart';
 
 class ChangeEmailController extends GetxController {
-  late String userId;
+  final UserPreferences userManagement = Get.find<UserPreferences>();
+  late int userId;
 
   TextEditingController userTextController = TextEditingController();
 
-  MyServices myServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
   UserDetailsData userData = UserDetailsData(Get.find());
   UserSettingController userController = Get.find();
@@ -21,20 +21,23 @@ class ChangeEmailController extends GetxController {
 
   bool showOTP = false;
 
-  checkCode(String code) async {
+  checkCode(int code) async {
     statusRequest = StatusRequest.loading;
     update();
 
     var response = await userData.verifyCode(
       userId,
       userTextController.text,
-      myServices.sharedPref.getString('email')!,
+      userManagement.user.usersEmail!,
       code,
     );
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
-        myServices.sharedPref.setString('email', userTextController.text);
+        // final user = userManagement.user;
+        // user.usersEmail = userTextController.text;
+        // await userManagement.setUser(user);
+        // myServices.sharedPref.setString('email', userTextController.text);
         Get.back();
         userController.getData();
       } else {
@@ -96,5 +99,11 @@ class ChangeEmailController extends GetxController {
   void dispose() {
     userTextController.dispose();
     super.dispose();
+  }
+
+  @override
+  void onInit() async {
+    await userManagement.initUser();
+    super.onInit();
   }
 }

@@ -18,12 +18,11 @@ class CartItemCount extends GetView<CartControllerImp> {
       children: [
         InkWell(
           onTap: () {
-            cartModel.countitems =
-                (int.parse(cartModel.countitems!) + 1).toString();
+            cartModel.countitems = cartModel.countitems! + 1;
             controller.update();
 
-            controller.addCart(cartModel.itemsId!, cartModel.weightSizeId,
-                cartModel.cartItemPrice!);
+            controller.addCart(cartModel.itemsId!,
+                cartModel.weightSizeId.toString(), cartModel.cartItemPrice!);
           },
           child: Icon(
             Icons.add_circle,
@@ -36,16 +35,14 @@ class CartItemCount extends GetView<CartControllerImp> {
             child: AnimatedFlipCounter(
               textStyle: const TextStyle(fontSize: 22),
               duration: const Duration(milliseconds: 500),
-              value:
-                  int.parse(cartModel.countitems!), // pass in a value like 2014
+              value: cartModel.countitems!, // pass in a value like 2014
             ),
           );
         }),
         InkWell(
           onTap: () {
-            if (int.parse(cartModel.countitems!) > 0) {
-              cartModel.countitems =
-                  (int.parse(cartModel.countitems!) - 1).toString();
+            if (cartModel.countitems! > 0) {
+              cartModel.countitems = cartModel.countitems! - 1;
               controller.update();
               controller.deleteFromCart(cartModel.itemsId!);
             }

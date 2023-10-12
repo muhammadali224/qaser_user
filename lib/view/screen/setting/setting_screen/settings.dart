@@ -37,6 +37,7 @@ class AppSettings extends StatelessWidget {
             child: ListView(
               children: [
                 HeaderCardSetting(
+                  imageUrl: controller.userManagement.user.usersImage!,
                   cardColor: Colors.red,
                   userName: controller.userName,
                   onTap: controller.goToUserSettings,

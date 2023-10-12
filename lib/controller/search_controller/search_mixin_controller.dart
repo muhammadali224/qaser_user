@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
+import '../../core/services/user_preference.dart';
 import '../../data/model/items_model.dart';
 import '../../data/source/remote/home_data.dart';
 
@@ -13,6 +14,7 @@ class SearchMixController extends GetxController {
   List<ItemsModel> listSearchResult = [];
   StatusRequest statusRequest = StatusRequest.none;
   HomeData homeData = HomeData(Get.find());
+  final UserPreferences userManagement = Get.find<UserPreferences>();
 
   // checkSearch(String val) {
   //   if (val == "") {
@@ -39,7 +41,8 @@ class SearchMixController extends GetxController {
 
   getSearchResult() async {
     statusRequest = StatusRequest.searching;
-    var response = await homeData.searchItems(search.text);
+    var response =
+        await homeData.searchItems(search.text, userManagement.user.branchId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
@@ -61,5 +64,11 @@ class SearchMixController extends GetxController {
 
   goToSearchResult(List<ItemsModel> itemsModel) {
     Get.toNamed(AppRoutes.searchResult, arguments: {'itemsModel': itemsModel});
+  }
+
+  @override
+  void onInit() async {
+    await userManagement.initUser();
+    super.onInit();
   }
 }

@@ -25,7 +25,7 @@ import 'view/screen/my_favorite.dart';
 import 'view/screen/notifications.dart';
 import 'view/screen/offers.dart';
 import 'view/screen/onboarding.dart';
-import 'view/screen/order_rating.dart';
+import 'view/screen/orders/order_rating.dart';
 import 'view/screen/orders/orders.dart';
 import 'view/screen/orders/orders_details.dart';
 import 'view/screen/setting/setting_screen/settings.dart';
@@ -36,13 +36,20 @@ import 'view/screen/setting/user_setting/change_username.dart';
 import 'view/screen/setting/user_setting/users_settings.dart';
 
 List<GetPage<dynamic>>? routes = [
-  GetPage(name: '/', page: () => const LanguageScreen(), middlewares: [
-    MyMiddleWare(),
-  ]),
+  GetPage(
+    name: '/',
+    page: () => const LanguageScreen(),
+    middlewares: [
+      MyMiddleWare(),
+    ],
+  ),
   GetPage(
     name: AppRoutes.home,
     page: () => const Home(),
-    binding: CartBindings(),
+    bindings: [
+      CartBindings(),
+      InitBindings(),
+    ],
   ),
   GetPage(
     name: AppRoutes.login,

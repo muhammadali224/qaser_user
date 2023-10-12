@@ -63,7 +63,7 @@ class ChangeEmail extends StatelessWidget {
                           borderColor: const Color(0xFF512DA8),
                           showFieldAsBox: true,
                           onSubmit: (String verificationCode) {
-                            controller.checkCode(verificationCode);
+                            controller.checkCode(int.parse(verificationCode));
                           }, // end onSubmit
                         ),
                         TextButton(

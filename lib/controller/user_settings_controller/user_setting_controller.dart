@@ -9,18 +9,17 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/function/show_snackbar.dart';
-import '../../core/services/services.dart';
+import '../../core/services/user_preference.dart';
 import '../../data/model/user_detail_model.dart';
-import '../../data/shared/user_details.dart';
 import '../../data/source/remote/user_details_data.dart';
 
 class UserSettingController extends GetxController {
-  MyServices myServices = Get.find();
+  final UserPreferences userManagement = Get.find<UserPreferences>();
   StatusRequest statusRequest = StatusRequest.none;
 
   UserDetailsData userDetailsData = UserDetailsData(Get.find());
 
-  late String userId;
+  late int userId;
 
   TextEditingController userTextController = TextEditingController();
   File? file;
@@ -48,7 +47,8 @@ class UserSettingController extends GetxController {
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
-        userData = UserModel.fromJson(response['data']);
+        final user = UserModel.fromJson(response['data']);
+        await userManagement.setUser(user);
         update();
       } else {
         statusRequest = StatusRequest.failed;
@@ -62,8 +62,8 @@ class UserSettingController extends GetxController {
     update();
     var response = await userDetailsData.changeUserImage(
       {
-        'id': myServices.sharedPref.getString('userId')!,
-        'oldFile': userData.usersImage!,
+        'id': userId,
+        'oldFile': userManagement.user.usersImage!,
       },
       file!,
     );
@@ -96,10 +96,10 @@ class UserSettingController extends GetxController {
   }
 
   @override
-  void onInit() {
-    userId = myServices.sharedPref.getString("userId") ?? "";
+  void onInit() async {
+    await userManagement.initUser();
+    userId = userManagement.user.usersId!;
     getData();
-    print(userData.usersImage);
 
     super.onInit();
   }

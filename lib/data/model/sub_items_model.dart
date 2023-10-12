@@ -1,11 +1,11 @@
 class SubItemsModel {
-  String? subItemId;
-  String? itemId;
-  String? isActive;
-  String? weightSizeId;
+  int? subItemId;
+  int? itemId;
+  int? isActive;
+  int? weightSizeId;
   String? subItemName;
   String? subItemNameAr;
-  String? subItemValue;
+  num? subItemValue;
 
   SubItemsModel(
       {this.subItemId,

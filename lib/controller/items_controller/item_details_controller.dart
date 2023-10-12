@@ -46,8 +46,8 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
     statusRequest = StatusRequest.loading;
     itemsModel = Get.arguments['itemsModel'];
     itemCountModel = await cartController.getCount(itemsModel.itemsId!);
-    itemsCount = int.parse(itemCountModel.countItems!);
-    print(itemCountModel.toString());
+    itemsCount = itemCountModel.countItems!;
+
     selectedWeightAndSize = SubItemsModel(
       weightSizeId: itemCountModel.weightSizeId,
       subItemValue: itemCountModel.subItemValue,
@@ -62,18 +62,17 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
 
   getPrice() {
     if (selectedWeightAndSize.weightSizeId != null) {
-      return (double.parse(selectedWeightAndSize.subItemValue!) *
-              double.parse(itemsModel.itemDiscountPrice!))
-          .toString();
+      return (selectedWeightAndSize.subItemValue! *
+          itemsModel.itemDiscounntPrice!);
     } else {
-      return itemsModel.itemDiscountPrice;
+      return itemsModel.itemDiscounntPrice;
     }
   }
 
   @override
   add() {
-    cartController.addCart(itemsModel.itemsId.toString(),
-        selectedWeightAndSize.weightSizeId, getPrice());
+    cartController.addCart(itemsModel.itemsId!,
+        selectedWeightAndSize.weightSizeId.toString(), getPrice());
     itemsCount++;
     update();
   }
@@ -81,7 +80,7 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   @override
   remove() {
     if (itemsCount > 0) {
-      cartController.deleteFromCart(itemsModel.itemsId.toString());
+      cartController.deleteFromCart(itemsModel.itemsId!);
       itemsCount--;
 
       update();

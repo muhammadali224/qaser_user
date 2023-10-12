@@ -6,23 +6,27 @@ class OrdersData {
 
   OrdersData(this.crud);
 
-  getData(String id) async {
-    var response = await crud.postData(AppLink.allOrders, {'userid': id});
+  getData(int id) async {
+    var response =
+        await crud.postData(AppLink.allOrders, {'userid': id.toString()});
     return response.fold((l) => l, (r) => r);
   }
 
-  ordersDetails(String id) async {
-    var response = await crud.postData(AppLink.orderDetails, {'id': id});
+  ordersDetails(int id) async {
+    var response =
+        await crud.postData(AppLink.orderDetails, {'id': id.toString()});
     return response.fold((l) => l, (r) => r);
   }
 
-  ordersDelete(String id) async {
-    var response = await crud.postData(AppLink.orderDelete, {'order_id': id});
+  ordersDelete(int id) async {
+    var response =
+        await crud.postData(AppLink.orderDelete, {'order_id': id.toString()});
     return response.fold((l) => l, (r) => r);
   }
 
-  ordersCancel(String id) async {
-    var response = await crud.postData(AppLink.orderCancel, {'order_id': id});
+  ordersCancel(int id) async {
+    var response =
+        await crud.postData(AppLink.orderCancel, {'order_id': id.toString()});
     return response.fold((l) => l, (r) => r);
   }
 }

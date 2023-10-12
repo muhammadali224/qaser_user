@@ -1,5 +1,5 @@
 class ItemsOfferModel {
-  String? itemsId;
+  int? itemsId;
   String? itemsName;
   String? itemsNameAr;
   String? itemsDesc;
@@ -11,7 +11,7 @@ class ItemsOfferModel {
   String? itemsDiscount;
   String? itemsData;
   String? itemsCat;
-  String? categoriesId;
+  int? categoriesId;
   String? categoriesName;
   String? categoriesNameAr;
   String? categoriesImage;

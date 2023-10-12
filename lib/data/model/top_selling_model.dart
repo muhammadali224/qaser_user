@@ -1,10 +1,10 @@
 class TopSellingModel {
   String? countItem;
-  String? cartId;
-  String? cartUserid;
-  String? cartItemid;
+  int? cartId;
+  int? cartUserid;
+  int? cartItemid;
   String? cartOrders;
-  String? itemsId;
+  int? itemsId;
   String? itemsName;
   String? itemsNameAr;
   String? itemsDesc;

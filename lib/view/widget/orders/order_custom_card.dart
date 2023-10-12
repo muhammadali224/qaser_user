@@ -95,8 +95,7 @@ class OrdersCard extends GetView<OrdersController> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(translateDatabase(
                     ordersModel.branchNameAr!, ordersModel.branchNameEn!))),
-            if (ordersModel.ordersState == "3" &&
-                ordersModel.ordersRating != "0")
+            if (ordersModel.ordersState == 3 && ordersModel.ordersRating != 0)
               Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
@@ -111,15 +110,14 @@ class OrdersCard extends GetView<OrdersController> {
                             Icons.star,
                             color: Colors.amber,
                           ),
-                          Text(ordersModel.ordersRating!,
+                          Text(ordersModel.ordersRating.toString(),
                               style: TextStyle(
                                   fontSize: 20, color: AppColor.primaryColor)),
                         ],
                       ),
                     ],
                   )),
-            if (ordersModel.ordersState == "3" &&
-                ordersModel.ordersRating == "0")
+            if (ordersModel.ordersState == 3 && ordersModel.ordersRating == 0)
               TextButton(
                   onPressed: () {
                     showRatingDialog(context, ordersModel.ordersId!,

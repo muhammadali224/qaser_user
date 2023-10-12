@@ -2,21 +2,21 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/services.dart';
+import '../../core/services/user_preference.dart';
 import '../../data/model/notifications_model.dart';
 import '../../data/source/remote/notifications_data.dart';
 
 class NotificationsController extends GetxController {
-  MyServices myServices = Get.find();
   NotificationsData notificationsData = NotificationsData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
   List<NotificationsModel> data = [];
+  final UserPreferences userManagement = Get.find<UserPreferences>();
 
   getData() async {
     data.clear();
     statusRequest = StatusRequest.loading;
-    var response = await notificationsData
-        .getNotifications(myServices.sharedPref.getString('userId')!);
+    var response =
+        await notificationsData.getNotifications(userManagement.user.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
@@ -29,7 +29,7 @@ class NotificationsController extends GetxController {
     update();
   }
 
-  markRead(String notificationId) async {
+  markRead(int notificationId) async {
     statusRequest = StatusRequest.loading;
     var response = await notificationsData.setNotificationsRead(notificationId);
     statusRequest = handlingData(response);
@@ -46,7 +46,7 @@ class NotificationsController extends GetxController {
   markAllRead() async {
     statusRequest = StatusRequest.loading;
     var response = await notificationsData
-        .setNotificationsRead(myServices.sharedPref.getString('userId')!);
+        .setNotificationsRead(userManagement.user.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
@@ -57,7 +57,8 @@ class NotificationsController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
+    await userManagement.initUser();
     getData();
     super.onInit();
   }

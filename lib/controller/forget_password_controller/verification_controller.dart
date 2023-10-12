@@ -6,7 +6,7 @@ import '../../core/function/handling_data_controller.dart';
 import '../../data/source/remote/auth/forgetPassword/verify_reset_code.dart';
 
 abstract class VerifiedController extends GetxController {
-  checkCode(String verificationCode);
+  checkCode(int verificationCode);
   resendVerify();
 }
 
@@ -17,7 +17,7 @@ class VerifiedControllerImp extends VerifiedController {
   StatusRequest statusRequest = StatusRequest.none;
 
   @override
-  checkCode(String verificationCode) async {
+  checkCode(int verificationCode) async {
     statusRequest = StatusRequest.loading;
     update();
     var response = await verifyData.postData(email!, verificationCode);

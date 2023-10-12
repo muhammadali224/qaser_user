@@ -7,6 +7,8 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/services/services.dart';
+import '../../core/services/user_preference.dart';
+import '../../data/model/user_detail_model.dart';
 import '../../data/source/remote/auth/login_data.dart';
 
 abstract class LoginController extends GetxController {
@@ -27,6 +29,7 @@ class LoginControllerImp extends LoginController {
   StatusRequest statusRequest = StatusRequest.none;
 
   MyServices myServices = Get.find();
+  final UserPreferences userManagement = Get.find<UserPreferences>();
 
   showPassword() {
     isVisiblePassword = !isVisiblePassword;
@@ -48,28 +51,23 @@ class LoginControllerImp extends LoginController {
 
         if (StatusRequest.success == statusRequest) {
           if (response['status'] == 'success') {
-            if (response['data']['users_approve'] == "1") {
-              await saveDataToShared(
-                userId: response['data']['users_id'],
-                userName: response['data']['users_name'],
-                userEmail: response['data']['users_email'],
-                userPhone: response['data']['users_phone'],
-                userImage: response['data']['users_image'],
-                favouriteBranchId: response['data']['branch_id'],
-                favouriteBranchNameAr: response['data']['branch_name_ar'],
-                favouriteBranchNameEn: response['data']['branch_name_en'],
-              );
+            final loginUser = UserModel.fromJson(response['data']);
+            userManagement.setUser(loginUser);
 
+            final user = userManagement.user;
+            if (user.usersApprove == 1) {
               myServices.sharedPref.setString('step', "2");
-
               FirebaseMessaging.instance.subscribeToTopic('users');
               FirebaseMessaging.instance
-                  .subscribeToTopic("users${response['data']['users_id']}");
+                  .subscribeToTopic("users${user.usersId}");
               Get.offAllNamed(AppRoutes.home);
             } else {
-              Get.toNamed(AppRoutes.verificationSignup, arguments: {
-                'email': email.text,
-              });
+              Get.toNamed(
+                AppRoutes.verificationSignup,
+                arguments: {
+                  'email': email.text,
+                },
+              );
             }
           } else {
             Get.defaultDialog(
@@ -91,28 +89,6 @@ class LoginControllerImp extends LoginController {
       SmartDialog.showToast(e.toString());
       print(e.toString());
     }
-  }
-
-  saveDataToShared({
-    required String userId,
-    required String userName,
-    required String userEmail,
-    required String userPhone,
-    required String userImage,
-    required String favouriteBranchId,
-    required String favouriteBranchNameAr,
-    required String favouriteBranchNameEn,
-  }) {
-    myServices.sharedPref.setString('userId', userId);
-    myServices.sharedPref.setString('userName', userName);
-    myServices.sharedPref.setString('userEmail', userEmail);
-    myServices.sharedPref.setString('userPhone', userPhone);
-    myServices.sharedPref.setString('userImage', userImage);
-    myServices.sharedPref.setString('favouriteBranchId', favouriteBranchId);
-    myServices.sharedPref
-        .setString('favouriteBranchNameAr', favouriteBranchNameAr);
-    myServices.sharedPref
-        .setString('favouriteBranchNameEn', favouriteBranchNameEn);
   }
 
   @override

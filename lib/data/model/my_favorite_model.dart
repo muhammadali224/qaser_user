@@ -1,20 +1,21 @@
 class MyFavoriteModel {
-  String? favoriteId;
-  String? favoriteUserId;
-  String? favoriteItemId;
-  String? itemsId;
+  int? favoriteId;
+  int? favoriteUserId;
+  int? favoriteItemId;
+  int? itemsId;
   String? itemsName;
   String? itemsNameAr;
   String? itemsDesc;
   String? itemsDescAr;
   String? itemsImage;
-  String? itemsCount;
-  String? itemsActive;
-  String? itemsPrice;
-  String? itemsDiscount;
+  int? itemsCount;
+  int? itemsActive;
+  int? itemsPrice;
+  int? itemsDiscount;
   String? itemsData;
-  String? itemsCat;
-  String? usersId;
+  int? itemsCat;
+  int? branchId;
+  int? usersId;
 
   MyFavoriteModel(
       {this.favoriteId,
@@ -32,6 +33,7 @@ class MyFavoriteModel {
       this.itemsDiscount,
       this.itemsData,
       this.itemsCat,
+      this.branchId,
       this.usersId});
 
   MyFavoriteModel.fromJson(Map<String, dynamic> json) {
@@ -50,6 +52,7 @@ class MyFavoriteModel {
     itemsDiscount = json['items_discount'];
     itemsData = json['items_data'];
     itemsCat = json['items_cat'];
+    branchId = json['branch_id'];
     usersId = json['users_id'];
   }
 
@@ -70,6 +73,7 @@ class MyFavoriteModel {
     data['items_discount'] = itemsDiscount;
     data['items_data'] = itemsData;
     data['items_cat'] = itemsCat;
+    data['branch_id'] = branchId;
     data['users_id'] = usersId;
     return data;
   }

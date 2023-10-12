@@ -1,16 +1,16 @@
 class OrderDetailsModel {
-  String? itemsprice;
-  String? countitems;
-  String? cartItemid;
-  String? cartUserid;
+  num? itemsprice;
+  int? countitems;
+  int? cartItemid;
+  int? cartUserid;
   String? cartItemNote;
-  String? cartOrders;
-  String? cartSizeWeightId;
-  String? cartItemPrice;
+  int? cartOrders;
+  int? cartSizeWeightId;
+  num? cartItemPrice;
   String? itemsName;
   String? itemsNameAr;
   String? itemsImage;
-  String? branchId;
+  int? branchId;
 
   OrderDetailsModel(
       {this.itemsprice,

@@ -1,45 +1,44 @@
 class ItemsModel {
-  String? itemsId;
+  int? itemsId;
   String? itemsName;
   String? itemsNameAr;
   String? itemsDesc;
   String? itemsDescAr;
   String? itemsImage;
-  String? itemsCount;
-  String? itemsActive;
-  String? itemsPrice;
-  String? itemsDiscount;
+  int? itemsCount;
+  int? itemsActive;
+  int? itemsPrice;
+  int? itemsDiscount;
   String? itemsData;
-  String? itemsCat;
-  String? branchId;
-  String? categoriesId;
+  int? itemsCat;
+  int? branchId;
+  int? categoriesId;
   String? categoriesName;
   String? categoriesNameAr;
   String? categoriesImage;
-  String? favorite;
-  String? itemDiscountPrice;
+  num? itemDiscounntPrice;
+  int? favorite;
 
-  ItemsModel({
-    this.itemsId,
-    this.itemsName,
-    this.itemsNameAr,
-    this.itemsDesc,
-    this.itemsDescAr,
-    this.itemsImage,
-    this.itemsCount,
-    this.itemsActive,
-    this.itemsPrice,
-    this.itemsDiscount,
-    this.itemsData,
-    this.itemsCat,
-    this.branchId,
-    this.categoriesId,
-    this.categoriesName,
-    this.categoriesNameAr,
-    this.categoriesImage,
-    this.favorite,
-    this.itemDiscountPrice,
-  });
+  ItemsModel(
+      {this.itemsId,
+      this.itemsName,
+      this.itemsNameAr,
+      this.itemsDesc,
+      this.itemsDescAr,
+      this.itemsImage,
+      this.itemsCount,
+      this.itemsActive,
+      this.itemsPrice,
+      this.itemsDiscount,
+      this.itemsData,
+      this.itemsCat,
+      this.branchId,
+      this.categoriesId,
+      this.categoriesName,
+      this.categoriesNameAr,
+      this.categoriesImage,
+      this.itemDiscounntPrice,
+      this.favorite});
 
   ItemsModel.fromJson(Map<String, dynamic> json) {
     itemsId = json['items_id'];
@@ -59,8 +58,8 @@ class ItemsModel {
     categoriesName = json['categories_name'];
     categoriesNameAr = json['categories_name_ar'];
     categoriesImage = json['categories_image'];
+    itemDiscounntPrice = json['itemDiscounnt_price'];
     favorite = json['favorite'];
-    itemDiscountPrice = json['itemDiscounnt_price'];
   }
 
   Map<String, dynamic> toJson() {
@@ -82,8 +81,8 @@ class ItemsModel {
     data['categories_name'] = categoriesName;
     data['categories_name_ar'] = categoriesNameAr;
     data['categories_image'] = categoriesImage;
+    data['itemDiscounnt_price'] = itemDiscounntPrice;
     data['favorite'] = favorite;
-    data['itemDiscounnt_price'] = itemDiscountPrice;
     return data;
   }
 }

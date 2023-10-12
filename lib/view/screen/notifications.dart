@@ -50,7 +50,7 @@ class MyNotifications extends StatelessWidget {
                             style: TextStyle(
                                 color: controller
                                             .data[index].notificationsIsRead ==
-                                        "0"
+                                        0
                                     ? Colors.black
                                     : Colors.grey.shade600),
                           ),
@@ -59,7 +59,7 @@ class MyNotifications extends StatelessWidget {
                             style: TextStyle(
                                 color: controller
                                             .data[index].notificationsIsRead ==
-                                        "0"
+                                        0
                                     ? Colors.black
                                     : Colors.grey.shade600),
                           ),
@@ -70,12 +70,12 @@ class MyNotifications extends StatelessWidget {
                             style: TextStyle(
                                 color: controller
                                             .data[index].notificationsIsRead ==
-                                        "0"
+                                        0
                                     ? Colors.black
                                     : Colors.grey.shade600),
                           ),
                           leading:
-                              controller.data[index].notificationsIsRead == "0"
+                              controller.data[index].notificationsIsRead == 0
                                   ? Container(
                                       height: 10,
                                       width: 10,

@@ -1,6 +1,5 @@
 class AppLink {
-  static const String server =
-      "https://ecommerce-arabicoders.000webhostapp.com/ecommerce";
+  static const String server = "https://qaser.mhjcode.com";
   static const String test = "$server/test.php";
 
 //============================== Images ==============================//

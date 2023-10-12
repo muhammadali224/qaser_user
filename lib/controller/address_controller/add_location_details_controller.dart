@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/services.dart';
+import '../../core/services/user_preference.dart';
+import '../../data/model/user_detail_model.dart';
 import '../../data/source/remote/address_data.dart';
 
 class AddLocationDetailsController extends GetxController {
@@ -17,10 +18,12 @@ class AddLocationDetailsController extends GetxController {
   TextEditingController street = TextEditingController();
   TextEditingController note = TextEditingController();
   AddressData addressData = AddressData(Get.find());
-  MyServices myServices = Get.find();
-  List<Placemark>? placemarks;
+  final UserPreferences userManagement = Get.find<UserPreferences>();
 
-  initData() {
+  List<Placemark>? placeMarks;
+
+  initData() async {
+    await userManagement.initUser();
     lat = Get.arguments['lat'];
     long = Get.arguments['long'];
 
@@ -28,16 +31,17 @@ class AddLocationDetailsController extends GetxController {
   }
 
   addAddress() async {
+    UserModel? user = userManagement.user;
     statusRequest = StatusRequest.loading;
     update();
     var response = await addressData.addAddress(
-      myServices.sharedPref.getString('userId')!,
+      user.usersId!,
       name.text,
       city.text,
       street.text,
       note.text,
-      long.toString(),
-      lat.toString(),
+      long!,
+      lat!,
     );
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
@@ -53,11 +57,11 @@ class AddLocationDetailsController extends GetxController {
   getAddressInfo() async {
     statusRequest = StatusRequest.loading;
     update();
-    placemarks = await placemarkFromCoordinates(lat!, long!);
+    placeMarks = await placemarkFromCoordinates(lat!, long!);
     statusRequest = StatusRequest.none;
     update();
-    Placemark place = placemarks![0];
-    Placemark place2 = placemarks![2];
+    Placemark place = placeMarks![0];
+    Placemark place2 = placeMarks![2];
     city.text = place.locality ?? "";
     street.text = place2.street ?? "";
     name.text = place.administrativeArea ?? "";

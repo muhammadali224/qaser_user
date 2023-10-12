@@ -62,7 +62,7 @@ class VerificationCode extends StatelessWidget {
                           },
                           //runs when every textfield is filled
                           onSubmit: (String verificationCode) {
-                            controller.checkCode(verificationCode);
+                            controller.checkCode(int.parse(verificationCode));
                           }, // end onSubmit
                         ),
                         TextButton(

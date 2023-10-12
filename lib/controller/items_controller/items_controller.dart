@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/services.dart';
+import '../../core/services/user_preference.dart';
 import '../../data/model/items_model.dart';
 import '../../data/source/remote/items_data.dart';
 import '../cart_controller/cart_controller.dart';
@@ -23,14 +23,15 @@ abstract class ItemsController extends GetxController {
 class ItemsControllerImp extends GetxController {
   late List categories;
   late int selectedCategory;
-  late String id;
-  late String userId;
+  late int id;
+  late int userId;
+  final UserPreferences userManagement = Get.find<UserPreferences>();
 
   ItemsData itemsData = ItemsData(Get.find());
   StatusRequest statusRequest = StatusRequest.loading;
   List<ItemsModel> items = [];
   List<ItemsModel> offersList = [];
-  MyServices myServices = Get.find();
+
   CartControllerImp cartController = Get.find();
 
   @override
@@ -50,10 +51,11 @@ class ItemsControllerImp extends GetxController {
   }
 
   initData() {
+    // await userManagement.initUser();
     selectedCategory = Get.arguments['selectedCategories'];
     categories = Get.arguments['categories'];
     id = Get.arguments['id'];
-    userId = myServices.sharedPref.getString('userId')!;
+    userId = userManagement.user.usersId!;
     getData(id);
   }
 
@@ -63,10 +65,14 @@ class ItemsControllerImp extends GetxController {
     update();
   }
 
-  getData(categoriesId) async {
+  getData(int categoriesId) async {
     items.clear();
     statusRequest = StatusRequest.loading;
-    var response = await itemsData.getData(categoriesId, userId);
+    var response = await itemsData.getData(
+      categoriesId,
+      userId,
+      userManagement.user.branchId!,
+    );
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {

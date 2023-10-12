@@ -15,8 +15,9 @@ class BranchDropDownList extends GetView<HomeControllerImp> {
         child: DropdownButton2<String>(
           isExpanded: true,
           hint: Text(
-            // translateDatabase(ar, en)
-            controller.getBranchName(),
+            translateDatabase(controller.userManagement.user.branchNameAr!,
+                controller.userManagement.user.branchNameEn!),
+            // controller.getBranchName(),
             style: TextStyle(
               fontSize: 15,
               color: Theme.of(context).hintColor,
@@ -26,7 +27,7 @@ class BranchDropDownList extends GetView<HomeControllerImp> {
             ...List.generate(
                 controller.branches.length,
                 (index) => DropdownMenuItem(
-                      value: controller.branches[index].branchId,
+                      value: controller.branches[index].branchId.toString(),
                       child: Text(
                         "${translateDatabase(controller.branches[index].branchNameAr!, controller.branches[index].branchNameEn!)}",
                       ),

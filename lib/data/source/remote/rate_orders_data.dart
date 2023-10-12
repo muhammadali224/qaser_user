@@ -6,14 +6,15 @@ class RateOrdersData {
 
   RateOrdersData(this.crud);
 
-  getData(String id) async {
-    var response = await crud.postData(AppLink.ratedOrders, {'userid': id});
+  getData(int id) async {
+    var response =
+        await crud.postData(AppLink.ratedOrders, {'userid': id.toString()});
     return response.fold((l) => l, (r) => r);
   }
 
-  rateOrders(String orderId, String rate, String rateNote) async {
+  rateOrders(int orderId, String rate, String rateNote) async {
     var response = await crud.postData(AppLink.rateOrder, {
-      'id': orderId,
+      'id': orderId.toString(),
       'rate': rate,
       'rate_note': rateNote,
     });

@@ -4,16 +4,18 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/shared/user_details.dart';
+import '../../core/services/user_preference.dart';
 import '../../data/source/remote/user_details_data.dart';
 
 class ChangePasswordController extends GetxController {
+  final UserPreferences userManagement = Get.find<UserPreferences>();
+
   late TextEditingController password;
   late TextEditingController rePassword;
   late TextEditingController oldPassword;
   bool isVisiblePassword = true;
   bool isVisibleOldPassword = true;
-  late String userId;
+  late int userId;
   GlobalKey<FormState> formState = GlobalKey<FormState>();
   UserDetailsData resetPasswordData = UserDetailsData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
@@ -34,15 +36,14 @@ class ChangePasswordController extends GetxController {
         statusRequest = StatusRequest.loading;
         update();
         var response = await resetPasswordData.changeUserPassword(
-          userData.usersId!,
+          userId,
           password.text.trim(),
           oldPassword.text,
         );
         statusRequest = handlingData(response);
         if (StatusRequest.success == statusRequest) {
           if (response['status'] == 'success') {
-            Get.offNamed(AppRoutes.userSettings,
-                arguments: {'userId': userData.usersId!});
+            Get.offNamed(AppRoutes.userSettings, arguments: {'userId': userId});
           } else if (response['message'] == 'the old password incorrect') {
             Get.defaultDialog(
                 title: 'attention'.tr,
@@ -79,11 +80,12 @@ class ChangePasswordController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
+    await userManagement.initUser();
     password = TextEditingController();
     rePassword = TextEditingController();
     oldPassword = TextEditingController();
-
+    userId = userManagement.user.usersId!;
     super.onInit();
   }
 

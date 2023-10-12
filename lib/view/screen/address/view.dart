@@ -35,8 +35,8 @@ class AddressView extends StatelessWidget {
                       return AddressList(
                         addressModel: controller.data[index],
                         onDelete: () {
-                          controller.deleteAddress(
-                              controller.data[index].addressId.toString());
+                          controller
+                              .deleteAddress(controller.data[index].addressId!);
                         },
                       );
                     },

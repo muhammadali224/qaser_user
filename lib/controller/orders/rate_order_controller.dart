@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/services.dart';
+import '../../core/services/user_preference.dart';
 import '../../data/model/orders_model.dart';
 import '../../data/source/remote/rate_orders_data.dart';
 
@@ -26,15 +26,16 @@ class RateOrdersController extends GetxController {
 
   StatusRequest statusRequest = StatusRequest.none;
   List<OrdersModel> data = [];
-  MyServices myServices = Get.find();
+
+  final UserPreferences userManagement = Get.find<UserPreferences>();
+
   RateOrdersData ordersData = RateOrdersData(Get.find());
 
   getOrders() async {
     data.clear();
     statusRequest = StatusRequest.loading;
     update();
-    var response =
-        await ordersData.getData(myServices.sharedPref.getString('userId')!);
+    var response = await ordersData.getData(userManagement.user.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
@@ -47,7 +48,7 @@ class RateOrdersController extends GetxController {
     update();
   }
 
-  rateOrder(String rate, String comment, String id) async {
+  rateOrder(String rate, String comment, int id) async {
     statusRequest = StatusRequest.loading;
     update();
     var response = await ordersData.rateOrders(
@@ -67,7 +68,8 @@ class RateOrdersController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
+    userManagement.initUser();
     getOrders();
     super.onInit();
   }

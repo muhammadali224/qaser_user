@@ -43,7 +43,7 @@ class CustomOfferListItems extends GetView<OffersController> {
                       fit: BoxFit.fill,
                     ),
                     badges.Badge(
-                      showBadge: itemsModel.itemsDiscount == "0" ? false : true,
+                      showBadge: itemsModel.itemsDiscount == 0 ? false : true,
                       position:
                           badges.BadgePosition.topStart(top: -10, start: -12),
                       badgeContent: Text(
@@ -92,7 +92,7 @@ class CustomOfferListItems extends GetView<OffersController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("${itemsModel.itemDiscountPrice} ${'jd'.tr}",
+                  Text("${itemsModel.itemDiscounntPrice} ${'jd'.tr}",
                       style: TextStyle(
                           color: AppColor.marron, fontWeight: FontWeight.bold)),
                   GetBuilder<FavoriteController>(
@@ -100,13 +100,11 @@ class CustomOfferListItems extends GetView<OffersController> {
                         onPressed: () {
                           if (controller.isFavorite[itemsModel.itemsId] ==
                               "1") {
-                            controller.setFavorite(itemsModel.itemsId!, "0");
-                            controller
-                                .removeFavorite(itemsModel.itemsId.toString());
+                            controller.setFavorite(itemsModel.itemsId!, 0);
+                            controller.removeFavorite(itemsModel.itemsId!);
                           } else {
-                            controller.setFavorite(itemsModel.itemsId!, "1");
-                            controller
-                                .addFavorite(itemsModel.itemsId.toString());
+                            controller.setFavorite(itemsModel.itemsId!, 1);
+                            controller.addFavorite(itemsModel.itemsId!);
                           }
                         },
                         icon: Icon(

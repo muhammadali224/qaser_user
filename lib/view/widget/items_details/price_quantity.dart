@@ -10,7 +10,7 @@ import '../../../data/model/item_count_model.dart';
 class PriceAndQuantity extends StatelessWidget {
   final void Function() onAdd;
   final int count;
-  final String price;
+  final num price;
   final void Function() onRemove;
   final ItemCountModel itemCountModel;
 
@@ -63,8 +63,8 @@ class PriceAndQuantity extends StatelessWidget {
               children: [
                 TextSpan(
                   text: controller.selectedWeightAndSize.weightSizeId != null
-                      ? "${double.parse(controller.selectedWeightAndSize.subItemValue!) * double.parse(price)}${'jd'.tr}"
-                      : "${controller.itemsModel.itemDiscountPrice} ${'jd'.tr}",
+                      ? "${controller.selectedWeightAndSize.subItemValue! * price}${'jd'.tr}"
+                      : "${controller.itemsModel.itemDiscounntPrice} ${'jd'.tr}",
                   style: TextStyle(color: AppColor.marron, fontSize: 28),
                 ),
                 TextSpan(

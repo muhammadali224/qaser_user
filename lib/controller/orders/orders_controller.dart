@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/services.dart';
+import '../../core/services/user_preference.dart';
 import '../../data/model/orders_model.dart';
 import '../../data/source/remote/orders_data.dart';
 import '../../data/source/remote/rate_orders_data.dart';
@@ -35,7 +35,9 @@ class OrdersController extends GetxController {
   List<OrdersModel> dataOnTheRoad = [];
   List<OrdersModel> dataCompleted = [];
   List<OrdersModel> dataCanceled = [];
-  MyServices myServices = Get.find();
+
+  final UserPreferences userManagement = Get.find<UserPreferences>();
+
   OrdersData ordersData = OrdersData(Get.find());
   RateOrdersData ordersRateData = RateOrdersData(Get.find());
 
@@ -47,8 +49,7 @@ class OrdersController extends GetxController {
     dataPending.clear();
     statusRequest = StatusRequest.loading;
     update();
-    var response =
-        await ordersData.getData(myServices.sharedPref.getString('userId')!);
+    var response = await ordersData.getData(userManagement.user.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
@@ -56,17 +57,17 @@ class OrdersController extends GetxController {
         dataAll.addAll(responseData.map((e) => OrdersModel.fromJson(e)));
         dataPending.addAll(responseData
             .map((e) => OrdersModel.fromJson(e))
-            .where((element) => element.ordersState == "0"));
+            .where((element) => element.ordersState == 0));
         dataOnTheRoad.addAll(responseData
             .map((e) => OrdersModel.fromJson(e))
-            .where((element) => element.ordersState == "2"));
+            .where((element) => element.ordersState == 2));
         dataCompleted.addAll(responseData
             .map((e) => OrdersModel.fromJson(e))
-            .where((element) => element.ordersState == "3"));
+            .where((element) => element.ordersState == 3));
         dataCanceled.addAll(responseData
             .map((e) => OrdersModel.fromJson(e))
             .where((element) =>
-                element.ordersState == "4" || element.ordersState == "5"));
+                element.ordersState == 4 || element.ordersState == 5));
       } else {
         statusRequest = StatusRequest.failed;
       }
@@ -74,7 +75,7 @@ class OrdersController extends GetxController {
     update();
   }
 
-  rateOrder(String rate, String comment, String id) async {
+  rateOrder(String rate, String comment, int id) async {
     statusRequest = StatusRequest.loading;
     update();
     var response = await ordersRateData.rateOrders(
@@ -98,7 +99,8 @@ class OrdersController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
+    await userManagement.initUser();
     getOrders();
     super.onInit();
   }

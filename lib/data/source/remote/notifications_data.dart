@@ -6,20 +6,21 @@ class NotificationsData {
 
   NotificationsData(this.crud);
 
-  getNotifications(String userId) async {
-    var response = await crud.postData(AppLink.notifications, {'id': userId});
-    return response.fold((l) => l, (r) => r);
-  }
-
-  setNotificationsRead(String notificationId) async {
-    var response = await crud.postData(
-        AppLink.makeNotificationRead, {'notification_id': notificationId});
-    return response.fold((l) => l, (r) => r);
-  }
-
-  setAllNotificationsRead(String userId) async {
+  getNotifications(int userId) async {
     var response =
-        await crud.postData(AppLink.makeNotificationRead, {'user_id': userId});
+        await crud.postData(AppLink.notifications, {'id': userId.toString()});
+    return response.fold((l) => l, (r) => r);
+  }
+
+  setNotificationsRead(int notificationId) async {
+    var response = await crud.postData(AppLink.makeNotificationRead,
+        {'notification_id': notificationId.toString()});
+    return response.fold((l) => l, (r) => r);
+  }
+
+  setAllNotificationsRead(int userId) async {
+    var response = await crud
+        .postData(AppLink.makeNotificationRead, {'user_id': userId.toString()});
     return response.fold((l) => l, (r) => r);
   }
 }

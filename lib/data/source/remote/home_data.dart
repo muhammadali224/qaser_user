@@ -1,39 +1,38 @@
 import '../../../core/class/crud.dart';
 import '../../../core/constant/api_link.dart';
-import '../../shared/user_details.dart';
 
 class HomeData {
   CRUD crud;
 
   HomeData(this.crud);
 
-  getData(String branchId, String userId) async {
+  getData(int branchId, int userId) async {
     var response = await crud.postData(AppLink.homePage, {
-      'branch_id': branchId,
-      'user_id': userId,
+      'branch_id': branchId.toString(),
+      'user_id': userId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }
 
-  getUserDetails(String id) async {
+  getUserDetails(int id) async {
     var response = await crud.postData(AppLink.getUserDetails, {
-      'id': id,
+      'id': id.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }
 
-  updateBranch(String branchId, String userId) async {
+  updateBranch(int branchId, int userId) async {
     var response = await crud.postData(AppLink.changeUserBranch, {
-      'id': userId,
-      'branch_id': branchId,
+      'id': userId.toString(),
+      'branch_id': branchId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }
 
-  searchItems(String search) async {
+  searchItems(String search, int branchId) async {
     var response = await crud.postData(AppLink.searchItems, {
       'search': search,
-      'branch_id': userData.userFavBranchId,
+      'branch_id': branchId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }

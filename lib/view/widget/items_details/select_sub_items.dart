@@ -28,7 +28,7 @@ openSelectSubItems(BuildContext context) {
                         fontWeight: FontWeight.bold, fontSize: 22),
                   ),
                   ...List.generate(controller.weightAndSize.length, (index) {
-                    if (controller.weightAndSize[index].isActive == "1") {
+                    if (controller.weightAndSize[index].isActive == 1) {
                       return Center(
                         child: RadioListTile<SubItemsModel>(
                           title: Text(
@@ -38,14 +38,12 @@ openSelectSubItems(BuildContext context) {
                             style: const TextStyle(fontSize: 18),
                           ),
                           secondary: Text(
-                            "${double.parse(controller.itemsModel.itemDiscountPrice!) * double.parse(controller.weightAndSize[index].subItemValue!)} ${'jd'.tr}"
+                            "${controller.itemsModel.itemDiscounntPrice! * controller.weightAndSize[index].subItemValue!} ${'jd'.tr}"
                                 .tr,
                             style: const TextStyle(fontSize: 18),
                           ),
                           value: controller.weightAndSize[index],
                           onChanged: (value) {
-                            // controller.selectedWeightAndSize = value;
-                            // controller.update();
                             controller.setSelectedWeightAndSize(value!);
                             Get.back();
                           },

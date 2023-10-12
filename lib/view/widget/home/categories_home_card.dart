@@ -26,8 +26,8 @@ class CategoriesHomeCard extends GetView<HomeControllerImp> {
           child: InkWell(
             borderRadius: BorderRadius.circular(15),
             onTap: () {
-              controller.goToItems(controller.categories, i,
-                  categoriesModel.categoriesId.toString());
+              controller.goToItems(
+                  controller.categories, i, categoriesModel.categoriesId!);
             },
             child: CachedNetworkImage(
               imageBuilder: (context, imageProvider) => Container(

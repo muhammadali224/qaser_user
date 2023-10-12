@@ -7,39 +7,41 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/color.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/services.dart';
+import '../../core/services/user_preference.dart';
 import '../../data/model/cart_model.dart';
 import '../../data/model/item_count_model.dart';
-import '../../data/shared/user_details.dart';
+import '../../data/model/user_detail_model.dart';
 import '../../data/source/remote/cart_data.dart';
 import '../../data/source/remote/checkout_data.dart';
 import '../../generated/assets.dart';
 import '../address_controller/view_address_controller.dart';
 
 abstract class CartController extends GetxController {
-  addCart(String itemsId, String? weightAndSizeId, String cartItemPrice);
+  addCart(int itemsId, String? weightAndSizeId, num cartItemPrice);
 
-  deleteFromCart(String itemsId);
+  deleteFromCart(int itemsId);
 
   getCart();
 
-  getCount(String itemsId);
+  getCount(int itemsId);
 
   resetCart();
 
   refreshCart();
 
-  addNoteToItem(String cartId);
+  addNoteToItem(int cartId);
 
   selectOrderMethod(int val);
 }
 
 class CartControllerImp extends CartController {
+  final UserPreferences userManagement = Get.find<UserPreferences>();
+  late UserModel user;
   CartData cartData = CartData(Get.find());
   List<CartModel> data = [];
   TextEditingController couponController = TextEditingController();
   TextEditingController? noteController;
-  MyServices myServices = Get.find();
+
   StatusRequest statusRequest = StatusRequest.none;
   CheckoutData checkoutData = CheckoutData(Get.find());
   ViewAddressController addressController = Get.put(ViewAddressController());
@@ -49,12 +51,11 @@ class CartControllerImp extends CartController {
   double totalPrice = 0.0;
   double discount = 0.0;
   int ordersCount = 0;
-  double price = 0;
-  late String userId;
+  num price = 0;
 
-  String couponValue = "0";
+  int couponValue = 0;
   String? couponName;
-  String? couponId;
+  int? couponId;
   double distance = 0.0;
 
   int selectedOrderType = 0;
@@ -78,7 +79,7 @@ class CartControllerImp extends CartController {
   @override
   addCart(itemsId, weightAndSizeId, cartItemPrice) async {
     var response = await cartData.addToCart(
-      myServices.sharedPref.getString('userId')!,
+      user.usersId!,
       itemsId,
       weightAndSizeId,
       cartItemPrice,
@@ -114,7 +115,7 @@ class CartControllerImp extends CartController {
   @override
   deleteFromCart(itemsId) async {
     var response = await cartData.removeFromCart(
-      myServices.sharedPref.getString('userId')!,
+      user.usersId!,
       itemsId,
     );
 
@@ -141,10 +142,9 @@ class CartControllerImp extends CartController {
   @override
   getCart() async {
     data.clear();
-
     statusRequest = StatusRequest.loading;
     update();
-    var response = await cartData.getCart(userId.trim());
+    var response = await cartData.getCart(user.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
@@ -157,8 +157,8 @@ class CartControllerImp extends CartController {
           update();
         }
         if (response['total']['status'] == 'success') {
-          price = double.parse(response['total']['data']['totalprice']);
-          ordersCount = int.parse(response['total']['data']['totalcount']);
+          price = response['total']['data']['totalprice'];
+          ordersCount = response['total']['data']['totalcount'];
         } else {
           ordersCount = 0;
           price = 0.0;
@@ -173,8 +173,7 @@ class CartControllerImp extends CartController {
   @override
   getCount(itemsId) async {
     statusRequest = StatusRequest.loading;
-    var response = await cartData.getCountItem(
-        myServices.sharedPref.getString('userId')!, itemsId);
+    var response = await cartData.getCountItem(user.usersId!, itemsId);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
@@ -189,7 +188,8 @@ class CartControllerImp extends CartController {
 
   @override
   void onInit() async {
-    userId = myServices.sharedPref.getString('userId') ?? "";
+    await userManagement.initUser();
+    user = userManagement.user;
     noteController = TextEditingController();
     await getCart();
 
@@ -197,16 +197,12 @@ class CartControllerImp extends CartController {
   }
 
   calculateDeliveryCharge() {
-    if (userData.branchIsFixed == "1" &&
-        double.parse(userData.branchZone!) <= distance) {
-      deliveryFee = (distance * double.parse(userData.branchDeliveryCharge!))
-          .toStringAsFixed(2);
-    } else if (userData.branchIsFixed == "1" &&
-        double.parse(userData.branchZone!) >= distance) {
-      deliveryFee = userData.branchDeliveryChargeFix!;
-    } else if (userData.branchIsFixed == "0") {
-      deliveryFee = (distance * double.parse(userData.branchDeliveryCharge!))
-          .toStringAsFixed(2);
+    if (user.branchIsFixed == 1 && user.branchZone! <= distance) {
+      deliveryFee = (distance * user.branchDeliveryCharge!).toStringAsFixed(2);
+    } else if (user.branchIsFixed == 1 && user.branchZone! >= distance) {
+      deliveryFee = user.branchDeliveryFixCharge.toString();
+    } else if (user.branchIsFixed == 0) {
+      deliveryFee = (distance * user.branchDeliveryCharge!).toStringAsFixed(2);
     }
     update();
   }
@@ -215,7 +211,7 @@ class CartControllerImp extends CartController {
   resetCart() {
     totalPrice = 0;
     couponId = null;
-    couponValue = "0";
+    couponValue = 0;
     couponName = null;
     couponController.clear();
     data.clear();
@@ -235,9 +231,9 @@ class CartControllerImp extends CartController {
   }
 
   @override
-  addNoteToItem(String cartId) async {
+  addNoteToItem(int cartId) async {
     var response = await cartData.addNoteToItem(
-      myServices.sharedPref.getString('userId')!,
+      user.usersId!,
       cartId,
       noteController?.text ?? "",
     );
@@ -295,15 +291,15 @@ class CartControllerImp extends CartController {
       }
 
       var response = await checkoutData.checkout(
-        myServices.sharedPref.getString('userId')!,
+        user.usersId!,
         selectedLocation.toString(),
         selectedOrderType.toString(),
         deliveryFee,
         price.toStringAsFixed(2),
         discount.toStringAsFixed(2),
         getTotalOrderPrice(),
-        couponId ?? "0",
-        userData.userFavBranchId!,
+        couponId ?? 0,
+        user.userFavBranchId!,
       );
       statusRequest = handlingData(response);
       if (statusRequest == StatusRequest.success) {
@@ -345,30 +341,30 @@ class CartControllerImp extends CartController {
   }
 
   getTotalOrderPrice() {
-    totalPrice = (price -
-        (price * (int.parse(couponValue) / 100)) +
-        double.parse(deliveryFee));
+    totalPrice =
+        (price - (price * (couponValue / 100)) + double.parse(deliveryFee));
 
     return totalPrice.toStringAsFixed(2);
   }
 
   getDiscountAmount() {
-    discount = (price * (int.parse(couponValue) / 100));
+    discount = (price * (couponValue / 100));
     return discount.toStringAsFixed(2);
   }
 
   checkCoupon() async {
     SmartDialog.showLoading(msg: "loading".tr);
-    var response = await checkoutData.checkCoupon(couponController.text.trim());
+    var response = await checkoutData.checkCoupon(
+        couponController.text.trim(), user.branchId!);
 
     if (response['status'] == 'success') {
       couponValue = response['data']['coupon_discount'];
       couponName = response['data']['coupon_name'];
-      couponId = response['data']['coupon_id'].toString();
+      couponId = response['data']['coupon_id'];
       getDiscountAmount();
       SmartDialog.dismiss();
     } else {
-      couponValue = "0";
+      couponValue = 0;
       couponName = null;
       couponId = null;
       !Get.isSnackbarOpen
@@ -389,8 +385,7 @@ class CartControllerImp extends CartController {
 
   selectLocationDeliver(Object val) {
     locationList = val as int;
-    selectedLocation =
-        int.parse(addressController.data[locationList].addressId!);
+    selectedLocation = addressController.data[locationList].addressId!;
 
     update();
   }

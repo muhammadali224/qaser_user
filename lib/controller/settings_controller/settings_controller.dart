@@ -4,11 +4,14 @@ import 'package:get/get.dart';
 
 import '../../core/constant/routes.dart';
 import '../../core/services/services.dart';
+import '../../core/services/user_preference.dart';
 
 class SettingsController extends GetxController {
   MyServices myServices = Get.find();
+  final UserPreferences userManagement = Get.find<UserPreferences>();
+
   late bool switchVal;
-  late String userId;
+  late int userId;
   late String userName;
   String? lang;
 
@@ -36,7 +39,7 @@ class SettingsController extends GetxController {
     Get.deleteAll();
     FirebaseMessaging.instance.unsubscribeFromTopic('users');
     FirebaseMessaging.instance.unsubscribeFromTopic("users$userId");
-    myServices.sharedPref.clear();
+    userManagement.clearUser();
     myServices.sharedPref.setString('language', lang!);
     Get.offAllNamed(AppRoutes.login);
   }
@@ -69,16 +72,17 @@ class SettingsController extends GetxController {
     Get.updateLocale(locale);
   }
 
-  initData() {
-    userId = myServices.sharedPref.getString('userId') ?? "";
-    userName = myServices.sharedPref.getString('userName') ?? "";
+  initData() async {
+    final user = userManagement.user;
+    userId = user.usersId!;
+    userName = user.usersName!;
     switchVal = myServices.sharedPref.getBool('switchVal') ?? true;
     lang = myServices.sharedPref.getString('language') ?? "ar";
   }
 
   @override
-  void onInit() {
-    initData();
+  void onInit() async {
+    await initData();
     super.onInit();
   }
 }

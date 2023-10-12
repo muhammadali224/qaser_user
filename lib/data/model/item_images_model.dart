@@ -1,6 +1,6 @@
 class ItemImagesModel {
-  String? itemImageId;
-  String? itemImageItemId;
+  int? itemImageId;
+  int? itemImageItemId;
   String? itemImageName;
 
   ItemImagesModel({

@@ -38,7 +38,7 @@ class CustomTotalPriceText extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        controller.couponValue != "0"
+                        controller.couponValue != 0
                             ? "${'discount'.tr} ${controller.couponValue}% :"
                             : "${'discount'.tr} :",
                         style: Theme.of(context)

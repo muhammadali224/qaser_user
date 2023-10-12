@@ -13,7 +13,6 @@ import '../../data/model/categories_model.dart';
 import '../../data/model/items_model.dart';
 import '../../data/model/offers_image_model.dart';
 import '../../data/model/user_detail_model.dart';
-import '../../data/shared/user_details.dart';
 import '../../generated/assets.dart';
 import '../cart_controller/cart_controller.dart';
 import '../search_controller/search_mixin_controller.dart';
@@ -21,7 +20,7 @@ import '../search_controller/search_mixin_controller.dart';
 abstract class HomeController extends SearchMixController {
   initData();
 
-  getData(String branchId);
+  getData(int branchId);
 
   goToSettings();
 
@@ -32,7 +31,7 @@ abstract class HomeController extends SearchMixController {
   @override
   getSearchResult();
 
-  goToItems(List categories, int selectedCategories, String categoriesId);
+  goToItems(List categories, int selectedCategories, int categoriesId);
 
   @override
   onSearchItems();
@@ -42,14 +41,16 @@ abstract class HomeController extends SearchMixController {
 
   goToOffers();
 
-  updateUserBranch(String branchId);
+  updateUserBranch(int branchId);
 }
 
 class HomeControllerImp extends HomeController {
+  // UserPreferences userManagement = Get.find<UserPreferences>();
+
   MyServices myServices = Get.find();
   int notificationsCount = 0;
   late String userName;
-  late String userId;
+  late int userId;
   CartControllerImp cartController =
       Get.put<CartControllerImp>(CartControllerImp());
   String selectedValue = "1";
@@ -68,26 +69,20 @@ class HomeControllerImp extends HomeController {
 
   @override
   initData() async {
+    await userManagement.initUser();
+
     search = TextEditingController();
-    userName = myServices.sharedPref.getString('userName') ?? "";
-    userId = myServices.sharedPref.getString('userId')!;
+    userName = userManagement.user.usersName!;
+    userId = userManagement.user.usersId!;
     await getUserDetails();
     initLocalJiffy();
 
     cartController.getCart();
-    getData(userData.userFavBranchId ?? "1");
-  }
-
-  getBranchName() {
-    if (myServices.sharedPref.getString('language') == 'ar') {
-      return userData.branchNameAr ?? 'selectBranch'.tr;
-    } else {
-      return userData.branchNameEn ?? 'selectBranch'.tr;
-    }
+    getData(userManagement.user.userFavBranchId!);
   }
 
   @override
-  getData(String branchId) async {
+  getData(int branchId) async {
     clearAllList();
     statusRequest = StatusRequest.loading;
     update();
@@ -121,8 +116,8 @@ class HomeControllerImp extends HomeController {
               .addAll(responseOffers.map((e) => OffersImageModel.fromJson(e)));
         }
         if (response['notifications']['status'] == 'success') {
-          notificationsCount = int.parse(
-              response['notifications']['count']['countNotification']);
+          notificationsCount =
+              response['notifications']['count']['countNotification'];
           print(notificationsCount);
         }
       } else {
@@ -165,8 +160,9 @@ class HomeControllerImp extends HomeController {
     statusRequest = handlingData(response);
     if (statusRequest == StatusRequest.success) {
       if (response['status'] == 'success') {
-        userData = UserModel.fromJson(response['data']);
-        if (userData.branchIsOpen == "0") {
+        final loginData = UserModel.fromJson(response['data']);
+        userManagement.setUser(loginData);
+        if (loginData.branchIsOpen == 0) {
           SmartDialog.show(
               builder: (_) => Container(
                     width: double.infinity,
@@ -197,7 +193,7 @@ class HomeControllerImp extends HomeController {
                     ),
                   ));
           selectedValue = "1";
-          updateUserBranch("1");
+          updateUserBranch(1);
           update();
         }
       } else {
@@ -211,8 +207,8 @@ class HomeControllerImp extends HomeController {
   onChangeDropButton(String value) {
     if (value != selectedValue) {
       selectedValue = value;
-      userData.userFavBranchId = selectedValue;
-      updateUserBranch(selectedValue);
+      userManagement.user.userFavBranchId = int.parse(selectedValue);
+      updateUserBranch(int.parse(selectedValue));
 
       update();
     }

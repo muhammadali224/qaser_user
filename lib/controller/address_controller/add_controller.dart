@@ -32,9 +32,9 @@ class AddAddressController extends GetxController {
     update();
   }
 
-  addMarkers(LatLng latlng) {
+  addMarkers(LatLng latLng) {
     markers.clear();
-    markers.add(Marker(markerId: const MarkerId("1"), position: latlng));
+    markers.add(Marker(markerId: const MarkerId("1"), position: latLng));
     update();
   }
 
