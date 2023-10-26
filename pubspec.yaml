@@ -40,9 +40,6 @@ dependencies:
   flutter_swiper_view: ^1.1.8
   dropdown_button2: ^2.3.8
   icon_broken:
-#  icon_broken: ^1.1.0
-  dependency_validator:
-#  dependency_validator: ^3.2.2
   animated_text_kit: ^4.2.2
   connectivity_plus:
   flutter_smart_dialog: ^4.9.4
@@ -54,6 +51,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  dependency_validator:
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -70,11 +68,6 @@ flutter:
         - asset: assets/fonts/Cairo/Cairo-Bold.ttf
           weight: 700
 
-    - family: PlayfairDisplay
-      fonts:
-        - asset: assets/fonts/PlayfairDisplay/PlayfairDisplay-Regular.ttf
-        - asset: assets/fonts/PlayfairDisplay/PlayfairDisplay-Bold.ttf
-          weight: 700
 
   assets:
     - assets/lottie/
