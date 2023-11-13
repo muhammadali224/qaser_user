@@ -84,13 +84,7 @@ class CompletedListCard extends GetView<RateOrdersController> {
               ],
             ),
           ),
-          // Container(
-          //     padding: const EdgeInsets.symmetric(horizontal: 10),
-          //     child: Text(
-          //       "${controller.paymentType[ordersModel.orderPaymentMethod.toString()]}"
-          //           .tr,
-          //       style: const TextStyle(fontSize: 18),
-          //     )),
+
           Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(

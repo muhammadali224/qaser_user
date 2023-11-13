@@ -81,6 +81,7 @@ class HeaderHelloText extends StatelessWidget {
                       const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(
                     IconBroken.Setting,
+                    color: Colors.red,
                   ),
                 ),
               ),
