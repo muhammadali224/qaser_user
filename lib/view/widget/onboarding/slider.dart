@@ -17,25 +17,18 @@ class SliderOnboarding extends GetView<OnBoardingControllerImp> {
         itemCount: onboardingList.length,
         itemBuilder: (context, i) => Column(
               children: [
-                Image.asset(
-                  onboardingList[i].image!,
-                  height: Get.width / 1.2,
-                  fit: BoxFit.fill,
-                ),
+                Image.asset(onboardingList[i].image!,
+                    height: Get.width / 1.2, fit: BoxFit.fill),
                 const SizedBox(height: 60),
-                Text(
-                  onboardingList[i].title!,
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
+                Text(onboardingList[i].title!,
+                    style: Theme.of(context).textTheme.displayMedium),
                 const SizedBox(height: 20),
                 Container(
                     width: double.infinity,
                     alignment: Alignment.center,
-                    child: Text(
-                      onboardingList[i].body!,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    )),
+                    child: Text(onboardingList[i].body!,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyLarge)),
               ],
             ));
   }

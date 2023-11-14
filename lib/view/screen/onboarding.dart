@@ -18,18 +18,13 @@ class OnBoarding extends StatelessWidget {
       body: const SafeArea(
         child: Column(
           children: [
-            Expanded(
-              flex: 4,
-              child: SliderOnboarding(),
-            ),
+            Expanded(flex: 4, child: SliderOnboarding()),
             Expanded(
                 flex: 1,
                 child: Column(
                   children: [
                     CustomDotsController(),
-                    Spacer(
-                      flex: 2,
-                    ),
+                    Spacer(flex: 2),
                     CustomButtonOnboarding(),
                   ],
                 ))

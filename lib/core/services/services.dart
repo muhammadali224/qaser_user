@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,6 +15,8 @@ class MyServices extends GetxService {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
     FirebaseAnalytics.instance;
+    FirebaseMessaging.instance.subscribeToTopic("all");
+    FirebaseMessaging.instance.subscribeToTopic("notSigned");
     sharedPref = await SharedPreferences.getInstance();
 
     return this;
