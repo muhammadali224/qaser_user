@@ -19,6 +19,10 @@ class OffersHomeCard extends GetView<HomeControllerImp> {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300),
+        borderRadius: BorderRadius.circular(15),
+      ),
       margin: const EdgeInsets.all(10),
       child: Stack(
         fit: StackFit.expand,
@@ -26,6 +30,7 @@ class OffersHomeCard extends GetView<HomeControllerImp> {
           Hero(
             tag: "${itemsModel.itemsId}",
             child: InkWell(
+              borderRadius: BorderRadius.circular(15),
               onTap: () => controller.goToDetails(itemsModel),
               child: CachedImage(
                 fit: BoxFit.cover,

@@ -1,5 +1,4 @@
 import 'package:badges/badges.dart';
-import "package:cached_network_image/cached_network_image.dart";
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
 import 'package:string_capitalize/string_capitalize.dart';
@@ -10,14 +9,12 @@ import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
 import '../../../data/model/items_model.dart';
+import '../cached_network.dart';
 
 class CustomListItems extends GetView<ItemsControllerImp> {
   final ItemsModel itemsModel;
 
-  const CustomListItems({
-    super.key,
-    required this.itemsModel,
-  });
+  const CustomListItems({super.key, required this.itemsModel});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +28,7 @@ class CustomListItems extends GetView<ItemsControllerImp> {
         child: Column(
           children: [
             Expanded(
+              flex: 2,
               child: Container(
                 width: double.infinity,
                 color: Colors.white,
@@ -39,18 +37,15 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                     tag: "${itemsModel.itemsId}",
                     child: Stack(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                "${AppLink.imagesItems}${itemsModel.itemsImage}",
-                            fit: BoxFit.contain,
-                            placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator()),
-                            errorWidget: (context, url, error) => const Icon(
-                              Icons.broken_image_rounded,
-                              color: Colors.red,
-                            ),
+                        CachedImage(
+                          imageUrl:
+                              "${AppLink.imagesItems}${itemsModel.itemsImage}",
+                          imageBuilder: (_, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            )),
                           ),
                         ),
                         Badge(
@@ -81,23 +76,7 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                   Text(
                     "${translateDatabase(itemsModel.itemsNameAr!, itemsModel.itemsName!.capitalizeEach())}",
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(
-                    height: 25,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ...List.generate(
-                            5,
-                            (index) => Icon(
-                                  Icons.star,
-                                  size: 17,
-                                  color: index < 4 ? Colors.orange : null,
-                                ))
-                      ],
-                    ),
+                    style: const TextStyle(fontSize: 20),
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:string_capitalize/string_capitalize.dart';
@@ -8,6 +7,7 @@ import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
 import '../../../data/model/items_model.dart';
+import '../cached_network.dart';
 import 'offers_home_card.dart';
 
 class ListOffersHome extends GetView<HomeControllerImp> {
@@ -26,8 +26,8 @@ class ListOffersHome extends GetView<HomeControllerImp> {
               return Container();
             }
           },
-          itemCount: controller.itemsOfferList.length > 3
-              ? 3
+          itemCount: controller.itemsOfferList.length > 5
+              ? 5
               : controller.itemsOfferList.length,
         ));
   }
@@ -45,6 +45,8 @@ class Items extends GetView<HomeControllerImp> {
       onTap: () => controller.goToDetails(itemsModel),
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
+        color: Colors.grey[200],
+        surfaceTintColor: Colors.grey[200],
         elevation: 5,
         child: Column(
           children: [
@@ -53,24 +55,14 @@ class Items extends GetView<HomeControllerImp> {
                 child: Container(
                   width: double.infinity,
                   color: Colors.grey[100],
-                  child: Center(
-                    child: Stack(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                "${AppLink.imagesItems}${itemsModel.itemsImage}",
-                            fit: BoxFit.contain,
-                            placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator()),
-                            errorWidget: (context, url, error) => const Icon(
-                              Icons.broken_image_rounded,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                      ],
+                  child: CachedImage(
+                    imageUrl: "${AppLink.imagesItems}${itemsModel.itemsImage}",
+                    imageBuilder: (_, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      )),
                     ),
                   ),
                 )),
@@ -90,7 +82,6 @@ class Items extends GetView<HomeControllerImp> {
                     ),
                   ),
                   Center(
-                    // padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: SizedBox(
                       height: 35,
                       child: Text("${itemsModel.itemsPrice} ${'jd'.tr}",
