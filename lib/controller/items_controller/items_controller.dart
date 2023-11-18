@@ -71,7 +71,7 @@ class ItemsControllerImp extends GetxController {
     var response = await itemsData.getData(
       categoriesId,
       userId,
-      userManagement.user.branchId!,
+      userManagement.user.userFavBranchId!,
     );
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {

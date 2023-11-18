@@ -10,7 +10,8 @@ import '../../core/function/handling_data_controller.dart';
 import '../../core/services/user_preference.dart';
 import '../../data/model/cart_model.dart';
 import '../../data/model/item_count_model.dart';
-import '../../data/model/user_detail_model.dart';
+import '../../data/model/user_model/user_model.dart';
+import '../../data/shared/branches.dart';
 import '../../data/source/remote/cart_data.dart';
 import '../../data/source/remote/checkout_data.dart';
 import '../../generated/assets.dart';
@@ -197,12 +198,16 @@ class CartControllerImp extends CartController {
   }
 
   calculateDeliveryCharge() {
-    if (user.branchIsFixed == 1 && user.branchZone! <= distance) {
-      deliveryFee = (distance * user.branchDeliveryCharge!).toStringAsFixed(2);
-    } else if (user.branchIsFixed == 1 && user.branchZone! >= distance) {
-      deliveryFee = user.branchDeliveryFixCharge.toString();
-    } else if (user.branchIsFixed == 0) {
-      deliveryFee = (distance * user.branchDeliveryCharge!).toStringAsFixed(2);
+    if (selectedBranch.branchIsFixed == 1 &&
+        selectedBranch.branchZone! <= distance) {
+      deliveryFee =
+          (distance * selectedBranch.branchDeliveryCharge!).toStringAsFixed(2);
+    } else if (selectedBranch.branchIsFixed == 1 &&
+        selectedBranch.branchZone! >= distance) {
+      deliveryFee = selectedBranch.branchDeliveryFixCharge.toString();
+    } else if (selectedBranch.branchIsFixed == 0) {
+      deliveryFee =
+          (distance * selectedBranch.branchDeliveryCharge!).toStringAsFixed(2);
     }
     update();
   }
@@ -355,7 +360,7 @@ class CartControllerImp extends CartController {
   checkCoupon() async {
     SmartDialog.showLoading(msg: "loading".tr);
     var response = await checkoutData.checkCoupon(
-        couponController.text.trim(), user.branchId!);
+        couponController.text.trim(), user.userFavBranchId!);
 
     if (response['status'] == 'success') {
       couponValue = response['data']['coupon_discount'];

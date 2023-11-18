@@ -6,7 +6,7 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/services/user_preference.dart';
-import '../../data/model/user_detail_model.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/address_data.dart';
 
 class AddLocationDetailsController extends GetxController {

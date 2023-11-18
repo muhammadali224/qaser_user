@@ -7,8 +7,8 @@ class ItemsModel {
   String? itemsImage;
   int? itemsCount;
   int? itemsActive;
-  int? itemsPrice;
-  int? itemsDiscount;
+  num? itemsPrice;
+  num? itemsDiscount;
   String? itemsData;
   int? itemsCat;
   int? branchId;

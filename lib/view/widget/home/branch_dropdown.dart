@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../core/function/translate_database.dart';
+import '../../../data/shared/branches.dart';
 
 class BranchDropDownList extends GetView<HomeControllerImp> {
   const BranchDropDownList({super.key});
@@ -11,40 +12,33 @@ class BranchDropDownList extends GetView<HomeControllerImp> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeControllerImp>(builder: (controller) {
-      return DropdownButtonHideUnderline(
-        child: DropdownButton2<String>(
-          isExpanded: true,
-          hint: Text(
-            translateDatabase(controller.userManagement.user.branchNameAr!,
-                controller.userManagement.user.branchNameEn!),
-            // controller.getBranchName(),
-            style: TextStyle(
-              fontSize: 15,
-              color: Theme.of(context).hintColor,
-            ),
-          ),
-          items: [
-            ...List.generate(
-                controller.branches.length,
-                (index) => DropdownMenuItem(
-                      value: controller.branches[index].branchId.toString(),
-                      child: Text(
-                        "${translateDatabase(controller.branches[index].branchNameAr!, controller.branches[index].branchNameEn!)}",
-                      ),
-                    )),
-          ],
-          value: controller.selectedValue,
-          onChanged: (String? value) => controller.onChangeDropButton(value!),
-          buttonStyleData: const ButtonStyleData(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            height: 40,
-            width: double.infinity,
-          ),
-          menuItemStyleData: const MenuItemStyleData(
-            height: 40,
-          ),
-        ),
-      );
+      return controller.isLoading
+          ? const CircularProgressIndicator()
+          : DropdownButtonHideUnderline(
+              child: DropdownButton2<int>(
+                isExpanded: true,
+                items: [
+                  ...List.generate(
+                      branchesList.length,
+                      (index) => DropdownMenuItem(
+                            value: branchesList[index].branchId,
+                            child: Text(
+                              "${translateDatabase(branchesList[index].branchNameAr!, branchesList[index].branchNameEn!)}",
+                            ),
+                          )),
+                ],
+                value: controller.selectedValue,
+                onChanged: controller.onChangeDropButton,
+                buttonStyleData: const ButtonStyleData(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  height: 40,
+                  width: double.infinity,
+                ),
+                menuItemStyleData: const MenuItemStyleData(
+                  height: 40,
+                ),
+              ),
+            );
     });
   }
 }

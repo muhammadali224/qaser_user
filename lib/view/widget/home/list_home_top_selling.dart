@@ -12,7 +12,7 @@ class ListTopSellingHome extends GetView<HomeControllerImp> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: GridView.builder(
-        itemCount: controller.topSelling.length,
+        itemCount: controller.topSellingList.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -22,7 +22,7 @@ class ListTopSellingHome extends GetView<HomeControllerImp> {
           crossAxisSpacing: 10,
         ),
         itemBuilder: (context, i) {
-          return Items(itemsModel: controller.topSelling[i]);
+          return Items(itemsModel: controller.topSellingList[i]);
         },
       ),
     );

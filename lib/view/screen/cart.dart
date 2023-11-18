@@ -6,6 +6,7 @@ import 'package:icon_broken/icon_broken.dart';
 import '../../controller/cart_controller/cart_controller.dart';
 import '../../core/class/handling_data_view.dart';
 import '../../core/function/open_select_location_bottom_sheet.dart';
+import '../../data/shared/branches.dart';
 import '../widget/bottom_cart_button.dart';
 import '../widget/cart/checkout_coupon.dart';
 import '../widget/cart/checkout_order_list.dart';
@@ -39,7 +40,7 @@ class Cart extends StatelessWidget {
           ],
         ),
         bottomNavigationBar:
-            controller.user.branchIsOpen == 1 && controller.data.isNotEmpty
+            selectedBranch.branchIsOpen == 1 && controller.data.isNotEmpty
                 ? Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

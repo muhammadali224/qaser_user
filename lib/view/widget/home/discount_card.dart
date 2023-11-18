@@ -18,12 +18,12 @@ class SwiperCard extends GetView<HomeControllerImp> {
       child: Swiper(
         autoplay: true,
         pagination: const SwiperPagination(
-          builder: SwiperPagination.rect,
+          builder: SwiperPagination.dots,
         ),
         itemBuilder: (context, index) {
           return CachedNetworkImage(
             imageUrl:
-                "${AppLink.imageOffer}${controller.offerImages[index].offerImageUrl}",
+                "${AppLink.imageOffer}${controller.offerImagesList[index].offerImageUrl}",
             fit: BoxFit.fill,
             placeholder: (context, url) =>
                 const Center(child: CircularProgressIndicator()),
@@ -33,7 +33,7 @@ class SwiperCard extends GetView<HomeControllerImp> {
             ),
           );
         },
-        itemCount: controller.offerImages.length,
+        itemCount: controller.offerImagesList.length,
         viewportFraction: 0.8,
         scale: 0.9,
       ),

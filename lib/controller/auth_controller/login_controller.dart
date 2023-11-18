@@ -8,7 +8,7 @@ import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/services/services.dart';
 import '../../core/services/user_preference.dart';
-import '../../data/model/user_detail_model.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/auth/login_data.dart';
 
 abstract class LoginController extends GetxController {
@@ -43,10 +43,8 @@ class LoginControllerImp extends LoginController {
       if (formCurrent!.validate()) {
         statusRequest = StatusRequest.loading;
         update();
-        var response = await loginData.postData(
-          email.text.trim(),
-          password.text.trim(),
-        );
+        var response =
+            await loginData.postData(email.text.trim(), password.text.trim());
         statusRequest = handlingData(response);
 
         if (StatusRequest.success == statusRequest) {
@@ -57,7 +55,8 @@ class LoginControllerImp extends LoginController {
             final user = userManagement.user;
             if (user.usersApprove == 1) {
               myServices.sharedPref.setString('step', "2");
-              FirebaseMessaging.instance.subscribeToTopic('users');
+              FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");
+              FirebaseMessaging.instance.subscribeToTopic("signed");
               FirebaseMessaging.instance
                   .subscribeToTopic("users${user.usersId}");
               Get.offAllNamed(AppRoutes.home);
@@ -98,11 +97,7 @@ class LoginControllerImp extends LoginController {
 
   @override
   void onInit() {
-    FirebaseMessaging.instance.getToken().then((value) {
-      String? token = value;
-      // ignore: avoid_print
-      print(token);
-    });
+    FirebaseMessaging.instance.getToken();
     email = TextEditingController();
     password = TextEditingController();
     super.onInit();

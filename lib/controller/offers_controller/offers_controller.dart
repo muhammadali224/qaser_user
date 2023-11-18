@@ -16,7 +16,7 @@ class OffersController extends GetxController {
   getOffersItems() async {
     offersItems.clear();
     statusRequest = StatusRequest.loading;
-    var response = await itemsData.getOffers(userManagement.user.usersId!);
+    var response = await itemsData.getOffers(100);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {

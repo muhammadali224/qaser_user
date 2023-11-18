@@ -1,13 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
 import '../../../data/model/categories_model.dart';
+import '../cached_network.dart';
 
 class CategoriesHomeCard extends GetView<HomeControllerImp> {
   final CategoriesModel categoriesModel;
@@ -25,11 +24,11 @@ class CategoriesHomeCard extends GetView<HomeControllerImp> {
           // width: 90,
           child: InkWell(
             borderRadius: BorderRadius.circular(15),
-            onTap: () {
-              controller.goToItems(
-                  controller.categories, i, categoriesModel.categoriesId!);
-            },
-            child: CachedNetworkImage(
+            onTap: () => controller.goToItems(
+                controller.categoriesList, i, categoriesModel.categoriesId!),
+            child: CachedImage(
+              imageUrl:
+                  "${AppLink.imagesCategories}${categoriesModel.categoriesImage}",
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
                     color: AppColor.theirdColor,
@@ -38,13 +37,6 @@ class CategoriesHomeCard extends GetView<HomeControllerImp> {
                       image: imageProvider,
                       fit: BoxFit.cover,
                     )),
-              ),
-              imageUrl:
-                  "${AppLink.imagesCategories}${categoriesModel.categoriesImage}",
-              placeholder: (context, url) =>
-                  const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(
-                IconBroken.Category,
               ),
             ),
           ),

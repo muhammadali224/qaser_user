@@ -3,15 +3,14 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 import '../../controller/cart_controller/cart_controller.dart';
+import '../../data/shared/branches.dart';
 import '../../view/widget/cart/checkout_location.dart';
 import '../../view/widget/cart/checkout_title.dart';
 import '../constant/routes.dart';
-import '../services/user_preference.dart';
 import 'get_polyline.dart';
 
 openLocationBottomSheet() {
   CartControllerImp controller = Get.find();
-  final UserPreferences userManagement = Get.find<UserPreferences>();
 
   return Get.bottomSheet(
     Container(
@@ -51,8 +50,8 @@ openLocationBottomSheet() {
                                         .addressController
                                         .data[controller.locationList]
                                         .addressLong!,
-                                    lat1: userManagement.user.branchLat!,
-                                    lon1: userManagement.user.branchLang!,
+                                    lat1: selectedBranch.branchLat!,
+                                    lon1: selectedBranch.branchLang!,
                                   );
                                   controller.distance = double.parse(dest!);
                                   await controller.calculateDeliveryCharge();

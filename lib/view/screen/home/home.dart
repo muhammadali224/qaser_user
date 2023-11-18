@@ -22,17 +22,15 @@ class Home extends StatelessWidget {
     HomeControllerImp controller = Get.put(HomeControllerImp());
 
     return RefreshIndicator(
-      onRefresh: () => controller.initData(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const BranchDropDownList(),
-          leading: LeadingAppbar(
-            onTap: () => controller.goToCart(),
+      onRefresh: () => controller.getData(controller.selectedValue),
+      child: GetBuilder<HomeControllerImp>(builder: (controller) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const BranchDropDownList(),
+            leading: LeadingAppbar(onTap: controller.goToCart),
+            actions: actionList,
           ),
-          actions: actionList,
-        ),
-        body: GetBuilder<HomeControllerImp>(
-          builder: (controller) => ListView(
+          body: ListView(
             children: [
               HandlingDataView(
                   statusRequest: controller.statusRequest,
@@ -42,8 +40,11 @@ class Home extends StatelessWidget {
                     children: [
                       HeaderHelloText(
                         imageUrl: controller.userManagement.user.usersImage!,
-                        name: controller.userName,
-                        onTapped: () => controller.goToSettings(),
+                        name:
+                            controller.userManagement.user.usersIsAnonymous == 0
+                                ? controller.userManagement.user.usersName!
+                                : "user".tr,
+                        onTapped: controller.goToSettings,
                       ),
                       SearchFormField(
                         controller: controller.search,
@@ -67,8 +68,8 @@ class Home extends StatelessWidget {
                   ))
             ],
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

@@ -10,7 +10,7 @@ import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/function/show_snackbar.dart';
 import '../../core/services/user_preference.dart';
-import '../../data/model/user_detail_model.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/user_details_data.dart';
 
 class UserSettingController extends GetxController {

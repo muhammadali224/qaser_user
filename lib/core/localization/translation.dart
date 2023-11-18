@@ -233,6 +233,7 @@ class MyTranslation extends Translations {
               "تم توصيل طلبك بنجاح الرجاء تقييم الطلب من خلال صفحة التقيمات",
           "order_state_4": "تم إلغاء الطلب ",
           "order_state_5": "تم رفض الطلب من قبل المتجر",
+          "user": "مستخدم",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -466,6 +467,7 @@ class MyTranslation extends Translations {
               "Order Delivered Successfully, Please Rate The Order from Rate Page in Settings",
           "order_state_4": "Order Cancelled Successfully",
           "order_state_5": "The Order is Rejected by the Store",
+          "user": "User",
         },
       };
 }

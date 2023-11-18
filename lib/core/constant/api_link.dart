@@ -15,6 +15,7 @@ class AppLink {
   static String signup = "$server/auth/signup.php";
   static String verify = "$server/auth/verify_code.php";
   static String login = "$server/auth/login.php";
+  static String loginAnonymous = "$server/auth/login_anon.php";
   static String resendVerify = "$server/auth/resend_verify.php";
   static String getUserDetails = "$server/auth/get_user_details.php";
 
@@ -81,5 +82,8 @@ class AppLink {
       '$server/userSetting/check_changed_email.php';
   static String verifyChangedEmail =
       '$server/userSetting/verify_changed_email.php';
-  static String changeUserBranch = '$server/userSetting/change_fav_branch.php';
+
+//============================ Branches ==============================//
+  static String changeUserBranch = '$server/branches/change_user_branch.php';
+  static String viewBranches = '$server/branches/view.php';
 }

@@ -1,13 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 String? dest;
 
 getDistance({lat1, lon1, lat2, lon2}) async {
+  String mapKey = dotenv.env['GMAP_API']!;
   String url =
-      // "https://maps.googleapis.com/maps/api/directions/json?origin=$lat1,$lon2&destination=$lat2,$lon2&key=AIzaSyCpZpQ5qZNIeapaqPtFwsC5T7QnO6zfOVc";
-      "https://maps.googleapis.com/maps/api/directions/json?origin=$lat1,$lon1&destination=$lat2,$lon2&key=AIzaSyCpZpQ5qZNIeapaqPtFwsC5T7QnO6zfOVc";
+      "https://maps.googleapis.com/maps/api/directions/json?origin=$lat1,$lon1&destination=$lat2,$lon2&key=$mapKey";
   var response = await http.post(Uri.parse(url));
   var responseBody = jsonDecode(response.body);
   print(responseBody);

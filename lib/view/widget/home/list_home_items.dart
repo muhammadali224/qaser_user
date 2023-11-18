@@ -20,15 +20,15 @@ class ListOffersHome extends GetView<HomeControllerImp> {
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, i) {
-            if (controller.itemsOffer.isNotEmpty) {
-              return OffersHomeCard(itemsModel: controller.itemsOffer[i]);
+            if (controller.itemsOfferList.isNotEmpty) {
+              return OffersHomeCard(itemsModel: controller.itemsOfferList[i]);
             } else {
               return Container();
             }
           },
-          itemCount: controller.itemsOffer.length > 3
+          itemCount: controller.itemsOfferList.length > 3
               ? 3
-              : controller.itemsOffer.length,
+              : controller.itemsOfferList.length,
         ));
   }
 }
@@ -46,8 +46,6 @@ class Items extends GetView<HomeControllerImp> {
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 5,
-        // color: Colors.grey[200],
-        // surfaceTintColor: Colors.grey[200],
         child: Column(
           children: [
             Expanded(

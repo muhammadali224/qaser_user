@@ -12,7 +12,7 @@ class HomeCategoriesList extends GetView<HomeControllerImp> {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: GridView.builder(
-            itemCount: controller.categories.length,
+            itemCount: controller.categoriesList.length,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -23,7 +23,7 @@ class HomeCategoriesList extends GetView<HomeControllerImp> {
             ),
             itemBuilder: (context, index) {
               return CategoriesHomeCard(
-                  i: index, categoriesModel: controller.categories[index]);
+                  i: index, categoriesModel: controller.categoriesList[index]);
             }));
   }
 }

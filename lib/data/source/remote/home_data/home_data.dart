@@ -1,15 +1,15 @@
-import '../../../core/class/crud.dart';
-import '../../../core/constant/api_link.dart';
+import '../../../../core/class/crud.dart';
+import '../../../../core/constant/api_link.dart';
 
 class HomeData {
   CRUD crud;
 
   HomeData(this.crud);
 
-  getData(int branchId, int userId) async {
+  getData(int branchId, String signed) async {
     var response = await crud.postData(AppLink.homePage, {
       'branch_id': branchId.toString(),
-      'user_id': userId.toString(),
+      'signed': signed,
     });
     return response.fold((l) => l, (r) => r);
   }
@@ -21,10 +21,15 @@ class HomeData {
     return response.fold((l) => l, (r) => r);
   }
 
+  getBranches() async {
+    var response = await crud.postData(AppLink.viewBranches, {});
+    return response.fold((l) => l, (r) => r);
+  }
+
   updateBranch(int branchId, int userId) async {
     var response = await crud.postData(AppLink.changeUserBranch, {
-      'id': userId.toString(),
-      'branch_id': branchId.toString(),
+      'userId': userId.toString(),
+      'branchId': branchId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }

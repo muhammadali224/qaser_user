@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../data/model/user_detail_model.dart';
+import '../../data/model/user_model/user_model.dart';
 
 class UserPreferences extends GetxService {
   UserModel? _user;
