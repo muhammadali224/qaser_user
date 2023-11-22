@@ -5,6 +5,7 @@ import 'package:jiffy/jiffy.dart';
 
 import '../../controller/notification_controller/notifications_controller.dart';
 import '../../core/class/handling_data_view.dart';
+import '../../data/shared/anonymous_user.dart';
 
 class MyNotifications extends StatelessWidget {
   const MyNotifications({Key? key}) : super(key: key);
@@ -23,14 +24,15 @@ class MyNotifications extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: controller.markAllRead,
-            icon: const Icon(
-              Icons.clear_all,
-              // color: Colors.red,
-              size: 30,
+          if (user.usersIsAnonymous == 0)
+            IconButton(
+              onPressed: controller.markAllRead,
+              icon: const Icon(
+                Icons.clear_all,
+                // color: Colors.red,
+                size: 30,
+              ),
             ),
-          ),
         ],
       ),
       body: GetBuilder<NotificationsController>(
@@ -64,7 +66,7 @@ class MyNotifications extends StatelessWidget {
                                     : Colors.grey.shade600),
                           ),
                           trailing: Text(
-                            Jiffy.parse(
+                            Jiffy.parseFromDateTime(
                               controller.data[index].notificationsTime!,
                             ).fromNow(),
                             style: TextStyle(
@@ -74,8 +76,8 @@ class MyNotifications extends StatelessWidget {
                                     ? Colors.black
                                     : Colors.grey.shade600),
                           ),
-                          leading:
-                              controller.data[index].notificationsIsRead == 0
+                          leading: user.usersIsAnonymous == 0
+                              ? controller.data[index].notificationsIsRead == 0
                                   ? Container(
                                       height: 10,
                                       width: 10,
@@ -84,7 +86,8 @@ class MyNotifications extends StatelessWidget {
                                         color: Colors.blue,
                                       ),
                                     )
-                                  : null,
+                                  : null
+                              : null,
                         ),
                       )
                     ],

@@ -30,8 +30,8 @@ class SignUp extends StatelessWidget {
                 .copyWith(color: AppColor.grey),
           ),
         ),
-        body: WillPopScope(
-          onWillPop: () => exitAlert(),
+        body: PopScope(
+          onPopInvoked: exitAlert,
           child: GetBuilder<SignUpControllerImp>(
             builder: (controller) => HandlingDataRequest(
               statusRequest: controller.statusRequest,

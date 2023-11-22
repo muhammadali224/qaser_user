@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 
 import '../constant/color.dart';
 
-exitAlert() {
-  return Get.defaultDialog(
+void exitAlert(state) {
+  Get.defaultDialog(
       radius: 15,
       title: 'attention'.tr,
       backgroundColor: AppColor.backgroundColor,

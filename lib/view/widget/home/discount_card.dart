@@ -25,6 +25,14 @@ class SwiperCard extends GetView<HomeControllerImp> {
             imageUrl:
                 "${AppLink.imageOffer}${controller.offerImagesList[index].offerImageUrl}",
             fit: BoxFit.fill,
+            imageBuilder: (_, imageProvider) => Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.fill,
+                  )),
+            ),
             placeholder: (context, url) =>
                 const Center(child: CircularProgressIndicator()),
             errorWidget: (context, url, error) => const Icon(

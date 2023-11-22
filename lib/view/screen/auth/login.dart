@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../../controller/auth_controller/login_controller.dart';
 import '../../../core/class/handling_data_view.dart';
 import '../../../core/constant/color.dart';
-import '../../../core/function/exit_alert.dart';
 import '../../../core/function/valid_input.dart';
 import '../../widget/auth/auth_button.dart';
 import '../../widget/auth/body_text.dart';
@@ -32,8 +31,8 @@ class Login extends StatelessWidget {
                 .copyWith(color: AppColor.grey),
           ),
         ),
-        body: WillPopScope(
-            onWillPop: () => exitAlert(),
+        body: PopScope(
+            canPop: false,
             child: GetBuilder<LoginControllerImp>(
                 builder: (controller) => HandlingDataRequest(
                       statusRequest: controller.statusRequest,

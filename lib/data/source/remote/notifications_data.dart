@@ -6,9 +6,11 @@ class NotificationsData {
 
   NotificationsData(this.crud);
 
-  getNotifications(int userId) async {
-    var response =
-        await crud.postData(AppLink.notifications, {'id': userId.toString()});
+  getNotifications(int userId, String isSigned) async {
+    var response = await crud.postData(AppLink.notifications, {
+      'id': userId.toString(),
+      "isSigned": isSigned,
+    });
     return response.fold((l) => l, (r) => r);
   }
 

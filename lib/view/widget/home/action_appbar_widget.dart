@@ -6,7 +6,6 @@ import 'package:icon_broken/icon_broken.dart';
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../core/constant/color.dart';
 
-// HomeControllerImp homeController = Get.find();
 List<Widget> actionList = [
   Center(
     child: GetBuilder<HomeControllerImp>(builder: (controller) {

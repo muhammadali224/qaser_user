@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
+import 'package:qaser_user/core/function/exit_alert.dart';
 
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../core/class/handling_data_view.dart';
@@ -23,55 +24,59 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeControllerImp controller = Get.put(HomeControllerImp());
 
-    return RefreshIndicator(
-      onRefresh: () => controller.getData(controller.selectedValue),
-      child: GetBuilder<HomeControllerImp>(builder: (controller) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const BranchDropDownList(),
-            leading: LeadingAppbar(onTap: controller.goToCart),
-            actions: actionList,
-          ),
-          body: ListView(
-            children: [
-              HandlingDataView(
-                  statusRequest: controller.statusRequest,
-                  widget: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      HeaderHelloText(
-                        imageUrl: user.usersImage ?? "null",
-                        name: user.usersIsAnonymous == 0
-                            ? user.usersName!
-                            : "user".tr,
-                        onTapped: controller.goToSettings,
-                      ),
-                      if (user.usersIsAnonymous == 1) const LoginContainer(),
-                      SearchFormField(
-                        controller: controller.search,
-                        hintTitle: 'findProduct',
-                        onSearchTap: () => controller.onSearchItems(),
-                        onSearchSubmitted: (val) => controller.onSearchItems(),
-                        // onChanged: (val) => controller.checkSearch(val),
-                      ),
-                      const SwiperCard(),
-                      const CustomHomeTitle(title: 'categories'),
-                      const HomeCategoriesList(),
-                      CustomHomeTitle(
-                        title: 'offers',
-                        withSeeAll: true,
-                        seeAllOnPressed: () => controller.goToOffers(),
-                      ),
-                      const ListOffersHome(),
-                      const CustomHomeTitle(title: 'topSelling'),
-                      const ListTopSellingHome(),
-                    ],
-                  ))
-            ],
-          ),
-        );
-      }),
+    return PopScope(
+      onPopInvoked: exitAlert,
+      child: RefreshIndicator(
+        onRefresh: () => controller.getData(controller.selectedValue),
+        child: GetBuilder<HomeControllerImp>(builder: (controller) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const BranchDropDownList(),
+              leading: LeadingAppbar(onTap: controller.goToCart),
+              actions: actionList,
+            ),
+            body: ListView(
+              children: [
+                HandlingDataView(
+                    statusRequest: controller.statusRequest,
+                    widget: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        HeaderHelloText(
+                          imageUrl: user.usersImage ?? "null",
+                          name: user.usersIsAnonymous == 0
+                              ? user.usersName!
+                              : "user".tr,
+                          onTapped: controller.goToSettings,
+                        ),
+                        if (user.usersIsAnonymous == 1) const LoginContainer(),
+                        SearchFormField(
+                          controller: controller.search,
+                          hintTitle: 'findProduct',
+                          onSearchTap: () => controller.onSearchItems(),
+                          onSearchSubmitted: (val) =>
+                              controller.onSearchItems(),
+                          // onChanged: (val) => controller.checkSearch(val),
+                        ),
+                        const SwiperCard(),
+                        const CustomHomeTitle(title: 'categories'),
+                        const HomeCategoriesList(),
+                        CustomHomeTitle(
+                          title: 'offers',
+                          withSeeAll: true,
+                          seeAllOnPressed: () => controller.goToOffers(),
+                        ),
+                        const ListOffersHome(),
+                        const CustomHomeTitle(title: 'topSelling'),
+                        const ListTopSellingHome(),
+                      ],
+                    ))
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }
