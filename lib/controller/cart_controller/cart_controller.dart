@@ -7,10 +7,9 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/color.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/user_preference.dart';
 import '../../data/model/cart_model.dart';
 import '../../data/model/item_count_model.dart';
-import '../../data/model/user_model/user_model.dart';
+import '../../data/shared/anonymous_user.dart';
 import '../../data/shared/branches.dart';
 import '../../data/source/remote/cart_data.dart';
 import '../../data/source/remote/checkout_data.dart';
@@ -36,8 +35,6 @@ abstract class CartController extends GetxController {
 }
 
 class CartControllerImp extends CartController {
-  final UserPreferences userManagement = Get.find<UserPreferences>();
-  late UserModel user;
   CartData cartData = CartData(Get.find());
   List<CartModel> data = [];
   TextEditingController couponController = TextEditingController();
@@ -189,8 +186,6 @@ class CartControllerImp extends CartController {
 
   @override
   void onInit() async {
-    await userManagement.initUser();
-    user = userManagement.user;
     noteController = TextEditingController();
     await getCart();
 

@@ -234,6 +234,8 @@ class MyTranslation extends Translations {
           "order_state_4": "تم إلغاء الطلب ",
           "order_state_5": "تم رفض الطلب من قبل المتجر",
           "user": "مستخدم",
+          "loginMessage": "للاستفادة من كل الخدمات يرجى ",
+          "goToLogin": "الذهاب لتسجيل الدخول",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -468,6 +470,8 @@ class MyTranslation extends Translations {
           "order_state_4": "Order Cancelled Successfully",
           "order_state_5": "The Order is Rejected by the Store",
           "user": "User",
+          "loginMessage": "To Benefit for All Services, ",
+          "goToLogin": "Please go to Login",
         },
       };
 }

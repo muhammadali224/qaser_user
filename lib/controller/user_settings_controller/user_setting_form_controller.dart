@@ -4,13 +4,12 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/services/services.dart';
-import '../../core/services/user_preference.dart';
+import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/user_details_data.dart';
 import 'user_setting_controller.dart';
 
 class UserSettingFormController extends GetxController {
   TextEditingController userTextController = TextEditingController();
-  final UserPreferences userManagement = Get.find<UserPreferences>();
 
   MyServices myServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
@@ -25,11 +24,11 @@ class UserSettingFormController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await userDetailsData.changeUserName(
-          userManagement.user.usersId!, userTextController.text);
+          user.usersId!, userTextController.text);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
-          myServices.sharedPref.setString('userName', userTextController.text);
+          //myServices.sharedPref.setString('userName', userTextController.text);
           Get.back();
           userController.getData();
           update();
@@ -47,11 +46,11 @@ class UserSettingFormController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await userDetailsData.changeUserPhone(
-          userManagement.user.usersId!, userTextController.text);
+          user.usersId!, userTextController.text);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
-          myServices.sharedPref.setString('userPhone', userTextController.text);
+          myServices.getBox.write('userPhone', userTextController.text);
           Get.back();
           userController.getData();
           update();
@@ -75,11 +74,5 @@ class UserSettingFormController extends GetxController {
     userTextController.dispose();
 
     super.dispose();
-  }
-
-  @override
-  void onInit() async {
-    await userManagement.initUser();
-    super.onInit();
   }
 }

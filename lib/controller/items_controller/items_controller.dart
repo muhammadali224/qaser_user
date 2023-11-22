@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/user_preference.dart';
 import '../../data/model/items_model.dart';
+import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/items_data.dart';
 import '../cart_controller/cart_controller.dart';
 
@@ -25,7 +25,6 @@ class ItemsControllerImp extends GetxController {
   late int selectedCategory;
   late int id;
   late int userId;
-  final UserPreferences userManagement = Get.find<UserPreferences>();
 
   ItemsData itemsData = ItemsData(Get.find());
   StatusRequest statusRequest = StatusRequest.loading;
@@ -46,7 +45,7 @@ class ItemsControllerImp extends GetxController {
     update();
   }
 
-  goToFavorite() {
+  goToFavorite() async {
     Get.toNamed(AppRoutes.myFavorite);
   }
 
@@ -55,7 +54,7 @@ class ItemsControllerImp extends GetxController {
     selectedCategory = Get.arguments['selectedCategories'];
     categories = Get.arguments['categories'];
     id = Get.arguments['id'];
-    userId = userManagement.user.usersId!;
+    userId = user.usersId!;
     getData(id);
   }
 
@@ -71,7 +70,7 @@ class ItemsControllerImp extends GetxController {
     var response = await itemsData.getData(
       categoriesId,
       userId,
-      userManagement.user.userFavBranchId!,
+      user.userFavBranchId!,
     );
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {

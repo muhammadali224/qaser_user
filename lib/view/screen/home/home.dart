@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../core/class/handling_data_view.dart';
+import '../../../data/shared/anonymous_user.dart';
 import '../../widget/home/action_appbar_widget.dart';
 import '../../widget/home/branch_dropdown.dart';
 import '../../widget/home/custom_home_title.dart';
@@ -12,6 +13,7 @@ import '../../widget/home/leading_appbar.dart';
 import '../../widget/home/list_home_categories.dart';
 import '../../widget/home/list_home_items.dart';
 import '../../widget/home/list_home_top_selling.dart';
+import '../../widget/login_container.dart';
 import '../../widget/search_form_field.dart';
 
 class Home extends StatelessWidget {
@@ -39,13 +41,13 @@ class Home extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       HeaderHelloText(
-                        imageUrl: controller.userManagement.user.usersImage!,
-                        name:
-                            controller.userManagement.user.usersIsAnonymous == 0
-                                ? controller.userManagement.user.usersName!
-                                : "user".tr,
+                        imageUrl: user.usersImage ?? "null",
+                        name: user.usersIsAnonymous == 0
+                            ? user.usersName!
+                            : "user".tr,
                         onTapped: controller.goToSettings,
                       ),
+                      if (user.usersIsAnonymous == 1) const LoginContainer(),
                       SearchFormField(
                         controller: controller.search,
                         hintTitle: 'findProduct',

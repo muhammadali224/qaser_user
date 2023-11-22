@@ -9,12 +9,11 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/function/show_snackbar.dart';
-import '../../core/services/user_preference.dart';
 import '../../data/model/user_model/user_model.dart';
+import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/user_details_data.dart';
 
 class UserSettingController extends GetxController {
-  final UserPreferences userManagement = Get.find<UserPreferences>();
   StatusRequest statusRequest = StatusRequest.none;
 
   UserDetailsData userDetailsData = UserDetailsData(Get.find());
@@ -47,8 +46,8 @@ class UserSettingController extends GetxController {
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
-        final user = UserModel.fromJson(response['data']);
-        await userManagement.setUser(user);
+        user = UserModel.fromJson(response['data']);
+
         update();
       } else {
         statusRequest = StatusRequest.failed;
@@ -63,7 +62,7 @@ class UserSettingController extends GetxController {
     var response = await userDetailsData.changeUserImage(
       {
         'id': userId,
-        'oldFile': userManagement.user.usersImage!,
+        'oldFile': user.usersImage!,
       },
       file!,
     );
@@ -97,8 +96,7 @@ class UserSettingController extends GetxController {
 
   @override
   void onInit() async {
-    await userManagement.initUser();
-    userId = userManagement.user.usersId!;
+    userId = user.usersId!;
     getData();
 
     super.onInit();

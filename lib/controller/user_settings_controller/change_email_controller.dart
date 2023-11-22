@@ -3,12 +3,11 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/user_preference.dart';
+import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/user_details_data.dart';
 import 'user_setting_controller.dart';
 
 class ChangeEmailController extends GetxController {
-  final UserPreferences userManagement = Get.find<UserPreferences>();
   late int userId;
 
   TextEditingController userTextController = TextEditingController();
@@ -28,16 +27,12 @@ class ChangeEmailController extends GetxController {
     var response = await userData.verifyCode(
       userId,
       userTextController.text,
-      userManagement.user.usersEmail!,
+      user.usersEmail!,
       code,
     );
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
-        // final user = userManagement.user;
-        // user.usersEmail = userTextController.text;
-        // await userManagement.setUser(user);
-        // myServices.sharedPref.setString('email', userTextController.text);
         Get.back();
         userController.getData();
       } else {
@@ -99,11 +94,5 @@ class ChangeEmailController extends GetxController {
   void dispose() {
     userTextController.dispose();
     super.dispose();
-  }
-
-  @override
-  void onInit() async {
-    await userManagement.initUser();
-    super.onInit();
   }
 }

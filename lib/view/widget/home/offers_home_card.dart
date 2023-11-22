@@ -6,6 +6,7 @@ import 'package:string_capitalize/string_capitalize.dart';
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
+import '../../../core/constant/get_box_key.dart';
 import '../../../core/function/translate_database.dart';
 import '../../../data/model/items_model.dart';
 import '../cached_network.dart';
@@ -70,9 +71,9 @@ class OffersHomeCard extends GetView<HomeControllerImp> {
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.9),
-                  borderRadius: controller.myServices.sharedPref
-                              .getString('language') ==
-                          'ar'
+                  borderRadius: controller.myServices.getBox
+                              .read(GetBoxKey.language) ==
+                          GetBoxKey.arLanguage
                       ? const BorderRadius.only(topLeft: Radius.circular(10))
                       : const BorderRadius.only(topRight: Radius.circular(10))),
               child: Text(

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/user_preference.dart';
 import '../../data/model/orders_model.dart';
+import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/orders_data.dart';
 import '../../data/source/remote/rate_orders_data.dart';
 
@@ -36,8 +36,6 @@ class OrdersController extends GetxController {
   List<OrdersModel> dataCompleted = [];
   List<OrdersModel> dataCanceled = [];
 
-  final UserPreferences userManagement = Get.find<UserPreferences>();
-
   OrdersData ordersData = OrdersData(Get.find());
   RateOrdersData ordersRateData = RateOrdersData(Get.find());
 
@@ -49,7 +47,7 @@ class OrdersController extends GetxController {
     dataPending.clear();
     statusRequest = StatusRequest.loading;
     update();
-    var response = await ordersData.getData(userManagement.user.usersId!);
+    var response = await ordersData.getData(user.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
@@ -100,7 +98,6 @@ class OrdersController extends GetxController {
 
   @override
   void onInit() async {
-    await userManagement.initUser();
     getOrders();
     super.onInit();
   }

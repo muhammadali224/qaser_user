@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
+import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
@@ -7,10 +7,11 @@ import '../../../controller/favorite_controller/my_favorite_controller.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
-import '../../../data/model/my_favorite_model.dart';
+import '../../../data/model/fav_model/fav_model.dart';
+import '../cached_network.dart';
 
 class CustomListFavoriteItems extends GetView<MyFavoriteController> {
-  final MyFavoriteModel itemsModel;
+  final FavoriteModel itemsModel;
 
   final void Function()? onCardPressed;
 
@@ -23,70 +24,99 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      // onTap: () => controller.goToDetails(itemsModel),
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Hero(
-                tag: "${itemsModel.itemsId}",
-                child: CachedNetworkImage(
-                  imageUrl: "${AppLink.imagesItems}${itemsModel.itemsImage}",
-                  height: 100,
-                  fit: BoxFit.fill,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                "${translateDatabase(itemsModel.itemsNameAr!, itemsModel.itemsName!.capitalizeEach())}",
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    color: AppColor.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text("4.6"),
-                  SizedBox(
-                    height: 25,
-                    child: Row(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        elevation: 10,
+        color: Colors.grey[200],
+        surfaceTintColor: Colors.grey[200],
+        child: Column(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Container(
+                width: double.infinity,
+                color: Colors.white,
+                child: Center(
+                  child: Hero(
+                    tag: "${itemsModel.itemsId}",
+                    child: Stack(
                       children: [
-                        ...List.generate(
-                          5,
-                          (index) => Icon(
-                            Icons.star,
-                            size: 17,
-                            color: index < 4 ? Colors.orange : null,
+                        CachedImage(
+                          imageUrl:
+                              "${AppLink.imagesItems}${itemsModel.itemsImage}",
+                          imageBuilder: (_, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            )),
                           ),
-                        )
+                        ),
+                        Badge(
+                          showBadge:
+                              itemsModel.itemsDiscount == 0 ? false : true,
+                          badgeContent: Text(
+                            "${itemsModel.itemsDiscount}%",
+                            style: TextStyle(
+                                color: AppColor.backgroundColor, fontSize: 20),
+                          ),
+                          badgeStyle: const BadgeStyle(
+                            padding: EdgeInsets.all(5),
+                            shape: BadgeShape.instagram,
+                            elevation: 5,
+                          ),
+                        ),
                       ],
                     ),
-                  )
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Text(
+                      "${translateDatabase(itemsModel.itemsNameAr!, itemsModel.itemsName!.capitalizeEach())}",
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("${itemsModel.itemsPrice} ${'jd'.tr}",
+                              style: TextStyle(
+                                  color: AppColor.marron,
+                                  fontWeight: FontWeight.bold)),
+                          GetBuilder<MyFavoriteController>(
+                            builder: (controller) => IconButton(
+                                onPressed: () {
+                                  controller.setFavorite(
+                                      itemsModel.itemsId!, 0);
+                                  controller
+                                      .removeFavorite(itemsModel.itemsId!);
+                                },
+                                icon: Icon(
+                                  Icons.favorite,
+                                  color: AppColor.red,
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("${itemsModel.itemsPrice} ${'jd'.tr}",
-                      style: TextStyle(
-                          color: AppColor.marron, fontWeight: FontWeight.bold)),
-                  IconButton(
-                      onPressed: () {
-                        controller.deleteFavoriteItems(
-                            itemsModel.favoriteId.toString());
-                      },
-                      icon: Icon(
-                        Icons.delete,
-                        color: AppColor.primaryColor,
-                      )),
-                ],
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

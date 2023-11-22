@@ -14,26 +14,26 @@ class LeadingAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: GetBuilder<CartControllerImp>(builder: (controller) {
-        return Badge(
-          showBadge: controller.ordersCount == 0 ? false : true,
-          badgeContent: Text(
-            controller.ordersCount.toString(),
-            style: TextStyle(
-                color: AppColor.backgroundColor, fontWeight: FontWeight.bold),
-          ),
-          badgeStyle: const BadgeStyle(shape: BadgeShape.circle),
-          position: BadgePosition.topStart(top: -15),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(100),
-            onTap: onTap,
-            child: const Icon(
-              IconBroken.Bag,
-              size: 30,
-            ),
-          ),
-        );
-      }),
+      child: GetBuilder<CartControllerImp>(
+          builder: (controller) => Badge(
+                showBadge: controller.ordersCount == 0 ? false : true,
+                badgeContent: Text(
+                  controller.ordersCount.toString(),
+                  style: TextStyle(
+                      color: AppColor.backgroundColor,
+                      fontWeight: FontWeight.bold),
+                ),
+                badgeStyle: const BadgeStyle(shape: BadgeShape.circle),
+                position: BadgePosition.topStart(top: -15),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(100),
+                  onTap: onTap,
+                  child: const Icon(
+                    IconBroken.Bag,
+                    size: 30,
+                  ),
+                ),
+              )),
     );
   }
 }

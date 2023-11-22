@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../constant/get_box_key.dart';
 import '../constant/routes.dart';
 import '../services/services.dart';
 
@@ -12,10 +13,10 @@ class MyMiddleWare extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    if (myServices.sharedPref.getString('step') == "1") {
+    if (myServices.getBox.read(GetBoxKey.step) == "1") {
       return const RouteSettings(name: AppRoutes.home);
     }
-    if (myServices.sharedPref.getString('step') == "2") {
+    if (myServices.getBox.read(GetBoxKey.step) == "2") {
       return const RouteSettings(name: AppRoutes.login);
     }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../core/constant/get_box_key.dart';
 import '../core/constant/routes.dart';
 import '../core/services/services.dart';
 import '../data/source/static/static.dart';
@@ -26,7 +27,7 @@ class OnBoardingControllerImp extends OnBoardingController {
   next() {
     currentPage++;
     if (currentPage > onboardingList.length - 1) {
-      myServices.sharedPref.setString('step', "1");
+      myServices.getBox.write(GetBoxKey.step, "1");
       Get.offAllNamed(AppRoutes.home);
     } else {
       pageController.animateToPage(currentPage,

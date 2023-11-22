@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/user_preference.dart';
-import '../../data/model/user_model/user_model.dart';
+import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/address_data.dart';
 
 class AddLocationDetailsController extends GetxController {
@@ -18,12 +17,10 @@ class AddLocationDetailsController extends GetxController {
   TextEditingController street = TextEditingController();
   TextEditingController note = TextEditingController();
   AddressData addressData = AddressData(Get.find());
-  final UserPreferences userManagement = Get.find<UserPreferences>();
 
   List<Placemark>? placeMarks;
 
   initData() async {
-    await userManagement.initUser();
     lat = Get.arguments['lat'];
     long = Get.arguments['long'];
 
@@ -31,7 +28,6 @@ class AddLocationDetailsController extends GetxController {
   }
 
   addAddress() async {
-    UserModel? user = userManagement.user;
     statusRequest = StatusRequest.loading;
     update();
     var response = await addressData.addAddress(

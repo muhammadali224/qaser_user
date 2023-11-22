@@ -1,5 +1,6 @@
 import '../../../core/class/crud.dart';
 import '../../../core/constant/api_link.dart';
+import '../../shared/branches.dart';
 
 class FavoriteData {
   CRUD crud;
@@ -21,14 +22,10 @@ class FavoriteData {
   }
 
   getFavorite(int userId) async {
-    var response =
-        await crud.postData(AppLink.getFavorite, {'id': userId.toString()});
-    return response.fold((l) => l, (r) => r);
-  }
-
-  deleteFavoriteItems(int id) async {
-    var response =
-        await crud.postData(AppLink.deleteFromFavorite, {'id': id.toString()});
+    var response = await crud.postData(AppLink.getFavorite, {
+      'id': userId.toString(),
+      'branchId': selectedBranch.branchId.toString(),
+    });
     return response.fold((l) => l, (r) => r);
   }
 }

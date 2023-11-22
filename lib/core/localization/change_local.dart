@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../constant/color.dart';
+import '../constant/get_box_key.dart';
 import '../constant/theme.dart';
 import '../function/fcm.dart';
 import '../services/services.dart';
@@ -14,8 +15,8 @@ class LocalController extends GetxController {
 
   changeLanguage(String languageCode) async {
     Locale locale = Locale(languageCode);
-    myServices.sharedPref.setString("language", languageCode);
-    if (languageCode == 'ar') {
+    myServices.getBox.write(GetBoxKey.language, languageCode);
+    if (languageCode == GetBoxKey.arLanguage) {
       appTheme = themeArabic;
     } else {
       appTheme = themeEnglish;
@@ -67,12 +68,12 @@ class LocalController extends GetxController {
     requestNotificationPermissions();
     fcmConfig();
     requestLocationPermissions();
-    String? sharedPrefLanguages = myServices.sharedPref.getString("language");
-    if (sharedPrefLanguages == 'ar') {
-      initLanguages = const Locale('ar');
+    String? getBoxLanguages = myServices.getBox.read(GetBoxKey.language);
+    if (getBoxLanguages == GetBoxKey.arLanguage) {
+      initLanguages = const Locale(GetBoxKey.arLanguage);
       appTheme = themeArabic;
-    } else if (sharedPrefLanguages == 'en') {
-      initLanguages = const Locale('en');
+    } else if (getBoxLanguages == GetBoxKey.enLanguage) {
+      initLanguages = const Locale(GetBoxKey.enLanguage);
       appTheme = themeEnglish;
     } else {
       initLanguages = Locale(Get.deviceLocale!.languageCode);

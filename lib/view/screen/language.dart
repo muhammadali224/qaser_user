@@ -24,7 +24,6 @@ class LanguageScreen extends GetView<LocalController> {
               onPressed: () {
                 controller.changeLanguage('ar');
                 Get.offNamed(AppRoutes.onBoarding);
-                // Get.offNamed(AppRoutes.login);
               },
             ),
             LanguagesButton(

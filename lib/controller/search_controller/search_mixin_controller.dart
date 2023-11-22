@@ -4,18 +4,16 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/user_preference.dart';
 import '../../data/model/items_model.dart';
 import '../../data/source/remote/home_data/home_data.dart';
 
 class SearchMixController extends GetxController {
   TextEditingController search = TextEditingController();
   bool isSearch = false;
-  late int selectedValue;
+  int selectedValue = 1;
   List<ItemsModel> listSearchResult = [];
   StatusRequest statusRequest = StatusRequest.none;
   HomeData homeData = HomeData(Get.find());
-  final UserPreferences userManagement = Get.find<UserPreferences>();
 
   onSearchItems() {
     if (search.text.isNotEmpty) {
@@ -56,11 +54,5 @@ class SearchMixController extends GetxController {
 
   goToSearchResult(List<ItemsModel> itemsModel) {
     Get.toNamed(AppRoutes.searchResult, arguments: {'itemsModel': itemsModel});
-  }
-
-  @override
-  void onInit() async {
-    await userManagement.initUser();
-    super.onInit();
   }
 }

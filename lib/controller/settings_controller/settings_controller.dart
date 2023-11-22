@@ -2,13 +2,13 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/constant/get_box_key.dart';
 import '../../core/constant/routes.dart';
 import '../../core/services/services.dart';
-import '../../core/services/user_preference.dart';
+import '../../data/shared/anonymous_user.dart';
 
 class SettingsController extends GetxController {
   MyServices myServices = Get.find();
-  final UserPreferences userManagement = Get.find<UserPreferences>();
 
   late bool switchVal;
   late int userId;
@@ -39,8 +39,8 @@ class SettingsController extends GetxController {
     Get.deleteAll();
     FirebaseMessaging.instance.unsubscribeFromTopic('users');
     FirebaseMessaging.instance.unsubscribeFromTopic("users$userId");
-    userManagement.clearUser();
-    myServices.sharedPref.setString('language', lang!);
+    // userManagement.clearUser();
+    myServices.getBox.write(GetBoxKey.language, lang!);
     Get.offAllNamed(AppRoutes.login);
   }
 
@@ -50,7 +50,7 @@ class SettingsController extends GetxController {
 
   toggleSwitchVal(bool val) {
     switchVal = val;
-    myServices.sharedPref.setBool('switchVal', val);
+    myServices.getBox.write(GetBoxKey.switchValueNotification, val);
     update();
     if (val == false) {
       FirebaseMessaging.instance.unsubscribeFromTopic('users');
@@ -63,8 +63,8 @@ class SettingsController extends GetxController {
 
   setLanguage(String language) {
     Locale locale = Locale(language);
-    myServices.sharedPref.setString('language', language);
-    lang = myServices.sharedPref.getString('language')!;
+    myServices.getBox.write(GetBoxKey.language, language);
+    lang = myServices.getBox.read(GetBoxKey.language)!;
 
     Get.back();
     update();
@@ -73,11 +73,11 @@ class SettingsController extends GetxController {
   }
 
   initData() async {
-    final user = userManagement.user;
     userId = user.usersId!;
     userName = user.usersName!;
-    switchVal = myServices.sharedPref.getBool('switchVal') ?? true;
-    lang = myServices.sharedPref.getString('language') ?? "ar";
+    switchVal =
+        myServices.getBox.read(GetBoxKey.switchValueNotification) ?? true;
+    lang = myServices.getBox.read(GetBoxKey.language) ?? GetBoxKey.arLanguage;
   }
 
   @override

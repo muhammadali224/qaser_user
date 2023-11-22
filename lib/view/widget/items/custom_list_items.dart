@@ -3,7 +3,7 @@ import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
-import '../../../controller/favorite_controller/favorite_controller.dart';
+import '../../../controller/favorite_controller/my_favorite_controller.dart';
 import '../../../controller/items_controller/items_controller.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
@@ -72,44 +72,50 @@ class CustomListItems extends GetView<ItemsControllerImp> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    "${translateDatabase(itemsModel.itemsNameAr!, itemsModel.itemsName!.capitalizeEach())}",
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 20),
+                  Expanded(
+                    child: Text(
+                      "${translateDatabase(itemsModel.itemsNameAr!, itemsModel.itemsName!.capitalizeEach())}",
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 20),
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("${itemsModel.itemsPrice} ${'jd'.tr}",
-                            style: TextStyle(
-                                color: AppColor.marron,
-                                fontWeight: FontWeight.bold)),
-                        GetBuilder<FavoriteController>(
-                          builder: (controller) => IconButton(
-                              onPressed: () {
-                                if (controller.isFavorite[itemsModel.itemsId] ==
-                                    1) {
-                                  controller.setFavorite(
-                                      itemsModel.itemsId!, 0);
-                                  controller
-                                      .removeFavorite(itemsModel.itemsId!);
-                                } else {
-                                  controller.setFavorite(
-                                      itemsModel.itemsId!, 1);
-                                  controller.addFavorite(itemsModel.itemsId!);
-                                }
-                              },
-                              icon: Icon(
-                                controller.isFavorite[itemsModel.itemsId] == 1
-                                    ? Icons.favorite
-                                    : Icons.favorite_border_outlined,
-                                color: AppColor.red,
-                              )),
-                        )
-                      ],
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("${itemsModel.itemsPrice} ${'jd'.tr}",
+                              style: TextStyle(
+                                  color: AppColor.marron,
+                                  fontWeight: FontWeight.bold)),
+                          GetBuilder<MyFavoriteController>(
+                            builder: (controller) => IconButton(
+                                onPressed: () {
+                                  if (controller
+                                          .isFavorite[itemsModel.itemsId] ==
+                                      1) {
+                                    controller.setFavorite(
+                                        itemsModel.itemsId!, 0);
+                                    controller
+                                        .removeFavorite(itemsModel.itemsId!);
+                                  } else {
+                                    controller.setFavorite(
+                                        itemsModel.itemsId!, 1);
+                                    controller.addFavorite(itemsModel.itemsId!);
+                                  }
+                                },
+                                icon: Icon(
+                                  controller.isFavorite[itemsModel.itemsId] == 1
+                                      ? Icons.favorite
+                                      : Icons.favorite_border_outlined,
+                                  color: AppColor.red,
+                                )),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],

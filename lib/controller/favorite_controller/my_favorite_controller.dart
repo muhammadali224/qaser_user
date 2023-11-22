@@ -1,29 +1,27 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
-import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/user_preference.dart';
-import '../../data/model/my_favorite_model.dart';
+import '../../data/model/fav_model/fav_model.dart';
+import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/favorite_data.dart';
 
 class MyFavoriteController extends GetxController {
-  FavoriteData myFavoriteData = FavoriteData(Get.find());
-  List data = [];
-  final UserPreferences userManagement = Get.find<UserPreferences>();
-
+  FavoriteData favoriteData = FavoriteData(Get.find());
+  List<FavoriteModel> data = [];
+  Map isFavorite = {};
   StatusRequest statusRequest = StatusRequest.none;
 
   getFavorite() async {
     data.clear();
     statusRequest = StatusRequest.loading;
-    var response =
-        await myFavoriteData.getFavorite(userManagement.user.usersId!);
+    var response = await favoriteData.getFavorite(user.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
         List responseData = response['data'];
-        data.addAll(responseData.map((e) => MyFavoriteModel.fromJson(e)));
+        data.addAll(responseData.map((e) => FavoriteModel.fromJson(e)));
       } else {
         statusRequest = StatusRequest.failed;
       }
@@ -31,19 +29,67 @@ class MyFavoriteController extends GetxController {
     update();
   }
 
-  deleteFavoriteItems(id) {
-    myFavoriteData.deleteFavoriteItems(id);
-    data.removeWhere((element) => element.favoriteId.toString() == id);
+  deleteFavoriteItems(int itemId) {
+    favoriteData.removeFavorite(user.usersId!, itemId);
+    data.removeWhere((element) => element.favoriteItemId == itemId);
     update();
   }
 
-  goToHome() {
-    Get.offAllNamed(AppRoutes.home);
+  setFavorite(int id, int val) {
+    isFavorite[id] = val;
+    update();
+  }
+
+  addFavorite(int itemsId) async {
+    statusRequest = StatusRequest.loading;
+    var response = await favoriteData.addFavorite(user.usersId!, itemsId);
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == 'success') {
+        !Get.isSnackbarOpen
+            ? Get.rawSnackbar(
+                message: "addFavorites".tr,
+                snackStyle: SnackStyle.GROUNDED,
+                icon: const Icon(
+                  Icons.favorite_rounded,
+                  color: Colors.red,
+                ),
+                duration: const Duration(seconds: 2),
+              )
+            : null;
+        getFavorite();
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
+  }
+
+  removeFavorite(int itemsId) async {
+    statusRequest = StatusRequest.loading;
+    var response = await favoriteData.removeFavorite(user.usersId!, itemsId);
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == 'success') {
+        !Get.isSnackbarOpen
+            ? Get.rawSnackbar(
+                message: "removeFavorites".tr,
+                icon: const Icon(
+                  Icons.info_outline,
+                  color: Colors.red,
+                ),
+                duration: const Duration(seconds: 2),
+              )
+            : null;
+        getFavorite();
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
+    update();
   }
 
   @override
   void onInit() async {
-    await userManagement.initUser();
     getFavorite();
 
     super.onInit();

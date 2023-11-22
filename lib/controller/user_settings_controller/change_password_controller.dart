@@ -4,12 +4,10 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/user_preference.dart';
+import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/user_details_data.dart';
 
 class ChangePasswordController extends GetxController {
-  final UserPreferences userManagement = Get.find<UserPreferences>();
-
   late TextEditingController password;
   late TextEditingController rePassword;
   late TextEditingController oldPassword;
@@ -81,11 +79,10 @@ class ChangePasswordController extends GetxController {
 
   @override
   void onInit() async {
-    await userManagement.initUser();
     password = TextEditingController();
     rePassword = TextEditingController();
     oldPassword = TextEditingController();
-    userId = userManagement.user.usersId!;
+    userId = user.usersId!;
     super.onInit();
   }
 

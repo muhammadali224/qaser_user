@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 
 import '../../core/class/status_request.dart';
+import '../../core/constant/get_box_key.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/services/services.dart';
@@ -10,15 +11,13 @@ import '../../data/model/categories_model.dart';
 import '../../data/model/items_model.dart';
 import '../../data/model/offers_image_model.dart';
 import '../../data/model/user_model/user_model.dart';
+import '../../data/shared/anonymous_user.dart';
 import '../../data/shared/branches.dart';
 import '../../data/source/remote/auth/login_data.dart';
-import '../cart_controller/cart_controller.dart';
 import '../search_controller/search_mixin_controller.dart';
 
 abstract class HomeController extends SearchMixController {
   Future<void> initData();
-
-  Future<void> getBranches();
 
   Future<void> getData(int branchId);
 
@@ -141,10 +140,6 @@ class HomeControllerImp extends HomeController {
   MyServices myServices = Get.find();
   final LoginData _loginData = LoginData(Get.find());
   int notificationsCount = 0;
-
-  CartControllerImp cartController =
-      Get.put<CartControllerImp>(CartControllerImp());
-  // late int selectedValue;
   bool isLoading = false;
   String? branchName;
 
@@ -159,11 +154,26 @@ class HomeControllerImp extends HomeController {
       clearAllList();
       statusRequest = StatusRequest.loading;
       update();
-      var response = await homeData.getData(branchId, "false");
+      var response = await homeData.getData(
+          branchId, "${myServices.getBox.read(GetBoxKey.isSigned) ?? "false"}");
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
+          if (response['branches']['status'] == 'success') {
+            List responseDataBranches = response['branches']['data'];
+            branchesList.addAll(
+                responseDataBranches.map((e) => BranchesModel.fromJson(e)));
+            if (branchId != 0) {
+              selectedValue = branchId;
+              selectedBranch = branchesList
+                  .singleWhere((element) => element.branchId == selectedValue);
+            } else {
+              selectedValue = branchesList[0].branchId!;
+              selectedBranch = branchesList
+                  .singleWhere((element) => element.branchId == selectedValue);
+            }
+          }
           if (response['categories']['status'] == 'success') {
             List responseDataCategories = response['categories']['data'];
             categoriesList.addAll(
@@ -209,43 +219,16 @@ class HomeControllerImp extends HomeController {
   Future<void> loginAnonymous() async {
     try {
       var response = await _loginData.loginAnonymous(
-          myServices.fireUser!.uid, selectedValue);
-      statusRequest = handlingData(response);
-      if (statusRequest == StatusRequest.success) {
-        if (response['status'] == 'success') {
-          final loginUser = UserModel.fromJson(response['data']);
-          userManagement.setUser(loginUser);
+        user.usersEmail!,
+        selectedValue,
+        user.usersName!,
+      );
+      // statusRequest = handlingData(response);
 
-          print(loginUser.toString());
-        } else {
-          statusRequest = StatusRequest.failed;
-        }
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-    update();
-  }
-
-  @override
-  Future<void> getBranches() async {
-    try {
-      branchesList.clear();
-      isLoading = true;
-      update();
-      var response = await homeData.getBranches();
-      statusRequest = handlingData(response);
-      if (statusRequest == StatusRequest.success) {
-        if (response['status'] == 'success') {
-          List responseData = response['data'];
-          branchesList
-              .addAll(responseData.map((e) => BranchesModel.fromJson(e)));
-          selectedValue = branchesList[0].branchId!;
-          selectedBranch = branchesList
-              .firstWhere((element) => element.branchId == selectedValue);
-          isLoading = false;
-          update();
-        }
+      if (response['status'] == 'success') {
+        user = UserModel.fromJson(response['data']);
+        myServices.getBox.write(GetBoxKey.user, user.toJson());
+        print(user.toString());
       } else {
         statusRequest = StatusRequest.failed;
       }
@@ -256,6 +239,7 @@ class HomeControllerImp extends HomeController {
   }
 
   clearAllList() {
+    branchesList.clear();
     categoriesList.clear();
     topSellingList.clear();
     itemsOfferList.clear();
@@ -272,8 +256,8 @@ class HomeControllerImp extends HomeController {
   }
 
   initLocalJiffy() async {
-    var lang = myServices.sharedPref.getString("language");
-    lang == 'ar'
+    var lang = myServices.getBox.read(GetBoxKey.language);
+    lang == GetBoxKey.arLanguage
         ? await Jiffy.setLocale('ar_sa')
         : await Jiffy.setLocale('en_us');
   }
@@ -298,12 +282,10 @@ class HomeControllerImp extends HomeController {
     Get.toNamed(AppRoutes.appSettings);
   }
 
-  onChangeDropButton(int? value) {
+  onChangeDropButton(int? value) async {
     if (value != selectedValue) {
       selectedValue = value!;
-      getData(selectedValue);
-      selectedBranch =
-          branchesList.firstWhere((element) => element.branchId == value);
+      await getData(selectedValue);
 
       // userManagement.user.userFavBranchId = int.parse(selectedValue);
       // updateUserBranch(int.parse(selectedValue));
@@ -314,10 +296,11 @@ class HomeControllerImp extends HomeController {
 
   @override
   void onInit() async {
-    await userManagement.initUser();
-    await getBranches();
-    await loginAnonymous();
-    getData(selectedValue);
+    getData(0);
+    if (myServices.getBox.read(GetBoxKey.isSigned) == false ||
+        myServices.getBox.read(GetBoxKey.isSigned) == null) {
+      await loginAnonymous();
+    }
 
     super.onInit();
   }

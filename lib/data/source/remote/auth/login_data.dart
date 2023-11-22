@@ -14,10 +14,11 @@ class LoginData {
     return response.fold((l) => l, (r) => r);
   }
 
-  loginAnonymous(String id, int branchId) async {
+  loginAnonymous(String id, int branchId, String userName) async {
     var response = await crud.postData(AppLink.loginAnonymous, {
       'id': id,
       'branchId': branchId.toString(),
+      'userName': userName,
     });
     return response.fold((l) => l, (r) => r);
   }

@@ -4,6 +4,7 @@ import 'package:icon_broken/icon_broken.dart';
 
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../core/constant/color.dart';
+import '../../../core/constant/get_box_key.dart';
 
 class CustomHomeTitle extends GetView<HomeControllerImp> {
   final String title;
@@ -20,7 +21,7 @@ class CustomHomeTitle extends GetView<HomeControllerImp> {
 
   @override
   Widget build(BuildContext context) {
-    var lang = controller.myServices.sharedPref.getString('language')!;
+    var lang = controller.myServices.getBox.read(GetBoxKey.language)!;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(

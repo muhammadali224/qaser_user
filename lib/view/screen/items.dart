@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
 
-import '../../controller/favorite_controller/favorite_controller.dart';
+import '../../controller/favorite_controller/my_favorite_controller.dart';
 import '../../controller/items_controller/items_controller.dart';
 import '../../core/class/handling_data_view.dart';
 import '../widget/items/custom_list_items.dart';
@@ -14,7 +14,7 @@ class Items extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ItemsControllerImp controller = Get.put(ItemsControllerImp());
-    FavoriteController favController = Get.put(FavoriteController());
+    MyFavoriteController favController = Get.put(MyFavoriteController());
     return Scaffold(
       appBar: AppBar(
         title: Text('categories'.tr),
@@ -27,7 +27,10 @@ class Items extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: controller.goToFavorite,
+            onPressed: () {
+              controller.goToFavorite();
+              favController.getFavorite();
+            },
             icon: const Icon(
               IconBroken.Heart,
               color: Colors.red,

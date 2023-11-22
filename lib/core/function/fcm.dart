@@ -7,7 +7,7 @@ import '../../controller/orders/orders_controller.dart';
 
 fcmConfig() {
   FirebaseMessaging.onMessage.listen((message) {
-    FlutterRingtonePlayer.playNotification();
+    FlutterRingtonePlayer().playNotification();
     Get.snackbar(
       message.notification!.title!.tr,
       message.notification!.body!.tr,

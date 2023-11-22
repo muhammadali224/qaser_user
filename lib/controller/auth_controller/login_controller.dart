@@ -4,11 +4,11 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
+import '../../core/constant/get_box_key.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/services/services.dart';
-import '../../core/services/user_preference.dart';
-import '../../data/model/user_model/user_model.dart';
+import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/auth/login_data.dart';
 
 abstract class LoginController extends GetxController {
@@ -29,7 +29,6 @@ class LoginControllerImp extends LoginController {
   StatusRequest statusRequest = StatusRequest.none;
 
   MyServices myServices = Get.find();
-  final UserPreferences userManagement = Get.find<UserPreferences>();
 
   showPassword() {
     isVisiblePassword = !isVisiblePassword;
@@ -49,12 +48,10 @@ class LoginControllerImp extends LoginController {
 
         if (StatusRequest.success == statusRequest) {
           if (response['status'] == 'success') {
-            final loginUser = UserModel.fromJson(response['data']);
-            userManagement.setUser(loginUser);
+            // final loginUser = UserModel.fromJson(response['data']);
 
-            final user = userManagement.user;
             if (user.usersApprove == 1) {
-              myServices.sharedPref.setString('step', "2");
+              myServices.getBox.write(GetBoxKey.step, "2");
               FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");
               FirebaseMessaging.instance.subscribeToTopic("signed");
               FirebaseMessaging.instance

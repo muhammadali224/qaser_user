@@ -5,6 +5,7 @@ import 'package:icon_broken/icon_broken.dart';
 import '../../../../controller/settings_controller/settings_controller.dart';
 import '../../../../core/constant/color.dart';
 import '../../../../core/function/view_select_languages_bottom_sheet.dart';
+import '../../../../data/shared/anonymous_user.dart';
 import '../../../widget/settings/header_card_setting.dart';
 import '../../../widget/settings/setting_group.dart';
 import '../../../widget/settings/setting_icon_style.dart';
@@ -37,7 +38,7 @@ class AppSettings extends StatelessWidget {
             child: ListView(
               children: [
                 HeaderCardSetting(
-                  imageUrl: controller.userManagement.user.usersImage ?? "",
+                  imageUrl: user.usersImage ?? "",
                   cardColor: Colors.red,
                   userName: controller.userName,
                   onTap: controller.goToUserSettings,
