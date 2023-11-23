@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:qaser_user/core/constant/get_box_key.dart';
+import 'package:qaser_user/core/services/services.dart';
 
 import 'setting_icon_style.dart';
 import 'setting_utils.dart';
@@ -29,6 +32,7 @@ class SettingsTileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MyServices myServices = Get.find();
     return ClipRRect(
       borderRadius: BorderRadius.circular(15),
       child: ListTile(
@@ -69,7 +73,10 @@ class SettingsTileItem extends StatelessWidget {
             : null,
         trailing: (trailing != null)
             ? trailing
-            : const Icon(IconBroken.Arrow___Left_2),
+            : Icon(myServices.getBox.read(GetBoxKey.language) ==
+                    GetBoxKey.arLanguage
+                ? IconBroken.Arrow___Left_2
+                : IconBroken.Arrow___Right_2),
       ),
     );
   }

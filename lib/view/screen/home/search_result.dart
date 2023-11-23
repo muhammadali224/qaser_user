@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 
 import '../../../controller/search_controller/search_result_controller.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/function/translate_database.dart';
+import '../../widget/back_appbar.dart';
 import '../../widget/home/no_result_search.dart';
 
 class SearchListResult extends StatelessWidget {
@@ -19,13 +19,7 @@ class SearchListResult extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("search".tr),
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            IconBroken.Arrow___Right_2,
-            size: 30,
-          ),
-        ),
+        leading: BackAppBar(),
       ),
       body: controller.listData.isEmpty
           ? const NoResultSearch()

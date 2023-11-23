@@ -6,6 +6,7 @@ import '../../controller/items_controller/item_details_controller.dart';
 import '../../core/class/handling_data_view.dart';
 import '../../core/constant/color.dart';
 import '../../core/function/translate_database.dart';
+import '../widget/back_appbar.dart';
 import '../widget/items_details/item_details_header.dart';
 import '../widget/items_details/items_details_desc.dart';
 import '../widget/items_details/top_stack_details.dart';
@@ -37,13 +38,7 @@ class ItemDetails extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(
-              IconBroken.Arrow___Right_2,
-              size: 30,
-            ),
-          ),
+          leading: BackAppBar(),
           title: Text(
             translateDatabase(controller.itemsModel.itemsNameAr!,
                 controller.itemsModel.itemsName!),

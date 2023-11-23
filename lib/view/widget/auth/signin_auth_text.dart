@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/constant/color.dart';
-
 class CustomSigninText extends StatelessWidget {
   final String account;
   final String sign;
@@ -23,7 +21,7 @@ class CustomSigninText extends StatelessWidget {
             child: Text(
               sign.tr,
               style: TextStyle(
-                  color: AppColor.primaryColor, fontWeight: FontWeight.bold),
+                  color: Colors.brown.shade700, fontWeight: FontWeight.bold),
             )),
       ],
     );

@@ -11,6 +11,7 @@ import '../../widget/auth/body_text.dart';
 import '../../widget/auth/custom_text_form_field.dart';
 import '../../widget/auth/herder_text.dart';
 import '../../widget/auth/signin_auth_text.dart';
+import '../../widget/back_appbar.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -20,8 +21,7 @@ class SignUp extends StatelessWidget {
     Get.put(SignUpControllerImp());
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColor.backgroundColor,
-          elevation: 0.0,
+          leading: BackAppBar(),
           title: Text(
             "signup".tr,
             style: Theme.of(context)

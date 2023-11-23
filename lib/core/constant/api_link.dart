@@ -25,6 +25,10 @@ class AppLink {
   static String verifyResetCode =
       "$server/forgetPassword/verify_reset_code.php";
 
+//========================= SMS =========================//
+  static String sendSMSVerify = "$server/auth/send_sms.php";
+  static String verifySMS = "$server/auth/verify_sms.php";
+
 //============================== Home  ==============================//
   static String homePage = '$server/home.php';
   static String notifications = '$server/notifications/view.php';

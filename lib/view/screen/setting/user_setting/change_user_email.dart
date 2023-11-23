@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 
 import '../../../../controller/user_settings_controller/change_email_controller.dart';
 import '../../../../core/class/handling_data_view.dart';
 import '../../../../core/function/valid_input.dart';
 import '../../../widget/auth/auth_button.dart';
 import '../../../widget/auth/custom_text_form_field.dart';
+import '../../../widget/back_appbar.dart';
 
 class ChangeEmail extends StatelessWidget {
   const ChangeEmail({super.key});
@@ -18,13 +18,7 @@ class ChangeEmail extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('email'.tr),
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            IconBroken.Arrow___Right_2,
-            size: 30,
-          ),
-        ),
+        leading: BackAppBar(),
       ),
       body: GetBuilder<ChangeEmailController>(builder: (controller) {
         return HandlingDataView(

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:qaser_user/view/screen/auth/sms/send_sms.dart';
+import 'package:qaser_user/view/screen/auth/sms/verify_sms.dart';
 
 import 'binding/cart_binding.dart';
 import 'binding/initial_binding.dart';
@@ -61,6 +63,9 @@ List<GetPage<dynamic>>? routes = [
   GetPage(
       name: AppRoutes.verificationCode, page: () => const VerificationCode()),
   GetPage(name: AppRoutes.resetPassword, page: () => const ResetPassword()),
+  GetPage(name: AppRoutes.loginWithSMS, page: () => const SendSMSVerify()),
+  GetPage(name: AppRoutes.confirmSMS, page: () => const SendSMSVerify()),
+  GetPage(name: AppRoutes.verifySMS, page: () => const VerifySMS()),
   GetPage(
       name: AppRoutes.successReset, page: () => const SuccessResetPassword()),
   GetPage(name: AppRoutes.successSignUp, page: () => const SuccessSignUp()),

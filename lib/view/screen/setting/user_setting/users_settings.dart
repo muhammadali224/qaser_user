@@ -5,6 +5,7 @@ import 'package:icon_broken/icon_broken.dart';
 import '../../../../controller/user_settings_controller/user_setting_controller.dart';
 import '../../../../core/class/handling_data_view.dart';
 import '../../../../data/shared/anonymous_user.dart';
+import '../../../widget/back_appbar.dart';
 import '../../../widget/settings/setting_group.dart';
 import '../../../widget/settings/setting_icon_style.dart';
 import '../../../widget/settings/setting_tile.dart';
@@ -20,13 +21,7 @@ class UserSetting extends StatelessWidget {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: Text('userSettings'.tr),
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            IconBroken.Arrow___Right_2,
-            size: 30,
-          ),
-        ),
+        leading: BackAppBar(),
         backgroundColor: Colors.grey[200],
       ),
       body: GetBuilder<UserSettingController>(

@@ -170,19 +170,6 @@ class AppSettings extends StatelessWidget {
                         color: AppColor.primaryColor,
                         fontWeight: FontWeight.bold),
                   ),
-                  SettingsTileItem(
-                    onTap: () {},
-                    icons: Icons.delete_forever_rounded,
-                    iconStyle: SettingIconStyle(
-                      iconsColor: Colors.white,
-                      withBackground: true,
-                      backgroundColor: Colors.red,
-                    ),
-                    title: 'deleteAccount'.tr,
-                    titleStyle: const TextStyle(
-                        color: Colors.red, fontWeight: FontWeight.bold),
-                    trailing: const Icon(Icons.delete_forever),
-                  ),
                 ])
               ],
             ),

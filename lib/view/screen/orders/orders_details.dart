@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:icon_broken/icon_broken.dart';
 import 'package:jiffy/jiffy.dart';
 
 import '../../../controller/orders/order_details_controller.dart';
 import '../../../core/class/handling_data_view.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
+import '../../widget/back_appbar.dart';
 import '../../widget/bottom_cart_button.dart';
 import '../../widget/orders_details/header_order_number.dart';
 import '../../widget/orders_details/headers_order_details.dart';
@@ -24,13 +24,7 @@ class OrdersDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('ordersDetails'.tr),
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            IconBroken.Arrow___Right_2,
-            size: 30,
-          ),
-        ),
+        leading: BackAppBar(),
       ),
       bottomNavigationBar: myController.ordersModel.ordersState == 0
           ? ButtomNavigatButton(

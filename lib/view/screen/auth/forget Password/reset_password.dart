@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 
 import '../../../../controller/forget_password_controller/reset_password_controller.dart';
 import '../../../../core/class/handling_data_view.dart';
@@ -10,6 +9,7 @@ import '../../../widget/auth/auth_button.dart';
 import '../../../widget/auth/body_text.dart';
 import '../../../widget/auth/custom_text_form_field.dart';
 import '../../../widget/auth/herder_text.dart';
+import '../../../widget/back_appbar.dart';
 
 class ResetPassword extends StatelessWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -19,15 +19,7 @@ class ResetPassword extends StatelessWidget {
     Get.put(ResetPasswordControllerImp());
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColor.backgroundColor,
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(
-              IconBroken.Arrow___Right_2,
-              size: 30,
-            ),
-          ),
-          elevation: 0.0,
+          leading: BackAppBar(),
           title: Text(
             "resetPasswordTitle".tr,
             style: Theme.of(context)

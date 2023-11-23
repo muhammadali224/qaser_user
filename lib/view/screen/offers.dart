@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 
 import '../../controller/favorite_controller/my_favorite_controller.dart';
 import '../../controller/offers_controller/offers_controller.dart';
 import '../../core/class/handling_data_view.dart';
+import '../widget/back_appbar.dart';
 import '../widget/items/custom_list_items.dart';
 
 class Offers extends StatelessWidget {
@@ -19,13 +19,7 @@ class Offers extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("offers".tr),
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            IconBroken.Arrow___Right_2,
-            size: 30,
-          ),
-        ),
+        leading: BackAppBar(),
       ),
       body: GetBuilder<OffersController>(
         builder: (controller) => Container(

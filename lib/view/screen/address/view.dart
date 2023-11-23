@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 
 import '../../../controller/address_controller/view_address_controller.dart';
 import '../../../core/class/handling_data_view.dart';
 import '../../../core/constant/routes.dart';
 import '../../widget/address/listTile_view.dart';
+import '../../widget/back_appbar.dart';
 
 class AddressView extends StatelessWidget {
   const AddressView({super.key});
@@ -16,13 +16,7 @@ class AddressView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("allAddress".tr),
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            IconBroken.Arrow___Right_2,
-            size: 30,
-          ),
-        ),
+        leading: BackAppBar(),
       ),
       body: GetBuilder<ViewAddressController>(
           builder: (controller) => HandlingDataView(

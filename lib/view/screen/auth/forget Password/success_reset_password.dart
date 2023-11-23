@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../controller/forget_password_controller/success_reset_controller.dart';
@@ -9,6 +8,7 @@ import '../../../../generated/assets.dart';
 import '../../../widget/auth/auth_button.dart';
 import '../../../widget/auth/body_text.dart';
 import '../../../widget/auth/herder_text.dart';
+import '../../../widget/back_appbar.dart';
 
 class SuccessResetPassword extends StatelessWidget {
   const SuccessResetPassword({Key? key}) : super(key: key);
@@ -19,15 +19,7 @@ class SuccessResetPassword extends StatelessWidget {
         Get.put(SuccessResetPasswordControllerImpl());
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColor.backgroundColor,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            IconBroken.Arrow___Right_2,
-            size: 30,
-          ),
-        ),
-        elevation: 0.0,
+        leading: BackAppBar(),
         title: Text(
           "success".tr,
           style: Theme.of(context)

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 
 import '../../../controller/address_controller/add_location_details_controller.dart';
 import '../../../core/class/handling_data_view.dart';
 import '../../../core/function/valid_input.dart';
 import '../../widget/auth/auth_button.dart';
 import '../../widget/auth/custom_text_form_field.dart';
+import '../../widget/back_appbar.dart';
 
 class AddLocationDetails extends StatelessWidget {
   const AddLocationDetails({super.key});
@@ -17,13 +17,7 @@ class AddLocationDetails extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text("addAddress".tr),
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(
-              IconBroken.Arrow___Right_2,
-              size: 30,
-            ),
-          ),
+          leading: BackAppBar(),
         ),
         body: Container(
           padding: const EdgeInsets.all(15),

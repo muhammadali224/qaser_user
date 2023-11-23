@@ -8,6 +8,7 @@ import '../../../generated/assets.dart';
 import '../../widget/auth/auth_button.dart';
 import '../../widget/auth/body_text.dart';
 import '../../widget/auth/herder_text.dart';
+import '../../widget/back_appbar.dart';
 
 class SuccessSignUp extends StatelessWidget {
   const SuccessSignUp({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class SuccessSignUp extends StatelessWidget {
         Get.put(SuccessSignUpControllerImpl());
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColor.backgroundColor,
+        leading: BackAppBar(),
         title: Text(
           "success".tr,
           style: Theme.of(context)

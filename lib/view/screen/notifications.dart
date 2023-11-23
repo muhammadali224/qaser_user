@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 import 'package:jiffy/jiffy.dart';
 
 import '../../controller/notification_controller/notifications_controller.dart';
 import '../../core/class/handling_data_view.dart';
 import '../../data/shared/anonymous_user.dart';
+import '../widget/back_appbar.dart';
 
 class MyNotifications extends StatelessWidget {
   const MyNotifications({Key? key}) : super(key: key);
@@ -16,13 +16,7 @@ class MyNotifications extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("notification".tr),
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            IconBroken.Arrow___Right_2,
-            size: 30,
-          ),
-        ),
+        leading: BackAppBar(),
         actions: [
           if (user.usersIsAnonymous == 0)
             IconButton(

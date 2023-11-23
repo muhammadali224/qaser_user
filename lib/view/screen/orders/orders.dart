@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 
 import '../../../controller/orders/orders_controller.dart';
+import '../../widget/back_appbar.dart';
 import '../../widget/orders/orders_appbar_tabs.dart';
 import '../../widget/orders/tab_all.dart';
 
@@ -18,13 +18,7 @@ class Orders extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: Text('myOrders'.tr),
-            leading: IconButton(
-              onPressed: () => Get.back(),
-              icon: const Icon(
-                IconBroken.Arrow___Right_2,
-                size: 30,
-              ),
-            ),
+            leading: BackAppBar(),
             bottom: TabBar(
               isScrollable: true,
               tabs: [

@@ -5,6 +5,7 @@ import 'package:icon_broken/icon_broken.dart';
 import '../../controller/favorite_controller/my_favorite_controller.dart';
 import '../../controller/items_controller/items_controller.dart';
 import '../../core/class/handling_data_view.dart';
+import '../widget/back_appbar.dart';
 import '../widget/items/custom_list_items.dart';
 import '../widget/items/list_items_categories.dart';
 
@@ -18,13 +19,7 @@ class Items extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('categories'.tr),
-        leading: IconButton(
-          onPressed: controller.appbarBack,
-          icon: const Icon(
-            IconBroken.Arrow___Right_2,
-            size: 30,
-          ),
-        ),
+        leading: BackAppBar(),
         actions: [
           IconButton(
             onPressed: () {

@@ -6,6 +6,7 @@ import 'package:icon_broken/icon_broken.dart';
 import '../../../controller/address_controller/add_controller.dart';
 import '../../../core/class/handling_data_view.dart';
 import '../../../core/constant/color.dart';
+import '../../widget/back_appbar.dart';
 
 class AddressAdd extends StatelessWidget {
   const AddressAdd({super.key});
@@ -17,13 +18,7 @@ class AddressAdd extends StatelessWidget {
       appBar: AppBar(
         title: Text("addAddress".tr),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            IconBroken.Arrow___Right_2,
-            size: 30,
-          ),
-        ),
+        leading: BackAppBar(),
       ),
       body: GetBuilder<AddAddressController>(
           builder: (myController) => HandlingDataView(

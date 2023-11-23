@@ -9,7 +9,8 @@ class LogoAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       Assets.imagesLogo,
-      height: 175,
+      fit: BoxFit.fill,
+      filterQuality: FilterQuality.high,
     );
   }
 }

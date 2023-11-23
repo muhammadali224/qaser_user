@@ -57,12 +57,16 @@ class MyTranslation extends Translations {
           'haveAccount': 'بالفعل لديك حساب ؟ قم بـ',
           'forgetHeader': 'التحقق من البريد الالكتروني',
           'forgetBody': 'الرجاء إدخال البريد الالكتروني ليتم ارسال رمز التحقق',
+          'mobileConfirm': 'الرجاء إدخال رقم الهاتف ليتم ارسال رمز التحقق',
           'forgetTitle': 'نسيت الرقم السري',
-          'checkEmail': 'تحقق!',
+          'checkEmail': 'تحقق من البريد الإلكتروني!',
+          'checkMobile': 'تحقق من رقم الهاتف',
           'verificationCode': 'رمز التحقق',
           'verificationHeader': 'التحقق من الرمز',
           'verificationBody':
               'أدخل رمز التحقق الذي تم إرساله الى البريد الالكتروني ',
+          'verificationSMSBody':
+              'أدخل رمز التحقق الذي تم إرساله الى رقم الهاتف ',
           'resetPasswordTitle': 'تغيير كلمة السر ',
           'resetPasswordHeader': 'إعادة تعيين كلمة السر',
           'resetPasswordBody': 'الرجاء كتابة كلمة سر جديدة ',
@@ -236,6 +240,10 @@ class MyTranslation extends Translations {
           "user": "مستخدم",
           "loginMessage": "للاستفادة من كل الخدمات يرجى ",
           "goToLogin": "الذهاب لتسجيل الدخول",
+          "or": "أو",
+          "loginSMS": "تسجيل الدخول بـ SMS",
+          "confirmSMS": "التحقق من رقم الهاتف",
+          "verifySMS": "تأكيد رقم الهاتف",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -290,13 +298,17 @@ class MyTranslation extends Translations {
           'dontHaveAccount': 'Don\'t have an Account ? ',
           'haveAccount': 'Already have an Account ? ',
           'forgetHeader': 'Check Email',
+          'checkMobile': 'Check Mobile Number',
           'forgetBody':
               'Please enter your Email to receive A Verification Code',
+          'mobileConfirm':
+              'Please enter your Phone Number to receive A Verification Code',
           'forgetTitle': 'Forget Password',
           'checkEmail': 'Check!',
           'verificationCode': 'Verification Code',
           'verificationHeader': 'Check Verification Code',
-          'verificationBody': 'Please Enter the Digit Code  Sent to ',
+          'verificationBody': 'Please Enter the Digit Code Sent To ',
+          'verificationSMSBody': 'Please Enter the 4 Digit Code Was Sent To ',
           'resetPasswordTitle': 'Change Password',
           'resetPasswordHeader': 'New Password',
           'resetPasswordBody': 'Please Enter the  New Password ',
@@ -472,6 +484,10 @@ class MyTranslation extends Translations {
           "user": "User",
           "loginMessage": "To Benefit for All Services, ",
           "goToLogin": "Please go to Login",
+          "or": "OR",
+          "loginSMS": "Login via SMS",
+          "confirmSMS": "Confirm Phone Number",
+          "verifySMS": "Verify Phone Number",
         },
       };
 }

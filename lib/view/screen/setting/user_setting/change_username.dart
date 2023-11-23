@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 
 import '../../../../controller/user_settings_controller/user_setting_form_controller.dart';
 import '../../../../core/class/handling_data_view.dart';
 import '../../../../core/function/valid_input.dart';
 import '../../../widget/auth/auth_button.dart';
 import '../../../widget/auth/custom_text_form_field.dart';
+import '../../../widget/back_appbar.dart';
 
 class ChangeUserName extends StatelessWidget {
   const ChangeUserName({super.key});
@@ -17,13 +17,7 @@ class ChangeUserName extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('userName'.tr),
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: const Icon(
-            IconBroken.Arrow___Right_2,
-            size: 30,
-          ),
-        ),
+        leading: BackAppBar(),
       ),
       body: GetBuilder<UserSettingFormController>(builder: (controller) {
         return HandlingDataView(

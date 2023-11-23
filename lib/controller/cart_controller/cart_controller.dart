@@ -1,14 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:qaser_user/core/services/services.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/color.dart';
+import '../../core/constant/get_box_key.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/cart_model.dart';
 import '../../data/model/item_count_model.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/shared/anonymous_user.dart';
 import '../../data/shared/branches.dart';
 import '../../data/source/remote/cart_data.dart';
@@ -39,7 +44,7 @@ class CartControllerImp extends CartController {
   List<CartModel> data = [];
   TextEditingController couponController = TextEditingController();
   TextEditingController? noteController;
-
+  MyServices myServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
   CheckoutData checkoutData = CheckoutData(Get.find());
   ViewAddressController addressController = Get.put(ViewAddressController());
@@ -186,6 +191,8 @@ class CartControllerImp extends CartController {
 
   @override
   void onInit() async {
+    user =
+        UserModel.fromJson(jsonDecode(myServices.getBox.read(GetBoxKey.user)));
     noteController = TextEditingController();
     await getCart();
 

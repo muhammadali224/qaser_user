@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 
 import '../../controller/favorite_controller/my_favorite_controller.dart';
 import '../../core/class/handling_data_view.dart';
+import '../widget/back_appbar.dart';
 import '../widget/my_favorite/custom_list_favorite_items.dart';
 
 class MyFavorite extends StatelessWidget {
@@ -15,13 +15,7 @@ class MyFavorite extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text("favorite".tr),
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(
-              IconBroken.Arrow___Right_2,
-              size: 30,
-            ),
-          ),
+          leading: BackAppBar(),
         ),
         body: GetBuilder<MyFavoriteController>(
           builder: (controller) => Container(

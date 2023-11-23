@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
+import 'package:qaser_user/controller/auth_controller/sms_controller.dart';
 
-import '../../../controller/auth_controller/verification_signup_controller.dart';
-import '../../../core/class/handling_data_view.dart';
-import '../../../core/constant/color.dart';
-import '../../widget/auth/body_text.dart';
-import '../../widget/auth/herder_text.dart';
-import '../../widget/back_appbar.dart';
+import '../../../../core/class/handling_data_view.dart';
+import '../../../../core/constant/color.dart';
+import '../../../widget/auth/body_text.dart';
+import '../../../widget/auth/herder_text.dart';
+import '../../../widget/back_appbar.dart';
 
-class VerificationSignUp extends StatelessWidget {
-  const VerificationSignUp({Key? key}) : super(key: key);
+class VerifySMS extends StatelessWidget {
+  const VerifySMS({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.put(VerifiedSignUpControllerImp());
+    Get.put(SMSController());
     return Scaffold(
         appBar: AppBar(
           leading: BackAppBar(),
@@ -26,7 +26,7 @@ class VerificationSignUp extends StatelessWidget {
                 .copyWith(color: AppColor.grey),
           ),
         ),
-        body: GetBuilder<VerifiedSignUpControllerImp>(
+        body: GetBuilder<SMSController>(
             builder: (controller) => HandlingDataRequest(
                   statusRequest: controller.statusRequest,
                   widget: Container(
@@ -38,28 +38,22 @@ class VerificationSignUp extends StatelessWidget {
                         const SizedBox(height: 10),
                         CustomBody(
                             bodyText:
-                                '${'verificationBody'.tr} ${controller.email}'),
+                                '${'verificationSMSBody'.tr} ${controller.phoneNumber.text}'),
                         const SizedBox(height: 20),
                         OtpTextField(
+                          showCursor: false,
                           autoFocus: true,
+                          disabledBorderColor: Colors.red,
+                          focusedBorderColor: AppColor.red,
                           fieldWidth: 50,
-                          borderRadius: BorderRadius.circular(15),
-                          numberOfFields: 5,
-                          borderColor: const Color(0xFF512DA8),
-                          //set to true to show as box or false to show as dash
-                          showFieldAsBox: true,
-                          //runs when a code is typed in
-                          onCodeChanged: (String code) {
-                            //handle validation or checks here
-                          },
-                          //runs when every textfield is filled
+                          showFieldAsBox: false,
                           onSubmit: (String verificationCode) {
-                            controller.checkCode(int.parse(verificationCode));
+                            controller.checkSMS(int.parse(verificationCode));
                           }, // end onSubmit
                         ),
                         TextButton(
                             onPressed: () {
-                              controller.resendVerify();
+                              // controller.resendVerify();
                             },
                             child: Text("resendVerify".tr))
                       ],

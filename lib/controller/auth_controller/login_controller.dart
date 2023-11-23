@@ -15,6 +15,7 @@ abstract class LoginController extends GetxController {
   login();
 
   goToSignUp();
+  goToLoginWithSMS();
 
   goToForgetPassword();
 }
@@ -110,5 +111,10 @@ class LoginControllerImp extends LoginController {
   @override
   goToForgetPassword() {
     Get.toNamed(AppRoutes.forgetPassword);
+  }
+
+  @override
+  goToLoginWithSMS() {
+    Get.toNamed(AppRoutes.loginWithSMS);
   }
 }

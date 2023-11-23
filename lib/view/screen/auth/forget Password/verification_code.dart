@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
 
 import '../../../../controller/forget_password_controller/verification_controller.dart';
 import '../../../../core/class/handling_data_view.dart';
 import '../../../../core/constant/color.dart';
 import '../../../widget/auth/body_text.dart';
 import '../../../widget/auth/herder_text.dart';
+import '../../../widget/back_appbar.dart';
 
 class VerificationCode extends StatelessWidget {
   const VerificationCode({Key? key}) : super(key: key);
@@ -17,15 +17,7 @@ class VerificationCode extends StatelessWidget {
     Get.put(VerifiedControllerImp());
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColor.backgroundColor,
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(
-              IconBroken.Arrow___Right_2,
-              size: 30,
-            ),
-          ),
-          elevation: 0.0,
+          leading: BackAppBar(),
           title: Text(
             "verificationCode".tr,
             style: Theme.of(context)
@@ -49,18 +41,13 @@ class VerificationCode extends StatelessWidget {
                                 '${'verificationBody'.tr} ${controller.email}'),
                         const SizedBox(height: 20),
                         OtpTextField(
+                          showCursor: false,
                           autoFocus: true,
+                          disabledBorderColor: Colors.red,
+                          focusedBorderColor: AppColor.red,
                           fieldWidth: 50,
-                          borderRadius: BorderRadius.circular(15),
                           numberOfFields: 5,
-                          borderColor: const Color(0xFF512DA8),
-                          //set to true to show as box or false to show as dash
-                          showFieldAsBox: true,
-                          //runs when a code is typed in
-                          onCodeChanged: (String code) {
-                            //handle validation or checks here
-                          },
-                          //runs when every textfield is filled
+                          showFieldAsBox: false,
                           onSubmit: (String verificationCode) {
                             controller.checkCode(int.parse(verificationCode));
                           }, // end onSubmit

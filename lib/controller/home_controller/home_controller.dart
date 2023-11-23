@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 
@@ -223,12 +225,9 @@ class HomeControllerImp extends HomeController {
         selectedValue,
         user.usersName!,
       );
-      // statusRequest = handlingData(response);
-
       if (response['status'] == 'success') {
         user = UserModel.fromJson(response['data']);
         myServices.getBox.write(GetBoxKey.user, user.toJson());
-        print(user.toString());
       } else {
         statusRequest = StatusRequest.failed;
       }
@@ -296,6 +295,8 @@ class HomeControllerImp extends HomeController {
 
   @override
   void onInit() async {
+    user = UserModel.fromJson(
+        jsonDecode(await myServices.getBox.read(GetBoxKey.user)));
     getData(0);
     if (myServices.getBox.read(GetBoxKey.isSigned) == false ||
         myServices.getBox.read(GetBoxKey.isSigned) == null) {
