@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/items_model.dart';
+import '../../data/model/items_model/items_model.dart';
 import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/items_data.dart';
 import '../cart_controller/cart_controller.dart';
@@ -17,7 +17,7 @@ abstract class ItemsController extends GetxController {
 
   changeChips(int i, String catVal);
 
-  goToDetails(ItemsModel itemsModel);
+  goToDetails(ItemModel itemModel);
 }
 
 class ItemsControllerImp extends GetxController {
@@ -28,8 +28,8 @@ class ItemsControllerImp extends GetxController {
 
   ItemsData itemsData = ItemsData(Get.find());
   StatusRequest statusRequest = StatusRequest.loading;
-  List<ItemsModel> items = [];
-  List<ItemsModel> offersList = [];
+  List<ItemModel> items = [];
+  List<ItemModel> offersList = [];
 
   CartControllerImp cartController = Get.find();
 
@@ -76,7 +76,7 @@ class ItemsControllerImp extends GetxController {
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
         List responseData = response['data'];
-        items.addAll(responseData.map((e) => ItemsModel.fromJson(e)));
+        items.addAll(responseData.map((e) => ItemModel.fromJson(e)));
       } else {
         statusRequest = StatusRequest.failed;
       }

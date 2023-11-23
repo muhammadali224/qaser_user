@@ -5,7 +5,7 @@ import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/item_count_model.dart';
 import '../../data/model/item_images_model.dart';
-import '../../data/model/items_model.dart';
+import '../../data/model/items_model/items_model.dart';
 import '../../data/model/sub_items_model.dart';
 import '../../data/source/remote/items_data.dart';
 import '../cart_controller/cart_controller.dart';
@@ -23,7 +23,7 @@ abstract class ItemDetailsController extends GetxController {
 }
 
 class ItemDetailsControllerImpl extends ItemDetailsController {
-  late ItemsModel itemsModel;
+  late ItemModel itemsModel;
   StatusRequest statusRequest = StatusRequest.none;
   ItemsData itemsData = ItemsData(Get.find());
   int itemsCount = 0;

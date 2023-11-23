@@ -88,6 +88,10 @@ class MyFavoriteController extends GetxController {
     update();
   }
 
+  // goToDetails(FavoriteModel ItemsModel) {
+  //   Get.toNamed(AppRoutes.itemDetails, arguments: {'itemsModel': ItemsModel});
+  // }
+
   @override
   void onInit() async {
     getFavorite();

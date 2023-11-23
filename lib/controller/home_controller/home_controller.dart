@@ -10,7 +10,7 @@ import '../../core/function/handling_data_controller.dart';
 import '../../core/services/services.dart';
 import '../../data/model/branches_model/branches_model.dart';
 import '../../data/model/categories_model.dart';
-import '../../data/model/items_model.dart';
+import '../../data/model/items_model/items_model.dart';
 import '../../data/model/offers_image_model.dart';
 import '../../data/model/user_model/user_model.dart';
 import '../../data/shared/anonymous_user.dart';
@@ -40,7 +40,7 @@ abstract class HomeController extends SearchMixController {
   onSearchItems();
 
   @override
-  goToDetails(ItemsModel itemsModel);
+  goToDetails(ItemModel itemsModel);
 
   void goToOffers();
 
@@ -116,8 +116,8 @@ class HomeControllerImp extends HomeController {
   late CartControllerImp cartControllerImp;
 
   List<CategoriesModel> categoriesList = [];
-  List<ItemsModel> topSellingList = [];
-  List<ItemsModel> itemsOfferList = [];
+  List<ItemModel> topSellingList = [];
+  List<ItemModel> itemsOfferList = [];
   List<OffersImageModel> offerImagesList = [];
 
   @override
@@ -154,12 +154,12 @@ class HomeControllerImp extends HomeController {
           if (response['items']['status'] == 'success') {
             List responseData = response['items']['data'];
             itemsOfferList
-                .addAll(responseData.map((e) => ItemsModel.fromJson(e)));
+                .addAll(responseData.map((e) => ItemModel.fromJson(e)));
           }
           if (response['topSelling']['status'] == 'success') {
             List responseDataTop = response['topSelling']['data'];
             topSellingList
-                .addAll(responseDataTop.map((e) => ItemsModel.fromJson(e)));
+                .addAll(responseDataTop.map((e) => ItemModel.fromJson(e)));
           }
 
           if (response['offer_images']['status'] == 'success') {

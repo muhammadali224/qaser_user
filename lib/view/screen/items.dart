@@ -52,7 +52,7 @@ class Items extends StatelessWidget {
                     itemBuilder: (context, index) {
                       favController
                               .isFavorite[controller.items[index].itemsId] =
-                          controller.items[index].favorite;
+                          controller.items[index].isFavorite;
                       return CustomListItems(
                           itemsModel: controller.items[index]);
                     }),

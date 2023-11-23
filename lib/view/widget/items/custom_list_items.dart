@@ -8,11 +8,11 @@ import '../../../controller/items_controller/items_controller.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
-import '../../../data/model/items_model.dart';
+import '../../../data/model/items_model/items_model.dart';
 import '../cached_network.dart';
 
 class CustomListItems extends GetView<ItemsControllerImp> {
-  final ItemsModel itemsModel;
+  final ItemModel itemsModel;
 
   const CustomListItems({super.key, required this.itemsModel});
 

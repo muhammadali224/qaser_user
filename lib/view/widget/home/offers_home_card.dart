@@ -8,11 +8,11 @@ import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/constant/get_box_key.dart';
 import '../../../core/function/translate_database.dart';
-import '../../../data/model/items_model.dart';
+import '../../../data/model/items_model/items_model.dart';
 import '../cached_network.dart';
 
 class OffersHomeCard extends GetView<HomeControllerImp> {
-  final ItemsModel itemsModel;
+  final ItemModel itemsModel;
 
   const OffersHomeCard({required this.itemsModel, super.key});
 

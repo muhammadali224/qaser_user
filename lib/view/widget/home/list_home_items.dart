@@ -6,7 +6,7 @@ import '../../../controller/home_controller/home_controller.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
-import '../../../data/model/items_model.dart';
+import '../../../data/model/items_model/items_model.dart';
 import '../cached_network.dart';
 import 'offers_home_card.dart';
 
@@ -34,7 +34,7 @@ class ListOffersHome extends GetView<HomeControllerImp> {
 }
 
 class Items extends GetView<HomeControllerImp> {
-  final ItemsModel itemsModel;
+  final ItemModel itemsModel;
 
   const Items({super.key, required this.itemsModel});
 

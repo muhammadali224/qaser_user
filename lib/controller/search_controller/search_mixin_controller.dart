@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/items_model.dart';
+import '../../data/model/items_model/items_model.dart';
 import '../../data/source/remote/home_data/home_data.dart';
 
 class SearchMixController extends GetxController {
   TextEditingController search = TextEditingController();
   bool isSearch = false;
   int selectedValue = 1;
-  List<ItemsModel> listSearchResult = [];
+  List<ItemModel> listSearchResult = [];
   StatusRequest statusRequest = StatusRequest.none;
   HomeData homeData = HomeData(Get.find());
 
@@ -38,8 +38,7 @@ class SearchMixController extends GetxController {
       if (response['status'] == 'success') {
         listSearchResult.clear();
         List responseData = response['data'];
-        listSearchResult
-            .addAll(responseData.map((e) => ItemsModel.fromJson(e)));
+        listSearchResult.addAll(responseData.map((e) => ItemModel.fromJson(e)));
       } else {
         //statusRequest = StatusRequest.failed;
       }
@@ -48,11 +47,11 @@ class SearchMixController extends GetxController {
     update();
   }
 
-  goToDetails(ItemsModel itemsModel) {
+  goToDetails(ItemModel itemsModel) {
     Get.toNamed(AppRoutes.itemDetails, arguments: {'itemsModel': itemsModel});
   }
 
-  goToSearchResult(List<ItemsModel> itemsModel) {
+  goToSearchResult(List<ItemModel> itemsModel) {
     Get.toNamed(AppRoutes.searchResult, arguments: {'itemsModel': itemsModel});
   }
 }

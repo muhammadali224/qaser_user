@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
-import '../../../data/model/items_model.dart';
+import '../../../data/model/items_model/items_model.dart';
 
 class ItemsDetailsTitle extends StatelessWidget {
-  final ItemsModel itemsModel;
+  final ItemModel itemsModel;
 
   const ItemsDetailsTitle({super.key, required this.itemsModel});
 
