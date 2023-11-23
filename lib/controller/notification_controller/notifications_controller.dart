@@ -18,8 +18,9 @@ class NotificationsController extends GetxController {
   getData() async {
     data.clear();
     statusRequest = StatusRequest.loading;
+    update();
     var response = await notificationsData.getNotifications(user.usersId!,
-        "${myServices.getBox.read(GetBoxKey.isSigned) ?? false}");
+        "${myServices.getBox.read(GetBoxKey.isSigned) ?? "false"}");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {

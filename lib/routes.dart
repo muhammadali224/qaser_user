@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:qaser_user/view/screen/auth/sms/send_sms.dart';
 import 'package:qaser_user/view/screen/auth/sms/verify_sms.dart';
 
-import 'binding/cart_binding.dart';
 import 'binding/initial_binding.dart';
 import 'core/constant/routes.dart';
 import 'core/middleware/middleware.dart';
@@ -49,7 +48,7 @@ List<GetPage<dynamic>>? routes = [
     name: AppRoutes.home,
     page: () => const Home(),
     bindings: [
-      CartBindings(),
+      // CartBindings(),
       InitBindings(),
     ],
   ),

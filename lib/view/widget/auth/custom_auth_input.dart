@@ -28,12 +28,12 @@ class CustomAuthInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     MyServices myServices = Get.find();
     return Container(
-      width: size.width * 0.9,
+      width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Align(
             alignment: myServices.getBox.read(GetBoxKey.language) ==

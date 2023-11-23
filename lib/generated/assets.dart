@@ -12,7 +12,7 @@ class Assets {
   static const String cairoCairoSemiBold =
       'assets/fonts/Cairo/Cairo-SemiBold.ttf';
   static const String imagesAvatar = 'assets/images/avatar.png';
-  static const String imagesLogo = 'assets/images/logo.jpg';
+  static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesLogo2 = 'assets/images/logo_2.jpg';
   static const String imagesOne = 'assets/images/one.PNG';
   static const String imagesThree = 'assets/images/three.PNG';

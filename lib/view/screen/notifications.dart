@@ -71,7 +71,11 @@ class MyNotifications extends StatelessWidget {
                                     : Colors.grey.shade600),
                           ),
                           leading: user.usersIsAnonymous == 0
-                              ? controller.data[index].notificationsIsRead == 0
+                              ? controller.data[index].notificationsIsRead ==
+                                          0 &&
+                                      controller.data[index]
+                                              .notificationsUserid !=
+                                          0
                                   ? Container(
                                       height: 10,
                                       width: 10,

@@ -1,7 +1,7 @@
-import 'dart:convert';
-
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:qaser_user/controller/cart_controller/cart_controller.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/get_box_key.dart';
@@ -44,41 +44,10 @@ abstract class HomeController extends SearchMixController {
 
   void goToOffers();
 
-  Future<void> updateUserBranch(int branchId);
+  Future<void> updateUserBranch();
+
+  Future<void> getUserDetails();
 }
-//
-// class HomeControllerImp extends HomeController {
-//   @override
-//   initData() async {
-//     // await userManagement.initUser();
-//
-//     search = TextEditingController();
-//     // userName = userManagement.user.usersName!;
-//     // userId = userManagement.user.usersId!;
-//     await getUserDetails();
-//     initLocalJiffy();
-//     // cartController.getCart();
-//     getData(1);
-//   }
-//
-//
-//   @override
-//   updateUserBranch(branchId) async {
-//     var response = await homeData.updateBranch(branchId, userId);
-//     statusRequest = handlingData(response);
-//     if (statusRequest == StatusRequest.success) {
-//       if (response['status'] == 'success') {
-//         await getUserDetails();
-//         getData(branchId);
-//         // cartController.getCart();
-//         update();
-//       } else {
-//         statusRequest = StatusRequest.failed;
-//       }
-//     }
-//     update();
-//   }
-//
 
 //
 //   getUserDetails() async {
@@ -144,6 +113,7 @@ class HomeControllerImp extends HomeController {
   int notificationsCount = 0;
   bool isLoading = false;
   String? branchName;
+  late CartControllerImp cartControllerImp;
 
   List<CategoriesModel> categoriesList = [];
   List<ItemsModel> topSellingList = [];
@@ -167,7 +137,7 @@ class HomeControllerImp extends HomeController {
             branchesList.addAll(
                 responseDataBranches.map((e) => BranchesModel.fromJson(e)));
             if (branchId != 0) {
-              selectedValue = branchId;
+              selectedValue = user.userFavBranchId!;
               selectedBranch = branchesList
                   .singleWhere((element) => element.branchId == selectedValue);
             } else {
@@ -197,13 +167,58 @@ class HomeControllerImp extends HomeController {
             offerImagesList.addAll(
                 responseOffers.map((e) => OffersImageModel.fromJson(e)));
           }
-          if (response['notifications']['status'] == 'success') {
-            notificationsCount =
-                response['notifications']['count']['countNotification'];
-          }
         } else {
           statusRequest = StatusRequest.failed;
         }
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+    update();
+  }
+
+  @override
+  initData() async {
+    initLocalJiffy();
+    if (myServices.getBox.read(GetBoxKey.user) != null) {
+      user = userModelFromJson(await myServices.getBox.read(GetBoxKey.user));
+      getData(user.userFavBranchId!);
+      selectedValue = user.userFavBranchId!;
+      if (user.usersIsAnonymous == 0) {
+        getUserDetails();
+      }
+    } else {
+      getData(0);
+    }
+  }
+
+  @override
+  updateUserBranch() async {
+    try {
+      var response = await homeData.updateBranch(selectedValue, user.usersId!);
+      if (response['status'] == 'success') {
+        user = UserModel.fromJson(response['data']);
+        myServices.getBox.write(GetBoxKey.user, userModelToJson(user));
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+    update();
+  }
+
+  @override
+  Future<void> loginAnonymous() async {
+    try {
+      var response = await _loginData.loginAnonymous(
+        myServices.androidDeviceInfo.id,
+        selectedValue,
+        myServices.androidDeviceInfo.type,
+      );
+      if (response['status'] == 'success') {
+        user = UserModel.fromJson(response['data']);
+        myServices.getBox.write(GetBoxKey.user, userModelToJson(user));
+      } else {
+        statusRequest = StatusRequest.failed;
       }
     } catch (e) {
       print(e.toString());
@@ -212,27 +227,26 @@ class HomeControllerImp extends HomeController {
   }
 
   @override
-  initData() async {}
-
-  @override
-  updateUserBranch(int branchId) async {}
-
-  @override
-  Future<void> loginAnonymous() async {
+  Future<void> getUserDetails() async {
     try {
-      var response = await _loginData.loginAnonymous(
-        user.usersEmail!,
-        selectedValue,
-        user.usersName!,
-      );
+      var response = await homeData.getUserDetails(user.usersId!);
       if (response['status'] == 'success') {
         user = UserModel.fromJson(response['data']);
-        myServices.getBox.write(GetBoxKey.user, user.toJson());
-      } else {
-        statusRequest = StatusRequest.failed;
+        myServices.getBox.write(GetBoxKey.user, userModelToJson(user));
+        if (user.usersApprove == 2) {
+          SmartDialog.showNotify(
+              msg: "userBlocked".tr,
+              notifyType: NotifyType.warning,
+              onDismiss: () {
+                myServices.getBox.erase();
+                Get.offAllNamed(AppRoutes.login);
+              });
+          // myServices.getBox.erase();
+          // Get.offAllNamed(AppRoutes.login);
+        }
       }
     } catch (e) {
-      print(e.toString());
+      throw Exception(e);
     }
     update();
   }
@@ -284,25 +298,21 @@ class HomeControllerImp extends HomeController {
   onChangeDropButton(int? value) async {
     if (value != selectedValue) {
       selectedValue = value!;
-      await getData(selectedValue);
 
-      // userManagement.user.userFavBranchId = int.parse(selectedValue);
-      // updateUserBranch(int.parse(selectedValue));
-
+      await updateUserBranch();
+      getData(selectedValue);
       update();
     }
   }
 
   @override
   void onInit() async {
-    user = UserModel.fromJson(
-        jsonDecode(await myServices.getBox.read(GetBoxKey.user)));
-    getData(0);
-    if (myServices.getBox.read(GetBoxKey.isSigned) == false ||
-        myServices.getBox.read(GetBoxKey.isSigned) == null) {
+    initData();
+
+    if (myServices.getBox.read(GetBoxKey.isSigned) != true) {
       await loginAnonymous();
     }
-
+    cartControllerImp = Get.put(CartControllerImp(), permanent: true);
     super.onInit();
   }
 }

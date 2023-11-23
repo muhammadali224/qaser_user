@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
@@ -8,12 +6,10 @@ import 'package:qaser_user/core/services/services.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/color.dart';
-import '../../core/constant/get_box_key.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/cart_model.dart';
 import '../../data/model/item_count_model.dart';
-import '../../data/model/user_model/user_model.dart';
 import '../../data/shared/anonymous_user.dart';
 import '../../data/shared/branches.dart';
 import '../../data/source/remote/cart_data.dart';
@@ -50,7 +46,7 @@ class CartControllerImp extends CartController {
   ViewAddressController addressController = Get.put(ViewAddressController());
 
   String deliveryFee = "0";
-
+  bool isLoading = false;
   double totalPrice = 0.0;
   double discount = 0.0;
   int ordersCount = 0;
@@ -146,6 +142,7 @@ class CartControllerImp extends CartController {
   getCart() async {
     data.clear();
     statusRequest = StatusRequest.loading;
+    isLoading = true;
     update();
     var response = await cartData.getCart(user.usersId!);
     statusRequest = handlingData(response);
@@ -156,7 +153,6 @@ class CartControllerImp extends CartController {
           data.addAll(responseData.map((e) => CartModel.fromJson(e)));
         } else {
           statusRequest = StatusRequest.emptyCart;
-
           update();
         }
         if (response['total']['status'] == 'success') {
@@ -170,6 +166,7 @@ class CartControllerImp extends CartController {
         statusRequest = StatusRequest.failed;
       }
     }
+    isLoading = false;
     update();
   }
 
@@ -191,9 +188,9 @@ class CartControllerImp extends CartController {
 
   @override
   void onInit() async {
-    user =
-        UserModel.fromJson(jsonDecode(myServices.getBox.read(GetBoxKey.user)));
-    noteController = TextEditingController();
+    // user =
+    //     UserModel.fromJson(jsonDecode(myServices.getBox.read(GetBoxKey.user)));
+    // noteController = TextEditingController();
     await getCart();
 
     super.onInit();

@@ -55,11 +55,12 @@ class SMSController extends GetxController {
           if (response['status'] == "success") {
             if (response["user"]['status'] == "success" &&
                 response["SMSVerify"]['message'] == "Verified") {
-              var responseList = response["user"]['data'];
-              user = UserModel.fromJson(responseList);
-              await myServices.getBox.write(GetBoxKey.user, user.toJson());
-              await myServices.getBox.write(GetBoxKey.isSigned, true);
               Get.offAllNamed(AppRoutes.home);
+              ;
+              user = UserModel.fromJson(response["user"]["data"]);
+              await myServices.getBox
+                  .write(GetBoxKey.user, userModelToJson(user));
+              await myServices.getBox.write(GetBoxKey.isSigned, true);
             } else if (response["user"]['status'] == "failed") {}
           }
         }

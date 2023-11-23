@@ -244,6 +244,8 @@ class MyTranslation extends Translations {
           "loginSMS": "تسجيل الدخول بـ SMS",
           "confirmSMS": "التحقق من رقم الهاتف",
           "verifySMS": "تأكيد رقم الهاتف",
+          "userBlocked":
+              "تم حظر هذ الحساب من قبل المتجر الرجاء التواصل مع المتجر لحل المشكلة",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -488,6 +490,8 @@ class MyTranslation extends Translations {
           "loginSMS": "Login via SMS",
           "confirmSMS": "Confirm Phone Number",
           "verifySMS": "Verify Phone Number",
+          "userBlocked":
+              "This Account is Blocked by the Store ,Please Contact the Store",
         },
       };
 }

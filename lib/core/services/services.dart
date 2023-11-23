@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,6 +14,7 @@ import '../constant/get_box_key.dart';
 class MyServices extends GetxService {
   late GetStorage getBox;
   String? deviceId;
+  late AndroidDeviceInfo androidDeviceInfo;
   late FirebaseMessaging fireMessaging;
 
   Future<MyServices> init() async {
@@ -26,40 +25,19 @@ class MyServices extends GetxService {
     getBox = GetStorage();
 
     await dotenv.load(fileName: ".env");
-
     var deviceInfo = DeviceInfoPlugin();
-    var androidDeviceInfo = await deviceInfo.androidInfo;
+    androidDeviceInfo = await deviceInfo.androidInfo;
+    // getBox.erase();
     fireMessaging = FirebaseMessaging.instance;
     try {
-      if (getBox.read(GetBoxKey.user) == null) {
-        user = UserModel(
-          usersApprove: 0,
-          usersName: "user",
-          usersPhone: androidDeviceInfo.id,
-          usersEmail: androidDeviceInfo.id,
-          usersImage: "user.png",
-          usersPassword: androidDeviceInfo.id,
-          usersIsAnonymous: 1,
-        );
-        await getBox.write(GetBoxKey.user, user.toJson());
-      } else {
-        // var res = jsonEncode(await getBox.read(GetBoxKey.user));
-        // print(res.runtimeType);
-        // print(res);
-        // var res2 = jsonDecode(res);
-        // print(res2.runtimeType);
-        // print(res2);
-        user = UserModel.fromJson(
-            jsonDecode(jsonEncode(await getBox.read(GetBoxKey.user))));
-        // user =
-        //     jsonEncode(await getBox.read(GetBoxKey.user));
+      if (getBox.read(GetBoxKey.user) != null) {
+        user = userModelFromJson(await getBox.read(GetBoxKey.user));
       }
     } catch (e) {
       throw Exception(e);
     }
 
-    if (getBox.read(GetBoxKey.isSigned) == false ||
-        getBox.read(GetBoxKey.isSigned) == null) {
+    if (getBox.read(GetBoxKey.isSigned) != true) {
       fireMessaging.subscribeToTopic("all");
       fireMessaging.subscribeToTopic("notSigned");
       fireMessaging.unsubscribeFromTopic("signed");

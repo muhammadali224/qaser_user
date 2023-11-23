@@ -44,7 +44,7 @@ class Login extends StatelessWidget {
                           CustomSigninText(
                             account: 'dontHaveAccount',
                             sign: 'signup',
-                            onTap: () => controller.goToSignUp(),
+                            onTap: controller.goToSignUp,
                           )
                         ],
                       ),
