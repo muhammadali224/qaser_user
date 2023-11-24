@@ -14,7 +14,7 @@ class ItemDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ItemDetailsControllerImpl controller = Get.put(ItemDetailsControllerImpl());
+    Get.put(ItemDetailsControllerImpl());
     // return Scaffold(
     //   backgroundColor: Colors.grey[100],
     //   bottomNavigationBar: Container(
