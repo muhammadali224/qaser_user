@@ -44,7 +44,7 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   @override
   initData() async {
     statusRequest = StatusRequest.loading;
-    itemsModel = Get.arguments['itemsModel'];
+    itemsModel = Get.arguments;
     itemCountModel = await cartController.getCount(itemsModel.itemsId!);
     itemsCount = itemCountModel.countItems!;
 

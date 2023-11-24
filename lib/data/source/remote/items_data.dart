@@ -15,9 +15,10 @@ class ItemsData {
     return response.fold((l) => l, (r) => r);
   }
 
-  getOffers(int branchId) async {
+  getOffers(int branchId, int userId) async {
     var response = await crud.postData(AppLink.offersItems, {
       'branch_id': branchId.toString(),
+      'userid': userId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }

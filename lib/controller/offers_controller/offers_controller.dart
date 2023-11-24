@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:qaser_user/data/shared/anonymous_user.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
@@ -14,7 +15,8 @@ class OffersController extends GetxController {
   getOffersItems() async {
     offersItems.clear();
     statusRequest = StatusRequest.loading;
-    var response = await itemsData.getOffers(100);
+    var response =
+        await itemsData.getOffers(user.userFavBranchId!, user.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {

@@ -85,6 +85,6 @@ class ItemsControllerImp extends GetxController {
   }
 
   goToDetails(itemsModel) {
-    Get.toNamed(AppRoutes.itemDetails, arguments: {'itemsModel': itemsModel});
+    Get.toNamed(AppRoutes.itemDetails, arguments: itemsModel);
   }
 }
