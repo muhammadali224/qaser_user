@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
+import 'package:qaser_user/data/shared/weight_size.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/items_model/items_model.dart';
-import '../../data/model/sub_items_model.dart';
+import '../../data/model/sub_items_model/sub_items_model.dart';
 import '../../data/source/remote/items_data.dart';
 import '../cart_controller/cart_controller.dart';
 
@@ -26,7 +27,6 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   ItemsData itemsData = ItemsData(Get.find());
   RxInt itemsCount = 0.obs;
 
-  List<SubItemsModel> weightAndSize = [];
   SubItemsModel selectedWeightAndSize = SubItemsModel();
   CartControllerImp cartController = Get.find();
 
@@ -48,7 +48,7 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
       subItemNameAr: itemsModel.subItemNameAr,
     );
 
-    // getSubItems();
+    getSubItems();
   }
 
   num getPrice() {
@@ -80,22 +80,20 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
 
   @override
   getSubItems() async {
-    weightAndSize.clear();
-    statusRequest = StatusRequest.loading;
-    var response = await itemsData.getSubItems(itemsModel.itemsId!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        if (response['size_weight']['status'] == 'success') {
-          List responseData = response['size_weight']['data'];
-          weightAndSize
+    if (subItemsList.isEmpty) {
+      var response = await itemsData.getSubItems();
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          List responseData = response['data'];
+          subItemsList
               .addAll(responseData.map((e) => SubItemsModel.fromJson(e)));
+        } else {
+          statusRequest = StatusRequest.failed;
         }
-      } else {
-        statusRequest = StatusRequest.failed;
       }
+      update();
     }
-    update();
   }
 
   setSelectedWeightAndSize(SubItemsModel subItemsModel) {

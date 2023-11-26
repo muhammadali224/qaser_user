@@ -94,7 +94,42 @@ class ItemDetails extends StatelessWidget {
                                 itemsModel: controller.itemsModel)),
                         SectionTitle(title: "price"),
                         Card(
-                          child: Container(),
+                          child: Container(
+                              // padding: EdgeInsets.all(10),
+                              child: GridView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            padding: EdgeInsets.all(10),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 4),
+                            itemBuilder: (BuildContext context, int index) {
+                              return null;
+                            },
+
+                            // : subItemsList
+                            //     .where((element) => controller
+                            //         .itemsModel.weighIds!
+                            //         .contains("${element.weightSizeId}"))
+                            //     .map((e) =>
+                            //     Container(
+                            //           margin: EdgeInsets.symmetric(
+                            //               horizontal: 5, vertical: 5),
+                            //           width: 80,
+                            //           height: 100,
+                            //           decoration: BoxDecoration(
+                            //               color: Colors.red,
+                            //               borderRadius:
+                            //                   BorderRadius.circular(15)),
+                            //           child: Column(
+                            //
+                            //             children: [
+                            //               Text("${translateDatabase(, e.name)}")
+                            //             ],
+                            //           ),
+                            //         ))
+                            //     .toList(),
+                          )),
                         ),
                         SectionTitle(title: "description"),
                         Card(

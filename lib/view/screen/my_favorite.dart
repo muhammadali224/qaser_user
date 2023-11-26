@@ -25,7 +25,7 @@ class MyFavorite extends StatelessWidget {
                 HandlingDataView(
                   statusRequest: controller.statusRequest,
                   widget: GridView.builder(
-                      itemCount: controller.data.length,
+                      itemCount: controller.favData.length,
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       gridDelegate:
@@ -33,7 +33,7 @@ class MyFavorite extends StatelessWidget {
                               crossAxisCount: 2, childAspectRatio: 0.7),
                       itemBuilder: (context, index) {
                         return CustomListFavoriteItems(
-                            itemsModel: controller.data[index]);
+                            itemsModel: controller.favData[index]);
                       }),
                 )
               ],

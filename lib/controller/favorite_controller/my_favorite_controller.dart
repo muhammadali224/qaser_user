@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qaser_user/data/model/items_model/items_model.dart';
 
 import '../../core/class/status_request.dart';
+import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/fav_model/fav_model.dart';
 import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/favorite_data.dart';
 
 class MyFavoriteController extends GetxController {
   FavoriteData favoriteData = FavoriteData(Get.find());
-  List<FavoriteModel> data = [];
+  List<ItemModel> favData = [];
   Map isFavorite = {};
   StatusRequest statusRequest = StatusRequest.none;
 
   getFavorite() async {
-    data.clear();
+    favData.clear();
     statusRequest = StatusRequest.loading;
     var response = await favoriteData.getFavorite(user.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
         List responseData = response['data'];
-        data.addAll(responseData.map((e) => FavoriteModel.fromJson(e)));
+        favData.addAll(responseData.map((e) => ItemModel.fromJson(e)));
       } else {
         statusRequest = StatusRequest.failed;
       }
@@ -31,7 +32,7 @@ class MyFavoriteController extends GetxController {
 
   deleteFavoriteItems(int itemId) {
     favoriteData.removeFavorite(user.usersId!, itemId);
-    data.removeWhere((element) => element.favoriteItemId == itemId);
+    favData.removeWhere((element) => element.itemsId == itemId);
     update();
   }
 
@@ -88,9 +89,9 @@ class MyFavoriteController extends GetxController {
     update();
   }
 
-  // goToDetails(FavoriteModel ItemsModel) {
-  //   Get.toNamed(AppRoutes.itemDetails, arguments: {'itemsModel': ItemsModel});
-  // }
+  goToDetails(ItemModel ItemsModel) {
+    Get.toNamed(AppRoutes.itemDetails, arguments: ItemsModel);
+  }
 
   @override
   void onInit() async {

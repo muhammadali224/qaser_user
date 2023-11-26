@@ -50,7 +50,7 @@ class CounterSection extends GetView<ItemDetailsControllerImpl> {
           return Container(
               padding: EdgeInsets.all(10),
               child: Text(
-                "${controller.itemsModel.itemDiscounntPrice! * controller.itemsCount.value} ${"d".tr}",
+                "${(controller.itemsModel.itemDiscounntPrice! * controller.itemsCount.value).toStringAsFixed(2)} ${"d".tr}",
                 style: TextStyle(fontSize: 22),
               ));
         }),

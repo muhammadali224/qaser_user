@@ -1,17 +1,17 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
+import 'package:qaser_user/data/model/items_model/items_model.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
 import '../../../controller/favorite_controller/my_favorite_controller.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
-import '../../../data/model/fav_model/fav_model.dart';
 import '../cached_network.dart';
 
 class CustomListFavoriteItems extends GetView<MyFavoriteController> {
-  final FavoriteModel itemsModel;
+  final ItemModel itemsModel;
 
   final void Function()? onCardPressed;
 
@@ -24,7 +24,7 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // onTap: () => controller.goToDetails(itemsModel),
+      onTap: () => controller.goToDetails(itemsModel),
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 10,
