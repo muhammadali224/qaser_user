@@ -111,7 +111,8 @@ class MyTranslation extends Translations {
           'color': 'اللون',
           'addToCart': 'إضافة الى السلة',
           'goToCart': 'الذهاب الى السلة',
-          'jd': ' دينار ',
+          'jd': ' دينار',
+          'd': 'د',
           'addFavorites': 'تم الاضافة الى المفضلة',
           'removeFavorites': 'تم الحذف من المفضلة',
           'verifyAccount': 'الرجاء تأكيد الحساب لتتمكن من تسجيل الدخول',
@@ -244,6 +245,7 @@ class MyTranslation extends Translations {
           "loginSMS": "تسجيل الدخول بـ SMS",
           "confirmSMS": "التحقق من رقم الهاتف",
           "verifySMS": "تأكيد رقم الهاتف",
+          "description": "الوصف",
           "userBlocked":
               "تم حظر هذ الحساب من قبل المتجر الرجاء التواصل مع المتجر لحل المشكلة",
         },
@@ -490,6 +492,8 @@ class MyTranslation extends Translations {
           "loginSMS": "Login via SMS",
           "confirmSMS": "Confirm Phone Number",
           "verifySMS": "Verify Phone Number",
+          "description": "Description",
+          "d": "jd",
           "userBlocked":
               "This Account is Blocked by the Store ,Please Contact the Store",
         },

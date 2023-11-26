@@ -3,13 +3,13 @@ import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
-import '../../../controller/favorite_controller/my_favorite_controller.dart';
 import '../../../controller/items_controller/items_controller.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
 import '../../../data/model/items_model/items_model.dart';
 import '../cached_network.dart';
+import '../items_details/item_details/fav_button.dart';
 
 class CustomListItems extends GetView<ItemsControllerImp> {
   final ItemModel itemsModel;
@@ -91,29 +91,7 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                               style: TextStyle(
                                   color: AppColor.marron,
                                   fontWeight: FontWeight.bold)),
-                          GetBuilder<MyFavoriteController>(
-                            builder: (controller) => IconButton(
-                                onPressed: () {
-                                  if (controller
-                                          .isFavorite[itemsModel.itemsId] ==
-                                      1) {
-                                    controller.setFavorite(
-                                        itemsModel.itemsId!, 0);
-                                    controller
-                                        .removeFavorite(itemsModel.itemsId!);
-                                  } else {
-                                    controller.setFavorite(
-                                        itemsModel.itemsId!, 1);
-                                    controller.addFavorite(itemsModel.itemsId!);
-                                  }
-                                },
-                                icon: Icon(
-                                  controller.isFavorite[itemsModel.itemsId] == 1
-                                      ? Icons.favorite
-                                      : Icons.favorite_border_outlined,
-                                  color: AppColor.red,
-                                )),
-                          )
+                          FavoriteButton(itemsModel: itemsModel)
                         ],
                       ),
                     ),

@@ -21,8 +21,11 @@ class CartItemCount extends GetView<CartControllerImp> {
             cartModel.countitems = cartModel.countitems! + 1;
             controller.update();
 
-            controller.addCart(cartModel.itemsId!,
-                cartModel.weightSizeId.toString(), cartModel.cartItemPrice!);
+            // controller.addCart(
+            //     cartModel.itemsId!,
+            //     cartModel.weightSizeId.toString(),
+            //     cartModel.cartItemPrice!,
+            //     cartModel.countitems!);
           },
           child: Icon(
             Icons.add_circle,

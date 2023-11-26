@@ -39,11 +39,6 @@ abstract class HomeController extends SearchMixController {
   @override
   onSearchItems();
 
-  @override
-  goToDetails(ItemModel itemsModel);
-
-  void goToOffers();
-
   Future<void> updateUserBranch();
 
   Future<void> getUserDetails();
@@ -127,7 +122,9 @@ class HomeControllerImp extends HomeController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await homeData.getData(
-          branchId, "${myServices.getBox.read(GetBoxKey.isSigned) ?? "false"}");
+          branchId,
+          "${myServices.getBox.read(GetBoxKey.isSigned) ?? "false"}",
+          user.usersId!);
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
@@ -275,7 +272,6 @@ class HomeControllerImp extends HomeController {
         : await Jiffy.setLocale('en_us');
   }
 
-  @override
   goToOffers() {
     Get.toNamed(AppRoutes.offers);
   }
@@ -307,11 +303,10 @@ class HomeControllerImp extends HomeController {
 
   @override
   void onInit() async {
-    initData();
-
     if (myServices.getBox.read(GetBoxKey.isSigned) != true) {
       await loginAnonymous();
     }
+    initData();
     cartControllerImp = Get.put(CartControllerImp(), permanent: true);
     super.onInit();
   }

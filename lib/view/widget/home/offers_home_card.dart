@@ -29,7 +29,7 @@ class OffersHomeCard extends GetView<HomeControllerImp> {
         fit: StackFit.expand,
         children: [
           Hero(
-            tag: "${itemsModel.itemsId}",
+            tag: "${itemsModel.itemsId}offers",
             child: InkWell(
               borderRadius: BorderRadius.circular(15),
               onTap: () => controller.goToDetails(itemsModel),

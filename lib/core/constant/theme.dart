@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 import 'color.dart';
 
 ThemeData themeEnglish = ThemeData(
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: AppColor.fifthColor,
-    ),
+    floatingActionButtonTheme:
+        FloatingActionButtonThemeData(backgroundColor: AppColor.fifthColor),
     appBarTheme: const AppBarTheme(
-      centerTitle: true,
-      surfaceTintColor: Colors.white,
-      elevation: 25,
-    ),
+        centerTitle: true, surfaceTintColor: Colors.white, elevation: 25),
     switchTheme: SwitchThemeData(
         thumbColor: MaterialStateProperty.all(Colors.white),
         trackColor: MaterialStateProperty.resolveWith((states) =>
@@ -19,8 +15,10 @@ ThemeData themeEnglish = ThemeData(
                 : Colors.grey)),
     fontFamily: 'Cairo',
     colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.red, secondary: Colors.redAccent),
-    useMaterial3: true,
+      seedColor: Colors.red,
+      secondary: Colors.redAccent,
+      surfaceTint: Colors.grey,
+    ),
     textTheme: TextTheme(
       displayLarge: TextStyle(
         fontSize: 26,
@@ -60,7 +58,10 @@ ThemeData themeArabic = ThemeData(
                 : Colors.grey)),
     fontFamily: 'Cairo',
     colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.red, secondary: Colors.redAccent),
+      seedColor: Colors.red,
+      secondary: Colors.redAccent,
+      surfaceTint: Colors.grey,
+    ),
     useMaterial3: true,
     textTheme: TextTheme(
       displayLarge: TextStyle(

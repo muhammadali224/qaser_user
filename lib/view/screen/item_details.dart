@@ -1,20 +1,22 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:qaser_user/core/class/handling_data_view.dart';
-import 'package:qaser_user/core/constant/api_link.dart';
-import 'package:qaser_user/core/function/translate_database.dart';
-import 'package:qaser_user/view/widget/back_arrow.dart';
+import 'package:qaser_user/view/widget/items_details/item_details/section_title.dart';
 
 import '../../controller/items_controller/item_details_controller.dart';
+import '../../data/model/items_model/title_price.dart';
+import '../widget/items_details/item_details/bottom_nb_button.dart';
+import '../widget/items_details/item_details/fav_counter_section.dart';
+import '../widget/items_details/item_details/item_sliver_appbar.dart';
+import '../widget/items_details/item_details/items_details_desc.dart';
 
 class ItemDetails extends StatelessWidget {
   const ItemDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ItemDetailsControllerImpl());
+    ItemDetailsControllerImpl controller = Get.put(ItemDetailsControllerImpl());
     // return Scaffold(
     //   backgroundColor: Colors.grey[100],
     //   bottomNavigationBar: Container(
@@ -62,128 +64,53 @@ class ItemDetails extends StatelessWidget {
     // );
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        onPressed: controller.goToCart,
+        elevation: 20,
+        child: Icon(Bootstrap.cart3, color: Colors.white),
+      ),
+      bottomNavigationBar: ButtomNaviBar(),
       body: GetBuilder<ItemDetailsControllerImpl>(
         builder: (controller) => HandlingDataView(
           statusRequest: controller.statusRequest,
-          widget: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                systemOverlayStyle: SystemUiOverlayStyle(
-                    statusBarBrightness: Brightness.dark,
-                    systemStatusBarContrastEnforced: false,
-                    statusBarIconBrightness: Brightness.light),
-                expandedHeight: 300,
-                pinned: true,
-                elevation: 0.0,
-                stretch: true,
-                backgroundColor: Colors.white,
-                flexibleSpace: FlexibleSpaceBar(
-                  stretchModes: [
-                    StretchMode.blurBackground,
-                    StretchMode.zoomBackground,
-                  ],
-                  background: CachedNetworkImage(
-                    imageUrl:
-                        "${AppLink.imagesItems}${controller.itemsModel.itemsImage}",
-                    fit: BoxFit.cover,
-                    filterQuality: FilterQuality.high,
-                  ),
-                ),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(0.0),
+          widget: Hero(
+            tag: "${controller.itemsModel.itemsId}",
+            child: CustomScrollView(
+              slivers: [
+                ItemSliverAppbar(),
+                SliverToBoxAdapter(
                   child: Container(
-                    alignment: Alignment.center,
-                    height: 32,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(32),
-                            topRight: Radius.circular(32))),
-                    child: Container(
-                      height: 5,
-                      width: 40,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(40)),
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TitlePrice(),
+                        SizedBox(height: 15),
+                        Card(
+                            child: CounterSection(
+                                itemsModel: controller.itemsModel)),
+                        SectionTitle(title: "price"),
+                        Card(
+                          child: Container(),
+                        ),
+                        SectionTitle(title: "description"),
+                        Card(
+                            child: ItemsDetailsDesc(
+                          title: controller.itemsModel.itemsDesc!,
+                          titleAr: controller.itemsModel.itemsDescAr!,
+                        )),
+                      ],
                     ),
                   ),
                 ),
-                leadingWidth: 80,
-                leading: BackArrow(),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Column(
-                    children: [
-                      Text(
-                          "${translateDatabase(controller.itemsModel.itemsNameAr!, controller.itemsModel.itemsName!)}")
-                    ],
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-//
-// Stack(
-// children: [
-// // SizedBox(
-// //     width: double.infinity,
-// //     height: Get.height / 2,
-// //     child: CachedNetworkImage(
-// //       imageUrl:
-// //           "${AppLink.imagesItems}${controller.itemsModel.itemsImage}",
-// //       filterQuality: FilterQuality.high,
-// //       fit: BoxFit.fill,
-// //     )
-// //     //     ListView(
-// //     //   shrinkWrap: true,
-// //     //   scrollDirection: Axis.horizontal,
-// //     //   children: controller.itemsModel.images!
-// //     //       .map((e) => CachedNetworkImage(
-// //     //           imageUrl: "${AppLink.imagesItems}$e"))
-// //     //       .toList(),
-// //     // ),
-// //
-// //     ),
-// CachedNetworkImage(
-// imageUrl:
-// "${AppLink.imagesItems}${controller.itemsModel.itemsImage}",
-// imageBuilder: (_, imageProvider) => Container(
-// width: double.infinity,
-// height: Get.height / 2.4,
-// decoration: BoxDecoration(
-// image: DecorationImage(
-// image: imageProvider,
-// filterQuality: FilterQuality.high,
-// fit: BoxFit.cover,
-// )),
-// ),
-// ),
-//
-// BackArrow(),
-// // DraggableScrollableSheet(
-// //   initialChildSize: 0.6,
-// //   maxChildSize: 1.0,
-// //   minChildSize: 0.6,
-// //   builder: (BuildContext context,
-// //           ScrollController scrollController) =>
-// //       Container(
-// //     padding: const EdgeInsets.symmetric(horizontal: 20),
-// //     clipBehavior: Clip.hardEdge,
-// //     decoration: const BoxDecoration(
-// //       color: Colors.white,
-// //       borderRadius: BorderRadius.only(
-// //           topLeft: const Radius.circular(20),
-// //           topRight: const Radius.circular(20)),
-// //     ),
-// //   ),
-// // )
-// ],
-// ),

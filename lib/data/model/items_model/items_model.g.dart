@@ -35,6 +35,11 @@ _$ItemModelImpl _$$ItemModelImplFromJson(Map<String, dynamic> json) =>
           .toList(),
       images:
           (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      cartCount: json['item_count'] as int?,
+      itemAttrId: json['item_attr_id'] as int?,
+      subItemName: json['sub_item_name'] as String?,
+      subItemNameAr: json['sub_item_name_ar'] as String?,
+      subItemValue: json['sub_item_value'] as num?,
     );
 
 Map<String, dynamic> _$$ItemModelImplToJson(_$ItemModelImpl instance) =>
@@ -61,4 +66,9 @@ Map<String, dynamic> _$$ItemModelImplToJson(_$ItemModelImpl instance) =>
       'is_favorite': instance.isFavorite,
       'weigh_ids': instance.weighIds,
       'images': instance.images,
+      'item_count': instance.cartCount,
+      'item_attr_id': instance.itemAttrId,
+      'sub_item_name': instance.subItemName,
+      'sub_item_name_ar': instance.subItemNameAr,
+      'sub_item_value': instance.subItemValue,
     };

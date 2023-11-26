@@ -4,9 +4,8 @@ import 'package:get/get.dart';
 import '../../../../controller/user_settings_controller/user_setting_controller.dart';
 import '../../../../core/constant/color.dart';
 
-UserSettingController controller = Get.find();
-
 showBottomSheetImagePicker() {
+  UserSettingController controller = Get.find();
   Get.bottomSheet(
     Container(
       color: AppColor.backgroundColor,

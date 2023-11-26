@@ -6,14 +6,16 @@ class CartData {
 
   CartData(this.crud);
 
-  addToCart(int userId, int itemId, String? weightAndSizeId,
-      num cartItemPrice) async {
+  addToCart(String userId, String itemId, String? weightAndSizeId,
+      String cartItemPrice, String itemCount) async {
     var response = await crud.postData(AppLink.addCart, {
-      'userid': userId.toString(),
-      'itemid': itemId.toString(),
+      'userid': userId,
+      'itemid': itemId,
       'weight_size_id': weightAndSizeId ?? "",
-      'cart_item_price': cartItemPrice.toString(),
+      'cart_item_price': cartItemPrice,
+      'cart_item_count': itemCount,
     });
+
     return response.fold((l) => l, (r) => r);
   }
 

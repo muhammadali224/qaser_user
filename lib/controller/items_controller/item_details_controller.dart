@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/item_count_model.dart';
-import '../../data/model/item_images_model.dart';
 import '../../data/model/items_model/items_model.dart';
 import '../../data/model/sub_items_model.dart';
 import '../../data/source/remote/items_data.dart';
@@ -26,13 +24,10 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   late ItemModel itemsModel;
   StatusRequest statusRequest = StatusRequest.none;
   ItemsData itemsData = ItemsData(Get.find());
-  int itemsCount = 0;
-  ItemCountModel itemCountModel = ItemCountModel();
+  RxInt itemsCount = 0.obs;
+
   List<SubItemsModel> weightAndSize = [];
-  List<ItemImagesModel> imagesList = [];
-
   SubItemsModel selectedWeightAndSize = SubItemsModel();
-
   CartControllerImp cartController = Get.find();
 
   @override
@@ -43,47 +38,37 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
 
   @override
   initData() async {
-    statusRequest = StatusRequest.loading;
     itemsModel = Get.arguments;
-    itemCountModel = await cartController.getCount(itemsModel.itemsId!);
-    itemsCount = itemCountModel.countItems!;
+    itemsCount.value = itemsModel.cartCount!;
 
     selectedWeightAndSize = SubItemsModel(
-      weightSizeId: itemCountModel.weightSizeId,
-      subItemValue: itemCountModel.subItemValue,
-      subItemName: itemCountModel.subItemName,
-      subItemNameAr: itemCountModel.subItemNameAr,
+      weightSizeId: itemsModel.itemAttrId,
+      subItemValue: itemsModel.subItemValue,
+      subItemName: itemsModel.subItemName,
+      subItemNameAr: itemsModel.subItemNameAr,
     );
-    statusRequest = StatusRequest.none;
-    getSubItems();
 
-    update();
+    // getSubItems();
   }
 
-  getPrice() {
+  num getPrice() {
     if (selectedWeightAndSize.weightSizeId != null) {
       return (selectedWeightAndSize.subItemValue! *
           itemsModel.itemDiscounntPrice!);
     } else {
-      return itemsModel.itemDiscounntPrice;
+      return itemsModel.itemDiscounntPrice!;
     }
   }
 
   @override
   add() {
-    cartController.addCart(itemsModel.itemsId!,
-        selectedWeightAndSize.weightSizeId.toString(), getPrice());
-    itemsCount++;
-    update();
+    itemsCount.value++;
   }
 
   @override
   remove() {
     if (itemsCount > 0) {
-      cartController.deleteFromCart(itemsModel.itemsId!);
-      itemsCount--;
-
-      update();
+      itemsCount.value--;
     }
   }
 
@@ -101,12 +86,6 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
-        if (response['images']['status'] == 'success') {
-          List responseData = response['images']['data'];
-          imagesList
-              .addAll(responseData.map((e) => ItemImagesModel.fromJson(e)));
-        }
-
         if (response['size_weight']['status'] == 'success') {
           List responseData = response['size_weight']['data'];
           weightAndSize

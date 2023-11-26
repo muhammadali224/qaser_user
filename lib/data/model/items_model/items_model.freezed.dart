@@ -64,6 +64,16 @@ mixin _$ItemModel {
   List<String>? get weighIds => throw _privateConstructorUsedError;
   @JsonKey(name: "images")
   List<String>? get images => throw _privateConstructorUsedError;
+  @JsonKey(name: "item_count")
+  int? get cartCount => throw _privateConstructorUsedError;
+  @JsonKey(name: "item_attr_id")
+  int? get itemAttrId => throw _privateConstructorUsedError;
+  @JsonKey(name: "sub_item_name")
+  String? get subItemName => throw _privateConstructorUsedError;
+  @JsonKey(name: "sub_item_name_ar")
+  String? get subItemNameAr => throw _privateConstructorUsedError;
+  @JsonKey(name: "sub_item_value")
+  num? get subItemValue => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -98,7 +108,12 @@ abstract class $ItemModelCopyWith<$Res> {
       @JsonKey(name: "itemDiscounnt_price") num? itemDiscounntPrice,
       @JsonKey(name: "is_favorite") int? isFavorite,
       @JsonKey(name: "weigh_ids") List<String>? weighIds,
-      @JsonKey(name: "images") List<String>? images});
+      @JsonKey(name: "images") List<String>? images,
+      @JsonKey(name: "item_count") int? cartCount,
+      @JsonKey(name: "item_attr_id") int? itemAttrId,
+      @JsonKey(name: "sub_item_name") String? subItemName,
+      @JsonKey(name: "sub_item_name_ar") String? subItemNameAr,
+      @JsonKey(name: "sub_item_value") num? subItemValue});
 }
 
 /// @nodoc
@@ -136,6 +151,11 @@ class _$ItemModelCopyWithImpl<$Res, $Val extends ItemModel>
     Object? isFavorite = freezed,
     Object? weighIds = freezed,
     Object? images = freezed,
+    Object? cartCount = freezed,
+    Object? itemAttrId = freezed,
+    Object? subItemName = freezed,
+    Object? subItemNameAr = freezed,
+    Object? subItemValue = freezed,
   }) {
     return _then(_value.copyWith(
       itemsId: freezed == itemsId
@@ -226,6 +246,26 @@ class _$ItemModelCopyWithImpl<$Res, $Val extends ItemModel>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      cartCount: freezed == cartCount
+          ? _value.cartCount
+          : cartCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      itemAttrId: freezed == itemAttrId
+          ? _value.itemAttrId
+          : itemAttrId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      subItemName: freezed == subItemName
+          ? _value.subItemName
+          : subItemName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subItemNameAr: freezed == subItemNameAr
+          ? _value.subItemNameAr
+          : subItemNameAr // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subItemValue: freezed == subItemValue
+          ? _value.subItemValue
+          : subItemValue // ignore: cast_nullable_to_non_nullable
+              as num?,
     ) as $Val);
   }
 }
@@ -260,7 +300,12 @@ abstract class _$$ItemModelImplCopyWith<$Res>
       @JsonKey(name: "itemDiscounnt_price") num? itemDiscounntPrice,
       @JsonKey(name: "is_favorite") int? isFavorite,
       @JsonKey(name: "weigh_ids") List<String>? weighIds,
-      @JsonKey(name: "images") List<String>? images});
+      @JsonKey(name: "images") List<String>? images,
+      @JsonKey(name: "item_count") int? cartCount,
+      @JsonKey(name: "item_attr_id") int? itemAttrId,
+      @JsonKey(name: "sub_item_name") String? subItemName,
+      @JsonKey(name: "sub_item_name_ar") String? subItemNameAr,
+      @JsonKey(name: "sub_item_value") num? subItemValue});
 }
 
 /// @nodoc
@@ -296,6 +341,11 @@ class __$$ItemModelImplCopyWithImpl<$Res>
     Object? isFavorite = freezed,
     Object? weighIds = freezed,
     Object? images = freezed,
+    Object? cartCount = freezed,
+    Object? itemAttrId = freezed,
+    Object? subItemName = freezed,
+    Object? subItemNameAr = freezed,
+    Object? subItemValue = freezed,
   }) {
     return _then(_$ItemModelImpl(
       itemsId: freezed == itemsId
@@ -386,6 +436,26 @@ class __$$ItemModelImplCopyWithImpl<$Res>
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      cartCount: freezed == cartCount
+          ? _value.cartCount
+          : cartCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      itemAttrId: freezed == itemAttrId
+          ? _value.itemAttrId
+          : itemAttrId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      subItemName: freezed == subItemName
+          ? _value.subItemName
+          : subItemName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subItemNameAr: freezed == subItemNameAr
+          ? _value.subItemNameAr
+          : subItemNameAr // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subItemValue: freezed == subItemValue
+          ? _value.subItemValue
+          : subItemValue // ignore: cast_nullable_to_non_nullable
+              as num?,
     ));
   }
 }
@@ -415,7 +485,12 @@ class _$ItemModelImpl implements _ItemModel {
       @JsonKey(name: "itemDiscounnt_price") this.itemDiscounntPrice,
       @JsonKey(name: "is_favorite") this.isFavorite,
       @JsonKey(name: "weigh_ids") final List<String>? weighIds,
-      @JsonKey(name: "images") final List<String>? images})
+      @JsonKey(name: "images") final List<String>? images,
+      @JsonKey(name: "item_count") this.cartCount,
+      @JsonKey(name: "item_attr_id") this.itemAttrId,
+      @JsonKey(name: "sub_item_name") this.subItemName,
+      @JsonKey(name: "sub_item_name_ar") this.subItemNameAr,
+      @JsonKey(name: "sub_item_value") this.subItemValue})
       : _weighIds = weighIds,
         _images = images;
 
@@ -505,8 +580,24 @@ class _$ItemModelImpl implements _ItemModel {
   }
 
   @override
+  @JsonKey(name: "item_count")
+  final int? cartCount;
+  @override
+  @JsonKey(name: "item_attr_id")
+  final int? itemAttrId;
+  @override
+  @JsonKey(name: "sub_item_name")
+  final String? subItemName;
+  @override
+  @JsonKey(name: "sub_item_name_ar")
+  final String? subItemNameAr;
+  @override
+  @JsonKey(name: "sub_item_value")
+  final num? subItemValue;
+
+  @override
   String toString() {
-    return 'ItemModel(itemsId: $itemsId, itemsName: $itemsName, itemsNameAr: $itemsNameAr, itemsDesc: $itemsDesc, itemsDescAr: $itemsDescAr, itemsImage: $itemsImage, itemsCount: $itemsCount, itemsActive: $itemsActive, itemsPrice: $itemsPrice, itemsDiscount: $itemsDiscount, itemsPointPerVal: $itemsPointPerVal, itemsData: $itemsData, itemsCat: $itemsCat, branchId: $branchId, categoriesId: $categoriesId, categoriesName: $categoriesName, categoriesNameAr: $categoriesNameAr, categoriesImage: $categoriesImage, itemDiscounntPrice: $itemDiscounntPrice, isFavorite: $isFavorite, weighIds: $weighIds, images: $images)';
+    return 'ItemModel(itemsId: $itemsId, itemsName: $itemsName, itemsNameAr: $itemsNameAr, itemsDesc: $itemsDesc, itemsDescAr: $itemsDescAr, itemsImage: $itemsImage, itemsCount: $itemsCount, itemsActive: $itemsActive, itemsPrice: $itemsPrice, itemsDiscount: $itemsDiscount, itemsPointPerVal: $itemsPointPerVal, itemsData: $itemsData, itemsCat: $itemsCat, branchId: $branchId, categoriesId: $categoriesId, categoriesName: $categoriesName, categoriesNameAr: $categoriesNameAr, categoriesImage: $categoriesImage, itemDiscounntPrice: $itemDiscounntPrice, isFavorite: $isFavorite, weighIds: $weighIds, images: $images, cartCount: $cartCount, itemAttrId: $itemAttrId, subItemName: $subItemName, subItemNameAr: $subItemNameAr, subItemValue: $subItemValue)';
   }
 
   @override
@@ -554,7 +645,17 @@ class _$ItemModelImpl implements _ItemModel {
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite) &&
             const DeepCollectionEquality().equals(other._weighIds, _weighIds) &&
-            const DeepCollectionEquality().equals(other._images, _images));
+            const DeepCollectionEquality().equals(other._images, _images) &&
+            (identical(other.cartCount, cartCount) ||
+                other.cartCount == cartCount) &&
+            (identical(other.itemAttrId, itemAttrId) ||
+                other.itemAttrId == itemAttrId) &&
+            (identical(other.subItemName, subItemName) ||
+                other.subItemName == subItemName) &&
+            (identical(other.subItemNameAr, subItemNameAr) ||
+                other.subItemNameAr == subItemNameAr) &&
+            (identical(other.subItemValue, subItemValue) ||
+                other.subItemValue == subItemValue));
   }
 
   @JsonKey(ignore: true)
@@ -582,7 +683,12 @@ class _$ItemModelImpl implements _ItemModel {
         itemDiscounntPrice,
         isFavorite,
         const DeepCollectionEquality().hash(_weighIds),
-        const DeepCollectionEquality().hash(_images)
+        const DeepCollectionEquality().hash(_images),
+        cartCount,
+        itemAttrId,
+        subItemName,
+        subItemNameAr,
+        subItemValue
       ]);
 
   @JsonKey(ignore: true)
@@ -601,28 +707,34 @@ class _$ItemModelImpl implements _ItemModel {
 
 abstract class _ItemModel implements ItemModel {
   const factory _ItemModel(
-      {@JsonKey(name: "items_id") final int? itemsId,
-      @JsonKey(name: "items_name") final String? itemsName,
-      @JsonKey(name: "items_name_ar") final String? itemsNameAr,
-      @JsonKey(name: "items_desc") final String? itemsDesc,
-      @JsonKey(name: "items_desc_ar") final String? itemsDescAr,
-      @JsonKey(name: "items_image") final String? itemsImage,
-      @JsonKey(name: "items_count") final int? itemsCount,
-      @JsonKey(name: "items_active") final int? itemsActive,
-      @JsonKey(name: "items_price") final num? itemsPrice,
-      @JsonKey(name: "items_discount") final num? itemsDiscount,
-      @JsonKey(name: "items_point_per_val") final num? itemsPointPerVal,
-      @JsonKey(name: "items_data") final DateTime? itemsData,
-      @JsonKey(name: "items_cat") final int? itemsCat,
-      @JsonKey(name: "branch_id") final int? branchId,
-      @JsonKey(name: "categories_id") final int? categoriesId,
-      @JsonKey(name: "categories_name") final String? categoriesName,
-      @JsonKey(name: "categories_name_ar") final String? categoriesNameAr,
-      @JsonKey(name: "categories_image") final String? categoriesImage,
-      @JsonKey(name: "itemDiscounnt_price") final num? itemDiscounntPrice,
-      @JsonKey(name: "is_favorite") final int? isFavorite,
-      @JsonKey(name: "weigh_ids") final List<String>? weighIds,
-      @JsonKey(name: "images") final List<String>? images}) = _$ItemModelImpl;
+          {@JsonKey(name: "items_id") final int? itemsId,
+          @JsonKey(name: "items_name") final String? itemsName,
+          @JsonKey(name: "items_name_ar") final String? itemsNameAr,
+          @JsonKey(name: "items_desc") final String? itemsDesc,
+          @JsonKey(name: "items_desc_ar") final String? itemsDescAr,
+          @JsonKey(name: "items_image") final String? itemsImage,
+          @JsonKey(name: "items_count") final int? itemsCount,
+          @JsonKey(name: "items_active") final int? itemsActive,
+          @JsonKey(name: "items_price") final num? itemsPrice,
+          @JsonKey(name: "items_discount") final num? itemsDiscount,
+          @JsonKey(name: "items_point_per_val") final num? itemsPointPerVal,
+          @JsonKey(name: "items_data") final DateTime? itemsData,
+          @JsonKey(name: "items_cat") final int? itemsCat,
+          @JsonKey(name: "branch_id") final int? branchId,
+          @JsonKey(name: "categories_id") final int? categoriesId,
+          @JsonKey(name: "categories_name") final String? categoriesName,
+          @JsonKey(name: "categories_name_ar") final String? categoriesNameAr,
+          @JsonKey(name: "categories_image") final String? categoriesImage,
+          @JsonKey(name: "itemDiscounnt_price") final num? itemDiscounntPrice,
+          @JsonKey(name: "is_favorite") final int? isFavorite,
+          @JsonKey(name: "weigh_ids") final List<String>? weighIds,
+          @JsonKey(name: "images") final List<String>? images,
+          @JsonKey(name: "item_count") final int? cartCount,
+          @JsonKey(name: "item_attr_id") final int? itemAttrId,
+          @JsonKey(name: "sub_item_name") final String? subItemName,
+          @JsonKey(name: "sub_item_name_ar") final String? subItemNameAr,
+          @JsonKey(name: "sub_item_value") final num? subItemValue}) =
+      _$ItemModelImpl;
 
   factory _ItemModel.fromJson(Map<String, dynamic> json) =
       _$ItemModelImpl.fromJson;
@@ -693,6 +805,21 @@ abstract class _ItemModel implements ItemModel {
   @override
   @JsonKey(name: "images")
   List<String>? get images;
+  @override
+  @JsonKey(name: "item_count")
+  int? get cartCount;
+  @override
+  @JsonKey(name: "item_attr_id")
+  int? get itemAttrId;
+  @override
+  @JsonKey(name: "sub_item_name")
+  String? get subItemName;
+  @override
+  @JsonKey(name: "sub_item_name_ar")
+  String? get subItemNameAr;
+  @override
+  @JsonKey(name: "sub_item_value")
+  num? get subItemValue;
   @override
   @JsonKey(ignore: true)
   _$$ItemModelImplCopyWith<_$ItemModelImpl> get copyWith =>

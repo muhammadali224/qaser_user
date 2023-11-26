@@ -6,10 +6,11 @@ class HomeData {
 
   HomeData(this.crud);
 
-  getData(int branchId, String signed) async {
+  getData(int branchId, String signed, int userId) async {
     var response = await crud.postData(AppLink.homePage, {
       'branch_id': branchId.toString(),
       'signed': signed,
+      'user_id': userId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }

@@ -9,7 +9,6 @@ import '../../core/constant/color.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/cart_model.dart';
-import '../../data/model/item_count_model.dart';
 import '../../data/shared/anonymous_user.dart';
 import '../../data/shared/branches.dart';
 import '../../data/source/remote/cart_data.dart';
@@ -18,13 +17,12 @@ import '../../generated/assets.dart';
 import '../address_controller/view_address_controller.dart';
 
 abstract class CartController extends GetxController {
-  addCart(int itemsId, String? weightAndSizeId, num cartItemPrice);
+  addCart(String itemsId, String? weightAndSizeId, String cartItemPrice,
+      String itemCount);
 
   deleteFromCart(int itemsId);
 
   getCart();
-
-  getCount(int itemsId);
 
   resetCart();
 
@@ -73,33 +71,27 @@ class CartControllerImp extends CartController {
   ];
 
   String? address;
-  ItemCountModel itemCount = ItemCountModel();
 
   @override
-  addCart(itemsId, weightAndSizeId, cartItemPrice) async {
-    var response = await cartData.addToCart(
-      user.usersId!,
-      itemsId,
-      weightAndSizeId,
-      cartItemPrice,
-    );
+  addCart(itemsId, weightAndSizeId, cartItemPrice, itemCount) async {
+    try {
+      var response = await cartData.addToCart(user.usersId!.toString(), itemsId,
+          weightAndSizeId, cartItemPrice, itemCount);
+      statusRequest = handlingData(response);
 
-    if (response['status'] == 'success') {
-      !Get.isSnackbarOpen
-          ? Get.rawSnackbar(
-              backgroundColor: Colors.green,
-              message: "addCart".tr,
-              icon: const Icon(
-                Icons.add_shopping_cart,
-              ),
-              snackStyle: SnackStyle.GROUNDED,
-              duration: const Duration(seconds: 2),
-            )
-          : null;
+      if (response['status'] == 'success') {
+        Get.rawSnackbar(
+          backgroundColor: Colors.green,
+          message: "addCart".tr,
+          icon: const Icon(Icons.add_shopping_cart),
+          snackStyle: SnackStyle.GROUNDED,
+          duration: const Duration(seconds: 1),
+        );
 
-      await refreshCart();
-    } else {
-      statusRequest = StatusRequest.failed;
+        // await refreshCart();
+      }
+    } catch (e) {
+      // throw (e.toString());
     }
 
     update();
@@ -171,26 +163,8 @@ class CartControllerImp extends CartController {
   }
 
   @override
-  getCount(itemsId) async {
-    statusRequest = StatusRequest.loading;
-    var response = await cartData.getCountItem(user.usersId!, itemsId);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        itemCount = ItemCountModel.fromJson(response['data']);
-        update();
-        return itemCount;
-      } else {
-        statusRequest = StatusRequest.failed;
-      }
-    }
-  }
-
-  @override
   void onInit() async {
-    // user =
-    //     UserModel.fromJson(jsonDecode(myServices.getBox.read(GetBoxKey.user)));
-    // noteController = TextEditingController();
+    noteController = TextEditingController();
     await getCart();
 
     super.onInit();
