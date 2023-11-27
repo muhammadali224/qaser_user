@@ -81,6 +81,8 @@ class ItemDetails extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            // TODO: create list named selected weight and size its take model and add to it first item list comed from api and with where
+                            //
                             if (controller.itemsModel.weighIds!.isNotEmpty)
                               ...List.generate(
                                   5,
