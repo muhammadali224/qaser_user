@@ -26,7 +26,7 @@ class ButtomNaviBar extends GetView<ItemDetailsControllerImpl> {
                 onPressed: () => controller.cartController.addCart(
                     controller.itemsModel.itemsId!.toString(),
                     controller.selectedWeightAndSize.weightSizeId.toString(),
-                    controller.getPrice().toString(),
+                    controller.totalPrice.toString(),
                     controller.itemsCount.value.toString()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

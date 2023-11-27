@@ -75,24 +75,45 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRoutes.items, page: () => const Items()),
   GetPage(name: AppRoutes.itemDetails, page: () => const ItemDetails()),
   GetPage(name: AppRoutes.myFavorite, page: () => const MyFavorite()),
-  GetPage(name: AppRoutes.cart, page: () => const Cart()),
+  GetPage(
+      name: AppRoutes.cart,
+      page: () => const Cart(),
+      transitionDuration: Duration(milliseconds: 500),
+      transition: Transition.upToDown),
   GetPage(name: AppRoutes.addressView, page: () => const AddressView()),
   GetPage(name: AppRoutes.addressAdd, page: () => const AddressAdd()),
   GetPage(name: AppRoutes.addressEdit, page: () => const AddressView()),
   GetPage(
       name: AppRoutes.addLocationDetails,
       page: () => const AddLocationDetails()),
-  // GetPage(name: AppRoutes.checkout, page: () => const Checkout()),
   GetPage(name: AppRoutes.orders, page: () => const Orders()),
   GetPage(name: AppRoutes.ordersDetails, page: () => const OrdersDetails()),
   GetPage(name: AppRoutes.offers, page: () => const Offers()),
   GetPage(name: AppRoutes.ordersRating, page: () => const OrdersRating()),
-  GetPage(name: AppRoutes.userSettings, page: () => const UserSetting()),
-  GetPage(name: AppRoutes.changeUserName, page: () => const ChangeUserName()),
-  GetPage(name: AppRoutes.changePassword, page: () => const ChangePassword()),
-  GetPage(name: AppRoutes.changeEmail, page: () => const ChangeEmail()),
-  GetPage(name: AppRoutes.changeUserPhone, page: () => const ChangeUserPhone()),
+  GetPage(
+      name: AppRoutes.userSettings,
+      page: () => const UserSetting(),
+      transition: Transition.cupertino),
+  GetPage(
+      name: AppRoutes.changeUserName,
+      page: () => const ChangeUserName(),
+      transition: Transition.cupertino),
+  GetPage(
+      name: AppRoutes.changePassword,
+      page: () => const ChangePassword(),
+      transition: Transition.cupertino),
+  GetPage(
+      name: AppRoutes.changeEmail,
+      page: () => const ChangeEmail(),
+      transition: Transition.cupertino),
+  GetPage(
+      name: AppRoutes.changeUserPhone,
+      page: () => const ChangeUserPhone(),
+      transition: Transition.cupertino),
   GetPage(name: AppRoutes.notifications, page: () => const MyNotifications()),
-  GetPage(name: AppRoutes.appSettings, page: () => const AppSettings()),
+  GetPage(
+      name: AppRoutes.appSettings,
+      page: () => const AppSettings(),
+      transition: Transition.cupertino),
   GetPage(name: AppRoutes.searchResult, page: () => const SearchListResult()),
 ];

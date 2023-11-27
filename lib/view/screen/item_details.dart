@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:qaser_user/core/class/handling_data_view.dart';
+import 'package:qaser_user/core/function/translate_database.dart';
 import 'package:qaser_user/view/widget/items_details/item_details/section_title.dart';
 
 import '../../controller/items_controller/item_details_controller.dart';
@@ -17,52 +18,6 @@ class ItemDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ItemDetailsControllerImpl controller = Get.put(ItemDetailsControllerImpl());
-    // return Scaffold(
-    //   backgroundColor: Colors.grey[100],
-    //   bottomNavigationBar: Container(
-    //     //margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-    //     height: 50,
-    //     width: double.infinity,
-    //     color: Colors.transparent,
-    //     child: MaterialButton(
-    //       color: AppColor.primaryColor,
-    //       onPressed: controller.goToCart,
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [
-    //           Text("goToCart".tr),
-    //           const SizedBox(width: 10),
-    //           const Icon(IconBroken.Buy)
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    //   appBar: AppBar(
-    //       leading: BackAppBar(),
-    //       title: Text(
-    //         translateDatabase(controller.itemsModel.itemsNameAr!,
-    //             controller.itemsModel.itemsName!),
-    //         style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-    //       )),
-    //   body: GetBuilder<ItemDetailsControllerImpl>(
-    //     builder: (controller) => HandlingDataView(
-    //       statusRequest: controller.statusRequest,
-    //       widget: ListView(
-    //         children: [
-    //           const TopImagesSlider(),
-    //           const SizedBox(height: 15),
-    //           const ItemDetailsHeader(),
-    //           const SizedBox(height: 15),
-    //           ItemsDetailsDesc(
-    //               title: controller.itemsModel.itemsDesc!,
-    //               titleAr: controller.itemsModel.itemsDescAr!),
-    //           const SizedBox(height: 15),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
-
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
@@ -93,43 +48,78 @@ class ItemDetails extends StatelessWidget {
                             child: CounterSection(
                                 itemsModel: controller.itemsModel)),
                         SectionTitle(title: "price"),
-                        Card(
-                          child: Container(
-                              // padding: EdgeInsets.all(10),
-                              child: GridView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            padding: EdgeInsets.all(10),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 4),
-                            itemBuilder: (BuildContext context, int index) {
-                              return null;
-                            },
-
-                            // : subItemsList
-                            //     .where((element) => controller
-                            //         .itemsModel.weighIds!
-                            //         .contains("${element.weightSizeId}"))
-                            //     .map((e) =>
-                            //     Container(
-                            //           margin: EdgeInsets.symmetric(
-                            //               horizontal: 5, vertical: 5),
-                            //           width: 80,
-                            //           height: 100,
-                            //           decoration: BoxDecoration(
-                            //               color: Colors.red,
-                            //               borderRadius:
-                            //                   BorderRadius.circular(15)),
-                            //           child: Column(
-                            //
-                            //             children: [
-                            //               Text("${translateDatabase(, e.name)}")
-                            //             ],
-                            //           ),
-                            //         ))
-                            //     .toList(),
-                          )),
+                        Wrap(
+                          direction: Axis.horizontal,
+                          children: [
+                            Container(
+                              height: 80,
+                              width: 70,
+                              margin: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      translateDatabase(
+                                          controller.itemsModel.subItemNameAr!,
+                                          controller.itemsModel.subItemName!),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      "${controller.itemsModel.subItemValue! * controller.itemsModel.itemDiscounntPrice!} ${"d".tr}",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            if (controller.itemsModel.weighIds!.isNotEmpty)
+                              ...List.generate(
+                                  5,
+                                  (index) => Container(
+                                        height: 80,
+                                        width: 70,
+                                        margin: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                            color: Colors.red.withOpacity(0.4),
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        child: Column(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                translateDatabase(
+                                                    controller.itemsModel
+                                                        .subItemNameAr!,
+                                                    controller.itemsModel
+                                                        .subItemName!),
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                "${controller.itemsModel.subItemValue! * controller.itemsModel.itemDiscounntPrice!} ${"d".tr}",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ))
+                          ],
                         ),
                         SectionTitle(title: "description"),
                         Card(

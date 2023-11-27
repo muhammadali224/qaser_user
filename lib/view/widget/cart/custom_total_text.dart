@@ -28,7 +28,7 @@ class CustomTotalPriceText extends StatelessWidget {
                             .copyWith(fontWeight: FontWeight.w500),
                       ),
                       Text(
-                        "${controller.price}",
+                        "${controller.price.toStringAsFixed(2)}",
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ],

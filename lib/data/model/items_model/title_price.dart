@@ -12,27 +12,43 @@ class TitlePrice extends GetView<ItemDetailsControllerImpl> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: Text(
-            "${translateDatabase(controller.itemsModel.itemsNameAr!, controller.itemsModel.itemsName!)}",
-            style: TextStyle(
-                fontSize: 25, color: Colors.black, fontWeight: FontWeight.w600),
-          ),
-        ),
-        if (controller.itemsModel.itemsDiscount! > 0)
-          Expanded(
-            child: Text(
-              "${controller.itemsModel.itemsPrice} ${"jd".tr}",
+        Column(
+          children: [
+            Text(
+              "${translateDatabase(controller.itemsModel.itemsNameAr!, controller.itemsModel.itemsName!)}",
               style: TextStyle(
-                  fontSize: 20, decoration: TextDecoration.lineThrough),
+                  fontSize: 25,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600),
             ),
-          ),
-        Expanded(
-          child: Text(
-            "${controller.itemsModel.itemDiscounntPrice} ${"jd".tr}",
-            style: TextStyle(
-                fontSize: 25, color: Colors.black, fontWeight: FontWeight.w600),
-          ),
+            if (controller.itemsModel.itemsDiscount! > 0)
+              Text(
+                "${controller.itemsModel.itemsPrice} ${"jd".tr}",
+                style: TextStyle(
+                    fontSize: 20, decoration: TextDecoration.lineThrough),
+              ),
+          ],
+        ),
+        Column(
+          children: [
+            Text(
+              "${controller.itemsModel.itemDiscounntPrice} ${"jd".tr}",
+              style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600),
+            ),
+            if (controller.itemsModel.itemsPointPerVal! > 0)
+              Obx(() {
+                return Text(
+                  "${(controller.totalPoint).toStringAsFixed(2)} ${"point".tr}",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
+                );
+              }),
+          ],
         ),
       ],
     );

@@ -26,7 +26,7 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   StatusRequest statusRequest = StatusRequest.none;
   ItemsData itemsData = ItemsData(Get.find());
   RxInt itemsCount = 0.obs;
-
+  late RxDouble itemPrice;
   SubItemsModel selectedWeightAndSize = SubItemsModel();
   CartControllerImp cartController = Get.find();
 
@@ -40,6 +40,7 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   initData() async {
     itemsModel = Get.arguments;
     itemsCount.value = itemsModel.cartCount!;
+    itemPrice = itemsModel.itemDiscounntPrice!.toDouble().obs;
 
     selectedWeightAndSize = SubItemsModel(
       weightSizeId: itemsModel.itemAttrId,
@@ -51,25 +52,38 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
     getSubItems();
   }
 
-  num getPrice() {
-    if (selectedWeightAndSize.weightSizeId != null) {
-      return (selectedWeightAndSize.subItemValue! *
-          itemsModel.itemDiscounntPrice!);
-    } else {
-      return itemsModel.itemDiscounntPrice!;
-    }
-  }
+  // num getPrice() {
+  //   if (selectedWeightAndSize.weightSizeId != null) {
+  //     return (selectedWeightAndSize.subItemValue! *
+  //         itemsModel.itemDiscounntPrice!);
+  //   } else {
+  //     return itemsModel.itemDiscounntPrice!;
+  //   }
+  // }
 
   @override
   add() {
     itemsCount.value++;
+    totalPrice();
   }
 
   @override
   remove() {
     if (itemsCount > 0) {
       itemsCount.value--;
+      totalPrice();
     }
+  }
+
+  RxDouble get totalPrice {
+    return (itemPrice.value * itemsCount.value).toDouble().obs;
+  }
+
+  RxDouble get totalPoint {
+    if (itemsCount.value == 0)
+      return itemsModel.itemsPointPerVal!.toDouble().obs;
+    else
+      return (totalPrice * itemsModel.itemsPointPerVal!).toDouble().obs;
   }
 
   @override

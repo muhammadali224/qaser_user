@@ -10,6 +10,7 @@ import 'routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await initialServices();
   runApp(const MyApp());
 }
