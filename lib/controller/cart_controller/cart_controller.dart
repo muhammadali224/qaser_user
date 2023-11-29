@@ -8,7 +8,7 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/color.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/cart_model.dart';
+import '../../data/model/cart_model/cart_model.dart';
 import '../../data/shared/anonymous_user.dart';
 import '../../data/shared/branches.dart';
 import '../../data/source/remote/cart_data.dart';
@@ -37,18 +37,18 @@ class CartControllerImp extends CartController {
   CartData cartData = CartData(Get.find());
   List<CartModel> data = [];
   TextEditingController couponController = TextEditingController();
-  TextEditingController? noteController;
+  late TextEditingController noteController;
   MyServices myServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
   CheckoutData checkoutData = CheckoutData(Get.find());
   ViewAddressController addressController = Get.put(ViewAddressController());
 
   String deliveryFee = "0";
-  bool isLoading = false;
+  RxBool isLoading = false.obs;
   double totalPrice = 0.0;
   double discount = 0.0;
-  int ordersCount = 0;
-  num price = 0;
+  RxInt ordersCount = 0.obs;
+  RxDouble price = 0.0.obs;
 
   int couponValue = 0;
   String? couponName;
@@ -75,11 +75,14 @@ class CartControllerImp extends CartController {
   @override
   addCart(itemsId, weightAndSizeId, cartItemPrice, itemCount) async {
     try {
+      SmartDialog.showLoading(msg: "loading".tr);
       var response = await cartData.addToCart(user.usersId!.toString(), itemsId,
           weightAndSizeId, cartItemPrice, itemCount);
       statusRequest = handlingData(response);
 
       if (response['status'] == 'success') {
+        SmartDialog.dismiss();
+
         Get.rawSnackbar(
           backgroundColor: Colors.green,
           message: "addCart".tr,
@@ -88,12 +91,12 @@ class CartControllerImp extends CartController {
           duration: const Duration(seconds: 1),
         );
 
-        // await refreshCart();
+        await refreshCart();
       }
     } catch (e) {
       // throw (e.toString());
     }
-
+    SmartDialog.dismiss();
     update();
   }
 
@@ -134,7 +137,7 @@ class CartControllerImp extends CartController {
   getCart() async {
     data.clear();
     statusRequest = StatusRequest.loading;
-    isLoading = true;
+    isLoading.value = true;
     update();
     var response = await cartData.getCart(user.usersId!);
     statusRequest = handlingData(response);
@@ -148,17 +151,17 @@ class CartControllerImp extends CartController {
           update();
         }
         if (response['total']['status'] == 'success') {
-          price = response['total']['data']['totalprice'];
-          ordersCount = response['total']['data']['totalcount'];
+          price.value = (response['total']['data']['totalPrice']).toDouble();
+          ordersCount.value = response['total']['data']['totalCount'];
         } else {
-          ordersCount = 0;
-          price = 0.0;
+          ordersCount.value = 0;
+          price.value = 0.0;
         }
       } else {
         statusRequest = StatusRequest.failed;
       }
     }
-    isLoading = false;
+    isLoading.value = false;
     update();
   }
 
@@ -203,7 +206,7 @@ class CartControllerImp extends CartController {
 
   @override
   void dispose() {
-    noteController!.dispose();
+    noteController.dispose();
     couponController.dispose();
     super.dispose();
   }
@@ -213,7 +216,7 @@ class CartControllerImp extends CartController {
     var response = await cartData.addNoteToItem(
       user.usersId!,
       cartId,
-      noteController?.text ?? "",
+      noteController.text,
     );
     if (response['status'] == 'success') {
       !Get.isSnackbarOpen
@@ -228,6 +231,8 @@ class CartControllerImp extends CartController {
             )
           : null;
       update();
+      refreshCart();
+      noteController.clear();
     } else {
       SmartDialog.showToast(
         "notDontSave".tr,
@@ -319,8 +324,9 @@ class CartControllerImp extends CartController {
   }
 
   getTotalOrderPrice() {
-    totalPrice =
-        (price - (price * (couponValue / 100)) + double.parse(deliveryFee));
+    totalPrice = (price.value -
+        (price * (couponValue / 100)) +
+        double.parse(deliveryFee));
 
     return totalPrice.toStringAsFixed(2);
   }

@@ -33,7 +33,7 @@ class Home extends StatelessWidget {
             appBar: AppBar(
               title: const BranchDropDownList(),
               leading: LeadingAppbar(onTap: controller.goToCart),
-              actions: actionList,
+              actions: [NotificationIcon()],
             ),
             body: ListView(
               children: [

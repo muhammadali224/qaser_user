@@ -1,9 +1,9 @@
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:qaser_user/data/shared/weight_size.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
-import '../../core/function/handling_data_controller.dart';
 import '../../data/model/items_model/items_model.dart';
 import '../../data/model/sub_items_model/sub_items_model.dart';
 import '../../data/source/remote/items_data.dart';
@@ -17,8 +17,6 @@ abstract class ItemDetailsController extends GetxController {
   remove();
 
   goToCart();
-
-  getSubItems();
 }
 
 class ItemDetailsControllerImpl extends ItemDetailsController {
@@ -26,13 +24,16 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   StatusRequest statusRequest = StatusRequest.none;
   ItemsData itemsData = ItemsData(Get.find());
   RxInt itemsCount = 0.obs;
+  List<SubItemsModel> availableSubItems = [];
   late RxDouble itemPrice;
   SubItemsModel selectedWeightAndSize = SubItemsModel();
   CartControllerImp cartController = Get.find();
 
   @override
   void onInit() {
+    availableSubItems.clear();
     initData();
+
     super.onInit();
   }
 
@@ -40,31 +41,43 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   initData() async {
     itemsModel = Get.arguments;
     itemsCount.value = itemsModel.cartCount!;
-    itemPrice = itemsModel.itemDiscounntPrice!.toDouble().obs;
 
-    selectedWeightAndSize = SubItemsModel(
-      weightSizeId: itemsModel.itemAttrId,
-      subItemValue: itemsModel.subItemValue,
-      subItemName: itemsModel.subItemName,
-      subItemNameAr: itemsModel.subItemNameAr,
-    );
+    if (itemsModel.selectedSubItemId != null) {
+      print(itemsModel.selectedSubItemId);
+      selectedWeightAndSize = subItemsList
+          .where(
+              (element) => element.weightSizeId == itemsModel.selectedSubItemId)
+          .first;
+      itemPrice =
+          (itemsModel.itemDiscounntPrice! * selectedWeightAndSize.subItemValue!)
+              .toDouble()
+              .obs;
+    } else {
+      selectedWeightAndSize = SubItemsModel(
+        weightSizeId: itemsModel.itemAttrId,
+        subItemValue: itemsModel.subItemValue,
+        subItemName: itemsModel.subItemName,
+        subItemNameAr: itemsModel.subItemNameAr,
+      );
+      availableSubItems.add(selectedWeightAndSize);
+      itemPrice = itemsModel.itemDiscounntPrice!.toDouble().obs;
+    }
 
-    getSubItems();
+    for (var item in subItemsList) {
+      if (itemsModel.weighIds!.contains(item.weightSizeId.toString())) {
+        availableSubItems.add(item);
+      }
+    }
   }
-
-  // num getPrice() {
-  //   if (selectedWeightAndSize.weightSizeId != null) {
-  //     return (selectedWeightAndSize.subItemValue! *
-  //         itemsModel.itemDiscounntPrice!);
-  //   } else {
-  //     return itemsModel.itemDiscounntPrice!;
-  //   }
-  // }
 
   @override
   add() {
-    itemsCount.value++;
-    totalPrice();
+    if (itemsCount.value < itemsModel.itemsCount!) {
+      itemsCount.value++;
+      totalPrice();
+    } else {
+      SmartDialog.showToast("itemCountLimit".tr);
+    }
   }
 
   @override
@@ -92,26 +105,12 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
     Get.toNamed(AppRoutes.cart);
   }
 
-  @override
-  getSubItems() async {
-    if (subItemsList.isEmpty) {
-      var response = await itemsData.getSubItems();
-      statusRequest = handlingData(response);
-      if (StatusRequest.success == statusRequest) {
-        if (response['status'] == 'success') {
-          List responseData = response['data'];
-          subItemsList
-              .addAll(responseData.map((e) => SubItemsModel.fromJson(e)));
-        } else {
-          statusRequest = StatusRequest.failed;
-        }
-      }
-      update();
-    }
-  }
-
   setSelectedWeightAndSize(SubItemsModel subItemsModel) {
     selectedWeightAndSize = subItemsModel;
+    itemPrice =
+        (selectedWeightAndSize.subItemValue! * itemsModel.itemDiscounntPrice!)
+            .toDouble()
+            .obs;
     update();
   }
 }

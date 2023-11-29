@@ -8,7 +8,7 @@ import '../../../controller/cart_controller/cart_controller.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
-import '../../../data/model/cart_model.dart';
+import '../../../data/model/cart_model/cart_model.dart';
 import '../bottom_cart_button.dart';
 import 'list cart items/cart_item_count.dart';
 
@@ -98,9 +98,10 @@ class CustomListCartItems extends GetView<CartControllerImp> {
                                               SmartDialog.dismiss();
                                               controller.addNoteToItem(
                                                   cartModel.cartId!);
-                                              cartModel.cartItemNote =
-                                                  controller
-                                                      .noteController!.text;
+
+                                              // cartModel.cartItemNote. =
+                                              //     controller
+                                              //         .noteController!.text;
                                               controller.update();
                                             },
                                             title: 'save',

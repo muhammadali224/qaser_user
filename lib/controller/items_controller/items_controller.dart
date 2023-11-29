@@ -4,23 +4,25 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/items_model/items_model.dart';
+import '../../data/model/sub_items_model/sub_items_model.dart';
 import '../../data/shared/anonymous_user.dart';
+import '../../data/shared/weight_size.dart';
 import '../../data/source/remote/items_data.dart';
 import '../cart_controller/cart_controller.dart';
 
 abstract class ItemsController extends GetxController {
   initData();
 
-  getData(String categoriesId);
+  Future<void> getData(int categoriesId);
 
-  getOffersItems();
+  Future<void> getSubItems();
 
-  changeChips(int i, String catVal);
+  changeChips(int i, catVal);
 
   goToDetails(ItemModel itemModel);
 }
 
-class ItemsControllerImp extends GetxController {
+class ItemsControllerImp extends ItemsController {
   late List categories;
   late int selectedCategory;
   late int id;
@@ -49,13 +51,31 @@ class ItemsControllerImp extends GetxController {
     Get.toNamed(AppRoutes.myFavorite);
   }
 
+  Future<void> getSubItems() async {
+    if (subItemsList.isEmpty) {
+      var response = await itemsData.getSubItems();
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          List responseData = response['data'];
+          subItemsList
+              .addAll(responseData.map((e) => SubItemsModel.fromJson(e)));
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
+      }
+      update();
+    }
+  }
+
   initData() {
     // await userManagement.initUser();
     selectedCategory = Get.arguments['selectedCategories'];
     categories = Get.arguments['categories'];
     id = Get.arguments['id'];
     userId = user.usersId!;
-    getData(id);
+    Future.wait([getSubItems(), getData(id)]);
+    // getData(id);
   }
 
   changeChips(int i, catVal) {

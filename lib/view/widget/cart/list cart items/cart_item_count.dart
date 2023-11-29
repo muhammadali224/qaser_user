@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../controller/cart_controller/cart_controller.dart';
 import '../../../../core/constant/color.dart';
-import '../../../../data/model/cart_model.dart';
+import '../../../../data/model/cart_model/cart_model.dart';
 
 class CartItemCount extends GetView<CartControllerImp> {
   final CartModel cartModel;
@@ -18,8 +18,8 @@ class CartItemCount extends GetView<CartControllerImp> {
       children: [
         InkWell(
           onTap: () {
-            cartModel.countitems = cartModel.countitems! + 1;
-            controller.update();
+            // cartModel.cartItemCount = cartModel.countitems! + 1;
+            // controller.update();
 
             // controller.addCart(
             //     cartModel.itemsId!,
@@ -38,17 +38,17 @@ class CartItemCount extends GetView<CartControllerImp> {
             child: AnimatedFlipCounter(
               textStyle: const TextStyle(fontSize: 22),
               duration: const Duration(milliseconds: 500),
-              value: cartModel.countitems!, // pass in a value like 2014
+              value: cartModel.cartItemCount!, // pass in a value like 2014
             ),
           );
         }),
         InkWell(
           onTap: () {
-            if (cartModel.countitems! > 0) {
-              cartModel.countitems = cartModel.countitems! - 1;
-              controller.update();
-              controller.deleteFromCart(cartModel.itemsId!);
-            }
+            // if (cartModel.cartItemCount! > 0) {
+            //   cartModel.cartItemCount = cartModel.cartItemCount! - 1;
+            //   controller.update();
+            //   controller.deleteFromCart(cartModel.itemsId!);
+            // }
           },
           child: Icon(
             Icons.remove_circle,

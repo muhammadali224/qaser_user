@@ -31,13 +31,32 @@ class TitlePrice extends GetView<ItemDetailsControllerImpl> {
         ),
         Column(
           children: [
-            Text(
-              "${controller.itemsModel.itemDiscounntPrice} ${"jd".tr}",
-              style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600),
-            ),
+            RichText(
+                text: TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: [
+                TextSpan(
+                    text:
+                        "${(controller.itemPrice).toStringAsFixed(2)} ${"d".tr}",
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600)),
+                TextSpan(
+                    text: "/",
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.black,
+                    )),
+                TextSpan(
+                    text:
+                        " ${translateDatabase(controller.selectedWeightAndSize.subItemNameAr!, controller.selectedWeightAndSize.subItemName!)}",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18))
+              ],
+            )),
             if (controller.itemsModel.itemsPointPerVal! > 0)
               Obx(() {
                 return Text(

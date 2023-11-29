@@ -2,6 +2,7 @@ import 'package:dotted_dashed_line/dotted_dashed_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:qaser_user/data/shared/anonymous_user.dart';
 
 import '../../controller/cart_controller/cart_controller.dart';
 import '../../core/class/handling_data_view.dart';
@@ -34,20 +35,37 @@ class Cart extends StatelessWidget {
             ItemsCountText(),
           ],
         ),
-        bottomNavigationBar:
-            selectedBranch.branchIsOpen == 1 && controller.data.isNotEmpty
-                ? Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ButtomNavigatButton(
-                        icon: IconBroken.Wallet,
-                        color: Colors.red,
-                        title: 'checkout',
-                        onPressed: () => controller.checkout(),
-                      ),
-                    ],
-                  )
-                : null,
+        bottomNavigationBar: selectedBranch.branchIsOpen == 1 &&
+                user.usersIsAnonymous == 0 &&
+                controller.data.isNotEmpty
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ButtomNavigatButton(
+                    icon: IconBroken.Wallet,
+                    color: Colors.red,
+                    title: 'checkout',
+                    onPressed: () => controller.checkout(),
+                  ),
+                ],
+              )
+            : Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                height: 40,
+                width: double.infinity,
+                child: Text(
+                  selectedBranch.branchIsOpen == 0
+                      ? "closeBranch"
+                      : user.usersIsAnonymous == 0
+                          ? "signInFirst"
+                          : "addToCartFirst",
+                  style: TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black),
+                ),
+              ),
         body: HandlingDataView(
           statusRequest: controller.statusRequest,
           widget: ListView(

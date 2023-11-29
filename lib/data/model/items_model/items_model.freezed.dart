@@ -74,6 +74,8 @@ mixin _$ItemModel {
   String? get subItemNameAr => throw _privateConstructorUsedError;
   @JsonKey(name: "sub_item_value")
   num? get subItemValue => throw _privateConstructorUsedError;
+  @JsonKey(name: "selectedSubItemsId")
+  int? get selectedSubItemId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -113,7 +115,8 @@ abstract class $ItemModelCopyWith<$Res> {
       @JsonKey(name: "item_attr_id") int? itemAttrId,
       @JsonKey(name: "sub_item_name") String? subItemName,
       @JsonKey(name: "sub_item_name_ar") String? subItemNameAr,
-      @JsonKey(name: "sub_item_value") num? subItemValue});
+      @JsonKey(name: "sub_item_value") num? subItemValue,
+      @JsonKey(name: "selectedSubItemsId") int? selectedSubItemId});
 }
 
 /// @nodoc
@@ -156,6 +159,7 @@ class _$ItemModelCopyWithImpl<$Res, $Val extends ItemModel>
     Object? subItemName = freezed,
     Object? subItemNameAr = freezed,
     Object? subItemValue = freezed,
+    Object? selectedSubItemId = freezed,
   }) {
     return _then(_value.copyWith(
       itemsId: freezed == itemsId
@@ -266,6 +270,10 @@ class _$ItemModelCopyWithImpl<$Res, $Val extends ItemModel>
           ? _value.subItemValue
           : subItemValue // ignore: cast_nullable_to_non_nullable
               as num?,
+      selectedSubItemId: freezed == selectedSubItemId
+          ? _value.selectedSubItemId
+          : selectedSubItemId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -305,7 +313,8 @@ abstract class _$$ItemModelImplCopyWith<$Res>
       @JsonKey(name: "item_attr_id") int? itemAttrId,
       @JsonKey(name: "sub_item_name") String? subItemName,
       @JsonKey(name: "sub_item_name_ar") String? subItemNameAr,
-      @JsonKey(name: "sub_item_value") num? subItemValue});
+      @JsonKey(name: "sub_item_value") num? subItemValue,
+      @JsonKey(name: "selectedSubItemsId") int? selectedSubItemId});
 }
 
 /// @nodoc
@@ -346,6 +355,7 @@ class __$$ItemModelImplCopyWithImpl<$Res>
     Object? subItemName = freezed,
     Object? subItemNameAr = freezed,
     Object? subItemValue = freezed,
+    Object? selectedSubItemId = freezed,
   }) {
     return _then(_$ItemModelImpl(
       itemsId: freezed == itemsId
@@ -456,6 +466,10 @@ class __$$ItemModelImplCopyWithImpl<$Res>
           ? _value.subItemValue
           : subItemValue // ignore: cast_nullable_to_non_nullable
               as num?,
+      selectedSubItemId: freezed == selectedSubItemId
+          ? _value.selectedSubItemId
+          : selectedSubItemId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -490,7 +504,8 @@ class _$ItemModelImpl implements _ItemModel {
       @JsonKey(name: "item_attr_id") this.itemAttrId,
       @JsonKey(name: "sub_item_name") this.subItemName,
       @JsonKey(name: "sub_item_name_ar") this.subItemNameAr,
-      @JsonKey(name: "sub_item_value") this.subItemValue})
+      @JsonKey(name: "sub_item_value") this.subItemValue,
+      @JsonKey(name: "selectedSubItemsId") this.selectedSubItemId})
       : _weighIds = weighIds,
         _images = images;
 
@@ -594,10 +609,13 @@ class _$ItemModelImpl implements _ItemModel {
   @override
   @JsonKey(name: "sub_item_value")
   final num? subItemValue;
+  @override
+  @JsonKey(name: "selectedSubItemsId")
+  final int? selectedSubItemId;
 
   @override
   String toString() {
-    return 'ItemModel(itemsId: $itemsId, itemsName: $itemsName, itemsNameAr: $itemsNameAr, itemsDesc: $itemsDesc, itemsDescAr: $itemsDescAr, itemsImage: $itemsImage, itemsCount: $itemsCount, itemsActive: $itemsActive, itemsPrice: $itemsPrice, itemsDiscount: $itemsDiscount, itemsPointPerVal: $itemsPointPerVal, itemsData: $itemsData, itemsCat: $itemsCat, branchId: $branchId, categoriesId: $categoriesId, categoriesName: $categoriesName, categoriesNameAr: $categoriesNameAr, categoriesImage: $categoriesImage, itemDiscounntPrice: $itemDiscounntPrice, isFavorite: $isFavorite, weighIds: $weighIds, images: $images, cartCount: $cartCount, itemAttrId: $itemAttrId, subItemName: $subItemName, subItemNameAr: $subItemNameAr, subItemValue: $subItemValue)';
+    return 'ItemModel(itemsId: $itemsId, itemsName: $itemsName, itemsNameAr: $itemsNameAr, itemsDesc: $itemsDesc, itemsDescAr: $itemsDescAr, itemsImage: $itemsImage, itemsCount: $itemsCount, itemsActive: $itemsActive, itemsPrice: $itemsPrice, itemsDiscount: $itemsDiscount, itemsPointPerVal: $itemsPointPerVal, itemsData: $itemsData, itemsCat: $itemsCat, branchId: $branchId, categoriesId: $categoriesId, categoriesName: $categoriesName, categoriesNameAr: $categoriesNameAr, categoriesImage: $categoriesImage, itemDiscounntPrice: $itemDiscounntPrice, isFavorite: $isFavorite, weighIds: $weighIds, images: $images, cartCount: $cartCount, itemAttrId: $itemAttrId, subItemName: $subItemName, subItemNameAr: $subItemNameAr, subItemValue: $subItemValue, selectedSubItemId: $selectedSubItemId)';
   }
 
   @override
@@ -655,7 +673,9 @@ class _$ItemModelImpl implements _ItemModel {
             (identical(other.subItemNameAr, subItemNameAr) ||
                 other.subItemNameAr == subItemNameAr) &&
             (identical(other.subItemValue, subItemValue) ||
-                other.subItemValue == subItemValue));
+                other.subItemValue == subItemValue) &&
+            (identical(other.selectedSubItemId, selectedSubItemId) ||
+                other.selectedSubItemId == selectedSubItemId));
   }
 
   @JsonKey(ignore: true)
@@ -688,7 +708,8 @@ class _$ItemModelImpl implements _ItemModel {
         itemAttrId,
         subItemName,
         subItemNameAr,
-        subItemValue
+        subItemValue,
+        selectedSubItemId
       ]);
 
   @JsonKey(ignore: true)
@@ -733,7 +754,8 @@ abstract class _ItemModel implements ItemModel {
           @JsonKey(name: "item_attr_id") final int? itemAttrId,
           @JsonKey(name: "sub_item_name") final String? subItemName,
           @JsonKey(name: "sub_item_name_ar") final String? subItemNameAr,
-          @JsonKey(name: "sub_item_value") final num? subItemValue}) =
+          @JsonKey(name: "sub_item_value") final num? subItemValue,
+          @JsonKey(name: "selectedSubItemsId") final int? selectedSubItemId}) =
       _$ItemModelImpl;
 
   factory _ItemModel.fromJson(Map<String, dynamic> json) =
@@ -820,6 +842,9 @@ abstract class _ItemModel implements ItemModel {
   @override
   @JsonKey(name: "sub_item_value")
   num? get subItemValue;
+  @override
+  @JsonKey(name: "selectedSubItemsId")
+  int? get selectedSubItemId;
   @override
   @JsonKey(ignore: true)
   _$$ItemModelImplCopyWith<_$ItemModelImpl> get copyWith =>

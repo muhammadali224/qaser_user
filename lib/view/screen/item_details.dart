@@ -47,81 +47,88 @@ class ItemDetails extends StatelessWidget {
                         Card(
                             child: CounterSection(
                                 itemsModel: controller.itemsModel)),
-                        SectionTitle(title: "price"),
-                        Wrap(
-                          direction: Axis.horizontal,
-                          children: [
-                            Container(
-                              height: 80,
-                              width: 70,
-                              margin: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      translateDatabase(
-                                          controller.itemsModel.subItemNameAr!,
-                                          controller.itemsModel.subItemName!),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      "${controller.itemsModel.subItemValue! * controller.itemsModel.itemDiscounntPrice!} ${"d".tr}",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            // TODO: create list named selected weight and size its take model and add to it first item list comed from api and with where
-                            //
-                            if (controller.itemsModel.weighIds!.isNotEmpty)
-                              ...List.generate(
-                                  5,
-                                  (index) => Container(
-                                        height: 80,
-                                        width: 70,
-                                        margin: EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                            color: Colors.red.withOpacity(0.4),
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                translateDatabase(
-                                                    controller.itemsModel
-                                                        .subItemNameAr!,
-                                                    controller.itemsModel
-                                                        .subItemName!),
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                "${controller.itemsModel.subItemValue! * controller.itemsModel.itemDiscounntPrice!} ${"d".tr}",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ))
-                          ],
+                        Visibility(
+                          visible: controller.itemsModel.weighIds!.isEmpty
+                              ? false
+                              : true,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              SectionTitle(title: "weightSize"),
+                              GetBuilder<ItemDetailsControllerImpl>(
+                                  builder: (controller) {
+                                return Wrap(
+                                  direction: Axis.horizontal,
+                                  children: [
+                                    if (controller
+                                        .itemsModel.weighIds!.isNotEmpty)
+                                      ...List.generate(
+                                          controller.availableSubItems.length,
+                                          (index) => GestureDetector(
+                                                onTap: () => controller
+                                                    .setSelectedWeightAndSize(
+                                                        controller
+                                                                .availableSubItems[
+                                                            index]),
+                                                child: Container(
+                                                  height: 80,
+                                                  width: 70,
+                                                  margin: EdgeInsets.all(10),
+                                                  decoration: BoxDecoration(
+                                                      color: controller
+                                                                  .availableSubItems[
+                                                                      index]
+                                                                  .weightSizeId ==
+                                                              controller
+                                                                  .selectedWeightAndSize
+                                                                  .weightSizeId
+                                                          ? Colors.red
+                                                          : Colors.red
+                                                              .withOpacity(0.4),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5)),
+                                                  child: Column(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          translateDatabase(
+                                                              controller
+                                                                  .availableSubItems[
+                                                                      index]
+                                                                  .subItemNameAr!,
+                                                              controller
+                                                                  .availableSubItems[
+                                                                      index]
+                                                                  .subItemName!),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          "${(controller.availableSubItems[index].subItemValue! * controller.itemsModel.itemDiscounntPrice!).toStringAsFixed(2)} ${"d".tr}",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ))
+                                  ],
+                                );
+                              }),
+                            ],
+                          ),
                         ),
                         SectionTitle(title: "description"),
                         Card(

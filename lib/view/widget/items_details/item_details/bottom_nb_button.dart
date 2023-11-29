@@ -23,11 +23,17 @@ class ButtomNaviBar extends GetView<ItemDetailsControllerImpl> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 height: 60,
-                onPressed: () => controller.cartController.addCart(
-                    controller.itemsModel.itemsId!.toString(),
-                    controller.selectedWeightAndSize.weightSizeId.toString(),
-                    controller.totalPrice.toString(),
-                    controller.itemsCount.value.toString()),
+                onPressed: () {
+                  controller.cartController.addCart(
+                      controller.itemsModel.itemsId!.toString(),
+                      controller.selectedWeightAndSize.weightSizeId.toString(),
+                      controller.totalPrice.toStringAsFixed(2),
+                      controller.itemsCount.value.toString());
+                  print(controller.itemsModel.itemsId!);
+                  print(controller.selectedWeightAndSize.weightSizeId!);
+                  print(controller.totalPrice);
+                  print(controller.itemsCount.value);
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

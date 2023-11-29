@@ -188,6 +188,7 @@ class MyTranslation extends Translations {
           'product': 'المنتج',
           'deliverTo': 'التوصيل الى',
           'paymentInfo': 'معلومات الدفع',
+          'weightSize': 'الاوزان والأحجام',
           'ratings': 'التقييمات',
           'rate': 'قيم  ',
           'order': 'الطلب',
@@ -250,6 +251,10 @@ class MyTranslation extends Translations {
           "description": "الوصف",
           "userBlocked":
               "تم حظر هذ الحساب من قبل المتجر الرجاء التواصل مع المتجر لحل المشكلة",
+          "closeBranch": "هذا الفرع مغلق",
+          "signInFirst": "يجب تسجيل الدخول أولا",
+          "addToCartFirst": "السلة فارغة",
+          "itemCountLimit": "لا يمكن إضافة أكثر من هذا العدد",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -344,6 +349,7 @@ class MyTranslation extends Translations {
           'statusServer': 'Server Failed ',
           'point': ' Point',
           'points': ' Points',
+          "weightSize": "Weight And Size",
           'statusFailed': 'No Data Available',
           'emailOrPhoneUsed': 'The Email or Phone is already Used',
           'emailOrPasswordError': 'The Email or Password is Incorrect',
@@ -500,6 +506,10 @@ class MyTranslation extends Translations {
           "d": "jd",
           "userBlocked":
               "This Account is Blocked by the Store ,Please Contact the Store",
+          "closeBranch": "This Branch is Closed",
+          "signInFirst": "You Must Sign In First",
+          "addToCartFirst": "Cart Is Empty!",
+          "itemCountLimit": "Can't Add More than Limit",
         },
       };
 }
