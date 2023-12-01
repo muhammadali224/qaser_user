@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../core/constant/get_box_key.dart';
 import '../core/constant/routes.dart';
-import '../core/services/services.dart';
+import '../core/services/app.service.dart';
 import '../data/source/static/static.dart';
 
 abstract class OnBoardingController extends GetxController {

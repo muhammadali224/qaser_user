@@ -59,7 +59,7 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
         subItemName: itemsModel.subItemName,
         subItemNameAr: itemsModel.subItemNameAr,
       );
-      availableSubItems.add(selectedWeightAndSize);
+
       itemPrice = itemsModel.itemDiscounntPrice!.toDouble().obs;
     }
 

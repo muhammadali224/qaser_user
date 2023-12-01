@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:qaser_user/core/constant/get_box_key.dart';
 import 'package:qaser_user/core/constant/routes.dart';
-import 'package:qaser_user/core/services/services.dart';
+import 'package:qaser_user/core/services/app.service.dart';
 import 'package:qaser_user/data/model/user_model/user_model.dart';
 import 'package:qaser_user/data/shared/anonymous_user.dart';
 import 'package:qaser_user/data/source/remote/auth/check_sms_data.dart';

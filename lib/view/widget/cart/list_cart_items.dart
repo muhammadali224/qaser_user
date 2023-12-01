@@ -53,12 +53,21 @@ class CustomListCartItems extends GetView<CartControllerImp> {
                           "${translateDatabase(cartModel.itemsNameAr!, cartModel.itemsName!)}",
                           style: TextStyle(color: AppColor.black, fontSize: 17),
                         ),
-                        Text(
-                          "${cartModel.cartItemPrice!.toStringAsFixed(2)} ${"jd".tr}",
-                          style: TextStyle(
-                              color: AppColor.primaryColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
+                        Row(
+                          children: [
+                            Text(
+                              "${cartModel.cartItemPrice!.toStringAsFixed(2)} ${"jd".tr}",
+                              style: TextStyle(
+                                  color: AppColor.primaryColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              "/${translateDatabase(cartModel.subItemNameAr!, cartModel.subItemName!)}",
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.w600),
+                            ),
+                          ],
                         ),
                         InkWell(
                           onTap: () {
@@ -99,9 +108,6 @@ class CustomListCartItems extends GetView<CartControllerImp> {
                                               controller.addNoteToItem(
                                                   cartModel.cartId!);
 
-                                              // cartModel.cartItemNote. =
-                                              //     controller
-                                              //         .noteController!.text;
                                               controller.update();
                                             },
                                             title: 'save',
@@ -114,10 +120,8 @@ class CustomListCartItems extends GetView<CartControllerImp> {
                           },
                           child: Row(
                             children: [
-                              const Icon(
-                                IconBroken.Edit_Square,
-                                color: Colors.red,
-                              ),
+                              const Icon(IconBroken.Edit_Square,
+                                  color: Colors.red),
                               Container(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 5),
@@ -130,6 +134,14 @@ class CustomListCartItems extends GetView<CartControllerImp> {
                           ),
                         ),
                         Text(cartModel.cartItemNote!),
+                        GestureDetector(
+                          child: Icon(
+                            Icons.delete,
+                            color: AppColor.red,
+                          ),
+                          onTap: () =>
+                              controller.deleteFromCart(cartModel.cartId!),
+                        ),
                       ],
                     ),
                   )),

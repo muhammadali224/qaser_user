@@ -50,7 +50,7 @@ class AppLink {
 
 //============================== Cart ===============================//
   static String addCart = '$server/cart/add.php';
-  static String removeCartItems = '$server/cart/remove.php';
+  static String deleteCartItems = '$server/cart/delete.php';
   static String getCart = '$server/cart/view.php';
   static String getCount = '$server/cart/get_count.php';
   static String addNoteToItem = '$server/cart/add_note_to_item.php';

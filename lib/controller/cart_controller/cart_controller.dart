@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
-import 'package:qaser_user/core/services/services.dart';
+import 'package:qaser_user/core/services/app.service.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/color.dart';
@@ -18,7 +18,7 @@ import '../address_controller/view_address_controller.dart';
 
 abstract class CartController extends GetxController {
   addCart(String itemsId, String? weightAndSizeId, String cartItemPrice,
-      String itemCount);
+      String itemCount, String itemPointCount);
 
   deleteFromCart(int itemsId);
 
@@ -49,6 +49,7 @@ class CartControllerImp extends CartController {
   double discount = 0.0;
   RxInt ordersCount = 0.obs;
   RxDouble price = 0.0.obs;
+  String totalPoint = "0";
 
   int couponValue = 0;
   String? couponName;
@@ -73,31 +74,40 @@ class CartControllerImp extends CartController {
   String? address;
 
   @override
-  addCart(itemsId, weightAndSizeId, cartItemPrice, itemCount) async {
-    try {
-      SmartDialog.showLoading(msg: "loading".tr);
-      var response = await cartData.addToCart(user.usersId!.toString(), itemsId,
-          weightAndSizeId, cartItemPrice, itemCount);
-      statusRequest = handlingData(response);
-
-      if (response['status'] == 'success') {
-        SmartDialog.dismiss();
-
-        Get.rawSnackbar(
-          backgroundColor: Colors.green,
-          message: "addCart".tr,
-          icon: const Icon(Icons.add_shopping_cart),
-          snackStyle: SnackStyle.GROUNDED,
-          duration: const Duration(seconds: 1),
+  addCart(itemsId, weightAndSizeId, cartItemPrice, itemCount,
+      itemPointCount) async {
+    if (int.parse(itemCount) > 0) {
+      try {
+        SmartDialog.showLoading(msg: "loading".tr);
+        var response = await cartData.addToCart(
+          user.usersId!.toString(),
+          itemsId,
+          weightAndSizeId,
+          cartItemPrice,
+          itemCount,
+          itemPointCount,
         );
+        statusRequest = handlingData(response);
 
-        await refreshCart();
+        if (response['status'] == 'success') {
+          SmartDialog.dismiss();
+
+          Get.rawSnackbar(
+            backgroundColor: Colors.green,
+            message: "addCart".tr,
+            icon: const Icon(Icons.add_shopping_cart),
+            snackStyle: SnackStyle.GROUNDED,
+            duration: const Duration(seconds: 1),
+          );
+
+          await refreshCart();
+        }
+      } catch (e) {
+        // throw (e.toString());
       }
-    } catch (e) {
-      // throw (e.toString());
+      SmartDialog.dismiss();
+      update();
     }
-    SmartDialog.dismiss();
-    update();
   }
 
   @override
@@ -107,11 +117,8 @@ class CartControllerImp extends CartController {
   }
 
   @override
-  deleteFromCart(itemsId) async {
-    var response = await cartData.removeFromCart(
-      user.usersId!,
-      itemsId,
-    );
+  deleteFromCart(cartId) async {
+    var response = await cartData.removeFromCart(cartId);
 
     if (response['status'] == 'success') {
       !Get.isSnackbarOpen
@@ -153,9 +160,11 @@ class CartControllerImp extends CartController {
         if (response['total']['status'] == 'success') {
           price.value = (response['total']['data']['totalPrice']).toDouble();
           ordersCount.value = response['total']['data']['totalCount'];
+          totalPoint = response['total']['data']['totalPoint'];
         } else {
           ordersCount.value = 0;
           price.value = 0.0;
+          totalPoint = "0";
         }
       } else {
         statusRequest = StatusRequest.failed;

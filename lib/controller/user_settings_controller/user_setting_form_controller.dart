@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/services.dart';
+import '../../core/services/app.service.dart';
 import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/user_details_data.dart';
 import 'user_setting_controller.dart';

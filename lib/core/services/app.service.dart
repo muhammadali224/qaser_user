@@ -10,6 +10,8 @@ import '../../data/model/user_model/user_model.dart';
 import '../../data/shared/anonymous_user.dart';
 import '../../firebase_options.dart';
 import '../constant/get_box_key.dart';
+import 'awesome_helper.service.dart';
+import 'fcm_helper.service.dart';
 
 class MyServices extends GetxService {
   late GetStorage getBox;
@@ -48,6 +50,8 @@ class MyServices extends GetxService {
     }
 
     FirebaseAnalytics.instance;
+    await FcmHelper.initFcm();
+    await AwesomeNotificationsHelper.init();
 
     return this;
   }

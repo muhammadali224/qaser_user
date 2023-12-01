@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qaser_user/core/constant/get_box_key.dart';
-import 'package:qaser_user/core/services/services.dart';
+import 'package:qaser_user/core/services/app.service.dart';
 
 import '../../../core/constant/color.dart';
 

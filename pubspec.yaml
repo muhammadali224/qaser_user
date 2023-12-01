@@ -48,6 +48,8 @@ dependencies:
   get_storage: ^2.1.1
   json_annotation: ^4.8.1
   icons_plus:
+  awesome_notifications:
+  awesome_notifications_core:
 
 
 

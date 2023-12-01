@@ -2,12 +2,13 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:qaser_user/controller/cart_controller/cart_controller.dart';
+import 'package:qaser_user/data/model/sub_items_model/sub_items_model.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/get_box_key.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../core/services/services.dart';
+import '../../core/services/app.service.dart';
 import '../../data/model/branches_model/branches_model.dart';
 import '../../data/model/categories_model.dart';
 import '../../data/model/items_model/items_model.dart';
@@ -15,6 +16,7 @@ import '../../data/model/offers_image_model.dart';
 import '../../data/model/user_model/user_model.dart';
 import '../../data/shared/anonymous_user.dart';
 import '../../data/shared/branches.dart';
+import '../../data/shared/weight_size.dart';
 import '../../data/source/remote/auth/login_data.dart';
 import '../search_controller/search_mixin_controller.dart';
 
@@ -164,6 +166,11 @@ class HomeControllerImp extends HomeController {
             offerImagesList.addAll(
                 responseOffers.map((e) => OffersImageModel.fromJson(e)));
           }
+          if (response['weight_size']['status'] == 'success') {
+            List responseSubItem = response['weight_size']['data'];
+            subItemsList
+                .addAll(responseSubItem.map((e) => SubItemsModel.fromJson(e)));
+          }
         } else {
           statusRequest = StatusRequest.failed;
         }
@@ -249,6 +256,7 @@ class HomeControllerImp extends HomeController {
   }
 
   clearAllList() {
+    subItemsList.clear();
     branchesList.clear();
     categoriesList.clear();
     topSellingList.clear();

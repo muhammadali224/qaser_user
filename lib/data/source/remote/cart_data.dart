@@ -7,13 +7,14 @@ class CartData {
   CartData(this.crud);
 
   addToCart(String userId, String itemId, String? weightAndSizeId,
-      String cartItemPrice, String itemCount) async {
+      String cartItemPrice, String itemCount, String itemPointCount) async {
     var response = await crud.postData(AppLink.addCart, {
       'userid': userId,
       'itemid': itemId,
       'weight_size_id': weightAndSizeId ?? "",
       'cart_item_price': cartItemPrice,
       'cart_item_count': itemCount,
+      "item_point_count": itemPointCount,
     });
 
     return response.fold((l) => l, (r) => r);
@@ -28,22 +29,13 @@ class CartData {
     return response.fold((l) => l, (r) => r);
   }
 
-  removeFromCart(int userId, int itemId) async {
+  removeFromCart(int cartId) async {
     var response = await crud.postData(
-      AppLink.removeCartItems,
+      AppLink.deleteCartItems,
       {
-        'userid': userId.toString(),
-        'itemid': itemId.toString(),
+        'id': cartId.toString(),
       },
     );
-    return response.fold((l) => l, (r) => r);
-  }
-
-  getCountItem(int userId, int itemId) async {
-    var response = await crud.postData(AppLink.getCount, {
-      'userid': userId.toString(),
-      'itemid': itemId.toString(),
-    });
     return response.fold((l) => l, (r) => r);
   }
 

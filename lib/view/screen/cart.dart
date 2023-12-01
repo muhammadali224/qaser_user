@@ -76,6 +76,7 @@ class Cart extends StatelessWidget {
                         cartModel: controller.data[index],
                       )),
               // SizedBox(height: 20),
+
               const Divider(
                 endIndent: 10,
                 indent: 10,

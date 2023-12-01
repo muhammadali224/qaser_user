@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qaser_user/view/widget/cart/total_row_section.dart';
 
 import '../../../controller/cart_controller/cart_controller.dart';
 
@@ -17,59 +18,24 @@ class CustomTotalPriceText extends StatelessWidget {
             builder: (controller) {
               return Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "${'subPrice'.tr} :",
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(fontWeight: FontWeight.w500),
-                      ),
-                      Text(
-                        "${controller.price.toStringAsFixed(2)}",
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                    ],
-                  ),
+                  TotalRowSection(
+                      title: 'totalPoints',
+                      description: "${controller.totalPoint}"),
                   const SizedBox(height: 7),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        controller.couponValue != 0
-                            ? "${'discount'.tr} ${controller.couponValue}% :"
-                            : "${'discount'.tr} :",
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(fontWeight: FontWeight.w500),
-                      ),
-                      Text(
-                        controller.getDiscountAmount(),
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                    ],
-                  ),
+                  TotalRowSection(
+                      title: 'subPrice',
+                      description: "${controller.price.toStringAsFixed(2)}"),
+                  const SizedBox(height: 7),
+                  TotalRowSection(
+                      title: controller.couponValue != 0
+                          ? '${'discount'.tr} ${controller.couponValue}%'
+                          : "discount",
+                      description: controller.getDiscountAmount()),
                   const SizedBox(height: 7),
                   if (controller.selectedOrderType == 1)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "${'deliveryCharge'.tr} :",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium!
-                              .copyWith(fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          controller.deliveryFee,
-                          style: Theme.of(context).textTheme.displayLarge,
-                        ),
-                      ],
-                    ),
+                    TotalRowSection(
+                        title: 'deliveryCharge',
+                        description: controller.deliveryFee),
                   const SizedBox(height: 7),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),

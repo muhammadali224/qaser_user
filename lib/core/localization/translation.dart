@@ -255,6 +255,7 @@ class MyTranslation extends Translations {
           "signInFirst": "يجب تسجيل الدخول أولا",
           "addToCartFirst": "السلة فارغة",
           "itemCountLimit": "لا يمكن إضافة أكثر من هذا العدد",
+          "totalPoints": "مجموع النقاط",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -510,6 +511,7 @@ class MyTranslation extends Translations {
           "signInFirst": "You Must Sign In First",
           "addToCartFirst": "Cart Is Empty!",
           "itemCountLimit": "Can't Add More than Limit",
+          "totalPoints": "Total Points",
         },
       };
 }

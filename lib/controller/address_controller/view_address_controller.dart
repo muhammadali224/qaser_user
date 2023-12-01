@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:qaser_user/core/services/services.dart';
+import 'package:qaser_user/core/services/app.service.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';

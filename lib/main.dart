@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'binding/initial_binding.dart';
 import 'core/localization/change_local.dart';
 import 'core/localization/translation.dart';
-import 'core/services/services.dart';
+import 'core/services/app.service.dart';
 import 'routes.dart';
 
 void main() async {

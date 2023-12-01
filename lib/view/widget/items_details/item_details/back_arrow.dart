@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:qaser_user/core/constant/get_box_key.dart';
-import 'package:qaser_user/core/services/services.dart';
+import 'package:qaser_user/core/services/app.service.dart';
 
 class BackArrow extends StatelessWidget {
   const BackArrow({super.key});

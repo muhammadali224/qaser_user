@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../constant/get_box_key.dart';
 import '../constant/routes.dart';
-import '../services/services.dart';
+import '../services/app.service.dart';
 
 class MyMiddleWare extends GetMiddleware {
   MyServices myServices = Get.find();

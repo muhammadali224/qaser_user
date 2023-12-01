@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
 import '../constant/get_box_key.dart';
-import '../services/services.dart';
+import '../services/app.service.dart';
 
 translateDatabase(String ar, String en) {
   MyServices myServices = Get.find();

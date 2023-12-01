@@ -18,19 +18,21 @@ class CartItemCount extends GetView<CartControllerImp> {
       children: [
         InkWell(
           onTap: () {
-            // cartModel.cartItemCount = cartModel.countitems! + 1;
-            // controller.update();
+            var count = cartModel.cartItemCount! + 1;
+            var price = (cartModel.cartItemPrice! / cartModel.cartItemCount!);
+            var totalPrice = price * count;
+            var points = (cartModel.cartItemPoint! / cartModel.cartItemPrice!);
+            var totalPoints = points * totalPrice;
 
-            // controller.addCart(
-            //     cartModel.itemsId!,
-            //     cartModel.weightSizeId.toString(),
-            //     cartModel.cartItemPrice!,
-            //     cartModel.countitems!);
+            controller.addCart(
+              cartModel.itemsId.toString(),
+              cartModel.weightSizeId.toString(),
+              totalPrice.toStringAsFixed(2),
+              count.toString(),
+              totalPoints.toString(),
+            );
           },
-          child: Icon(
-            Icons.add_circle,
-            color: AppColor.primaryColor,
-          ),
+          child: Icon(Icons.add_circle, color: AppColor.primaryColor),
         ),
         GetBuilder<CartControllerImp>(builder: (controller) {
           return Directionality(
@@ -44,16 +46,26 @@ class CartItemCount extends GetView<CartControllerImp> {
         }),
         InkWell(
           onTap: () {
-            // if (cartModel.cartItemCount! > 0) {
-            //   cartModel.cartItemCount = cartModel.cartItemCount! - 1;
-            //   controller.update();
-            //   controller.deleteFromCart(cartModel.itemsId!);
-            // }
+            if (cartModel.cartItemCount! > 0) {
+              var count = cartModel.cartItemCount! - 1;
+              var price = (cartModel.cartItemPrice! / cartModel.cartItemCount!);
+              var totalPrice = price * count;
+              var points =
+                  (cartModel.cartItemPoint! / cartModel.cartItemPrice!);
+              var totalPoints = points * totalPrice;
+
+              controller.addCart(
+                cartModel.itemsId.toString(),
+                cartModel.weightSizeId.toString(),
+                totalPrice.toStringAsFixed(2),
+                count.toString(),
+                totalPoints.toString(),
+              );
+            } else if (cartModel.cartItemCount == 0) {
+              controller.deleteFromCart(cartModel.cartId!);
+            }
           },
-          child: Icon(
-            Icons.remove_circle,
-            color: AppColor.primaryColor,
-          ),
+          child: Icon(Icons.remove_circle, color: AppColor.primaryColor),
         ),
       ],
     );
