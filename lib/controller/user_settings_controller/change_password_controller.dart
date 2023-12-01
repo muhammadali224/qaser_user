@@ -4,16 +4,18 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/shared/anonymous_user.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/user_details_data.dart';
+import '../user_controller/user_controller.dart';
 
 class ChangePasswordController extends GetxController {
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
+
   late TextEditingController password;
   late TextEditingController rePassword;
   late TextEditingController oldPassword;
   bool isVisiblePassword = true;
   bool isVisibleOldPassword = true;
-  late int userId;
   GlobalKey<FormState> formState = GlobalKey<FormState>();
   UserDetailsData resetPasswordData = UserDetailsData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
@@ -34,14 +36,15 @@ class ChangePasswordController extends GetxController {
         statusRequest = StatusRequest.loading;
         update();
         var response = await resetPasswordData.changeUserPassword(
-          userId,
+          user.value.usersId!,
           password.text.trim(),
           oldPassword.text,
         );
         statusRequest = handlingData(response);
         if (StatusRequest.success == statusRequest) {
           if (response['status'] == 'success') {
-            Get.offNamed(AppRoutes.userSettings, arguments: {'userId': userId});
+            Get.offNamed(AppRoutes.userSettings,
+                arguments: {'userId': user.value.usersId!});
           } else if (response['message'] == 'the old password incorrect') {
             Get.defaultDialog(
                 title: 'attention'.tr,
@@ -82,7 +85,7 @@ class ChangePasswordController extends GetxController {
     password = TextEditingController();
     rePassword = TextEditingController();
     oldPassword = TextEditingController();
-    userId = user.usersId!;
+
     super.onInit();
   }
 

@@ -5,14 +5,15 @@ import 'package:get/get.dart';
 import '../../core/constant/get_box_key.dart';
 import '../../core/constant/routes.dart';
 import '../../core/services/app.service.dart';
-import '../../data/shared/anonymous_user.dart';
+import '../../data/model/user_model/user_model.dart';
+import '../user_controller/user_controller.dart';
 
 class SettingsController extends GetxController {
   MyServices myServices = Get.find();
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
 
   late bool switchVal;
-  late int userId;
-  late String userName;
+
   String? lang;
 
   goToHome() {
@@ -37,8 +38,11 @@ class SettingsController extends GetxController {
 
   logout() {
     Get.deleteAll();
-    FirebaseMessaging.instance.unsubscribeFromTopic('users');
-    FirebaseMessaging.instance.unsubscribeFromTopic("users$userId");
+    FirebaseMessaging.instance
+        .unsubscribeFromTopic("users${user.value.usersId}");
+    FirebaseMessaging.instance.unsubscribeFromTopic("signed");
+    FirebaseMessaging.instance.subscribeToTopic("notSigned");
+
     // userManagement.clearUser();
     myServices.getBox.write(GetBoxKey.language, lang!);
     Get.offAllNamed(AppRoutes.login);
@@ -53,11 +57,10 @@ class SettingsController extends GetxController {
     myServices.getBox.write(GetBoxKey.switchValueNotification, val);
     update();
     if (val == false) {
-      FirebaseMessaging.instance.unsubscribeFromTopic('users');
-      FirebaseMessaging.instance.unsubscribeFromTopic("users$userId");
+      FirebaseMessaging.instance
+          .unsubscribeFromTopic("users${user.value.usersId}");
     } else {
-      FirebaseMessaging.instance.subscribeToTopic('users');
-      FirebaseMessaging.instance.subscribeToTopic("users$userId");
+      FirebaseMessaging.instance.subscribeToTopic("users${user.value.usersId}");
     }
   }
 
@@ -73,8 +76,6 @@ class SettingsController extends GetxController {
   }
 
   initData() async {
-    userId = user.usersId!;
-    userName = user.usersName!;
     switchVal =
         myServices.getBox.read(GetBoxKey.switchValueNotification) ?? true;
     lang = myServices.getBox.read(GetBoxKey.language) ?? GetBoxKey.arLanguage;

@@ -6,7 +6,6 @@ import 'package:icon_broken/icon_broken.dart';
 import '../../../../controller/user_settings_controller/user_setting_controller.dart';
 import '../../../../core/constant/api_link.dart';
 import '../../../../core/constant/color.dart';
-import '../../../../data/shared/anonymous_user.dart';
 
 class UserSettingHeader extends GetView<UserSettingController> {
   const UserSettingHeader({super.key});
@@ -41,7 +40,8 @@ class UserSettingHeader extends GetView<UserSettingController> {
                       backgroundImage: imageProvider,
                       radius: 35,
                     ),
-                    imageUrl: "${AppLink.imageUserProfile}${user.usersImage}",
+                    imageUrl:
+                        "${AppLink.imageUserProfile}${controller.user.value.usersImage}",
                     placeholder: (context, url) =>
                         const Center(child: CircularProgressIndicator()),
                     errorWidget: (context, url, error) => const Icon(

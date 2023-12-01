@@ -13,28 +13,41 @@ class LeadingAppbar extends GetView<CartControllerImp> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(CartControllerImp());
-    return Center(
-        child: Obx(() => controller.isLoading.value == true
-            ? Center(child: CircularProgressIndicator())
-            : Badge(
-                showBadge: controller.ordersCount.value == 0 ? false : true,
-                badgeContent: Text(
-                  controller.ordersCount.value.toString(),
-                  style: TextStyle(
-                      color: AppColor.backgroundColor,
-                      fontWeight: FontWeight.bold),
-                ),
-                badgeStyle: const BadgeStyle(shape: BadgeShape.circle),
-                position: BadgePosition.topStart(top: -15),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(100),
-                  onTap: onTap,
-                  child: const Icon(
-                    IconBroken.Bag,
-                    size: 30,
+    if (Get.isRegistered<CartControllerImp>()) {
+      return Center(
+        child: Obx(
+          () => controller.isLoading.value == true
+              ? Center(child: CircularProgressIndicator())
+              : Badge(
+                  showBadge: controller.ordersCount.value == 0 ? false : true,
+                  badgeContent: Text(
+                    controller.ordersCount.value.toString(),
+                    style: TextStyle(
+                        color: AppColor.backgroundColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  badgeStyle: const BadgeStyle(shape: BadgeShape.circle),
+                  position: BadgePosition.topStart(top: -15),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(100),
+                    onTap: onTap,
+                    child: const Icon(
+                      IconBroken.Bag,
+                      size: 30,
+                    ),
                   ),
                 ),
-              )));
+        ),
+      );
+    } else {
+      return InkWell(
+        borderRadius: BorderRadius.circular(100),
+        onTap: onTap,
+        child: const Icon(
+          IconBroken.Bag,
+          size: 30,
+        ),
+      );
+    }
   }
 }

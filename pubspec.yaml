@@ -20,9 +20,9 @@ dependencies:
   geocoding:
   firebase_messaging:
   firebase_core:
-  flutter_local_notifications: ^16.0.0+1
   path:
   url_launcher:
+  overlay_tooltip: ^0.2.3
   dartz:
   image_picker:
   lottie:
@@ -50,6 +50,7 @@ dependencies:
   icons_plus:
   awesome_notifications:
   awesome_notifications_core:
+  flutter_expandable_fab: ^2.0.0
 
 
 

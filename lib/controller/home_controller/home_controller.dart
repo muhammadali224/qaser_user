@@ -1,8 +1,9 @@
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:qaser_user/controller/cart_controller/cart_controller.dart';
+import 'package:qaser_user/controller/user_controller/user_controller.dart';
 import 'package:qaser_user/data/model/sub_items_model/sub_items_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/get_box_key.dart';
@@ -14,7 +15,6 @@ import '../../data/model/categories_model.dart';
 import '../../data/model/items_model/items_model.dart';
 import '../../data/model/offers_image_model.dart';
 import '../../data/model/user_model/user_model.dart';
-import '../../data/shared/anonymous_user.dart';
 import '../../data/shared/branches.dart';
 import '../../data/shared/weight_size.dart';
 import '../../data/source/remote/auth/login_data.dart';
@@ -46,72 +46,14 @@ abstract class HomeController extends SearchMixController {
   Future<void> getUserDetails();
 }
 
-//
-//   getUserDetails() async {
-//     statusRequest = StatusRequest.loading;
-//     update();
-//
-//     var response = await homeData.getUserDetails(userId);
-//     statusRequest = handlingData(response);
-//     if (statusRequest == StatusRequest.success) {
-//       if (response['status'] == 'success') {
-//         final loginData = UserModel.fromJson(response['data']);
-//         userManagement.setUser(loginData);
-//         if (loginData.branchIsOpen == 0) {
-//           SmartDialog.show(
-//               builder: (_) => Container(
-//                     width: double.infinity,
-//                     // height: Get.height / 3,
-//                     color: Colors.grey[200],
-//                     child: Column(
-//                       mainAxisSize: MainAxisSize.min,
-//                       children: [
-//                         Expanded(
-//                           flex: 2,
-//                           child: Lottie.asset(
-//                             Assets.lottieBranchClose,
-//                             fit: BoxFit.contain,
-//                           ),
-//                         ),
-//                         Expanded(
-//                           child: Text(
-//                             "branchClose".tr,
-//                             style: const TextStyle(fontSize: 20),
-//                           ),
-//                         ),
-//                         Container(
-//                             padding: const EdgeInsets.symmetric(vertical: 40),
-//                             child: ElevatedButton(
-//                                 onPressed: () => SmartDialog.dismiss(),
-//                                 child: Text("back".tr)))
-//                       ],
-//                     ),
-//                   ));
-//           selectedValue = "1";
-//           updateUserBranch(1);
-//           update();
-//         }
-//       } else {
-//         statusRequest = StatusRequest.failed;
-//       }
-//     }
-//
-//     update();
-//   }
-//
-
-//
-
-// }
-
 class HomeControllerImp extends HomeController {
   MyServices myServices = Get.find();
   final LoginData _loginData = LoginData(Get.find());
   int notificationsCount = 0;
   bool isLoading = false;
   String? branchName;
-  late CartControllerImp cartControllerImp;
-
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
+  UserController userController = Get.find<UserController>();
   List<CategoriesModel> categoriesList = [];
   List<ItemModel> topSellingList = [];
   List<ItemModel> itemsOfferList = [];
@@ -126,7 +68,7 @@ class HomeControllerImp extends HomeController {
       var response = await homeData.getData(
           branchId,
           "${myServices.getBox.read(GetBoxKey.isSigned) ?? "false"}",
-          user.usersId!);
+          user.value.usersId!);
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
@@ -136,7 +78,7 @@ class HomeControllerImp extends HomeController {
             branchesList.addAll(
                 responseDataBranches.map((e) => BranchesModel.fromJson(e)));
             if (branchId != 0) {
-              selectedValue = user.userFavBranchId!;
+              selectedValue = user.value.userFavBranchId!;
               selectedBranch = branchesList
                   .singleWhere((element) => element.branchId == selectedValue);
             } else {
@@ -184,25 +126,23 @@ class HomeControllerImp extends HomeController {
   @override
   initData() async {
     initLocalJiffy();
-    if (myServices.getBox.read(GetBoxKey.user) != null) {
-      user = userModelFromJson(await myServices.getBox.read(GetBoxKey.user));
-      getData(user.userFavBranchId!);
-      selectedValue = user.userFavBranchId!;
-      if (user.usersIsAnonymous == 0) {
-        getUserDetails();
-      }
-    } else {
-      getData(0);
-    }
+
+    // user = userModelFromJson(await myServices.getBox.read(GetBoxKey.user));
+    getData(user.value.userFavBranchId!);
+    selectedValue = user.value.userFavBranchId!;
+    // if (user.value.usersIsAnonymous == 0) {
+    //   getUserDetails();
+    // }
   }
 
   @override
   updateUserBranch() async {
     try {
-      var response = await homeData.updateBranch(selectedValue, user.usersId!);
+      var response =
+          await homeData.updateBranch(selectedValue, user.value.usersId!);
       if (response['status'] == 'success') {
-        user = UserModel.fromJson(response['data']);
-        myServices.getBox.write(GetBoxKey.user, userModelToJson(user));
+        var newUser = UserModel.fromJson(response['data']);
+        userController.user = newUser;
       }
     } catch (e) {
       throw Exception(e);
@@ -214,13 +154,16 @@ class HomeControllerImp extends HomeController {
   Future<void> loginAnonymous() async {
     try {
       var response = await _loginData.loginAnonymous(
-        myServices.androidDeviceInfo.id,
-        selectedValue,
-        myServices.androidDeviceInfo.type,
+        user.value.usersEmail!,
+        user.value.userFavBranchId!,
+        user.value.usersName!,
+        // selectedValue,
+        // myServices.androidDeviceInfo.type,
       );
       if (response['status'] == 'success') {
-        user = UserModel.fromJson(response['data']);
-        myServices.getBox.write(GetBoxKey.user, userModelToJson(user));
+        UserModel loginUser = UserModel.fromJson(response['data']);
+        print(loginUser.toString());
+        userController.user = loginUser;
       } else {
         statusRequest = StatusRequest.failed;
       }
@@ -233,20 +176,20 @@ class HomeControllerImp extends HomeController {
   @override
   Future<void> getUserDetails() async {
     try {
-      var response = await homeData.getUserDetails(user.usersId!);
+      var response = await homeData.getUserDetails(user.value.usersId!);
       if (response['status'] == 'success') {
-        user = UserModel.fromJson(response['data']);
-        myServices.getBox.write(GetBoxKey.user, userModelToJson(user));
-        if (user.usersApprove == 2) {
+        var newUser = UserModel.fromJson(response['data']);
+        userController.user = newUser;
+
+        if (user.value.usersApprove == 2) {
           SmartDialog.showNotify(
               msg: "userBlocked".tr,
               notifyType: NotifyType.warning,
               onDismiss: () {
                 myServices.getBox.erase();
                 Get.offAllNamed(AppRoutes.login);
+                userController.clear();
               });
-          // myServices.getBox.erase();
-          // Get.offAllNamed(AppRoutes.login);
         }
       }
     } catch (e) {
@@ -302,10 +245,31 @@ class HomeControllerImp extends HomeController {
   onChangeDropButton(int? value) async {
     if (value != selectedValue) {
       selectedValue = value!;
-
       await updateUserBranch();
       getData(selectedValue);
       update();
+    }
+  }
+
+  launchFacebook() async {
+    final url = Uri.parse(selectedBranch.branchFacebookUrl!);
+    if (await canLaunchUrl(url)) {
+      launchUrl(url);
+    }
+  }
+
+  launchCall() async {
+    final url = Uri.parse('tel:${selectedBranch.branchPhone1}');
+    if (await canLaunchUrl(url)) {
+      launchUrl(url);
+    }
+  }
+
+  launchWhatsApp() async {
+    final url =
+        Uri.parse('whatsapp://send?phone=962${selectedBranch.branchPhone2}');
+    if (await canLaunchUrl(url)) {
+      launchUrl(url);
     }
   }
 
@@ -315,7 +279,7 @@ class HomeControllerImp extends HomeController {
       await loginAnonymous();
     }
     initData();
-    cartControllerImp = Get.put(CartControllerImp(), permanent: true);
+
     super.onInit();
   }
 }

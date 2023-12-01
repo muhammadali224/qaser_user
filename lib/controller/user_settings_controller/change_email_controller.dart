@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/shared/anonymous_user.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/user_details_data.dart';
+import '../user_controller/user_controller.dart';
 import 'user_setting_controller.dart';
 
 class ChangeEmailController extends GetxController {
-  late int userId;
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
 
   TextEditingController userTextController = TextEditingController();
 
@@ -25,9 +26,9 @@ class ChangeEmailController extends GetxController {
     update();
 
     var response = await userData.verifyCode(
-      userId,
+      user.value.usersId!,
       userTextController.text,
-      user.usersEmail!,
+      user.value.usersEmail!,
       code,
     );
     statusRequest = handlingData(response);
@@ -69,7 +70,7 @@ class ChangeEmailController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await userData.checkEmail(
-        userId,
+        user.value.usersId!,
         userTextController.text,
       );
       statusRequest = handlingData(response);

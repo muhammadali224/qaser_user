@@ -4,11 +4,14 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/orders_model.dart';
-import '../../data/shared/anonymous_user.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/orders_data.dart';
 import '../../data/source/remote/rate_orders_data.dart';
+import '../user_controller/user_controller.dart';
 
 class OrdersController extends GetxController {
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
+
   List orderTabs = [
     {'title': 'all', 'icon': Icons.all_inbox},
     {'title': 'pending', 'icon': Icons.pending_actions_outlined},
@@ -47,7 +50,7 @@ class OrdersController extends GetxController {
     dataPending.clear();
     statusRequest = StatusRequest.loading;
     update();
-    var response = await ordersData.getData(user.usersId!);
+    var response = await ordersData.getData(user.value.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {

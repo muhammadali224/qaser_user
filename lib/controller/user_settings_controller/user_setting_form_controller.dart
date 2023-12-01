@@ -4,17 +4,20 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/services/app.service.dart';
-import '../../data/shared/anonymous_user.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/user_details_data.dart';
+import '../user_controller/user_controller.dart';
 import 'user_setting_controller.dart';
 
 class UserSettingFormController extends GetxController {
   TextEditingController userTextController = TextEditingController();
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
+  UserController userController = Get.find<UserController>();
 
   MyServices myServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
   UserDetailsData userDetailsData = UserDetailsData(Get.find());
-  UserSettingController userController = Get.find();
+  UserSettingController userSettingController = Get.find();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -24,13 +27,13 @@ class UserSettingFormController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await userDetailsData.changeUserName(
-          user.usersId!, userTextController.text);
+          user.value.usersId!, userTextController.text);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
           //myServices.sharedPref.setString('userName', userTextController.text);
           Get.back();
-          userController.getData();
+          userSettingController.getData();
           update();
         } else {
           statusRequest = StatusRequest.failed;
@@ -46,13 +49,13 @@ class UserSettingFormController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await userDetailsData.changeUserPhone(
-          user.usersId!, userTextController.text);
+          user.value.usersId!, userTextController.text);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
           myServices.getBox.write('userPhone', userTextController.text);
           Get.back();
-          userController.getData();
+          userSettingController.getData();
           update();
         } else {
           Get.defaultDialog(

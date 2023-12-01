@@ -5,10 +5,11 @@ import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/items_model/items_model.dart';
 import '../../data/model/sub_items_model/sub_items_model.dart';
-import '../../data/shared/anonymous_user.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/shared/weight_size.dart';
 import '../../data/source/remote/items_data.dart';
 import '../cart_controller/cart_controller.dart';
+import '../user_controller/user_controller.dart';
 
 abstract class ItemsController extends GetxController {
   initData();
@@ -26,7 +27,7 @@ class ItemsControllerImp extends ItemsController {
   late List categories;
   late int selectedCategory;
   late int id;
-  late int userId;
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
 
   ItemsData itemsData = ItemsData(Get.find());
   StatusRequest statusRequest = StatusRequest.loading;
@@ -73,7 +74,7 @@ class ItemsControllerImp extends ItemsController {
     selectedCategory = Get.arguments['selectedCategories'];
     categories = Get.arguments['categories'];
     id = Get.arguments['id'];
-    userId = user.usersId!;
+
     Future.wait([getSubItems(), getData(id)]);
     // getData(id);
   }
@@ -89,8 +90,8 @@ class ItemsControllerImp extends ItemsController {
     statusRequest = StatusRequest.loading;
     var response = await itemsData.getData(
       categoriesId,
-      userId,
-      user.userFavBranchId!,
+      user.value.usersId!,
+      user.value.userFavBranchId!,
     );
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {

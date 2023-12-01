@@ -5,11 +5,14 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/shared/anonymous_user.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/address_data.dart';
+import '../user_controller/user_controller.dart';
 
 class AddLocationDetailsController extends GetxController {
   StatusRequest statusRequest = StatusRequest.none;
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
+
   double? lat;
   double? long;
   TextEditingController name = TextEditingController();
@@ -31,7 +34,7 @@ class AddLocationDetailsController extends GetxController {
     statusRequest = StatusRequest.loading;
     update();
     var response = await addressData.addAddress(
-      user.usersId!,
+      user.value.usersId!,
       name.text,
       city.text,
       street.text,

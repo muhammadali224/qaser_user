@@ -10,15 +10,15 @@ import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/function/show_snackbar.dart';
 import '../../data/model/user_model/user_model.dart';
-import '../../data/shared/anonymous_user.dart';
 import '../../data/source/remote/user_details_data.dart';
+import '../user_controller/user_controller.dart';
 
 class UserSettingController extends GetxController {
   StatusRequest statusRequest = StatusRequest.none;
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
+  UserController userController = Get.find<UserController>();
 
   UserDetailsData userDetailsData = UserDetailsData(Get.find());
-
-  late int userId;
 
   TextEditingController userTextController = TextEditingController();
   File? file;
@@ -42,12 +42,12 @@ class UserSettingController extends GetxController {
   getData() async {
     statusRequest = StatusRequest.loading;
     update();
-    var response = await userDetailsData.getUserData(userId);
+    var response = await userDetailsData.getUserData(user.value.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
-        user = UserModel.fromJson(response['data']);
-
+        var newUser = UserModel.fromJson(response['data']);
+        userController.user = newUser;
         update();
       } else {
         statusRequest = StatusRequest.failed;
@@ -61,8 +61,8 @@ class UserSettingController extends GetxController {
     update();
     var response = await userDetailsData.changeUserImage(
       {
-        'id': userId,
-        'oldFile': user.usersImage!,
+        'id': user.value.usersId!,
+        'oldFile': user.value.usersImage!,
       },
       file!,
     );
@@ -96,7 +96,6 @@ class UserSettingController extends GetxController {
 
   @override
   void onInit() async {
-    userId = user.usersId!;
     getData();
 
     super.onInit();

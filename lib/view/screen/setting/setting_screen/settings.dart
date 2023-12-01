@@ -5,7 +5,6 @@ import 'package:icon_broken/icon_broken.dart';
 import '../../../../controller/settings_controller/settings_controller.dart';
 import '../../../../core/constant/color.dart';
 import '../../../../core/function/view_select_languages_bottom_sheet.dart';
-import '../../../../data/shared/anonymous_user.dart';
 import '../../../widget/settings/header_card_setting.dart';
 import '../../../widget/settings/setting_group.dart';
 import '../../../widget/settings/setting_icon_style.dart';
@@ -37,12 +36,14 @@ class AppSettings extends StatelessWidget {
             padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
             child: ListView(
               children: [
-                HeaderCardSetting(
-                  imageUrl: user.usersImage ?? "",
-                  cardColor: Colors.red,
-                  userName: controller.userName,
-                  onTap: controller.goToUserSettings,
-                ),
+                Obx(() {
+                  return HeaderCardSetting(
+                    imageUrl: controller.user.value.usersImage ?? "",
+                    cardColor: Colors.red,
+                    userName: controller.user.value.usersName,
+                    onTap: controller.goToUserSettings,
+                  );
+                }),
                 CustomSettingGroup(
                   settingsGroupTitle: 'general'.tr,
                   items: [

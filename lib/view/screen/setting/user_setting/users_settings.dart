@@ -4,7 +4,6 @@ import 'package:icon_broken/icon_broken.dart';
 
 import '../../../../controller/user_settings_controller/user_setting_controller.dart';
 import '../../../../core/class/handling_data_view.dart';
-import '../../../../data/shared/anonymous_user.dart';
 import '../../../widget/back_appbar.dart';
 import '../../../widget/settings/setting_group.dart';
 import '../../../widget/settings/setting_icon_style.dart';
@@ -44,7 +43,7 @@ class UserSetting extends StatelessWidget {
                               backgroundColor: Colors.red,
                             ),
                             title: 'userName'.tr,
-                            subtitle: user.usersName,
+                            subtitle: controller.user.value.usersName,
                           ),
                           SettingsTileItem(
                             onTap: controller.goToChangePassword,
@@ -65,7 +64,7 @@ class UserSetting extends StatelessWidget {
                               backgroundColor: Colors.cyan,
                             ),
                             title: 'email'.tr,
-                            subtitle: user.usersEmail,
+                            subtitle: controller.user.value.usersEmail,
                           ),
                           SettingsTileItem(
                             onTap: controller.goToChangePhone,
@@ -76,7 +75,7 @@ class UserSetting extends StatelessWidget {
                               backgroundColor: Colors.amber,
                             ),
                             title: 'phone'.tr,
-                            subtitle: user.usersPhone,
+                            subtitle: controller.user.value.usersPhone,
                           ),
                         ],
                       ),

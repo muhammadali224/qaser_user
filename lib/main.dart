@@ -1,3 +1,5 @@
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,8 @@ import 'core/localization/change_local.dart';
 import 'core/localization/translation.dart';
 import 'core/services/app.service.dart';
 import 'routes.dart';
+
+var deviceInfo = DeviceInfoPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +26,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LocalController controller = Get.put(LocalController());
+
     return GetMaterialApp(
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+      ],
       builder: FlutterSmartDialog.init(),
       translations: MyTranslation(),
       locale: controller.initLanguages,

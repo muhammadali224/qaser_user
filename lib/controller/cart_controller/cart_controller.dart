@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:qaser_user/controller/user_controller/user_controller.dart';
 import 'package:qaser_user/core/services/app.service.dart';
+import 'package:qaser_user/data/model/user_model/user_model.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/color.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/cart_model/cart_model.dart';
-import '../../data/shared/anonymous_user.dart';
 import '../../data/shared/branches.dart';
 import '../../data/source/remote/cart_data.dart';
 import '../../data/source/remote/checkout_data.dart';
@@ -42,6 +43,7 @@ class CartControllerImp extends CartController {
   StatusRequest statusRequest = StatusRequest.none;
   CheckoutData checkoutData = CheckoutData(Get.find());
   ViewAddressController addressController = Get.put(ViewAddressController());
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
 
   String deliveryFee = "0";
   RxBool isLoading = false.obs;
@@ -80,7 +82,7 @@ class CartControllerImp extends CartController {
       try {
         SmartDialog.showLoading(msg: "loading".tr);
         var response = await cartData.addToCart(
-          user.usersId!.toString(),
+          user.value.usersId!.toString(),
           itemsId,
           weightAndSizeId,
           cartItemPrice,
@@ -146,7 +148,7 @@ class CartControllerImp extends CartController {
     statusRequest = StatusRequest.loading;
     isLoading.value = true;
     update();
-    var response = await cartData.getCart(user.usersId!);
+    var response = await cartData.getCart(user.value.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
@@ -223,7 +225,7 @@ class CartControllerImp extends CartController {
   @override
   addNoteToItem(int cartId) async {
     var response = await cartData.addNoteToItem(
-      user.usersId!,
+      user.value.usersId!,
       cartId,
       noteController.text,
     );
@@ -283,7 +285,7 @@ class CartControllerImp extends CartController {
       }
 
       var response = await checkoutData.checkout(
-        user.usersId!,
+        user.value.usersId!,
         selectedLocation.toString(),
         selectedOrderType.toString(),
         deliveryFee,
@@ -291,7 +293,7 @@ class CartControllerImp extends CartController {
         discount.toStringAsFixed(2),
         getTotalOrderPrice(),
         couponId ?? 0,
-        user.userFavBranchId!,
+        user.value.userFavBranchId!,
       );
       statusRequest = handlingData(response);
       if (statusRequest == StatusRequest.success) {
@@ -348,7 +350,7 @@ class CartControllerImp extends CartController {
   checkCoupon() async {
     SmartDialog.showLoading(msg: "loading".tr);
     var response = await checkoutData.checkCoupon(
-        couponController.text.trim(), user.userFavBranchId!);
+        couponController.text.trim(), user.value.userFavBranchId!);
 
     if (response['status'] == 'success') {
       couponValue = response['data']['coupon_discount'];

@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:qaser_user/controller/user_controller/user_controller.dart';
 
 import '../core/constant/get_box_key.dart';
 import '../core/constant/routes.dart';
 import '../core/services/app.service.dart';
+import '../data/model/user_model/user_model.dart';
+import '../data/source/remote/auth/login_data.dart';
 import '../data/source/static/static.dart';
 
 abstract class OnBoardingController extends GetxController {
@@ -16,10 +19,35 @@ class OnBoardingControllerImp extends OnBoardingController {
   int currentPage = 0;
   late PageController pageController;
   MyServices myServices = Get.find();
+  final LoginData _loginData = LoginData(Get.find());
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
+  UserController userController = Get.find<UserController>();
+
+  Future<void> loginAnonymous() async {
+    try {
+      var response = await _loginData.loginAnonymous(
+        user.value.usersEmail!,
+        user.value.userFavBranchId!,
+        user.value.usersName!,
+      );
+      if (response['status'] == 'success') {
+        UserModel loginUser = UserModel.fromJson(response['data']);
+        print(loginUser.toString());
+        userController.user = loginUser;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    update();
+  }
 
   @override
-  void onInit() {
+  void onInit() async {
     pageController = PageController();
+    if (myServices.getBox.read(GetBoxKey.isSigned) != true) {
+      await loginAnonymous();
+    }
+
     super.onInit();
   }
 

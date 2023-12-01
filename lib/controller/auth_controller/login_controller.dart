@@ -8,13 +8,15 @@ import '../../core/constant/get_box_key.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/services/app.service.dart';
-import '../../data/shared/anonymous_user.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/auth/login_data.dart';
+import '../user_controller/user_controller.dart';
 
 abstract class LoginController extends GetxController {
   login();
 
   goToSignUp();
+
   goToLoginWithSMS();
 
   goToForgetPassword();
@@ -25,7 +27,8 @@ class LoginControllerImp extends LoginController {
   late TextEditingController password;
   GlobalKey<FormState> formState = GlobalKey<FormState>();
   bool isVisiblePassword = true;
-
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
+  UserController userController = Get.find<UserController>();
   LoginData loginData = LoginData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
 
@@ -49,16 +52,17 @@ class LoginControllerImp extends LoginController {
 
         if (StatusRequest.success == statusRequest) {
           if (response['status'] == 'success') {
-            // final loginUser = UserModel.fromJson(response['data']);
-
-            if (user.usersApprove == 1) {
+            final loginUser = UserModel.fromJson(response['data']);
+            userController.user = loginUser;
+            if (user.value.usersApprove == 1) {
               myServices.getBox.write(GetBoxKey.step, "2");
               FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");
               FirebaseMessaging.instance.subscribeToTopic("signed");
               FirebaseMessaging.instance
-                  .subscribeToTopic("users${user.usersId}");
+                  .subscribeToTopic("users${user.value.usersId}");
+              await myServices.getBox.write(GetBoxKey.isSigned, true);
               Get.offAllNamed(AppRoutes.home);
-            } else {
+            } else if (user.value.usersApprove == 0) {
               Get.toNamed(
                 AppRoutes.verificationSignup,
                 arguments: {
