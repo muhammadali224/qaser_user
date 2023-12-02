@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 import '../../core/constant/get_box_key.dart';
@@ -25,15 +26,31 @@ class SettingsController extends GetxController {
   }
 
   goToAddressView() {
-    Get.toNamed(AppRoutes.addressView);
+    if (user.value.usersIsAnonymous == 0) {
+      Get.toNamed(AppRoutes.addressView);
+    } else if (user.value.usersIsAnonymous == 1) {
+      SmartDialog.showToast("signInFirst".tr);
+    }
   }
 
   goToOrders() {
-    Get.toNamed(AppRoutes.orders);
+    if (user.value.usersIsAnonymous == 0) {
+      Get.toNamed(AppRoutes.orders);
+    } else if (user.value.usersIsAnonymous == 1) {
+      SmartDialog.showToast("signInFirst".tr);
+    }
   }
 
   goToOrdersRating() {
-    Get.toNamed(AppRoutes.ordersRating);
+    if (user.value.usersIsAnonymous == 0) {
+      Get.toNamed(AppRoutes.ordersRating);
+    } else if (user.value.usersIsAnonymous == 1) {
+      SmartDialog.showToast("signInFirst".tr);
+    }
+  }
+
+  goToInfoScreen() {
+    Get.toNamed(AppRoutes.infoScreen);
   }
 
   logout() {
@@ -49,7 +66,11 @@ class SettingsController extends GetxController {
   }
 
   goToUserSettings() {
-    Get.toNamed(AppRoutes.userSettings);
+    if (user.value.usersIsAnonymous == 0) {
+      Get.toNamed(AppRoutes.userSettings);
+    } else if (user.value.usersIsAnonymous == 1) {
+      SmartDialog.showToast("signInFirst".tr);
+    }
   }
 
   toggleSwitchVal(bool val) {

@@ -1,5 +1,6 @@
 import 'package:dotted_dashed_line/dotted_dashed_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
 
@@ -36,8 +37,7 @@ class Cart extends StatelessWidget {
             ],
           ),
           bottomNavigationBar: selectedBranch.branchIsOpen == 1 &&
-                  controller.user.value.usersIsAnonymous == 0 &&
-                  controller.data.isNotEmpty
+                  controller.user.value.usersIsAnonymous == 0
               ? Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -54,16 +54,20 @@ class Cart extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   height: 40,
                   width: double.infinity,
-                  child: Text(
-                    selectedBranch.branchIsOpen == 0
-                        ? "closeBranch"
-                        : controller.user.value.usersIsAnonymous == 0
-                            ? "signInFirst"
-                            : "addToCartFirst",
-                    style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
+                  color: Colors.red,
+                  child: Center(
+                    child: Text(
+                      selectedBranch.branchIsOpen == 0
+                          ? "closeBranch".tr
+                          : controller.user.value.usersIsAnonymous == 1 &&
+                                  selectedBranch.branchIsOpen == 1
+                              ? "signInFirst".tr
+                              : "",
+                      style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
+                    ),
                   ),
                 ),
           body: HandlingDataView(
@@ -75,8 +79,6 @@ class Cart extends StatelessWidget {
                     (index) => CustomListCartItems(
                           cartModel: controller.data[index],
                         )),
-                // SizedBox(height: 20),
-
                 const Divider(
                   endIndent: 10,
                   indent: 10,
@@ -95,8 +97,14 @@ class Cart extends StatelessWidget {
                         (i) => CheckoutOrderList(
                               onChanged: () {
                                 controller.selectOrderMethod(i);
-                                if (i == 1) {
+                                if (i == 1 &&
+                                    controller.user.value.usersIsAnonymous ==
+                                        0) {
                                   openLocationBottomSheet();
+                                } else if (controller
+                                        .user.value.usersIsAnonymous ==
+                                    1) {
+                                  SmartDialog.showToast("signInFirst".tr);
                                 }
                               },
                               value: i,

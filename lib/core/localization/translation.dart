@@ -256,6 +256,7 @@ class MyTranslation extends Translations {
           "addToCartFirst": "السلة فارغة",
           "itemCountLimit": "لا يمكن إضافة أكثر من هذا العدد",
           "totalPoints": "مجموع النقاط",
+          "appInfo": "معلومات التطبيق",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -512,6 +513,7 @@ class MyTranslation extends Translations {
           "addToCartFirst": "Cart Is Empty!",
           "itemCountLimit": "Can't Add More than Limit",
           "totalPoints": "Total Points",
+          "appInfo": "Application Info",
         },
       };
 }

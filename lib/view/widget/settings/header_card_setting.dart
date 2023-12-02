@@ -66,9 +66,8 @@ class HeaderCardSetting extends StatelessWidget {
                     flex: 1,
                     child: CachedNetworkImage(
                         imageBuilder: (context, imageProvider) => CircleAvatar(
-                              backgroundImage: imageProvider,
-                              radius: Get.height / 15,
-                            ),
+                            backgroundImage: imageProvider,
+                            radius: Get.height / 15),
                         imageUrl: "${AppLink.imageUserProfile}$imageUrl",
                         placeholder: (context, url) =>
                             const Center(child: CircularProgressIndicator()),
@@ -80,19 +79,22 @@ class HeaderCardSetting extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          userName!,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26,
-                            color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            userName!,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 26,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

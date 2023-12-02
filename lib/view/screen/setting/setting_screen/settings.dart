@@ -40,7 +40,9 @@ class AppSettings extends StatelessWidget {
                   return HeaderCardSetting(
                     imageUrl: controller.user.value.usersImage ?? "",
                     cardColor: Colors.red,
-                    userName: controller.user.value.usersName,
+                    userName: controller.user.value.usersIsAnonymous == 1
+                        ? "user".tr
+                        : controller.user.value.usersName,
                     onTap: controller.goToUserSettings,
                   );
                 }),
@@ -133,18 +135,18 @@ class AppSettings extends StatelessWidget {
                 CustomSettingGroup(
                   settingsGroupTitle: 'support'.tr,
                   items: [
+                    // SettingsTileItem(
+                    //   onTap: () {},
+                    //   icons: Icons.call_rounded,
+                    //   iconStyle: SettingIconStyle(
+                    //     iconsColor: Colors.white,
+                    //     withBackground: true,
+                    //     backgroundColor: Colors.brown,
+                    //   ),
+                    //   title: 'contactUs'.tr,
+                    // ),
                     SettingsTileItem(
-                      onTap: () {},
-                      icons: Icons.call_rounded,
-                      iconStyle: SettingIconStyle(
-                        iconsColor: Colors.white,
-                        withBackground: true,
-                        backgroundColor: Colors.brown,
-                      ),
-                      title: 'contactUs'.tr,
-                    ),
-                    SettingsTileItem(
-                      onTap: () {},
+                      onTap: controller.goToInfoScreen,
                       icons: Icons.info,
                       iconStyle: SettingIconStyle(
                         iconsColor: Colors.white,

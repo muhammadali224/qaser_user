@@ -28,9 +28,14 @@ class MyApp extends StatelessWidget {
     LocalController controller = Get.put(LocalController());
 
     return GetMaterialApp(
+      navigatorKey: Get.key,
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+        GetObserver(),
       ],
+      enableLog: true,
+      popGesture: Get.isPopGestureEnable,
+      defaultTransition: Transition.cupertino,
       builder: FlutterSmartDialog.init(),
       translations: MyTranslation(),
       locale: controller.initLanguages,

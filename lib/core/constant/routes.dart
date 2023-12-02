@@ -35,4 +35,5 @@ class AppRoutes {
   static const String notifications = "/notifications";
   static const String appSettings = "/appSettings";
   static const String searchResult = "/searchResult";
+  static const String infoScreen = "/infoScreen";
 }

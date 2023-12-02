@@ -34,7 +34,8 @@ class ItemsControllerImp extends ItemsController {
   List<ItemModel> items = [];
   List<ItemModel> offersList = [];
 
-  CartControllerImp cartController = Get.find();
+  CartControllerImp cartController =
+      Get.put(CartControllerImp(), permanent: true);
 
   @override
   void onInit() {

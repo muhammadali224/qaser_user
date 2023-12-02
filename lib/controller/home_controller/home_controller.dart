@@ -78,7 +78,6 @@ class HomeControllerImp extends HomeController {
             branchesList.addAll(
                 responseDataBranches.map((e) => BranchesModel.fromJson(e)));
             if (branchId != 0) {
-              selectedValue = user.value.userFavBranchId!;
               selectedBranch = branchesList
                   .singleWhere((element) => element.branchId == selectedValue);
             } else {
@@ -127,12 +126,8 @@ class HomeControllerImp extends HomeController {
   initData() async {
     initLocalJiffy();
 
-    // user = userModelFromJson(await myServices.getBox.read(GetBoxKey.user));
     getData(user.value.userFavBranchId!);
     selectedValue = user.value.userFavBranchId!;
-    // if (user.value.usersIsAnonymous == 0) {
-    //   getUserDetails();
-    // }
   }
 
   @override
@@ -143,6 +138,7 @@ class HomeControllerImp extends HomeController {
       if (response['status'] == 'success') {
         var newUser = UserModel.fromJson(response['data']);
         userController.user = newUser;
+        selectedValue = newUser.userFavBranchId!;
       }
     } catch (e) {
       throw Exception(e);
@@ -245,8 +241,9 @@ class HomeControllerImp extends HomeController {
   onChangeDropButton(int? value) async {
     if (value != selectedValue) {
       selectedValue = value!;
-      await updateUserBranch();
-      getData(selectedValue);
+      updateUserBranch();
+      await getData(selectedValue);
+
       update();
     }
   }

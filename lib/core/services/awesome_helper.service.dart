@@ -140,7 +140,7 @@ class NotificationController {
   @pragma("vm:entry-point")
   static Future<void> onActionReceivedMethod(
       ReceivedAction receivedAction) async {
-    Map<String, String?>? payload = receivedAction.payload;
+    // Map<String, String?>? payload = receivedAction.payload;
     // TODO handle clicking on notification
     // example
     // String routeToGetTo = payload['route'];
