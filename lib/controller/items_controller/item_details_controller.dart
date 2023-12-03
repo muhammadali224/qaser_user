@@ -27,7 +27,8 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   List<SubItemsModel> availableSubItems = [];
   late RxDouble itemPrice;
   SubItemsModel selectedWeightAndSize = SubItemsModel();
-  CartControllerImp cartController = Get.find();
+  CartControllerImp cartController =
+      Get.put(CartControllerImp(), permanent: true);
 
   @override
   void onInit() {

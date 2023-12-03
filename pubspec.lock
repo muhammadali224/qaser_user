@@ -73,14 +73,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.8.2"
-  awesome_notifications_core:
-    dependency: "direct main"
-    description:
-      name: awesome_notifications_core
-      sha256: "0d67f3539aac87f9052b9eb204bdfbd00893a9d83b5975151098265428332bea"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.1"
   badges:
     dependency: "direct main"
     description:
@@ -185,14 +177,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  change_app_package_name:
-    dependency: "direct main"
-    description:
-      name: change_app_package_name
-      sha256: f9ebaf68a4b5a68c581492579bb68273c523ef325fbf9ce2f1b57fb136ad023b
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   characters:
     dependency: transitive
     description:
@@ -209,14 +193,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  cli_util:
-    dependency: transitive
-    description:
-      name: cli_util
-      sha256: b8db3080e59b2503ca9e7922c3df2072cf13992354d5e944074ffa836fba43b7
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
   clock:
     dependency: transitive
     description:
@@ -289,6 +265,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  dart_code_metrics_presets:
+    dependency: "direct dev"
+    description:
+      name: dart_code_metrics_presets
+      sha256: e0a408c307d1256176f7702db32999761f36ac4f9d8a7a65fbc1a13eafcf844c
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.6.0"
   dart_style:
     dependency: transitive
     description:
@@ -518,14 +502,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
-  flutter_launcher_icons:
-    dependency: "direct main"
-    description:
-      name: flutter_launcher_icons
-      sha256: "526faf84284b86a4cb36d20a5e45147747b7563d921373d4ee0559c54fcdbcea"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.13.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -558,14 +534,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.1"
-  flutter_ringtone_player:
-    dependency: "direct main"
-    description:
-      name: flutter_ringtone_player
-      sha256: "71abd0b524381fecdc57b975a40336ab031d9453ee9e28f2b5a1a6ceaa3faffc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.0+1"
   flutter_smart_dialog:
     dependency: "direct main"
     description:
@@ -832,14 +800,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
-  image:
-    dependency: transitive
-    description:
-      name: image
-      sha256: "028f61960d56f26414eb616b48b04eb37d700cbe477b7fb09bf1d7ce57fd9271"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.1.3"
   image_picker:
     dependency: "direct main"
     description:

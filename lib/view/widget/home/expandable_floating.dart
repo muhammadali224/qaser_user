@@ -3,6 +3,7 @@ import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:qaser_user/controller/home_controller/home_controller.dart';
+import 'package:qaser_user/core/constant/get_box_key.dart';
 
 class ExpandFloating extends GetView<HomeControllerImp> {
   const ExpandFloating({super.key});
@@ -27,7 +28,10 @@ class ExpandFloating extends GetView<HomeControllerImp> {
         ),
       ),
       type: ExpandableFabType.up,
-      pos: ExpandableFabPos.left,
+      pos: controller.myServices.getBox.read(GetBoxKey.language) ==
+              GetBoxKey.arLanguage
+          ? ExpandableFabPos.left
+          : ExpandableFabPos.right,
       overlayStyle: ExpandableFabOverlayStyle(blur: 3.1),
       children: [
         FloatingActionButton(
@@ -35,7 +39,6 @@ class ExpandFloating extends GetView<HomeControllerImp> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100),
           ),
-          heroTag: null,
           child: Logo(Logos.whatsapp, size: 50),
           onPressed: controller.launchWhatsApp,
         ),
@@ -44,7 +47,6 @@ class ExpandFloating extends GetView<HomeControllerImp> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100),
           ),
-          heroTag: null,
           child: Icon(
             Icons.call,
             size: 35,
@@ -57,7 +59,6 @@ class ExpandFloating extends GetView<HomeControllerImp> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100),
           ),
-          heroTag: null,
           child: Logo(Logos.facebook_logo, size: 50),
           onPressed: controller.launchFacebook,
         ),

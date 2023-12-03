@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../controller/settings_controller/settings_controller.dart';
 import '../../../../core/constant/color.dart';
@@ -90,6 +92,18 @@ class AppSettings extends StatelessWidget {
                 CustomSettingGroup(
                   settingsGroupTitle: 'myInfo'.tr,
                   items: [
+                    SettingsTileItem(
+                      onTap: () {
+                        SmartDialog.showToast("soon".tr);
+                      },
+                      icons: Bootstrap.award,
+                      iconStyle: SettingIconStyle(
+                        iconsColor: Colors.white,
+                        withBackground: true,
+                        backgroundColor: Colors.blueGrey,
+                      ),
+                      title: 'myPoints'.tr,
+                    ),
                     SettingsTileItem(
                       onTap: controller.goToFavorite,
                       icons: IconBroken.Heart,

@@ -21,11 +21,17 @@ linter:
   # or a specific dart file by using the `// ignore: name_of_lint` and
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
+  dart_code_metrics:
+    extends:
+      package:dart_code_metrics_presets/all.yaml
   rules:
     prefer_relative_imports: true
     avoid_print: false
+    avoid-banned-imports: false
     errors:
       invalid_annotation_target: ignore
+    arguments-ordering:
+      child-last: true
 
 
       # Uncomment to disable the `avoid_print` rule

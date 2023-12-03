@@ -257,6 +257,12 @@ class MyTranslation extends Translations {
           "itemCountLimit": "لا يمكن إضافة أكثر من هذا العدد",
           "totalPoints": "مجموع النقاط",
           "appInfo": "معلومات التطبيق",
+          "App_name": "إسم التطبيق",
+          "App_version": "نسخة التطبيق",
+          "Installer_store": "النسخة من متجر",
+          "program_by": "برمج بواسطة",
+          "myPoints": "نقاطي",
+          "soon": "قريبا ...",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -514,6 +520,12 @@ class MyTranslation extends Translations {
           "itemCountLimit": "Can't Add More than Limit",
           "totalPoints": "Total Points",
           "appInfo": "Application Info",
+          "App_name": "Application Name",
+          "App_version": "Application Version",
+          "Installer_store": "Installer Store",
+          "program_by": "Programming by",
+          "myPoints": "My Points",
+          "soon": "Soon ...",
         },
       };
 }
