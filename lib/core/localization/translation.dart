@@ -14,7 +14,7 @@ class MyTranslation extends Translations {
           'authLoginBody':
               'قم بتسجيل الدخول بواسطة بريدك الالكتروني والرقم السري أو بإحدى حساباتك على مواقع التواصل الاجتماعي',
           'authSignUpBody':
-              'قم بإنشاء حساب بواسطة بريدك الالكتروني, الرقم السري, ورقم الهاتف أو بإحدى حساباتك على مواقع التواصل الاجتماعي',
+              'قم بإنشاء حساب بواسطة بريدك الالكتروني, الرقم السري, ورقم الهاتف ',
           'save': 'حفظ',
           'edit': 'تعديل',
           'general': 'عام',
@@ -52,6 +52,8 @@ class MyTranslation extends Translations {
           'login': 'تسجيل الدخول',
           'logout': 'تسجيل الخروج',
           'signup': 'التسجيل',
+          'signupWithPhone': 'التسجيل بواسطة رقم الهاتف',
+          'signupWithEmail': 'التسجيل بواسطة البريد الالكتروني',
           'forget': 'نسيت الرقم السري ؟',
           'dontHaveAccount': 'لا تمتلك حساب ؟ قم بـ',
           'haveAccount': 'بالفعل لديك حساب ؟ قم بـ',
@@ -85,6 +87,8 @@ class MyTranslation extends Translations {
           'Track your Order Body':
               'يمكنك تتبع طلبك في كل مرحلة\n أيضا يمكنك تتبع طلباتك من خلال الخريطة',
           'userNameValidError': 'إسم مستخدم غير صحيح',
+          'userNotFound':
+              'عذرا, رقم الهاتف الذي ادخلته غير مرتبط بأي حساب الرجاء التاكد من رقم الهاتف او الذهاب الى تسجيل الحساب',
           'emailValidError': 'بريد الكتروني غير صحيح',
           'phoneValidError': 'رقم هاتف غير صالح',
           'passwordValidError': 'رقم سري غير صحيح',
@@ -274,8 +278,11 @@ class MyTranslation extends Translations {
           'authHeader': 'Welcome Back',
           'authLoginBody':
               'Sign in with your Email and Password\nOR Continue with your Social Media Account',
-          'authSignUpBody':
-              'SignUp with your Email, Password, Phone Number \nOR Continue with your Social Media Account',
+          'authSignUpBody': 'SignUp with your Email, Password, Phone Number',
+          'signupWithPhone': 'Sign up with your Phone',
+          'signupWithEmail': 'Sign up with your Email',
+          'userNotFound':
+              'This Mobile Number is Not Associated With Any Account Please Check Mobile Number Or Go To Sign Up',
           'save': 'Save',
           'edit': 'Edit',
           'general': 'General',

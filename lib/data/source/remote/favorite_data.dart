@@ -24,7 +24,7 @@ class FavoriteData {
   getFavorite(int userId) async {
     var response = await crud.postData(AppLink.getFavorite, {
       'id': userId.toString(),
-      'branchId': selectedBranch.branchId.toString(),
+      'branchId': selectedBranch.value.branchId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }

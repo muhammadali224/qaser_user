@@ -1,5 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qaser_user/core/constant/get_box_key.dart';
 import 'package:qaser_user/core/constant/routes.dart';
@@ -33,7 +33,45 @@ class SMSController extends GetxController {
         statusRequest = handlingData(response);
         if (StatusRequest.success == statusRequest) {
           if (response['status'] == 201 || response['status'] == 200) {
-            Get.toNamed(AppRoutes.verifySMS);
+            Get.toNamed(AppRoutes.verifySMS, arguments: phoneNumber.text);
+          } else if (response['status'] == "failed" &&
+              response['message'] == "user not found") {
+            Get.defaultDialog(
+              title: 'attention'.tr,
+              titleStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+              middleText: "userNotFound".tr,
+              middleTextStyle: TextStyle(color: Colors.black, fontSize: 18),
+              onConfirm: () => Get.toNamed(AppRoutes.signUp),
+              // onCancel: () {},
+              cancel: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: Colors.red, width: 1)),
+                  child: Text(
+                    "cancel".tr,
+                    style: TextStyle(fontSize: 16),
+                  )),
+
+              confirm: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: Colors.red, width: 1)),
+                  child: Text(
+                    "ok".tr,
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  )),
+              // actions: [
+              //   ElevatedButton(
+              //       onPressed: ,
+              //       child: Text('ok'.tr)),
+              // ]
+            );
           }
         } else {
           statusRequest = StatusRequest.failed;
@@ -64,8 +102,7 @@ class SMSController extends GetxController {
               userController.user = loginUser;
               FirebaseMessaging.instance
                   .subscribeToTopic("${user.value.usersId}");
-              // await myServices.getBox
-              //     .write(GetBoxKey.user, userModelToJson(user));
+
               await myServices.getBox.write(GetBoxKey.isSigned, true);
             } else if (response["user"]['status'] == "failed") {}
           }

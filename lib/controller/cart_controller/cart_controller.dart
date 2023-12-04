@@ -18,20 +18,20 @@ import '../../generated/assets.dart';
 import '../address_controller/view_address_controller.dart';
 
 abstract class CartController extends GetxController {
-  addCart(String itemsId, String? weightAndSizeId, String cartItemPrice,
-      String itemCount, String itemPointCount);
+  Future<void> addCart(String itemsId, String? weightAndSizeId,
+      String cartItemPrice, String itemCount, String itemPointCount);
 
-  deleteFromCart(int itemsId);
+  Future<void> deleteFromCart(int itemsId);
 
-  getCart();
+  Future<void> getCart();
 
-  resetCart();
+  void resetCart();
 
-  refreshCart();
+  Future<void> refreshCart();
 
-  addNoteToItem(int cartId);
+  Future<void> addNoteToItem(int cartId);
 
-  selectOrderMethod(int val);
+  void selectOrderMethod(int val);
 }
 
 class CartControllerImp extends CartController {
@@ -185,16 +185,16 @@ class CartControllerImp extends CartController {
   }
 
   calculateDeliveryCharge() {
-    if (selectedBranch.branchIsFixed == 1 &&
-        selectedBranch.branchZone! <= distance) {
-      deliveryFee =
-          (distance * selectedBranch.branchDeliveryCharge!).toStringAsFixed(2);
-    } else if (selectedBranch.branchIsFixed == 1 &&
-        selectedBranch.branchZone! >= distance) {
-      deliveryFee = selectedBranch.branchDeliveryFixCharge.toString();
-    } else if (selectedBranch.branchIsFixed == 0) {
-      deliveryFee =
-          (distance * selectedBranch.branchDeliveryCharge!).toStringAsFixed(2);
+    if (selectedBranch.value.branchIsFixed == 1 &&
+        selectedBranch.value.branchZone! <= distance) {
+      deliveryFee = (distance * selectedBranch.value.branchDeliveryCharge!)
+          .toStringAsFixed(2);
+    } else if (selectedBranch.value.branchIsFixed == 1 &&
+        selectedBranch.value.branchZone! >= distance) {
+      deliveryFee = selectedBranch.value.branchDeliveryFixCharge.toString();
+    } else if (selectedBranch.value.branchIsFixed == 0) {
+      deliveryFee = (distance * selectedBranch.value.branchDeliveryCharge!)
+          .toStringAsFixed(2);
     }
     update();
   }
@@ -210,9 +210,9 @@ class CartControllerImp extends CartController {
   }
 
   @override
-  refreshCart() {
+  refreshCart() async {
     resetCart();
-    getCart();
+    await getCart();
   }
 
   @override

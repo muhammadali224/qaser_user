@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
-import 'package:qaser_user/controller/auth_controller/sms_controller.dart';
 
+import '../../../../controller/auth_controller/verifySMS_controller.dart';
 import '../../../../core/class/handling_data_view.dart';
 import '../../../../core/constant/color.dart';
 import '../../../widget/auth/body_text.dart';
@@ -14,7 +14,7 @@ class VerifySMS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SMSController());
+    Get.put(VerifySMSController());
     return Scaffold(
         appBar: AppBar(
           leading: BackAppBar(),
@@ -26,7 +26,7 @@ class VerifySMS extends StatelessWidget {
                 .copyWith(color: AppColor.grey),
           ),
         ),
-        body: GetBuilder<SMSController>(
+        body: GetBuilder<VerifySMSController>(
             builder: (controller) => HandlingDataRequest(
                   statusRequest: controller.statusRequest,
                   widget: Container(
@@ -38,7 +38,7 @@ class VerifySMS extends StatelessWidget {
                         const SizedBox(height: 10),
                         CustomBody(
                             bodyText:
-                                '${'verificationSMSBody'.tr} ${controller.phoneNumber.text}'),
+                                '${'verificationSMSBody'.tr} ${controller.phoneNumber}'),
                         const SizedBox(height: 20),
                         OtpTextField(
                           showCursor: false,

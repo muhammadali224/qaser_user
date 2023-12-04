@@ -76,10 +76,7 @@ class LoginControllerImp extends LoginController {
                 middleText: "emailOrPasswordError".tr,
                 actions: [
                   ElevatedButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: Text('ok'.tr)),
+                      onPressed: () => Get.back(), child: Text('ok'.tr)),
                 ]);
             statusRequest = StatusRequest.failed;
           }

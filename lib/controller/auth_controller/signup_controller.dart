@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
+import '../../data/model/user_model/user_model.dart';
+import '../../data/source/remote/auth/check_sms_data.dart';
 import '../../data/source/remote/auth/signup_data.dart';
+import '../user_controller/user_controller.dart';
 
 abstract class SignUpController extends GetxController {
-  signUp();
+  Future<void> signUp();
+
+  Future<void> signUpWithPhone();
 
   goToLogin();
 }
 
 class SignUpControllerImp extends SignUpController {
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
   SignupData signupData = SignupData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
 
@@ -22,6 +29,7 @@ class SignUpControllerImp extends SignUpController {
   late TextEditingController password;
   GlobalKey<FormState> formState = GlobalKey<FormState>();
   bool isVisiblePassword = true;
+  CheckSMSData checkSMSData = CheckSMSData(Get.find());
 
   showPassword() {
     isVisiblePassword = !isVisiblePassword;
@@ -31,13 +39,13 @@ class SignUpControllerImp extends SignUpController {
   @override
   signUp() async {
     if (formState.currentState!.validate()) {
-      statusRequest = StatusRequest.loading;
-      update();
+      SmartDialog.showLoading(msg: "loading".tr);
       var response = await signupData.postData(
         userName.text.trim(),
         password.text.trim(),
         email.text.trim(),
         phone.text.trim(),
+        user.value.usersId.toString(),
       );
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
@@ -46,21 +54,72 @@ class SignUpControllerImp extends SignUpController {
             'email': email.text,
           });
         } else {
-          Get.defaultDialog(
-              title: 'attention'.tr,
-              middleText: "emailOrPhoneUsed".tr,
-              actions: [
-                ElevatedButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    child: Text('ok'.tr)),
-              ]);
+          SmartDialog.showNotify(
+            msg: "emailOrPhoneUsed".tr,
+            notifyType: NotifyType.warning,
+          );
+
           statusRequest = StatusRequest.failed;
         }
       }
       update();
-    } else {}
+    }
+    SmartDialog.dismiss();
+  }
+
+  @override
+  Future<void> signUpWithPhone() async {
+    try {
+      if (formState.currentState!.validate()) {
+        SmartDialog.showLoading(msg: "loading".tr);
+        var response = await signupData.postData(
+          userName.text.trim(),
+          password.text.trim(),
+          email.text.trim().toLowerCase(),
+          phone.text.trim(),
+          user.value.usersId.toString(),
+        );
+        statusRequest = handlingData(response);
+        if (StatusRequest.success == statusRequest) {
+          if (response['status'] == 'success') {
+            sendSMS();
+          } else {
+            SmartDialog.showNotify(
+              msg: "emailOrPhoneUsed".tr,
+              notifyType: NotifyType.alert,
+            );
+
+            statusRequest = StatusRequest.failed;
+          }
+        }
+        update();
+      }
+      SmartDialog.dismiss();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  sendSMS() async {
+    try {
+      SmartDialog.showLoading(msg: "loading".tr);
+      var response = await checkSMSData.sendSMS(
+        phone.text.trim().substring(1),
+      );
+
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 201 || response['status'] == 200) {
+          Get.toNamed(AppRoutes.verifySMS, arguments: phone.text.trim());
+        }
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+
+    update();
   }
 
   @override

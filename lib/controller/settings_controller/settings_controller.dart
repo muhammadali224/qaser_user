@@ -12,7 +12,7 @@ import '../user_controller/user_controller.dart';
 class SettingsController extends GetxController {
   MyServices myServices = Get.find();
   Rx<UserModel> user = Get.find<UserController>().user.obs;
-
+  UserController userController = Get.find<UserController>();
   late bool switchVal;
 
   String? lang;
@@ -53,16 +53,18 @@ class SettingsController extends GetxController {
     Get.toNamed(AppRoutes.infoScreen);
   }
 
-  logout() {
-    Get.deleteAll();
+  logout() async {
     FirebaseMessaging.instance
         .unsubscribeFromTopic("users${user.value.usersId}");
     FirebaseMessaging.instance.unsubscribeFromTopic("signed");
     FirebaseMessaging.instance.subscribeToTopic("notSigned");
 
-    // userManagement.clearUser();
-    myServices.getBox.write(GetBoxKey.language, lang!);
-    Get.offAllNamed(AppRoutes.login);
+    await myServices.getBox.remove(GetBoxKey.user);
+    await myServices.getBox.write(GetBoxKey.isSigned, false);
+    // await _homeControllerImp.loginAnonymous();
+    await userController.clearUser();
+    await myServices.getBox.remove(GetBoxKey.step);
+    Get.offAllNamed('/');
   }
 
   goToUserSettings() {

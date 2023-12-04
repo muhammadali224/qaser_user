@@ -25,6 +25,7 @@ class CartModel with _$CartModel {
     @JsonKey(name: "cart_orders") int? cartOrders,
     @JsonKey(name: "cart_size_weight_id") int? cartSizeWeightId,
     @JsonKey(name: "cart_item_price") num? cartItemPrice,
+    @JsonKey(name: "cart_branch_id") int? cartBranchId,
     @JsonKey(name: "Item_point_count") num? cartItemPoint,
     @JsonKey(name: "cart_item_count") int? cartItemCount,
     @JsonKey(name: "items_id") int? itemsId,

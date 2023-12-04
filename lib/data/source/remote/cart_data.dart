@@ -1,3 +1,5 @@
+import 'package:qaser_user/data/shared/branches.dart';
+
 import '../../../core/class/crud.dart';
 import '../../../core/constant/api_link.dart';
 
@@ -15,6 +17,7 @@ class CartData {
       'cart_item_price': cartItemPrice,
       'cart_item_count': itemCount,
       "item_point_count": itemPointCount,
+      "branch_id": selectedBranch.value.branchId.toString(),
     });
 
     return response.fold((l) => l, (r) => r);
@@ -47,8 +50,11 @@ class CartData {
   }
 
   getCart(int userId) async {
-    var response =
-        await crud.postData(AppLink.getCart, {'id': userId.toString()});
+    var response = await crud.postData(AppLink.getCart, {
+      'id': userId.toString(),
+      "branch_id": selectedBranch.value.branchId.toString(),
+    });
+    print(selectedBranch.value.branchId);
     return response.fold((l) => l, (r) => r);
   }
 }

@@ -39,6 +39,7 @@ class ExpandFloating extends GetView<HomeControllerImp> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100),
           ),
+          heroTag: null,
           child: Logo(Logos.whatsapp, size: 50),
           onPressed: controller.launchWhatsApp,
         ),
@@ -47,6 +48,7 @@ class ExpandFloating extends GetView<HomeControllerImp> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100),
           ),
+          heroTag: null,
           child: Icon(
             Icons.call,
             size: 35,
@@ -59,6 +61,7 @@ class ExpandFloating extends GetView<HomeControllerImp> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100),
           ),
+          heroTag: null,
           child: Logo(Logos.facebook_logo, size: 50),
           onPressed: controller.launchFacebook,
         ),

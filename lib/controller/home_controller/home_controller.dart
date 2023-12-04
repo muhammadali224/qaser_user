@@ -1,6 +1,7 @@
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:qaser_user/controller/cart_controller/cart_controller.dart';
 import 'package:qaser_user/controller/user_controller/user_controller.dart';
 import 'package:qaser_user/data/model/sub_items_model/sub_items_model.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -78,11 +79,11 @@ class HomeControllerImp extends HomeController {
             branchesList.addAll(
                 responseDataBranches.map((e) => BranchesModel.fromJson(e)));
             if (branchId != 0) {
-              selectedBranch = branchesList
+              selectedBranch.value = branchesList
                   .singleWhere((element) => element.branchId == selectedValue);
             } else {
               selectedValue = branchesList[0].branchId!;
-              selectedBranch = branchesList
+              selectedBranch.value = branchesList
                   .singleWhere((element) => element.branchId == selectedValue);
             }
           }
@@ -117,7 +118,7 @@ class HomeControllerImp extends HomeController {
         }
       }
     } catch (e) {
-      throw Exception(e);
+      print(e.toString());
     }
     update();
   }
@@ -125,7 +126,6 @@ class HomeControllerImp extends HomeController {
   @override
   initData() async {
     initLocalJiffy();
-
     getData(user.value.userFavBranchId!);
     selectedValue = user.value.userFavBranchId!;
   }
@@ -153,8 +153,6 @@ class HomeControllerImp extends HomeController {
         user.value.usersEmail!,
         user.value.userFavBranchId!,
         user.value.usersName!,
-        // selectedValue,
-        // myServices.androidDeviceInfo.type,
       );
       if (response['status'] == 'success') {
         UserModel loginUser = UserModel.fromJson(response['data']);
@@ -184,7 +182,7 @@ class HomeControllerImp extends HomeController {
               onDismiss: () {
                 myServices.getBox.erase();
                 Get.offAllNamed(AppRoutes.login);
-                userController.clear();
+                userController.clearUser();
               });
         }
       }
@@ -225,6 +223,8 @@ class HomeControllerImp extends HomeController {
 
   @override
   goToCart() {
+    CartControllerImp controller = Get.put(CartControllerImp());
+    controller.refreshCart();
     Get.toNamed(AppRoutes.cart);
   }
 
@@ -246,25 +246,26 @@ class HomeControllerImp extends HomeController {
 
       update();
     }
+    print(selectedBranch.toString());
   }
 
   launchFacebook() async {
-    final url = Uri.parse(selectedBranch.branchFacebookUrl!);
+    final url = Uri.parse(selectedBranch.value.branchFacebookUrl!);
     if (await canLaunchUrl(url)) {
       launchUrl(url);
     }
   }
 
   launchCall() async {
-    final url = Uri.parse('tel:${selectedBranch.branchPhone1}');
+    final url = Uri.parse('tel:${selectedBranch.value.branchPhone1}');
     if (await canLaunchUrl(url)) {
       launchUrl(url);
     }
   }
 
   launchWhatsApp() async {
-    final url =
-        Uri.parse('whatsapp://send?phone=962${selectedBranch.branchPhone2}');
+    final url = Uri.parse(
+        'whatsapp://send?phone=962${selectedBranch.value.branchPhone2}');
     if (await canLaunchUrl(url)) {
       launchUrl(url);
     }

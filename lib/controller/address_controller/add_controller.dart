@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
+import '../../core/function/request_location_permission.dart';
 
 class AddAddressController extends GetxController {
   Completer<GoogleMapController>? completerController;
@@ -40,6 +41,7 @@ class AddAddressController extends GetxController {
 
   @override
   void onInit() async {
+    await requestLocationPermissions();
     completerController = Completer<GoogleMapController>();
     getCurrentLocation();
     super.onInit();

@@ -91,10 +91,15 @@ class SignUp extends StatelessWidget {
                         ),
                       ),
                       CustomAuthButton(
-                          text: 'signup',
-                          onPressed: () {
-                            controller.signUp();
-                          }),
+                        color: Colors.red,
+                        text: 'signupWithPhone',
+                        onPressed: controller.signUpWithPhone,
+                      ),
+                      CustomAuthButton(
+                        color: Colors.red,
+                        text: 'signupWithEmail',
+                        onPressed: controller.signUp,
+                      ),
                       const SizedBox(height: 30),
                       CustomSigninText(
                         account: 'haveAccount',

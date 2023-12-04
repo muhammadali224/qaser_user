@@ -171,23 +171,22 @@ class AppSettings extends StatelessWidget {
                     ),
                   ],
                 ),
-                CustomSettingGroup(items: [
-                  SettingsTileItem(
-                    onTap: () {
-                      controller.logout();
-                    },
-                    icons: Icons.logout,
-                    iconStyle: SettingIconStyle(
-                      iconsColor: Colors.white,
-                      withBackground: true,
-                      backgroundColor: Colors.blueGrey,
+                if (controller.user.value.usersIsAnonymous == 0)
+                  CustomSettingGroup(items: [
+                    SettingsTileItem(
+                      onTap: controller.logout,
+                      icons: Icons.logout,
+                      iconStyle: SettingIconStyle(
+                        iconsColor: Colors.white,
+                        withBackground: true,
+                        backgroundColor: Colors.blueGrey,
+                      ),
+                      title: 'logout'.tr,
+                      titleStyle: TextStyle(
+                          color: AppColor.primaryColor,
+                          fontWeight: FontWeight.bold),
                     ),
-                    title: 'logout'.tr,
-                    titleStyle: TextStyle(
-                        color: AppColor.primaryColor,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ])
+                  ])
               ],
             ),
           ),

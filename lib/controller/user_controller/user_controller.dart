@@ -47,6 +47,7 @@ class UserController extends GetxController {
       userFavBranchId: 1,
       usersImage: "user.png",
     );
+    saveUserToStorage(_userModel.value);
   }
 
   void saveUserToStorage(UserModel user) {
@@ -54,9 +55,8 @@ class UserController extends GetxController {
     print('User saved to storage: ${_box.read('user')}');
   }
 
-  void readUserFromStorage() {
+  void _readUserFromStorage() {
     final userData = _box.read(GetBoxKey.user);
-
     if (userData != null) {
       _userModel.value = userModelFromJson(userData);
       print('User read from storage: $userData');
@@ -66,7 +66,9 @@ class UserController extends GetxController {
     }
   }
 
-  void clear() {
+  Future<void> clearUser() async {
     _userModel.value = UserModel();
+    _box.remove(GetBoxKey.user);
+    _readUserFromStorage();
   }
 }
