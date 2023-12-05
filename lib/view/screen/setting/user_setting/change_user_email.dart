@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../controller/user_settings_controller/change_email_controller.dart';
 import '../../../../core/class/handling_data_view.dart';
+import '../../../../core/constant/color.dart';
 import '../../../../core/function/valid_input.dart';
 import '../../../widget/auth/auth_button.dart';
 import '../../../widget/auth/custom_text_form_field.dart';
@@ -50,12 +51,13 @@ class ChangeEmail extends StatelessWidget {
                     Column(
                       children: [
                         OtpTextField(
+                          showCursor: false,
                           autoFocus: true,
+                          disabledBorderColor: Colors.red,
+                          focusedBorderColor: AppColor.red,
                           fieldWidth: 50,
-                          borderRadius: BorderRadius.circular(15),
+                          showFieldAsBox: false,
                           numberOfFields: 5,
-                          borderColor: const Color(0xFF512DA8),
-                          showFieldAsBox: true,
                           onSubmit: (String verificationCode) {
                             controller.checkCode(int.parse(verificationCode));
                           }, // end onSubmit

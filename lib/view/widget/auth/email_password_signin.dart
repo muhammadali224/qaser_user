@@ -20,6 +20,7 @@ class EmailPasswordSignin extends GetView<LoginControllerImp> {
         const SizedBox(height: 20),
         CustomAuthInput(
           labelText: 'email',
+          controller: controller.email,
           // isDense: true,
           hintText: 'enterEmail',
           validator: (val) {
@@ -29,6 +30,7 @@ class EmailPasswordSignin extends GetView<LoginControllerImp> {
         ),
         GetBuilder<LoginControllerImp>(
           builder: (controller) => CustomAuthInput(
+            controller: controller.password,
             obscureText: controller.isVisiblePassword,
             labelText: 'password',
             hintText: 'enterPassword',

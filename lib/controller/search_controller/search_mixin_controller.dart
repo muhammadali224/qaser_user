@@ -12,7 +12,7 @@ class SearchMixController extends GetxController {
   bool isSearch = false;
   int selectedValue = 1;
   List<ItemModel> listSearchResult = [];
-  StatusRequest statusRequest = StatusRequest.none;
+  StatusRequest statusRequest = StatusRequest.loading;
   HomeData homeData = HomeData(Get.find());
 
   onSearchItems() {

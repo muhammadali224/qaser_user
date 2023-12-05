@@ -4,10 +4,10 @@ import '../../../../core/constant/api_link.dart';
 class VerifyData {
   CRUD crud;
   VerifyData(this.crud);
-  postData(String email, int verifyCode) async {
+  postData(String email, String verifyCode) async {
     var response = await crud.postData(AppLink.verify, {
       'email': email,
-      'verifyCode': verifyCode.toString(),
+      'verifyCode': verifyCode,
     });
     return response.fold((l) => l, (r) => r);
   }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../core/constant/routes.dart';
 import '../../core/localization/change_local.dart';
+import '../widget/auth/logo.dart';
 import '../widget/language/languages_button.dart';
 
 class LanguageScreen extends GetView<LocalController> {
@@ -16,6 +17,8 @@ class LanguageScreen extends GetView<LocalController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const LogoAuth(),
+            SizedBox(height: 50),
             Text("chooseLang".tr,
                 style: Theme.of(context).textTheme.displayLarge),
             const SizedBox(height: 20),

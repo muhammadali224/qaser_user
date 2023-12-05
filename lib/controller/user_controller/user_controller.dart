@@ -9,7 +9,7 @@ import '../../data/model/user_model/user_model.dart';
 import '../../main.dart';
 
 class UserController extends GetxController {
-  final Rx<UserModel> _userModel = UserModel().obs;
+  Rx<UserModel> _userModel = UserModel().obs;
   final _box = GetStorage();
 
   UserModel get user {
@@ -27,7 +27,7 @@ class UserController extends GetxController {
 
   set user(UserModel value) {
     _userModel.value = value;
-    saveUserToStorage(value);
+    saveUserToStorage(_userModel.value);
   }
 
   UserController() {

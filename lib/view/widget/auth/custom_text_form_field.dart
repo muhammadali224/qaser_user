@@ -38,6 +38,7 @@ class CustomTextFormField extends StatelessWidget {
         onFieldSubmitted: onSubmit,
         obscureText: obscureText == null || obscureText == false ? false : true,
         validator: valid,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: myController,
         decoration: InputDecoration(
             hintText: hint.tr,

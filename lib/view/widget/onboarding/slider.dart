@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../controller/onboarding_controller.dart';
 import '../../../data/source/static/static.dart';
@@ -17,7 +18,7 @@ class SliderOnboarding extends GetView<OnBoardingControllerImp> {
         itemCount: onboardingList.length,
         itemBuilder: (context, i) => Column(
               children: [
-                Image.asset(onboardingList[i].image!,
+                Lottie.asset(onboardingList[i].image!,
                     height: Get.width / 1.2, fit: BoxFit.fill),
                 const SizedBox(height: 60),
                 Text(onboardingList[i].title!,

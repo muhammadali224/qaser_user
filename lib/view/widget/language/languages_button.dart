@@ -18,7 +18,7 @@ class LanguagesButton extends StatelessWidget {
       child: MaterialButton(
         onPressed: onPressed,
         textColor: Colors.white,
-        color: AppColor.primaryColor,
+        color: AppColor.red,
         child: Text(
           title,
           style: const TextStyle(fontWeight: FontWeight.bold),

@@ -11,6 +11,7 @@ class CustomAuthInput extends StatelessWidget {
   final String? Function(String?) validator;
   final bool? isDense;
   final bool? obscureText;
+  final TextEditingController controller;
   final IconData icon;
   final void Function()? onTapIcon;
   final void Function(String?)? onSubmit;
@@ -24,7 +25,8 @@ class CustomAuthInput extends StatelessWidget {
       this.obscureText,
       required this.icon,
       this.onTapIcon,
-      this.onSubmit});
+      this.onSubmit,
+      required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class CustomAuthInput extends StatelessWidget {
             ),
           ),
           TextFormField(
+            controller: controller,
             obscureText:
                 obscureText == null || obscureText == false ? false : true,
             decoration: InputDecoration(

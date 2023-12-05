@@ -53,7 +53,6 @@ class UserSettingFormController extends GetxController {
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
-          myServices.getBox.write('userPhone', userTextController.text);
           Get.back();
           userSettingController.getData();
           update();
@@ -61,15 +60,13 @@ class UserSettingFormController extends GetxController {
           Get.defaultDialog(
               title: 'attention'.tr,
               middleText: "phoneUsed".tr,
-              onConfirm: () {
-                Get.back();
-              },
+              onConfirm: () => Get.back(),
               textConfirm: 'ok'.tr);
           statusRequest = StatusRequest.failed;
         }
       }
       update();
-    } else {}
+    }
   }
 
   @override

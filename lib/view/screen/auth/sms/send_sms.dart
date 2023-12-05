@@ -43,7 +43,7 @@ class SendSMSVerify extends StatelessWidget {
                   const SizedBox(height: 20),
                   CustomTextFormField(
                     valid: (val) {
-                      return validInput(val!, 9, 15, 'phone');
+                      return validInput(val!, 9, 10, 'phone');
                     },
                     title: 'phone',
                     hint: 'enterPhone',

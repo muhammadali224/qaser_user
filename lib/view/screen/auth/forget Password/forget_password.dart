@@ -50,9 +50,29 @@ class ForgetPassword extends StatelessWidget {
               ),
               CustomAuthButton(
                   text: 'checkEmail',
-                  onPressed: () {
-                    controller.checkEmail();
-                  }),
+                  color: Colors.red,
+                  onPressed: controller.checkEmail),
+              // OrSection(),
+              // const CustomHeader(headerText: 'forgetHeader'),
+              // const SizedBox(height: 10),
+              // const CustomBody(bodyText: 'forgetBody'),
+              // const SizedBox(height: 20),
+              // CustomTextFormField(
+              //   valid: (val) {
+              //     return validInput(val!, 9,10, 'phone');
+              //   },
+              //   title: 'phone',
+              //   hint: 'enterPhone',
+              //   icon: Icons.mobile_friendly,
+              //   myController: controller.email,
+              //   type: TextInputType.phone,
+              // ),
+              // CustomAuthButton(
+              //     text: 'checkEmail',
+              //     color: Colors.red,
+              //     onPressed: () {
+              //       controller.checkEmail();
+              //     }),
             ],
           ),
         ),

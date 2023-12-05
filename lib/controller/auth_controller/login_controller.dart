@@ -1,6 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
@@ -52,17 +51,17 @@ class LoginControllerImp extends LoginController {
 
         if (StatusRequest.success == statusRequest) {
           if (response['status'] == 'success') {
-            final loginUser = UserModel.fromJson(response['data']);
+            var loginUser = UserModel.fromJson(response['data']);
             userController.user = loginUser;
-            if (user.value.usersApprove == 1) {
-              myServices.getBox.write(GetBoxKey.step, "2");
+
+            if (response['data']["users_approve"] == 1) {
+              Get.offAllNamed(AppRoutes.home);
+              FirebaseMessaging.instance
+                  .subscribeToTopic("user${user.value.usersId}");
               FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");
               FirebaseMessaging.instance.subscribeToTopic("signed");
-              FirebaseMessaging.instance
-                  .subscribeToTopic("users${user.value.usersId}");
               await myServices.getBox.write(GetBoxKey.isSigned, true);
-              Get.offAllNamed(AppRoutes.home);
-            } else if (user.value.usersApprove == 0) {
+            } else if (response['data']["users_approve"] == 0) {
               Get.toNamed(
                 AppRoutes.verificationSignup,
                 arguments: {
@@ -82,9 +81,8 @@ class LoginControllerImp extends LoginController {
           }
         }
         update();
-      } else {}
+      }
     } catch (e) {
-      SmartDialog.showToast(e.toString());
       print(e.toString());
     }
   }

@@ -79,13 +79,13 @@ class MyTranslation extends Translations {
           'cong': 'تهانينا',
           'Choose Product': 'إختر منتج',
           'Choose Product Body':
-              'لدينا أكثر من ١٠٠ الاف منتج \n قم بإختيار منتجاتك من متجرنا الالكتروني',
+              'لدينا أكثر من ١٠٠ منتج \n قم بإختيار منتجاتك من متجرنا الالكتروني',
           'Easy & Safe Payment': 'سهل وأمن للشراء',
           'Easy & Safe Payment Body':
-              'يمكنك الدفع نقدا \n أو بواسطة بوابات الدفع الالكنروني\n المعتمدة والموثوقة',
-          'Track your Order': 'تتبع طلباتك',
+              'يمكنك انشاء حسابك بسهولة \n بواسطة الرسائل القصيرة أو البريد الالكنروني\nموثوق لكل عملائنا',
+          'Track your Order': 'إبدأ طلبك',
           'Track your Order Body':
-              'يمكنك تتبع طلبك في كل مرحلة\n أيضا يمكنك تتبع طلباتك من خلال الخريطة',
+              ' إستلام أو توصيل \n نحن في خدمتك بأي وقت \nأنت تبعد عن طلبك الأول خطوة واحدة',
           'userNameValidError': 'إسم مستخدم غير صحيح',
           'userNotFound':
               'عذرا, رقم الهاتف الذي ادخلته غير مرتبط بأي حساب الرجاء التاكد من رقم الهاتف او الذهاب الى تسجيل الحساب',
@@ -345,13 +345,13 @@ class MyTranslation extends Translations {
           'cong': 'Congratulations',
           'Choose Product': 'Choose Product',
           'Choose Product Body':
-              'We have a 100K+ product choose\nyour product from \nour e-commerce shop.',
+              'We have a 100 product choose\nyour product from \nour e-commerce shop.',
           'Easy & Safe Payment': 'Easy & Safe Payment',
           'Easy & Safe Payment Body':
-              'Easy Checkout & safe payment\nmethod , Trusted by our Customers\nFrom All the World.',
-          'Track your Order': 'Track your Order',
+              'Easy to create Account\nwith SMS method Or Email\nTrusted by our Customers.',
+          'Track your Order': 'Start your Order',
           'Track your Order Body':
-              'Best Tracker has been used for \ntrack your order ,You\'ll know where\nyour product is at the moment.',
+              'Pick UP Or Delivery \nWe Are Here To Help You Any Time\nYou Are One Step Away From Your First Order.',
           'userNameValidError': 'Not Valid User Name',
           'emailValidError': 'Not Valid Email',
           'phoneValidError': 'Not Valid Phone Number',

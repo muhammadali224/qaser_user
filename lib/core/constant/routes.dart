@@ -10,7 +10,7 @@ class AppRoutes {
   static const String confirmSMS = "/confirmSMS";
   static const String verifySMS = "/verifySMS";
   static const String successReset = "/successReset";
-  static const String successSignUp = "/successSignUp";
+
   static const String verificationSignup = "/verificationSignup";
   static const String items = "/items";
   static const String itemDetails = "/itemDetails";

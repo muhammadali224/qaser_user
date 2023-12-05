@@ -22,34 +22,33 @@ class VerifySMSController extends GetxController {
   UserController userController = Get.find<UserController>();
 
   checkSMS(int verificationCode) async {
-    if (formState.currentState!.validate()) {
-      try {
-        statusRequest = StatusRequest.loading;
-        update();
-        var response = await checkSMSData.checkSMS(
-            phoneNumber.trim().substring(1), verificationCode);
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await checkSMSData.checkSMS(
+          phoneNumber.trim().substring(1), verificationCode);
 
-        statusRequest = handlingData(response);
-        if (StatusRequest.success == statusRequest) {
-          if (response['status'] == "success") {
-            if (response["user"]['status'] == "success" &&
-                response["SMSVerify"]['message'] == "Verified") {
-              Get.offAllNamed(AppRoutes.home);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == "success") {
+          if (response["user"]['status'] == "success" &&
+              response["SMSVerify"]['message'] == "Verified") {
+            Get.offAllNamed(AppRoutes.home);
 
-              var loginUser = UserModel.fromJson(response["user"]["data"]);
-              userController.user = loginUser;
-              FirebaseMessaging.instance
-                  .subscribeToTopic("user${user.value.usersId}");
-              FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");
-              FirebaseMessaging.instance.subscribeToTopic("signed");
-              await myServices.getBox.write(GetBoxKey.isSigned, true);
-            }
+            var loginUser = UserModel.fromJson(response["user"]["data"]);
+            userController.user = loginUser;
+            FirebaseMessaging.instance
+                .subscribeToTopic("user${user.value.usersId}");
+            FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");
+            FirebaseMessaging.instance.subscribeToTopic("signed");
+            await myServices.getBox.write(GetBoxKey.isSigned, true);
           }
         }
-      } catch (e) {
-        throw Exception(e);
       }
+    } catch (e) {
+      throw Exception(e);
     }
+
     update();
   }
 

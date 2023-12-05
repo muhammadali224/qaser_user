@@ -46,26 +46,32 @@ class SMSController extends GetxController {
               middleTextStyle: TextStyle(color: Colors.black, fontSize: 18),
               onConfirm: () => Get.toNamed(AppRoutes.signUp),
               // onCancel: () {},
-              cancel: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(color: Colors.red, width: 1)),
-                  child: Text(
-                    "cancel".tr,
-                    style: TextStyle(fontSize: 16),
-                  )),
+              cancel: GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Colors.red, width: 1)),
+                    child: Text(
+                      "cancel".tr,
+                      style: TextStyle(fontSize: 16),
+                    )),
+              ),
 
-              confirm: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(color: Colors.red, width: 1)),
-                  child: Text(
-                    "ok".tr,
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  )),
+              confirm: GestureDetector(
+                onTap: () => Get.toNamed(AppRoutes.signUp),
+                child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Colors.red, width: 1)),
+                    child: Text(
+                      "ok".tr,
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    )),
+              ),
               // actions: [
               //   ElevatedButton(
               //       onPressed: ,

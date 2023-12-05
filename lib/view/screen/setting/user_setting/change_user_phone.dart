@@ -35,7 +35,7 @@ class ChangeUserPhone extends StatelessWidget {
                       icon: Icons.phone,
                       myController: controller.userTextController,
                       valid: (val) {
-                        return validInput(val!, 5, 50, 'phone');
+                        return validInput(val!, 9, 10, 'phone');
                       },
                       type: TextInputType.phone,
                     ),

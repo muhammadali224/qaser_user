@@ -15,7 +15,6 @@ import 'view/screen/auth/forget%20Password/success_reset_password.dart';
 import 'view/screen/auth/forget%20Password/verification_code.dart';
 import 'view/screen/auth/login.dart';
 import 'view/screen/auth/signup.dart';
-import 'view/screen/auth/success_signup.dart';
 import 'view/screen/auth/verification_signup.dart';
 import 'view/screen/cart.dart';
 import 'view/screen/home/home.dart';
@@ -68,7 +67,6 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRoutes.verifySMS, page: () => const VerifySMS()),
   GetPage(
       name: AppRoutes.successReset, page: () => const SuccessResetPassword()),
-  GetPage(name: AppRoutes.successSignUp, page: () => const SuccessSignUp()),
   GetPage(
       name: AppRoutes.verificationSignup,
       page: () => const VerificationSignUp()),

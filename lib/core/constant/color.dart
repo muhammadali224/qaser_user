@@ -10,7 +10,7 @@ class AppColor {
   static Color marron = const Color(0xff800000);
 
   // static Color primaryColor = const Color(0xffEB455F);
-  static Color primaryColor = Colors.orange;
+  static Color primaryColor = Colors.red;
   static Color secondColor = const Color(0xffFCFFE7);
   static Color theirdColor = const Color(0xffBAD7E9);
   static Color fourthColor = const Color(0xff2B3467);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
@@ -19,8 +20,7 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
   @override
   checkEmail() async {
     if (formState.currentState!.validate()) {
-      statusRequest = StatusRequest.loading;
-      update();
+      SmartDialog.showLoading(msg: "loading".tr);
       var response = await checkEmailData.postData(
         email.text.trim(),
       );
@@ -31,6 +31,8 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
             'email': email.text,
           });
         } else if (response['status'] == 'failed') {
+          SmartDialog.dismiss();
+
           Get.defaultDialog(
               title: 'attention'.tr,
               middleText: "emailNotFound".tr,
@@ -46,7 +48,8 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
         }
       }
       update();
-    } else {}
+    }
+    SmartDialog.dismiss();
   }
 
   @override

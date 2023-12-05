@@ -15,9 +15,6 @@ class Assets {
   static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesLogo2 = 'assets/images/logo_2.jpg';
   static const String imagesMhj = 'assets/images/mhj.png';
-  static const String imagesOne = 'assets/images/one.PNG';
-  static const String imagesThree = 'assets/images/three.PNG';
-  static const String imagesTwo = 'assets/images/two.PNG';
   static const String lottieAccountCreated =
       'assets/lottie/accountCreated.json';
   static const String lottieBranchClose = 'assets/lottie/branch_close.json';
@@ -27,6 +24,9 @@ class Assets {
   static const String lottieNoData = 'assets/lottie/noData.json';
   static const String lottieNoSearch = 'assets/lottie/no_search.json';
   static const String lottieOffline = 'assets/lottie/offline.json';
+  static const String lottieOnboard1 = 'assets/lottie/onboard1.json';
+  static const String lottieOnboard2 = 'assets/lottie/onboard2.json';
+  static const String lottieOnboard3 = 'assets/lottie/onboard3.json';
   static const String lottiePickup = 'assets/lottie/pickup.json';
   static const String lottieRating = 'assets/lottie/rating.json';
   static const String lottieSearch = 'assets/lottie/search.json';

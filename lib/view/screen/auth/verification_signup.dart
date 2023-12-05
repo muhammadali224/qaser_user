@@ -41,20 +41,15 @@ class VerificationSignUp extends StatelessWidget {
                                 '${'verificationBody'.tr} ${controller.email}'),
                         const SizedBox(height: 20),
                         OtpTextField(
+                          showCursor: false,
                           autoFocus: true,
+                          disabledBorderColor: Colors.red,
+                          focusedBorderColor: AppColor.red,
                           fieldWidth: 50,
-                          borderRadius: BorderRadius.circular(15),
+                          showFieldAsBox: false,
                           numberOfFields: 5,
-                          borderColor: const Color(0xFF512DA8),
-                          //set to true to show as box or false to show as dash
-                          showFieldAsBox: true,
-                          //runs when a code is typed in
-                          onCodeChanged: (String code) {
-                            //handle validation or checks here
-                          },
-                          //runs when every textfield is filled
                           onSubmit: (String verificationCode) {
-                            controller.checkCode(int.parse(verificationCode));
+                            controller.checkCode(verificationCode);
                           }, // end onSubmit
                         ),
                         TextButton(
