@@ -35,7 +35,7 @@ dependencies:
   dropdown_button2: ^2.3.8
   icon_broken:
   animated_text_kit: ^4.2.2
-  connectivity_plus:
+  connectivity_plus: ^5.0.2
   flutter_smart_dialog: ^4.9.4
   dotted_dashed_line: ^0.0.3
   animated_flip_counter: ^0.2.6

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:get/get.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:qaser_user/controller/home_controller/home_controller.dart';
 import 'package:qaser_user/core/constant/get_box_key.dart';
 
@@ -40,7 +39,8 @@ class ExpandFloating extends GetView<HomeControllerImp> {
             borderRadius: BorderRadius.circular(100),
           ),
           heroTag: null,
-          child: Logo(Logos.whatsapp, size: 50),
+          // child: Logo(Logos.whatsapp, size: 50),
+          child: Icon(Icons.access_alarm_outlined),
           onPressed: controller.launchWhatsApp,
         ),
         FloatingActionButton(
@@ -62,7 +62,8 @@ class ExpandFloating extends GetView<HomeControllerImp> {
             borderRadius: BorderRadius.circular(100),
           ),
           heroTag: null,
-          child: Logo(Logos.facebook_logo, size: 50),
+          child: Icon(Icons.access_alarm_outlined),
+          // child: Logo(Logos.facebook_logo, size: 50),
           onPressed: controller.launchFacebook,
         ),
       ],
