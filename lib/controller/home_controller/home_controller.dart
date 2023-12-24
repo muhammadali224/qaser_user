@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:qaser_user/controller/cart_controller/cart_controller.dart';
 import 'package:qaser_user/controller/user_controller/user_controller.dart';
-import 'package:qaser_user/data/model/sub_items_model/sub_items_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/class/status_request.dart';
@@ -17,7 +16,6 @@ import '../../data/model/items_model/items_model.dart';
 import '../../data/model/offers_image_model.dart';
 import '../../data/model/user_model/user_model.dart';
 import '../../data/shared/branches.dart';
-import '../../data/shared/weight_size.dart';
 import '../../data/source/remote/auth/login_data.dart';
 import '../search_controller/search_mixin_controller.dart';
 
@@ -58,6 +56,7 @@ class HomeControllerImp extends HomeController {
   List<CategoriesModel> categoriesList = [];
   List<ItemModel> topSellingList = [];
   List<ItemModel> itemsOfferList = [];
+  List<ItemModel> suggestItem = [];
   List<OffersImageModel> offerImagesList = [];
 
   @override
@@ -97,21 +96,19 @@ class HomeControllerImp extends HomeController {
             itemsOfferList
                 .addAll(responseData.map((e) => ItemModel.fromJson(e)));
           }
+          if (response['suggestItems']['status'] == 'success') {
+            List responseData = response['suggestItems']['data'];
+            suggestItem.addAll(responseData.map((e) => ItemModel.fromJson(e)));
+          }
           if (response['topSelling']['status'] == 'success') {
             List responseDataTop = response['topSelling']['data'];
             topSellingList
                 .addAll(responseDataTop.map((e) => ItemModel.fromJson(e)));
           }
-
           if (response['offer_images']['status'] == 'success') {
             List responseOffers = response['offer_images']['data'];
             offerImagesList.addAll(
                 responseOffers.map((e) => OffersImageModel.fromJson(e)));
-          }
-          if (response['weight_size']['status'] == 'success') {
-            List responseSubItem = response['weight_size']['data'];
-            subItemsList
-                .addAll(responseSubItem.map((e) => SubItemsModel.fromJson(e)));
           }
         } else {
           statusRequest = StatusRequest.failed;
@@ -193,7 +190,6 @@ class HomeControllerImp extends HomeController {
   }
 
   clearAllList() {
-    subItemsList.clear();
     branchesList.clear();
     categoriesList.clear();
     topSellingList.clear();

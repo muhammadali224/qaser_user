@@ -66,14 +66,21 @@ class Home extends StatelessWidget {
                         const SwiperCard(),
                         const CustomHomeTitle(title: 'categories'),
                         const HomeCategoriesList(),
-                        CustomHomeTitle(
-                          title: 'offers',
-                          withSeeAll: true,
-                          seeAllOnPressed: () => controller.goToOffers(),
-                        ),
-                        const ListOffersHome(),
-                        const CustomHomeTitle(title: 'topSelling'),
-                        const ListTopSellingHome(),
+                        if (controller.itemsOfferList.isNotEmpty)
+                          CustomHomeTitle(
+                            title: 'offers',
+                            withSeeAll: true,
+                            seeAllOnPressed: () => controller.goToOffers(),
+                          ),
+                        if (controller.itemsOfferList.isNotEmpty)
+                          const ListOffersHome(),
+                        const CustomHomeTitle(title: 'suggestProduct'),
+                        ListTopSellingHome(itemList: controller.suggestItem),
+                        if (controller.topSellingList.isNotEmpty)
+                          const CustomHomeTitle(title: 'topSelling'),
+                        if (controller.topSellingList.isNotEmpty)
+                          ListTopSellingHome(
+                              itemList: controller.topSellingList),
                       ],
                     ))
               ],

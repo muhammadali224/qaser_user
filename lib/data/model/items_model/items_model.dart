@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final itemsModel = itemsModelFromJson(jsonString);
+//     final itemModel = itemModelFromJson(jsonString);
 
 // ignore_for_file: invalid_annotation_target
 
@@ -11,8 +11,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'items_model.freezed.dart';
 part 'items_model.g.dart';
 
-ItemModel itemsModelFromJson(String str) =>
-    ItemModel.fromJson(json.decode(str));
+ItemModel itemModelFromJson(String str) => ItemModel.fromJson(json.decode(str));
 
 String itemModelToJson(ItemModel data) => json.encode(data.toJson());
 
@@ -25,6 +24,7 @@ class ItemModel with _$ItemModel {
     @JsonKey(name: "items_desc") String? itemsDesc,
     @JsonKey(name: "items_desc_ar") String? itemsDescAr,
     @JsonKey(name: "items_image") String? itemsImage,
+    @JsonKey(name: "items_group") int? itemsGroup,
     @JsonKey(name: "items_count") int? itemsCount,
     @JsonKey(name: "items_active") int? itemsActive,
     @JsonKey(name: "items_price") num? itemsPrice,
@@ -39,14 +39,8 @@ class ItemModel with _$ItemModel {
     @JsonKey(name: "categories_image") String? categoriesImage,
     @JsonKey(name: "itemDiscounnt_price") num? itemDiscounntPrice,
     @JsonKey(name: "is_favorite") int? isFavorite,
-    @JsonKey(name: "weigh_ids") List<String>? weighIds,
     @JsonKey(name: "images") List<String>? images,
-    @JsonKey(name: "item_count") int? cartCount,
-    @JsonKey(name: "item_attr_id") int? itemAttrId,
-    @JsonKey(name: "sub_item_name") String? subItemName,
-    @JsonKey(name: "sub_item_name_ar") String? subItemNameAr,
-    @JsonKey(name: "sub_item_value") num? subItemValue,
-    @JsonKey(name: "selectedSubItemsId") int? selectedSubItemId,
+    @JsonKey(name: "item_count") int? itemCount,
   }) = _ItemModel;
 
   factory ItemModel.fromJson(Map<String, dynamic> json) =>

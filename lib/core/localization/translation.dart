@@ -267,6 +267,7 @@ class MyTranslation extends Translations {
           "program_by": "برمج بواسطة",
           "myPoints": "نقاطي",
           "soon": "قريبا ...",
+          "suggestProduct": "المنتجات المقترحة",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -533,6 +534,7 @@ class MyTranslation extends Translations {
           "program_by": "Programming by",
           "myPoints": "My Points",
           "soon": "Soon ...",
+          "suggestProduct": "Suggest Product",
         },
       };
 }

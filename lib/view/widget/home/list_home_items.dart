@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:string_capitalize/string_capitalize.dart';
@@ -73,11 +74,14 @@ class Items extends GetView<HomeControllerImp> {
                 children: [
                   Expanded(
                     child: FittedBox(
-                      child: Text(
-                        "${translateDatabase(itemsModel.itemsNameAr!, itemsModel.itemsName!.capitalizeEach())}",
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                        style: const TextStyle(fontSize: 17),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: AutoSizeText(
+                          "${translateDatabase(itemsModel.itemsNameAr!, itemsModel.itemsName!.capitalizeEach())}",
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          style: const TextStyle(fontSize: 17),
+                        ),
                       ),
                     ),
                   ),

@@ -14,6 +14,7 @@ _$ItemModelImpl _$$ItemModelImplFromJson(Map<String, dynamic> json) =>
       itemsDesc: json['items_desc'] as String?,
       itemsDescAr: json['items_desc_ar'] as String?,
       itemsImage: json['items_image'] as String?,
+      itemsGroup: json['items_group'] as int?,
       itemsCount: json['items_count'] as int?,
       itemsActive: json['items_active'] as int?,
       itemsPrice: json['items_price'] as num?,
@@ -30,17 +31,9 @@ _$ItemModelImpl _$$ItemModelImplFromJson(Map<String, dynamic> json) =>
       categoriesImage: json['categories_image'] as String?,
       itemDiscounntPrice: json['itemDiscounnt_price'] as num?,
       isFavorite: json['is_favorite'] as int?,
-      weighIds: (json['weigh_ids'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
       images:
           (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      cartCount: json['item_count'] as int?,
-      itemAttrId: json['item_attr_id'] as int?,
-      subItemName: json['sub_item_name'] as String?,
-      subItemNameAr: json['sub_item_name_ar'] as String?,
-      subItemValue: json['sub_item_value'] as num?,
-      selectedSubItemId: json['selectedSubItemsId'] as int?,
+      itemCount: json['item_count'] as int?,
     );
 
 Map<String, dynamic> _$$ItemModelImplToJson(_$ItemModelImpl instance) =>
@@ -51,6 +44,7 @@ Map<String, dynamic> _$$ItemModelImplToJson(_$ItemModelImpl instance) =>
       'items_desc': instance.itemsDesc,
       'items_desc_ar': instance.itemsDescAr,
       'items_image': instance.itemsImage,
+      'items_group': instance.itemsGroup,
       'items_count': instance.itemsCount,
       'items_active': instance.itemsActive,
       'items_price': instance.itemsPrice,
@@ -65,12 +59,6 @@ Map<String, dynamic> _$$ItemModelImplToJson(_$ItemModelImpl instance) =>
       'categories_image': instance.categoriesImage,
       'itemDiscounnt_price': instance.itemDiscounntPrice,
       'is_favorite': instance.isFavorite,
-      'weigh_ids': instance.weighIds,
       'images': instance.images,
-      'item_count': instance.cartCount,
-      'item_attr_id': instance.itemAttrId,
-      'sub_item_name': instance.subItemName,
-      'sub_item_name_ar': instance.subItemNameAr,
-      'sub_item_value': instance.subItemValue,
-      'selectedSubItemsId': instance.selectedSubItemId,
+      'item_count': instance.itemCount,
     };

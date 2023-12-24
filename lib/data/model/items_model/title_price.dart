@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qaser_user/controller/items_controller/item_details_controller.dart';
@@ -9,28 +10,23 @@ class TitlePrice extends GetView<ItemDetailsControllerImpl> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
-        Column(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "${translateDatabase(controller.itemsModel.itemsNameAr!, controller.itemsModel.itemsName!)}",
-              style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600),
-            ),
-            if (controller.itemsModel.itemsDiscount! > 0)
-              Text(
-                "${controller.itemsModel.itemsPrice} ${"jd".tr}",
+            Expanded(
+              child: AutoSizeText(
+                "${translateDatabase(controller.itemsModel.itemsNameAr!, controller.itemsModel.itemsName!)}",
+                maxLines: 2,
+                overflow: TextOverflow.fade,
+                maxFontSize: 24,
                 style: TextStyle(
-                    fontSize: 20, decoration: TextDecoration.lineThrough),
+                    fontSize: 25,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600),
               ),
-          ],
-        ),
-        Column(
-          children: [
+            ),
             RichText(
                 text: TextSpan(
               style: DefaultTextStyle.of(context).style,
@@ -39,28 +35,29 @@ class TitlePrice extends GetView<ItemDetailsControllerImpl> {
                     text:
                         "${(controller.itemPrice).toStringAsFixed(2)} ${"d".tr}",
                     style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600)),
-                TextSpan(
-                    text: "/",
-                    style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 22,
                       color: Colors.black,
                     )),
-                TextSpan(
-                    text:
-                        " ${translateDatabase(controller.selectedWeightAndSize.subItemNameAr!, controller.selectedWeightAndSize.subItemName!)}",
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18))
               ],
             )),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            controller.itemsModel.itemsDiscount! > 0
+                ? Text(
+                    "${controller.itemsModel.itemsPrice} ${"jd".tr}",
+                    style: TextStyle(
+                        fontSize: 20, decoration: TextDecoration.lineThrough),
+                  )
+                : SizedBox(),
             if (controller.itemsModel.itemsPointPerVal! > 0)
               Obx(() {
-                return Text(
+                return AutoSizeText(
                   "${(controller.totalPoint).toStringAsFixed(2)} ${"point".tr}",
+                  maxFontSize: 20,
+                  maxLines: 2,
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,

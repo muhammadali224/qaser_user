@@ -23,8 +23,10 @@ class ItemsData {
     return response.fold((l) => l, (r) => r);
   }
 
-  getSubItems() async {
-    var response = await crud.postData(AppLink.subItems, {});
+  getSubItems(int itemId) async {
+    var response = await crud.postData(AppLink.getSubItems, {
+      "item_id": itemId.toString(),
+    });
     return response.fold((l) => l, (r) => r);
   }
 }

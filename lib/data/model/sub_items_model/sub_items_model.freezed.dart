@@ -14,44 +14,47 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SubItemsModel _$SubItemsModelFromJson(Map<String, dynamic> json) {
-  return _SubItemsModel.fromJson(json);
+SubItemModel _$SubItemModelFromJson(Map<String, dynamic> json) {
+  return _SubItemModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SubItemsModel {
-  @JsonKey(name: "weight_size_id")
-  int? get weightSizeId => throw _privateConstructorUsedError;
-  @JsonKey(name: "sub_item_name")
-  String? get subItemName => throw _privateConstructorUsedError;
-  @JsonKey(name: "sub_item_name_ar")
-  String? get subItemNameAr => throw _privateConstructorUsedError;
-  @JsonKey(name: "sub_item_value")
-  num? get subItemValue => throw _privateConstructorUsedError;
+mixin _$SubItemModel {
+  @JsonKey(name: "sub_item_id")
+  int? get subItemId => throw _privateConstructorUsedError;
+  @JsonKey(name: "item_id")
+  int? get itemId => throw _privateConstructorUsedError;
+  @JsonKey(name: "sub_items_name")
+  String? get subItemsName => throw _privateConstructorUsedError;
+  @JsonKey(name: "sub_items_name_ar")
+  String? get subItemsNameAr => throw _privateConstructorUsedError;
+  @JsonKey(name: "sub_items_price")
+  num? get subItemsPrice => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SubItemsModelCopyWith<SubItemsModel> get copyWith =>
+  $SubItemModelCopyWith<SubItemModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SubItemsModelCopyWith<$Res> {
-  factory $SubItemsModelCopyWith(
-          SubItemsModel value, $Res Function(SubItemsModel) then) =
-      _$SubItemsModelCopyWithImpl<$Res, SubItemsModel>;
+abstract class $SubItemModelCopyWith<$Res> {
+  factory $SubItemModelCopyWith(
+          SubItemModel value, $Res Function(SubItemModel) then) =
+      _$SubItemModelCopyWithImpl<$Res, SubItemModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: "weight_size_id") int? weightSizeId,
-      @JsonKey(name: "sub_item_name") String? subItemName,
-      @JsonKey(name: "sub_item_name_ar") String? subItemNameAr,
-      @JsonKey(name: "sub_item_value") num? subItemValue});
+      {@JsonKey(name: "sub_item_id") int? subItemId,
+      @JsonKey(name: "item_id") int? itemId,
+      @JsonKey(name: "sub_items_name") String? subItemsName,
+      @JsonKey(name: "sub_items_name_ar") String? subItemsNameAr,
+      @JsonKey(name: "sub_items_price") num? subItemsPrice});
 }
 
 /// @nodoc
-class _$SubItemsModelCopyWithImpl<$Res, $Val extends SubItemsModel>
-    implements $SubItemsModelCopyWith<$Res> {
-  _$SubItemsModelCopyWithImpl(this._value, this._then);
+class _$SubItemModelCopyWithImpl<$Res, $Val extends SubItemModel>
+    implements $SubItemModelCopyWith<$Res> {
+  _$SubItemModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -61,79 +64,90 @@ class _$SubItemsModelCopyWithImpl<$Res, $Val extends SubItemsModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? weightSizeId = freezed,
-    Object? subItemName = freezed,
-    Object? subItemNameAr = freezed,
-    Object? subItemValue = freezed,
+    Object? subItemId = freezed,
+    Object? itemId = freezed,
+    Object? subItemsName = freezed,
+    Object? subItemsNameAr = freezed,
+    Object? subItemsPrice = freezed,
   }) {
     return _then(_value.copyWith(
-      weightSizeId: freezed == weightSizeId
-          ? _value.weightSizeId
-          : weightSizeId // ignore: cast_nullable_to_non_nullable
+      subItemId: freezed == subItemId
+          ? _value.subItemId
+          : subItemId // ignore: cast_nullable_to_non_nullable
               as int?,
-      subItemName: freezed == subItemName
-          ? _value.subItemName
-          : subItemName // ignore: cast_nullable_to_non_nullable
+      itemId: freezed == itemId
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      subItemsName: freezed == subItemsName
+          ? _value.subItemsName
+          : subItemsName // ignore: cast_nullable_to_non_nullable
               as String?,
-      subItemNameAr: freezed == subItemNameAr
-          ? _value.subItemNameAr
-          : subItemNameAr // ignore: cast_nullable_to_non_nullable
+      subItemsNameAr: freezed == subItemsNameAr
+          ? _value.subItemsNameAr
+          : subItemsNameAr // ignore: cast_nullable_to_non_nullable
               as String?,
-      subItemValue: freezed == subItemValue
-          ? _value.subItemValue
-          : subItemValue // ignore: cast_nullable_to_non_nullable
+      subItemsPrice: freezed == subItemsPrice
+          ? _value.subItemsPrice
+          : subItemsPrice // ignore: cast_nullable_to_non_nullable
               as num?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$SubItemsModelImplCopyWith<$Res>
-    implements $SubItemsModelCopyWith<$Res> {
-  factory _$$SubItemsModelImplCopyWith(
-          _$SubItemsModelImpl value, $Res Function(_$SubItemsModelImpl) then) =
-      __$$SubItemsModelImplCopyWithImpl<$Res>;
+abstract class _$$SubItemModelImplCopyWith<$Res>
+    implements $SubItemModelCopyWith<$Res> {
+  factory _$$SubItemModelImplCopyWith(
+          _$SubItemModelImpl value, $Res Function(_$SubItemModelImpl) then) =
+      __$$SubItemModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "weight_size_id") int? weightSizeId,
-      @JsonKey(name: "sub_item_name") String? subItemName,
-      @JsonKey(name: "sub_item_name_ar") String? subItemNameAr,
-      @JsonKey(name: "sub_item_value") num? subItemValue});
+      {@JsonKey(name: "sub_item_id") int? subItemId,
+      @JsonKey(name: "item_id") int? itemId,
+      @JsonKey(name: "sub_items_name") String? subItemsName,
+      @JsonKey(name: "sub_items_name_ar") String? subItemsNameAr,
+      @JsonKey(name: "sub_items_price") num? subItemsPrice});
 }
 
 /// @nodoc
-class __$$SubItemsModelImplCopyWithImpl<$Res>
-    extends _$SubItemsModelCopyWithImpl<$Res, _$SubItemsModelImpl>
-    implements _$$SubItemsModelImplCopyWith<$Res> {
-  __$$SubItemsModelImplCopyWithImpl(
-      _$SubItemsModelImpl _value, $Res Function(_$SubItemsModelImpl) _then)
+class __$$SubItemModelImplCopyWithImpl<$Res>
+    extends _$SubItemModelCopyWithImpl<$Res, _$SubItemModelImpl>
+    implements _$$SubItemModelImplCopyWith<$Res> {
+  __$$SubItemModelImplCopyWithImpl(
+      _$SubItemModelImpl _value, $Res Function(_$SubItemModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? weightSizeId = freezed,
-    Object? subItemName = freezed,
-    Object? subItemNameAr = freezed,
-    Object? subItemValue = freezed,
+    Object? subItemId = freezed,
+    Object? itemId = freezed,
+    Object? subItemsName = freezed,
+    Object? subItemsNameAr = freezed,
+    Object? subItemsPrice = freezed,
   }) {
-    return _then(_$SubItemsModelImpl(
-      weightSizeId: freezed == weightSizeId
-          ? _value.weightSizeId
-          : weightSizeId // ignore: cast_nullable_to_non_nullable
+    return _then(_$SubItemModelImpl(
+      subItemId: freezed == subItemId
+          ? _value.subItemId
+          : subItemId // ignore: cast_nullable_to_non_nullable
               as int?,
-      subItemName: freezed == subItemName
-          ? _value.subItemName
-          : subItemName // ignore: cast_nullable_to_non_nullable
+      itemId: freezed == itemId
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      subItemsName: freezed == subItemsName
+          ? _value.subItemsName
+          : subItemsName // ignore: cast_nullable_to_non_nullable
               as String?,
-      subItemNameAr: freezed == subItemNameAr
-          ? _value.subItemNameAr
-          : subItemNameAr // ignore: cast_nullable_to_non_nullable
+      subItemsNameAr: freezed == subItemsNameAr
+          ? _value.subItemsNameAr
+          : subItemsNameAr // ignore: cast_nullable_to_non_nullable
               as String?,
-      subItemValue: freezed == subItemValue
-          ? _value.subItemValue
-          : subItemValue // ignore: cast_nullable_to_non_nullable
+      subItemsPrice: freezed == subItemsPrice
+          ? _value.subItemsPrice
+          : subItemsPrice // ignore: cast_nullable_to_non_nullable
               as num?,
     ));
   }
@@ -141,93 +155,102 @@ class __$$SubItemsModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SubItemsModelImpl implements _SubItemsModel {
-  const _$SubItemsModelImpl(
-      {@JsonKey(name: "weight_size_id") this.weightSizeId,
-      @JsonKey(name: "sub_item_name") this.subItemName,
-      @JsonKey(name: "sub_item_name_ar") this.subItemNameAr,
-      @JsonKey(name: "sub_item_value") this.subItemValue});
+class _$SubItemModelImpl implements _SubItemModel {
+  const _$SubItemModelImpl(
+      {@JsonKey(name: "sub_item_id") this.subItemId,
+      @JsonKey(name: "item_id") this.itemId,
+      @JsonKey(name: "sub_items_name") this.subItemsName,
+      @JsonKey(name: "sub_items_name_ar") this.subItemsNameAr,
+      @JsonKey(name: "sub_items_price") this.subItemsPrice});
 
-  factory _$SubItemsModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SubItemsModelImplFromJson(json);
+  factory _$SubItemModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SubItemModelImplFromJson(json);
 
   @override
-  @JsonKey(name: "weight_size_id")
-  final int? weightSizeId;
+  @JsonKey(name: "sub_item_id")
+  final int? subItemId;
   @override
-  @JsonKey(name: "sub_item_name")
-  final String? subItemName;
+  @JsonKey(name: "item_id")
+  final int? itemId;
   @override
-  @JsonKey(name: "sub_item_name_ar")
-  final String? subItemNameAr;
+  @JsonKey(name: "sub_items_name")
+  final String? subItemsName;
   @override
-  @JsonKey(name: "sub_item_value")
-  final num? subItemValue;
+  @JsonKey(name: "sub_items_name_ar")
+  final String? subItemsNameAr;
+  @override
+  @JsonKey(name: "sub_items_price")
+  final num? subItemsPrice;
 
   @override
   String toString() {
-    return 'SubItemsModel(weightSizeId: $weightSizeId, subItemName: $subItemName, subItemNameAr: $subItemNameAr, subItemValue: $subItemValue)';
+    return 'SubItemModel(subItemId: $subItemId, itemId: $itemId, subItemsName: $subItemsName, subItemsNameAr: $subItemsNameAr, subItemsPrice: $subItemsPrice)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SubItemsModelImpl &&
-            (identical(other.weightSizeId, weightSizeId) ||
-                other.weightSizeId == weightSizeId) &&
-            (identical(other.subItemName, subItemName) ||
-                other.subItemName == subItemName) &&
-            (identical(other.subItemNameAr, subItemNameAr) ||
-                other.subItemNameAr == subItemNameAr) &&
-            (identical(other.subItemValue, subItemValue) ||
-                other.subItemValue == subItemValue));
+            other is _$SubItemModelImpl &&
+            (identical(other.subItemId, subItemId) ||
+                other.subItemId == subItemId) &&
+            (identical(other.itemId, itemId) || other.itemId == itemId) &&
+            (identical(other.subItemsName, subItemsName) ||
+                other.subItemsName == subItemsName) &&
+            (identical(other.subItemsNameAr, subItemsNameAr) ||
+                other.subItemsNameAr == subItemsNameAr) &&
+            (identical(other.subItemsPrice, subItemsPrice) ||
+                other.subItemsPrice == subItemsPrice));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, weightSizeId, subItemName, subItemNameAr, subItemValue);
+  int get hashCode => Object.hash(runtimeType, subItemId, itemId, subItemsName,
+      subItemsNameAr, subItemsPrice);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SubItemsModelImplCopyWith<_$SubItemsModelImpl> get copyWith =>
-      __$$SubItemsModelImplCopyWithImpl<_$SubItemsModelImpl>(this, _$identity);
+  _$$SubItemModelImplCopyWith<_$SubItemModelImpl> get copyWith =>
+      __$$SubItemModelImplCopyWithImpl<_$SubItemModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SubItemsModelImplToJson(
+    return _$$SubItemModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _SubItemsModel implements SubItemsModel {
-  const factory _SubItemsModel(
-          {@JsonKey(name: "weight_size_id") final int? weightSizeId,
-          @JsonKey(name: "sub_item_name") final String? subItemName,
-          @JsonKey(name: "sub_item_name_ar") final String? subItemNameAr,
-          @JsonKey(name: "sub_item_value") final num? subItemValue}) =
-      _$SubItemsModelImpl;
+abstract class _SubItemModel implements SubItemModel {
+  const factory _SubItemModel(
+          {@JsonKey(name: "sub_item_id") final int? subItemId,
+          @JsonKey(name: "item_id") final int? itemId,
+          @JsonKey(name: "sub_items_name") final String? subItemsName,
+          @JsonKey(name: "sub_items_name_ar") final String? subItemsNameAr,
+          @JsonKey(name: "sub_items_price") final num? subItemsPrice}) =
+      _$SubItemModelImpl;
 
-  factory _SubItemsModel.fromJson(Map<String, dynamic> json) =
-      _$SubItemsModelImpl.fromJson;
+  factory _SubItemModel.fromJson(Map<String, dynamic> json) =
+      _$SubItemModelImpl.fromJson;
 
   @override
-  @JsonKey(name: "weight_size_id")
-  int? get weightSizeId;
+  @JsonKey(name: "sub_item_id")
+  int? get subItemId;
   @override
-  @JsonKey(name: "sub_item_name")
-  String? get subItemName;
+  @JsonKey(name: "item_id")
+  int? get itemId;
   @override
-  @JsonKey(name: "sub_item_name_ar")
-  String? get subItemNameAr;
+  @JsonKey(name: "sub_items_name")
+  String? get subItemsName;
   @override
-  @JsonKey(name: "sub_item_value")
-  num? get subItemValue;
+  @JsonKey(name: "sub_items_name_ar")
+  String? get subItemsNameAr;
+  @override
+  @JsonKey(name: "sub_items_price")
+  num? get subItemsPrice;
   @override
   @JsonKey(ignore: true)
-  _$$SubItemsModelImplCopyWith<_$SubItemsModelImpl> get copyWith =>
+  _$$SubItemModelImplCopyWith<_$SubItemModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
@@ -75,10 +76,13 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Expanded(
-                    child: Text(
-                      "${translateDatabase(itemsModel.itemsNameAr!, itemsModel.itemsName!.capitalizeEach())}",
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 20),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: AutoSizeText(
+                        "${translateDatabase(itemsModel.itemsNameAr!, itemsModel.itemsName!.capitalizeEach())}",
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 20),
+                      ),
                     ),
                   ),
                   Expanded(

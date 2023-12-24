@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:get/get.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:qaser_user/controller/items_controller/item_details_controller.dart';
 
 import '../../../../core/constant/api_link.dart';
@@ -40,11 +41,13 @@ class ItemSliverAppbar extends GetView<ItemDetailsControllerImpl> {
                   filterQuality: FilterQuality.high,
                 ),
               )
-            : CachedNetworkImage(
-                imageUrl:
-                    "${AppLink.imagesItems}${controller.itemsModel.itemsImage}",
-                fit: BoxFit.cover,
-                filterQuality: FilterQuality.high,
+            : InstaImageViewer(
+                child: CachedNetworkImage(
+                  imageUrl:
+                      "${AppLink.imagesItems}${controller.itemsModel.itemsImage}",
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.high,
+                ),
               ),
       ),
       bottom: PreferredSize(

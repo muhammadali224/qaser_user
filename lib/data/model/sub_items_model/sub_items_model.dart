@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final subItemsModel = subItemsModelFromJson(jsonString);
+//     final subItemModel = subItemModelFromJson(jsonString);
 
 // ignore_for_file: invalid_annotation_target
 
@@ -11,20 +11,21 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'sub_items_model.freezed.dart';
 part 'sub_items_model.g.dart';
 
-SubItemsModel subItemsModelFromJson(String str) =>
-    SubItemsModel.fromJson(json.decode(str));
+SubItemModel subItemModelFromJson(String str) =>
+    SubItemModel.fromJson(json.decode(str));
 
-String subItemsModelToJson(SubItemsModel data) => json.encode(data.toJson());
+String subItemModelToJson(SubItemModel data) => json.encode(data.toJson());
 
 @freezed
-class SubItemsModel with _$SubItemsModel {
-  const factory SubItemsModel({
-    @JsonKey(name: "weight_size_id") int? weightSizeId,
-    @JsonKey(name: "sub_item_name") String? subItemName,
-    @JsonKey(name: "sub_item_name_ar") String? subItemNameAr,
-    @JsonKey(name: "sub_item_value") num? subItemValue,
-  }) = _SubItemsModel;
+class SubItemModel with _$SubItemModel {
+  const factory SubItemModel({
+    @JsonKey(name: "sub_item_id") int? subItemId,
+    @JsonKey(name: "item_id") int? itemId,
+    @JsonKey(name: "sub_items_name") String? subItemsName,
+    @JsonKey(name: "sub_items_name_ar") String? subItemsNameAr,
+    @JsonKey(name: "sub_items_price") num? subItemsPrice,
+  }) = _SubItemModel;
 
-  factory SubItemsModel.fromJson(Map<String, dynamic> json) =>
-      _$SubItemsModelFromJson(json);
+  factory SubItemModel.fromJson(Map<String, dynamic> json) =>
+      _$SubItemModelFromJson(json);
 }

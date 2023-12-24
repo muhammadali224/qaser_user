@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.6+7
 
 environment:
-  sdk: '>=3.0.6 <4.0.0'
+  sdk: '>=3.1.1 <4.0.0'
 
 dependencies:
   flutter:
@@ -16,7 +16,8 @@ dependencies:
   http: ^1.1.0
   cached_network_image: ^3.3.0
   google_maps_flutter:
-  geolocator: ^10.1.0
+  geolocator:
+  auto_size_text: ^3.0.0
   geocoding:
   firebase_messaging:
   firebase_core:
@@ -47,6 +48,8 @@ dependencies:
   icons_plus:
   awesome_notifications:
   flutter_expandable_fab: ^2.0.0
+  firebase_crashlytics: ^3.4.8
+  insta_image_viewer:
 
 
 

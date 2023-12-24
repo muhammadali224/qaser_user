@@ -1,6 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppLink {
+  AppLink._();
   static String server = dotenv.env['SERVER']!;
   static String test = "$server/test.php";
 
@@ -41,6 +42,7 @@ class AppLink {
   static String searchItems = '$server/items/search.php';
   static String offersItems = '$server/items/offers.php';
   static String subItems = '$server/items/sub_items.php';
+  static String getSubItems = '$server/items/get_sub_items.php';
 
 //============================ Favorite =============================//
   static String addFavorite = '$server/favorite/add.php';
