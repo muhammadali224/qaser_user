@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,13 +42,16 @@ class CategoriesHomeCard extends GetView<HomeControllerImp> {
             ),
           ),
         ),
-        Text(
-          '${translateDatabase(categoriesModel.categoriesNameAr!, categoriesModel.categoriesName!)}'
-              .capitalizeFirst!,
-          overflow: TextOverflow.fade,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
+        Expanded(
+          child: AutoSizeText(
+            '${translateDatabase(categoriesModel.categoriesNameAr!, categoriesModel.categoriesName!)}'
+                .capitalizeFirst!,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
         ),
       ],

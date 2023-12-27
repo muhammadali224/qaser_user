@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -5,6 +6,7 @@ import 'package:qaser_user/core/class/handling_data_view.dart';
 import 'package:qaser_user/view/widget/items_details/item_details/section_title.dart';
 
 import '../../controller/items_controller/item_details_controller.dart';
+import '../../core/function/translate_database.dart';
 import '../../data/model/items_model/title_price.dart';
 import '../widget/items_details/item_details/bottom_nb_button.dart';
 import '../widget/items_details/item_details/fav_counter_section.dart';
@@ -59,77 +61,84 @@ class ItemDetails extends StatelessWidget {
                                         CrossAxisAlignment.stretch,
                                     children: [
                                       SectionTitle(title: "weightSize"),
-                                      //       GetBuilder<ItemDetailsControllerImpl>(
-                                      //           builder: (controller) {
-                                      //         return Wrap(
-                                      //           direction: Axis.horizontal,
-                                      //           children: [
-                                      //
-                                      //             //   ...List.generate(
-                                      //             //       controller.availableSubItems.length,
-                                      //             //       (index) => GestureDetector(
-                                      //             //             onTap: () => controller
-                                      //             //                 .setSelectedWeightAndSize(
-                                      //             //                     controller
-                                      //             //                             .availableSubItems[
-                                      //             //                         index]),
-                                      //             //             child: Container(
-                                      //             //               height: 80,
-                                      //             //               width: 70,
-                                      //             //               margin: EdgeInsets.all(10),
-                                      //             //               decoration: BoxDecoration(
-                                      //             //                   color: controller
-                                      //             //                               .availableSubItems[
-                                      //             //                                   index]
-                                      //             //                               .weightSizeId ==
-                                      //             //                           controller
-                                      //             //                               .selectedWeightAndSize
-                                      //             //                               .weightSizeId
-                                      //             //                       ? Colors.red
-                                      //             //                       : Colors.red
-                                      //             //                           .withOpacity(0.4),
-                                      //             //                   borderRadius:
-                                      //             //                       BorderRadius.circular(
-                                      //             //                           5)),
-                                      //             //               child: Column(
-                                      //             //                 children: [
-                                      //             //                   Expanded(
-                                      //             //                     child: Text(
-                                      //             //                       translateDatabase(
-                                      //             //                           controller
-                                      //             //                               .availableSubItems[
-                                      //             //                                   index]
-                                      //             //                               .subItemNameAr!,
-                                      //             //                           controller
-                                      //             //                               .availableSubItems[
-                                      //             //                                   index]
-                                      //             //                               .subItemName!),
-                                      //             //                       style: TextStyle(
-                                      //             //                           color:
-                                      //             //                               Colors.white,
-                                      //             //                           fontWeight:
-                                      //             //                               FontWeight
-                                      //             //                                   .bold),
-                                      //             //                     ),
-                                      //             //                   ),
-                                      //             //                   Expanded(
-                                      //             //                     child: Text(
-                                      //             //                       "${(controller.availableSubItems[index].subItemValue! * controller.itemsModel.itemDiscounntPrice!).toStringAsFixed(2)} ${"d".tr}",
-                                      //             //                       style: TextStyle(
-                                      //             //                           color:
-                                      //             //                               Colors.white,
-                                      //             //                           fontWeight:
-                                      //             //                               FontWeight
-                                      //             //                                   .bold),
-                                      //             //                     ),
-                                      //             //                   ),
-                                      //             //                 ],
-                                      //             //               ),
-                                      //             //             ),
-                                      //             //           ))
-                                      //           ],
-                                      //         );
-                                      //       }),
+                                      GetBuilder<ItemDetailsControllerImpl>(
+                                          builder: (controller) {
+                                        return Wrap(
+                                          direction: Axis.horizontal,
+                                          children: [
+                                            ...List.generate(
+                                                controller.subItemsList.length,
+                                                (index) => GestureDetector(
+                                                      onTap: () {},
+                                                      child: Container(
+                                                        height: 80,
+                                                        // width: 100,
+                                                        margin:
+                                                            EdgeInsets.all(10),
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.red,
+                                                            // color: controller
+                                                            //             .subItemsList[
+                                                            //                 index]
+                                                            //             .weightSizeId ==
+                                                            //         controller
+                                                            //             .selectedWeightAndSize
+                                                            //             .weightSizeId
+                                                            //     ? Colors.red
+                                                            //     : Colors.red
+                                                            //         .withOpacity(0.4),
+                                                            borderRadius: BorderRadius.circular(5)),
+                                                        child: Column(
+                                                          children: [
+                                                            Expanded(
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        5.0),
+                                                                child:
+                                                                    AutoSizeText(
+                                                                  translateDatabase(
+                                                                      controller
+                                                                          .subItemsList[
+                                                                              index]
+                                                                          .subItemsNameAr!,
+                                                                      controller
+                                                                          .subItemsList[
+                                                                              index]
+                                                                          .subItemsName!),
+                                                                  // maxLines: 2,
+                                                                  // overflow:
+                                                                  //     TextOverflow
+                                                                  //         .ellipsis,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            AutoSizeText(
+                                                              "${(controller.subItemsList[index].subItemsPrice!).toStringAsFixed(2)} ${"d".tr}",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ))
+                                          ],
+                                        );
+                                      }),
                                     ],
                                   ));
                         }),
