@@ -43,54 +43,62 @@ class OrdersController extends GetxController {
   RateOrdersData ordersRateData = RateOrdersData(Get.find());
 
   getOrders() async {
-    dataAll.clear();
-    dataCanceled.clear();
-    dataCompleted.clear();
-    dataOnTheRoad.clear();
-    dataPending.clear();
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await ordersData.getData(user.value.usersId!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        List responseData = response['data'];
-        dataAll.addAll(responseData.map((e) => OrdersModel.fromJson(e)));
-        dataPending.addAll(responseData
-            .map((e) => OrdersModel.fromJson(e))
-            .where((element) => element.ordersState == 0));
-        dataOnTheRoad.addAll(responseData
-            .map((e) => OrdersModel.fromJson(e))
-            .where((element) => element.ordersState == 2));
-        dataCompleted.addAll(responseData
-            .map((e) => OrdersModel.fromJson(e))
-            .where((element) => element.ordersState == 3));
-        dataCanceled.addAll(responseData
-            .map((e) => OrdersModel.fromJson(e))
-            .where((element) =>
-                element.ordersState == 4 || element.ordersState == 5));
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      dataAll.clear();
+      dataCanceled.clear();
+      dataCompleted.clear();
+      dataOnTheRoad.clear();
+      dataPending.clear();
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await ordersData.getData(user.value.usersId!);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          List responseData = response['data'];
+          dataAll.addAll(responseData.map((e) => OrdersModel.fromJson(e)));
+          dataPending.addAll(responseData
+              .map((e) => OrdersModel.fromJson(e))
+              .where((element) => element.ordersState == 0));
+          dataOnTheRoad.addAll(responseData
+              .map((e) => OrdersModel.fromJson(e))
+              .where((element) => element.ordersState == 2));
+          dataCompleted.addAll(responseData
+              .map((e) => OrdersModel.fromJson(e))
+              .where((element) => element.ordersState == 3));
+          dataCanceled.addAll(responseData
+              .map((e) => OrdersModel.fromJson(e))
+              .where((element) =>
+                  element.ordersState == 4 || element.ordersState == 5));
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Get Order : $e");
     }
     update();
   }
 
   rateOrder(String rate, String comment, int id) async {
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await ordersRateData.rateOrders(
-      id,
-      rate,
-      comment,
-    );
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        refreshOrders();
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await ordersRateData.rateOrders(
+        id,
+        rate,
+        comment,
+      );
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          refreshOrders();
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Rate Order : $e");
     }
     update();
   }

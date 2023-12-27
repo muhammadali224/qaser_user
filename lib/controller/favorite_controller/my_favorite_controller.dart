@@ -17,24 +17,32 @@ class MyFavoriteController extends GetxController {
   Rx<UserModel> user = Get.find<UserController>().user.obs;
 
   getFavorite() async {
-    favData.clear();
-    statusRequest = StatusRequest.loading;
-    var response = await favoriteData.getFavorite(user.value.usersId!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        List responseData = response['data'];
-        favData.addAll(responseData.map((e) => ItemModel.fromJson(e)));
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      favData.clear();
+      statusRequest = StatusRequest.loading;
+      var response = await favoriteData.getFavorite(user.value.usersId!);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          List responseData = response['data'];
+          favData.addAll(responseData.map((e) => ItemModel.fromJson(e)));
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Get Favorite : $e");
     }
     update();
   }
 
   deleteFavoriteItems(int itemId) {
-    favoriteData.removeFavorite(user.value.usersId!, itemId);
-    favData.removeWhere((element) => element.itemsId == itemId);
+    try {
+      favoriteData.removeFavorite(user.value.usersId!, itemId);
+      favData.removeWhere((element) => element.itemsId == itemId);
+    } catch (e) {
+      throw Exception("Error Delete Favorite : $e");
+    }
     update();
   }
 
@@ -44,50 +52,59 @@ class MyFavoriteController extends GetxController {
   }
 
   addFavorite(int itemsId) async {
-    statusRequest = StatusRequest.loading;
-    var response = await favoriteData.addFavorite(user.value.usersId!, itemsId);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        !Get.isSnackbarOpen
-            ? Get.rawSnackbar(
-                message: "addFavorites".tr,
-                snackStyle: SnackStyle.GROUNDED,
-                icon: const Icon(
-                  Icons.favorite_rounded,
-                  color: Colors.red,
-                ),
-                duration: const Duration(seconds: 2),
-              )
-            : null;
-        getFavorite();
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      var response =
+          await favoriteData.addFavorite(user.value.usersId!, itemsId);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          !Get.isSnackbarOpen
+              ? Get.rawSnackbar(
+                  message: "addFavorites".tr,
+                  snackStyle: SnackStyle.GROUNDED,
+                  icon: const Icon(
+                    Icons.favorite_rounded,
+                    color: Colors.red,
+                  ),
+                  duration: const Duration(seconds: 2),
+                )
+              : null;
+          getFavorite();
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Add Favorite : $e");
     }
   }
 
   removeFavorite(int itemsId) async {
-    statusRequest = StatusRequest.loading;
-    var response =
-        await favoriteData.removeFavorite(user.value.usersId!, itemsId);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        !Get.isSnackbarOpen
-            ? Get.rawSnackbar(
-                message: "removeFavorites".tr,
-                icon: const Icon(
-                  Icons.info_outline,
-                  color: Colors.red,
-                ),
-                duration: const Duration(seconds: 2),
-              )
-            : null;
-        getFavorite();
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      var response =
+          await favoriteData.removeFavorite(user.value.usersId!, itemsId);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          !Get.isSnackbarOpen
+              ? Get.rawSnackbar(
+                  message: "removeFavorites".tr,
+                  icon: const Icon(
+                    Icons.info_outline,
+                    color: Colors.red,
+                  ),
+                  duration: const Duration(seconds: 2),
+                )
+              : null;
+          getFavorite();
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Remove Favorite : $e");
     }
     update();
   }

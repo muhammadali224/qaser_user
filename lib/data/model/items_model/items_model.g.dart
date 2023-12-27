@@ -34,6 +34,7 @@ _$ItemModelImpl _$$ItemModelImplFromJson(Map<String, dynamic> json) =>
       images:
           (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       itemCount: json['item_count'] as int?,
+      selectedSubItemsId: json['selectedSubItemsId'] as int?,
     );
 
 Map<String, dynamic> _$$ItemModelImplToJson(_$ItemModelImpl instance) =>
@@ -61,4 +62,5 @@ Map<String, dynamic> _$$ItemModelImplToJson(_$ItemModelImpl instance) =>
       'is_favorite': instance.isFavorite,
       'images': instance.images,
       'item_count': instance.itemCount,
+      'selectedSubItemsId': instance.selectedSubItemsId,
     };

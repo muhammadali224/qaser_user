@@ -36,7 +36,7 @@ class OnBoardingControllerImp extends OnBoardingController {
         userController.user = loginUser;
       }
     } catch (e) {
-      print(e.toString());
+      throw Exception("Error OnBoarding Login Anon : $e");
     }
     update();
   }

@@ -18,36 +18,45 @@ class NotificationsController extends GetxController {
   Rx<UserModel> user = Get.find<UserController>().user.obs;
 
   getData() async {
-    data.clear();
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await notificationsData.getNotifications(user.value.usersId!,
-        "${myServices.getBox.read(GetBoxKey.isSigned) ?? "false"}");
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        List responseDate = response['data'];
-        data.addAll(responseDate.map((e) => NotificationModel.fromJson(e)));
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      data.clear();
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await notificationsData.getNotifications(
+          user.value.usersId!,
+          "${myServices.getBox.read(GetBoxKey.isSigned) ?? "false"}");
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          List responseDate = response['data'];
+          data.addAll(responseDate.map((e) => NotificationModel.fromJson(e)));
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Get Notification : $e");
     }
     update();
   }
 
   markRead(int notificationId) async {
-    if (user.value.usersIsAnonymous == 0) {
-      statusRequest = StatusRequest.loading;
-      var response =
-          await notificationsData.setNotificationsRead(notificationId);
-      statusRequest = handlingData(response);
-      if (StatusRequest.success == statusRequest) {
-        if (response['status'] == 'success') {
-          getData();
-        } else {
-          statusRequest = StatusRequest.failed;
+    try {
+      if (user.value.usersIsAnonymous == 0) {
+        statusRequest = StatusRequest.loading;
+        var response =
+            await notificationsData.setNotificationsRead(notificationId);
+        statusRequest = handlingData(response);
+        if (StatusRequest.success == statusRequest) {
+          if (response['status'] == 'success') {
+            getData();
+          } else {
+            statusRequest = StatusRequest.failed;
+          }
         }
       }
+    } catch (e) {
+      throw Exception("Error Mark Notification Read  : $e");
     }
     update();
   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qaser_user/controller/items_controller/item_details_controller.dart';
 
-import '../../../core/function/translate_database.dart';
+import '../../../../core/function/translate_database.dart';
 
 class TitlePrice extends GetView<ItemDetailsControllerImpl> {
   const TitlePrice({super.key});

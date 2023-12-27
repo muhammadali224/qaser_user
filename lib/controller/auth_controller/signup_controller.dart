@@ -38,32 +38,36 @@ class SignUpControllerImp extends SignUpController {
 
   @override
   signUp() async {
-    if (formState.currentState!.validate()) {
-      SmartDialog.showLoading(msg: "loading".tr);
-      var response = await signupData.postData(
-        userName.text.trim(),
-        password.text.trim(),
-        email.text.trim(),
-        phone.text.trim(),
-        user.value.usersId.toString(),
-      );
-      statusRequest = handlingData(response);
-      if (StatusRequest.success == statusRequest) {
-        if (response['status'] == 'success') {
-          Get.offNamed(AppRoutes.verificationSignup, arguments: {
-            'email': email.text,
-          });
-        } else {
-          SmartDialog.showNotify(
-            msg: "emailOrPhoneUsed".tr,
-            notifyType: NotifyType.warning,
-          );
+    try {
+      if (formState.currentState!.validate()) {
+        SmartDialog.showLoading(msg: "loading".tr);
+        var response = await signupData.postData(
+          userName.text.trim(),
+          password.text.trim(),
+          email.text.trim(),
+          phone.text.trim(),
+          user.value.usersId.toString(),
+        );
+        statusRequest = handlingData(response);
+        if (StatusRequest.success == statusRequest) {
+          if (response['status'] == 'success') {
+            Get.offNamed(AppRoutes.verificationSignup, arguments: {
+              'email': email.text,
+            });
+          } else {
+            SmartDialog.showNotify(
+              msg: "emailOrPhoneUsed".tr,
+              notifyType: NotifyType.warning,
+            );
 
-          statusRequest = StatusRequest.failed;
+            statusRequest = StatusRequest.failed;
+          }
         }
       }
-      update();
+    } catch (e) {
+      throw Exception("Error SignUp : $e");
     }
+    update();
     SmartDialog.dismiss();
   }
 
@@ -96,7 +100,7 @@ class SignUpControllerImp extends SignUpController {
       }
       SmartDialog.dismiss();
     } catch (e) {
-      print(e.toString());
+      throw Exception("Error Sing Up With Phone : $e");
     }
   }
 
@@ -116,7 +120,7 @@ class SignUpControllerImp extends SignUpController {
         statusRequest = StatusRequest.failed;
       }
     } catch (e) {
-      throw Exception(e);
+      throw Exception("Error Send SMS : $e");
     }
 
     update();

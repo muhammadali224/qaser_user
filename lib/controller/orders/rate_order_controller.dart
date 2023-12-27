@@ -33,37 +33,45 @@ class RateOrdersController extends GetxController {
   RateOrdersData ordersData = RateOrdersData(Get.find());
 
   getOrders() async {
-    data.clear();
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await ordersData.getData(user.value.usersId!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        List responseData = response['data'];
-        data.addAll(responseData.map((e) => OrdersModel.fromJson(e)));
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      data.clear();
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await ordersData.getData(user.value.usersId!);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          List responseData = response['data'];
+          data.addAll(responseData.map((e) => OrdersModel.fromJson(e)));
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Get Rate Order  : $e");
     }
     update();
   }
 
   rateOrder(String rate, String comment, int id) async {
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await ordersData.rateOrders(
-      id,
-      rate,
-      comment,
-    );
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        getOrders();
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await ordersData.rateOrders(
+        id,
+        rate,
+        comment,
+      );
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          getOrders();
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Rate Order Controller: $e");
     }
     update();
   }

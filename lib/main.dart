@@ -25,11 +25,9 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     LocalController controller = Get.put(LocalController());
-
     return GetMaterialApp(
       navigatorKey: Get.key,
       navigatorObservers: [

@@ -40,40 +40,48 @@ class UserSettingController extends GetxController {
   }
 
   getData() async {
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await userDetailsData.getUserData(user.value.usersId!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        var newUser = UserModel.fromJson(response['data']);
-        userController.user = newUser;
-        update();
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await userDetailsData.getUserData(user.value.usersId!);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          var newUser = UserModel.fromJson(response['data']);
+          userController.user = newUser;
+          update();
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error User Setting Get User Data : $e");
     }
     update();
   }
 
   updateUserImage() async {
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await userDetailsData.changeUserImage(
-      {
-        'id': user.value.usersId!,
-        'oldFile': user.value.usersImage!,
-      },
-      file!,
-    );
-    print("            File            $file");
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        getData();
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await userDetailsData.changeUserImage(
+        {
+          'id': user.value.usersId!,
+          'oldFile': user.value.usersImage!,
+        },
+        file!,
+      );
+      print("            File            $file");
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          getData();
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Update User Image : $e");
     }
     update();
   }

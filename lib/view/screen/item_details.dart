@@ -7,11 +7,11 @@ import 'package:qaser_user/view/widget/items_details/item_details/section_title.
 
 import '../../controller/items_controller/item_details_controller.dart';
 import '../../core/function/translate_database.dart';
-import '../../data/model/items_model/title_price.dart';
 import '../widget/items_details/item_details/bottom_nb_button.dart';
 import '../widget/items_details/item_details/fav_counter_section.dart';
 import '../widget/items_details/item_details/item_sliver_appbar.dart';
 import '../widget/items_details/item_details/items_details_desc.dart';
+import '../widget/items_details/item_details/title_price.dart';
 
 class ItemDetails extends StatelessWidget {
   const ItemDetails({super.key});
@@ -69,25 +69,33 @@ class ItemDetails extends StatelessWidget {
                                             ...List.generate(
                                                 controller.subItemsList.length,
                                                 (index) => GestureDetector(
-                                                      onTap: () {},
+                                                      onTap: () {
+                                                        controller
+                                                            .setSelectedWeightAndSize(
+                                                                controller
+                                                                        .subItemsList[
+                                                                    index]);
+                                                      },
                                                       child: Container(
                                                         height: 80,
-                                                        // width: 100,
                                                         margin:
                                                             EdgeInsets.all(10),
                                                         decoration: BoxDecoration(
-                                                            color: Colors.red,
-                                                            // color: controller
-                                                            //             .subItemsList[
-                                                            //                 index]
-                                                            //             .weightSizeId ==
-                                                            //         controller
-                                                            //             .selectedWeightAndSize
-                                                            //             .weightSizeId
-                                                            //     ? Colors.red
-                                                            //     : Colors.red
-                                                            //         .withOpacity(0.4),
-                                                            borderRadius: BorderRadius.circular(5)),
+                                                            color: controller
+                                                                        .subItemsList[
+                                                                            index]
+                                                                        .subItemId ==
+                                                                    controller
+                                                                        .selectedSubItems
+                                                                        ?.subItemId
+                                                                ? Colors.red
+                                                                : Colors.red
+                                                                    .withOpacity(
+                                                                        0.4),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5)),
                                                         child: Column(
                                                           children: [
                                                             Expanded(
@@ -107,10 +115,6 @@ class ItemDetails extends StatelessWidget {
                                                                           .subItemsList[
                                                                               index]
                                                                           .subItemsName!),
-                                                                  // maxLines: 2,
-                                                                  // overflow:
-                                                                  //     TextOverflow
-                                                                  //         .ellipsis,
                                                                   textAlign:
                                                                       TextAlign
                                                                           .center,

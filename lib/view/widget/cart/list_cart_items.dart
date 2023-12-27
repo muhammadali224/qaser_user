@@ -62,11 +62,12 @@ class CustomListCartItems extends GetView<CartControllerImp> {
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600),
                             ),
-                            Text(
-                              "/${translateDatabase(cartModel.subItemNameAr!, cartModel.subItemName!)}",
-                              style: TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.w600),
-                            ),
+                            if (cartModel.subItemId != null)
+                              Text(
+                                "/${translateDatabase(cartModel.subItemsNameAr!, cartModel.subItemsName!)}",
+                                style: TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.w600),
+                              ),
                           ],
                         ),
                         InkWell(

@@ -21,12 +21,12 @@ class CartItemCount extends GetView<CartControllerImp> {
             var count = cartModel.cartItemCount! + 1;
             var price = (cartModel.cartItemPrice! / cartModel.cartItemCount!);
             var totalPrice = price * count;
-            var points = (cartModel.cartItemPoint! / cartModel.cartItemPrice!);
+            var points = (cartModel.itemPointCount! / cartModel.cartItemPrice!);
             var totalPoints = points * totalPrice;
 
             controller.addCart(
               cartModel.itemsId.toString(),
-              cartModel.weightSizeId.toString(),
+              cartModel.subItemId.toString(),
               totalPrice.toStringAsFixed(2),
               count.toString(),
               totalPoints.toString(),
@@ -51,12 +51,12 @@ class CartItemCount extends GetView<CartControllerImp> {
               var price = (cartModel.cartItemPrice! / cartModel.cartItemCount!);
               var totalPrice = price * count;
               var points =
-                  (cartModel.cartItemPoint! / cartModel.cartItemPrice!);
+                  (cartModel.itemPointCount! / cartModel.cartItemPrice!);
               var totalPoints = points * totalPrice;
 
               controller.addCart(
                 cartModel.itemsId.toString(),
-                cartModel.weightSizeId.toString(),
+                cartModel.subItemId.toString(),
                 totalPrice.toStringAsFixed(2),
                 count.toString(),
                 totalPoints.toString(),

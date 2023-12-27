@@ -45,7 +45,6 @@ class SMSController extends GetxController {
               middleText: "userNotFound".tr,
               middleTextStyle: TextStyle(color: Colors.black, fontSize: 18),
               onConfirm: () => Get.toNamed(AppRoutes.signUp),
-              // onCancel: () {},
               cancel: GestureDetector(
                 onTap: () => Get.back(),
                 child: Container(
@@ -58,7 +57,6 @@ class SMSController extends GetxController {
                       style: TextStyle(fontSize: 16),
                     )),
               ),
-
               confirm: GestureDetector(
                 onTap: () => Get.toNamed(AppRoutes.signUp),
                 child: Container(
@@ -72,18 +70,13 @@ class SMSController extends GetxController {
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     )),
               ),
-              // actions: [
-              //   ElevatedButton(
-              //       onPressed: ,
-              //       child: Text('ok'.tr)),
-              // ]
             );
           }
         } else {
           statusRequest = StatusRequest.failed;
         }
       } catch (e) {
-        throw Exception(e);
+        throw Exception("Error Send SMS 2 : $e");
       }
     }
     update();
@@ -114,7 +107,7 @@ class SMSController extends GetxController {
           }
         }
       } catch (e) {
-        throw Exception(e);
+        throw Exception("Error Check SMS : $e");
       }
     }
     update();

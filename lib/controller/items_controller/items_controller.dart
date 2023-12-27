@@ -14,8 +14,6 @@ abstract class ItemsController extends GetxController {
 
   Future<void> getData(int categoriesId);
 
-  Future<void> getSubItems();
-
   changeChips(int i, catVal);
 
   goToDetails(ItemModel itemModel);
@@ -51,31 +49,16 @@ class ItemsControllerImp extends ItemsController {
     Get.toNamed(AppRoutes.myFavorite);
   }
 
-  Future<void> getSubItems() async {
-    // if (subItemsList.isEmpty) {
-    //   var response = await itemsData.getSubItems();
-    //   statusRequest = handlingData(response);
-    //   if (StatusRequest.success == statusRequest) {
-    //     if (response['status'] == 'success') {
-    //       List responseData = response['data'];
-    //       subItemsList
-    //           .addAll(responseData.map((e) => SubItemsModel.fromJson(e)));
-    //     } else {
-    //       statusRequest = StatusRequest.failed;
-    //     }
-    //   }
-    //   update();
-    // }
-  }
+  initData() async {
+    try {
+      selectedCategory = Get.arguments['selectedCategories'];
+      categories = Get.arguments['categories'];
+      id = Get.arguments['id'];
 
-  initData() {
-    // await userManagement.initUser();
-    selectedCategory = Get.arguments['selectedCategories'];
-    categories = Get.arguments['categories'];
-    id = Get.arguments['id'];
-
-    Future.wait([getSubItems(), getData(id)]);
-    // getData(id);
+      await getData(id);
+    } catch (e) {
+      throw Exception("Error Init Items Controller : $e");
+    }
   }
 
   changeChips(int i, catVal) {
@@ -85,21 +68,25 @@ class ItemsControllerImp extends ItemsController {
   }
 
   getData(int categoriesId) async {
-    items.clear();
-    statusRequest = StatusRequest.loading;
-    var response = await itemsData.getData(
-      categoriesId,
-      user.value.usersId!,
-      user.value.userFavBranchId!,
-    );
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        List responseData = response['data'];
-        items.addAll(responseData.map((e) => ItemModel.fromJson(e)));
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      items.clear();
+      statusRequest = StatusRequest.loading;
+      var response = await itemsData.getData(
+        categoriesId,
+        user.value.usersId!,
+        user.value.userFavBranchId!,
+      );
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          List responseData = response['data'];
+          items.addAll(responseData.map((e) => ItemModel.fromJson(e)));
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Get Items : $e");
     }
     update();
   }

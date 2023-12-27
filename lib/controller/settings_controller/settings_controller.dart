@@ -54,17 +54,21 @@ class SettingsController extends GetxController {
   }
 
   logout() async {
-    FirebaseMessaging.instance
-        .unsubscribeFromTopic("users${user.value.usersId}");
-    FirebaseMessaging.instance.unsubscribeFromTopic("signed");
-    FirebaseMessaging.instance.subscribeToTopic("notSigned");
+    try {
+      FirebaseMessaging.instance
+          .unsubscribeFromTopic("users${user.value.usersId}");
+      FirebaseMessaging.instance.unsubscribeFromTopic("signed");
+      FirebaseMessaging.instance.subscribeToTopic("notSigned");
 
-    await myServices.getBox.remove(GetBoxKey.user);
-    await myServices.getBox.write(GetBoxKey.isSigned, false);
-    // await _homeControllerImp.loginAnonymous();
-    await userController.clearUser();
-    await myServices.getBox.remove(GetBoxKey.step);
-    Get.offAllNamed('/');
+      await myServices.getBox.remove(GetBoxKey.user);
+      await myServices.getBox.write(GetBoxKey.isSigned, false);
+      // await _homeControllerImp.loginAnonymous();
+      await userController.clearUser();
+      await myServices.getBox.remove(GetBoxKey.step);
+      Get.offAllNamed('/');
+    } catch (e) {
+      throw Exception("Error Logout : $e");
+    }
   }
 
   goToUserSettings() {
@@ -76,26 +80,35 @@ class SettingsController extends GetxController {
   }
 
   toggleSwitchVal(bool val) {
-    switchVal = val;
-    myServices.getBox.write(GetBoxKey.switchValueNotification, val);
-    update();
-    if (val == false) {
-      FirebaseMessaging.instance
-          .unsubscribeFromTopic("users${user.value.usersId}");
-    } else {
-      FirebaseMessaging.instance.subscribeToTopic("users${user.value.usersId}");
+    try {
+      switchVal = val;
+      myServices.getBox.write(GetBoxKey.switchValueNotification, val);
+      update();
+      if (val == false) {
+        FirebaseMessaging.instance
+            .unsubscribeFromTopic("users${user.value.usersId}");
+      } else {
+        FirebaseMessaging.instance
+            .subscribeToTopic("users${user.value.usersId}");
+      }
+    } catch (e) {
+      throw Exception("Error Switch Notification : $e");
     }
   }
 
   setLanguage(String language) {
-    Locale locale = Locale(language);
-    myServices.getBox.write(GetBoxKey.language, language);
-    lang = myServices.getBox.read(GetBoxKey.language)!;
+    try {
+      Locale locale = Locale(language);
+      myServices.getBox.write(GetBoxKey.language, language);
+      lang = myServices.getBox.read(GetBoxKey.language)!;
 
-    Get.back();
-    update();
+      Get.back();
+      update();
 
-    Get.updateLocale(locale);
+      Get.updateLocale(locale);
+    } catch (e) {
+      throw Exception("Error Set Languages : $e");
+    }
   }
 
   initData() async {

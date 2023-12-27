@@ -22,50 +22,58 @@ class UserSettingFormController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   updateUserName() async {
-    var formCurrent = formKey.currentState;
-    if (formCurrent!.validate()) {
-      statusRequest = StatusRequest.loading;
-      update();
-      var response = await userDetailsData.changeUserName(
-          user.value.usersId!, userTextController.text);
-      statusRequest = handlingData(response);
-      if (StatusRequest.success == statusRequest) {
-        if (response['status'] == 'success') {
-          //myServices.sharedPref.setString('userName', userTextController.text);
-          Get.back();
-          userSettingController.getData();
-          update();
-        } else {
-          statusRequest = StatusRequest.failed;
+    try {
+      var formCurrent = formKey.currentState;
+      if (formCurrent!.validate()) {
+        statusRequest = StatusRequest.loading;
+        update();
+        var response = await userDetailsData.changeUserName(
+            user.value.usersId!, userTextController.text);
+        statusRequest = handlingData(response);
+        if (StatusRequest.success == statusRequest) {
+          if (response['status'] == 'success') {
+            //myServices.sharedPref.setString('userName', userTextController.text);
+            Get.back();
+            userSettingController.getData();
+            update();
+          } else {
+            statusRequest = StatusRequest.failed;
+          }
         }
+        update();
       }
-      update();
-    } else {}
+    } catch (e) {
+      throw Exception("Error User Settings Update User Name : $e");
+    }
   }
 
   updateUserPhone() async {
-    var formCurrent = formKey.currentState;
-    if (formCurrent!.validate()) {
-      statusRequest = StatusRequest.loading;
-      update();
-      var response = await userDetailsData.changeUserPhone(
-          user.value.usersId!, userTextController.text);
-      statusRequest = handlingData(response);
-      if (StatusRequest.success == statusRequest) {
-        if (response['status'] == 'success') {
-          Get.back();
-          userSettingController.getData();
-          update();
-        } else {
-          Get.defaultDialog(
-              title: 'attention'.tr,
-              middleText: "phoneUsed".tr,
-              onConfirm: () => Get.back(),
-              textConfirm: 'ok'.tr);
-          statusRequest = StatusRequest.failed;
+    try {
+      var formCurrent = formKey.currentState;
+      if (formCurrent!.validate()) {
+        statusRequest = StatusRequest.loading;
+        update();
+        var response = await userDetailsData.changeUserPhone(
+            user.value.usersId!, userTextController.text);
+        statusRequest = handlingData(response);
+        if (StatusRequest.success == statusRequest) {
+          if (response['status'] == 'success') {
+            Get.back();
+            userSettingController.getData();
+            update();
+          } else {
+            Get.defaultDialog(
+                title: 'attention'.tr,
+                middleText: "phoneUsed".tr,
+                onConfirm: () => Get.back(),
+                textConfirm: 'ok'.tr);
+            statusRequest = StatusRequest.failed;
+          }
         }
+        update();
       }
-      update();
+    } catch (e) {
+      throw Exception("Error User Settings Update User Phone : $e");
     }
   }
 

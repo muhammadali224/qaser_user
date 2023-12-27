@@ -33,39 +33,47 @@ class AddLocationDetailsController extends GetxController {
   }
 
   addAddress() async {
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await addressData.addAddress(
-      user.value.usersId!,
-      name.text,
-      city.text,
-      street.text,
-      note.text,
-      long!,
-      lat!,
-    );
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        Get.offAllNamed(AppRoutes.home);
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await addressData.addAddress(
+        user.value.usersId!,
+        name.text,
+        city.text,
+        street.text,
+        note.text,
+        long!,
+        lat!,
+      );
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          Get.offAllNamed(AppRoutes.home);
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Add Address : $e");
     }
     update();
   }
 
   getAddressInfo() async {
-    statusRequest = StatusRequest.loading;
-    update();
-    placeMarks = await placemarkFromCoordinates(lat!, long!);
-    statusRequest = StatusRequest.none;
-    update();
-    Placemark place = placeMarks![0];
-    Placemark place2 = placeMarks![2];
-    city.text = place.locality ?? "";
-    street.text = place2.street ?? "";
-    name.text = place.administrativeArea ?? "";
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      placeMarks = await placemarkFromCoordinates(lat!, long!);
+      statusRequest = StatusRequest.none;
+      update();
+      Placemark place = placeMarks![0];
+      Placemark place2 = placeMarks![2];
+      city.text = place.locality ?? "";
+      street.text = place2.street ?? "";
+      name.text = place.administrativeArea ?? "";
+    } catch (e) {
+      throw Exception("Error Get Address : $e");
+    }
     update();
   }
 

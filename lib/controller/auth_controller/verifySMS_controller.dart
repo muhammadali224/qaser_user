@@ -46,7 +46,7 @@ class VerifySMSController extends GetxController {
         }
       }
     } catch (e) {
-      throw Exception(e);
+      throw Exception("Error Check SMS Code : $e");
     }
 
     update();

@@ -19,37 +19,41 @@ class ForgetPasswordControllerImp extends ForgetPasswordController {
 
   @override
   checkEmail() async {
-    if (formState.currentState!.validate()) {
-      SmartDialog.showLoading(msg: "loading".tr);
-      var response = await checkEmailData.postData(
-        email.text.trim(),
-      );
-      statusRequest = handlingData(response);
-      if (StatusRequest.success == statusRequest) {
-        if (response['status'] == 'success') {
-          Get.offNamed(AppRoutes.verificationCode, arguments: {
-            'email': email.text,
-          });
-        } else if (response['status'] == 'failed') {
-          SmartDialog.dismiss();
+    try {
+      if (formState.currentState!.validate()) {
+        SmartDialog.showLoading(msg: "loading".tr);
+        var response = await checkEmailData.postData(
+          email.text.trim(),
+        );
+        statusRequest = handlingData(response);
+        if (StatusRequest.success == statusRequest) {
+          if (response['status'] == 'success') {
+            Get.offNamed(AppRoutes.verificationCode, arguments: {
+              'email': email.text,
+            });
+          } else if (response['status'] == 'failed') {
+            SmartDialog.dismiss();
 
-          Get.defaultDialog(
-              title: 'attention'.tr,
-              middleText: "emailNotFound".tr,
-              actions: [
-                ElevatedButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    child: Text('ok'.tr)),
-              ]);
-        } else {
-          statusRequest = StatusRequest.failed;
+            Get.defaultDialog(
+                title: 'attention'.tr,
+                middleText: "emailNotFound".tr,
+                actions: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text('ok'.tr)),
+                ]);
+          } else {
+            statusRequest = StatusRequest.failed;
+          }
         }
+        update();
       }
-      update();
+      SmartDialog.dismiss();
+    } catch (e) {
+      throw Exception("Error Check Email : $e");
     }
-    SmartDialog.dismiss();
   }
 
   @override

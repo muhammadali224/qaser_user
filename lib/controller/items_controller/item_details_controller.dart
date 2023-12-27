@@ -28,8 +28,9 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   RxInt itemsCount = 0.obs;
   RxBool isLoading = false.obs;
   List<SubItemModel> subItemsList = [];
+  SubItemModel? selectedSubItems;
 
-  late RxDouble itemPrice;
+  RxDouble itemPrice = 0.0.obs;
 
   CartControllerImp cartController =
       Get.put(CartControllerImp(), permanent: true);
@@ -42,32 +43,21 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
 
   @override
   initData() async {
-    itemsModel = Get.arguments;
-    itemsCount.value = itemsModel.itemCount!;
-    getSubItems();
-    // if (itemsModel.selectedSubItemId != null) {
-    //   print(itemsModel.selectedSubItemId);
-    //   selectedWeightAndSize = subItemsList
-    //       .where(
-    //           (element) => element.weightSizeId == itemsModel.selectedSubItemId)
-    //       .first;
-    itemPrice = (itemsModel.itemDiscounntPrice!).toDouble().obs;
-    // } else {
-    //   selectedWeightAndSize = SubItemsModel(
-    //     weightSizeId: itemsModel.itemAttrId,
-    //     subItemValue: itemsModel.subItemValue,
-    //     subItemName: itemsModel.subItemName,
-    //     subItemNameAr: itemsModel.subItemNameAr,
-    //   );
+    try {
+      itemsModel = Get.arguments;
+      itemsCount.value = itemsModel.itemCount!;
+      await getSubItems();
 
-    // itemPrice = itemsModel.itemDiscounntPrice!.toDouble().obs;
-    // }
-
-    // for (var item in subItemsList) {
-    //   if (itemsModel.weighIds!.contains(item.weightSizeId.toString())) {
-    //     availableSubItems.add(item);
-    //   }
-    // }
+      if (itemsModel.selectedSubItemsId != null) {
+        selectedSubItems = subItemsList.firstWhere(
+            (element) => element.subItemId == itemsModel.selectedSubItemsId!);
+        itemPrice = selectedSubItems!.subItemsPrice!.toDouble().obs;
+      } else {
+        itemPrice = itemsModel.itemDiscounntPrice!.toDouble().obs;
+      }
+    } catch (e) {
+      throw Exception("Error Init Item Details : $e");
+    }
   }
 
   @override
@@ -93,9 +83,7 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
 
   RxDouble get totalPoint {
     if (itemsCount.value == 0)
-      return (itemsModel.itemsPointPerVal! * itemsModel.itemDiscounntPrice!)
-          .toDouble()
-          .obs;
+      return (itemsModel.itemsPointPerVal! * itemPrice.value).toDouble().obs;
     else
       return (totalPrice * itemsModel.itemsPointPerVal!).toDouble().obs;
   }
@@ -108,26 +96,28 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
 
   @override
   Future<void> getSubItems() async {
-    isLoading.toggle();
-    var response = await itemsData.getSubItems(itemsModel.itemsId!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        List responseData = response['data'];
-        subItemsList.addAll(responseData.map((e) => SubItemModel.fromJson(e)));
-        print(subItemsList.toString());
-        isLoading.toggle();
+    try {
+      isLoading.toggle();
+      var response = await itemsData.getSubItems(itemsModel.itemsId!);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          List responseData = response['data'];
+          subItemsList
+              .addAll(responseData.map((e) => SubItemModel.fromJson(e)));
+          print(subItemsList.toString());
+        }
       }
+      isLoading.toggle();
+    } catch (e) {
+      throw Exception("Error Get Sub Items : $e");
     }
     update();
   }
 
-// setSelectedWeightAndSize(SubItemsModel subItemsModel) {
-//   selectedWeightAndSize = subItemsModel;
-//   itemPrice =
-//       (selectedWeightAndSize.subItemValue! * itemsModel.itemDiscounntPrice!)
-//           .toDouble()
-//           .obs;
-//   update();
-// }
+  setSelectedWeightAndSize(SubItemModel subItemsModel) {
+    selectedSubItems = subItemsModel;
+    itemPrice = subItemsModel.subItemsPrice!.toDouble().obs;
+    update();
+  }
 }

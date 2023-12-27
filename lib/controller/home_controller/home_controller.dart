@@ -115,7 +115,7 @@ class HomeControllerImp extends HomeController {
         }
       }
     } catch (e) {
-      print(e.toString());
+      throw Exception("Error Get Home : $e");
     }
     update();
   }
@@ -138,7 +138,7 @@ class HomeControllerImp extends HomeController {
         selectedValue = newUser.userFavBranchId!;
       }
     } catch (e) {
-      throw Exception(e);
+      throw Exception("Error Update User Branch : $e");
     }
     update();
   }
@@ -159,7 +159,7 @@ class HomeControllerImp extends HomeController {
         statusRequest = StatusRequest.failed;
       }
     } catch (e) {
-      print(e.toString());
+      throw Exception("Error Login Anonymous : $e");
     }
     update();
   }
@@ -184,7 +184,7 @@ class HomeControllerImp extends HomeController {
         }
       }
     } catch (e) {
-      throw Exception(e);
+      throw Exception("Error GGet User Details : $e");
     }
     update();
   }

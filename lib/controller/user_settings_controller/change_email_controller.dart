@@ -22,73 +22,85 @@ class ChangeEmailController extends GetxController {
   bool showOTP = false;
 
   checkCode(int code) async {
-    statusRequest = StatusRequest.loading;
-    update();
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
 
-    var response = await userData.verifyCode(
-      user.value.usersId!,
-      userTextController.text,
-      user.value.usersEmail!,
-      code,
-    );
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        Get.back();
-        userController.getData();
-      } else {
-        Get.defaultDialog(
-            title: 'attention'.tr,
-            middleText: "codeError".tr,
-            onConfirm: () {
-              Get.back();
-            },
-            textConfirm: 'ok'.tr);
-        statusRequest = StatusRequest.failed;
+      var response = await userData.verifyCode(
+        user.value.usersId!,
+        userTextController.text,
+        user.value.usersEmail!,
+        code,
+      );
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          Get.back();
+          userController.getData();
+        } else {
+          Get.defaultDialog(
+              title: 'attention'.tr,
+              middleText: "codeError".tr,
+              onConfirm: () {
+                Get.back();
+              },
+              textConfirm: 'ok'.tr);
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error User Settings Check Code : $e");
     }
     update();
   }
 
   resendVerify() async {
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await userData.resendVerify(userTextController.text);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        Get.rawSnackbar(message: 'successResend'.tr);
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await userData.resendVerify(userTextController.text);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          Get.rawSnackbar(message: 'successResend'.tr);
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error User Settings Resend Code : $e");
     }
     update();
   }
 
   checkEmail() async {
-    if (formKey.currentState!.validate()) {
-      statusRequest = StatusRequest.loading;
-      update();
-      var response = await userData.checkEmail(
-        user.value.usersId!,
-        userTextController.text,
-      );
-      statusRequest = handlingData(response);
-      if (StatusRequest.success == statusRequest) {
-        if (response['status'] == 'success') {
-          showOTP = true;
-          update();
-        } else {
-          Get.defaultDialog(
-            title: 'attention'.tr,
-            middleText: "emailUsed".tr,
-          );
+    try {
+      if (formKey.currentState!.validate()) {
+        statusRequest = StatusRequest.loading;
+        update();
+        var response = await userData.checkEmail(
+          user.value.usersId!,
+          userTextController.text,
+        );
+        statusRequest = handlingData(response);
+        if (StatusRequest.success == statusRequest) {
+          if (response['status'] == 'success') {
+            showOTP = true;
+            update();
+          } else {
+            Get.defaultDialog(
+              title: 'attention'.tr,
+              middleText: "emailUsed".tr,
+            );
 
-          statusRequest = StatusRequest.failed;
+            statusRequest = StatusRequest.failed;
+          }
         }
+        update();
       }
-      update();
-    } else {}
+    } catch (e) {
+      throw Exception("Error User Settings Check Email : $e");
+    }
   }
 
   @override

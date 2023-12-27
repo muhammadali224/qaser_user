@@ -15,18 +15,22 @@ class OffersController extends GetxController {
   Rx<UserModel> user = Get.find<UserController>().user.obs;
 
   getOffersItems() async {
-    offersItems.clear();
-    statusRequest = StatusRequest.loading;
-    var response = await itemsData.getOffers(
-        user.value.userFavBranchId!, user.value.usersId!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        List responseData = response['data'];
-        offersItems.addAll(responseData.map((e) => ItemModel.fromJson(e)));
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      offersItems.clear();
+      statusRequest = StatusRequest.loading;
+      var response = await itemsData.getOffers(
+          user.value.userFavBranchId!, user.value.usersId!);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          List responseData = response['data'];
+          offersItems.addAll(responseData.map((e) => ItemModel.fromJson(e)));
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Get Offers : $e");
     }
     update();
   }

@@ -26,40 +26,44 @@ class ResetPasswordControllerImp extends ResetPasswordController {
 
   @override
   resetPassword() async {
-    if (formState.currentState!.validate()) {
-      if (password.text == rePassword.text) {
-        statusRequest = StatusRequest.loading;
-        update();
-        var response =
-            await resetPasswordData.postData(email!, password.text.trim());
-        statusRequest = handlingData(response);
-        if (StatusRequest.success == statusRequest) {
-          if (response['status'] == 'success') {
-            Get.offNamed(AppRoutes.successReset, arguments: {
-              'email': email,
-            });
-          } else {
-            Get.defaultDialog(
-                title: 'attention'.tr,
-                middleText: "emailOrPhoneUsed".tr,
-                onConfirm: () {
-                  Get.back();
-                },
-                textConfirm: 'ok'.tr);
+    try {
+      if (formState.currentState!.validate()) {
+        if (password.text == rePassword.text) {
+          statusRequest = StatusRequest.loading;
+          update();
+          var response =
+              await resetPasswordData.postData(email!, password.text.trim());
+          statusRequest = handlingData(response);
+          if (StatusRequest.success == statusRequest) {
+            if (response['status'] == 'success') {
+              Get.offNamed(AppRoutes.successReset, arguments: {
+                'email': email,
+              });
+            } else {
+              Get.defaultDialog(
+                  title: 'attention'.tr,
+                  middleText: "emailOrPhoneUsed".tr,
+                  onConfirm: () {
+                    Get.back();
+                  },
+                  textConfirm: 'ok'.tr);
 
-            statusRequest = StatusRequest.failed;
+              statusRequest = StatusRequest.failed;
+            }
           }
+          update();
+        } else {
+          Get.defaultDialog(
+              title: 'attention'.tr,
+              middleText: "passwordDontMatch".tr,
+              onConfirm: () {
+                Get.back();
+              },
+              textConfirm: 'ok'.tr);
         }
-        update();
-      } else {
-        Get.defaultDialog(
-            title: 'attention'.tr,
-            middleText: "passwordDontMatch".tr,
-            onConfirm: () {
-              Get.back();
-            },
-            textConfirm: 'ok'.tr);
       }
+    } catch (e) {
+      throw Exception("Error Reset Password : $e");
     }
   }
 

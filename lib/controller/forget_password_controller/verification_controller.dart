@@ -18,25 +18,29 @@ class VerifiedControllerImp extends VerifiedController {
 
   @override
   checkCode(int verificationCode) async {
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await verifyData.postData(email!, verificationCode);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        Get.offNamed(AppRoutes.resetPassword, arguments: {
-          'email': email,
-        });
-      } else {
-        Get.defaultDialog(
-            title: 'attention'.tr,
-            middleText: "codeError".tr,
-            onConfirm: () {
-              Get.back();
-            },
-            textConfirm: 'ok'.tr);
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await verifyData.postData(email!, verificationCode);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          Get.offNamed(AppRoutes.resetPassword, arguments: {
+            'email': email,
+          });
+        } else {
+          Get.defaultDialog(
+              title: 'attention'.tr,
+              middleText: "codeError".tr,
+              onConfirm: () {
+                Get.back();
+              },
+              textConfirm: 'ok'.tr);
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Check Code Reset  : $e");
     }
     update();
   }
@@ -49,16 +53,20 @@ class VerifiedControllerImp extends VerifiedController {
 
   @override
   resendVerify() async {
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await verifyData.resendVerify(email!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        Get.rawSnackbar(message: 'successResend'.tr);
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await verifyData.resendVerify(email!);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          Get.rawSnackbar(message: 'successResend'.tr);
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Resend Code Password Reset : $e");
     }
     update();
   }

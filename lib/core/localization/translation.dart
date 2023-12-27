@@ -268,6 +268,7 @@ class MyTranslation extends Translations {
           "myPoints": "نقاطي",
           "soon": "قريبا ...",
           "suggestProduct": "المنتجات المقترحة",
+          "distanceError": "العنوان الذي اخترته ليس داخل نطاق التوصيل",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -535,6 +536,7 @@ class MyTranslation extends Translations {
           "myPoints": "My Points",
           "soon": "Soon ...",
           "suggestProduct": "Suggest Product",
+          "distanceError": "Your Address is not in the Range",
         },
       };
 }

@@ -31,52 +31,56 @@ class ChangePasswordController extends GetxController {
   }
 
   resetPassword() async {
-    if (formState.currentState!.validate()) {
-      if (password.text == rePassword.text) {
-        statusRequest = StatusRequest.loading;
-        update();
-        var response = await resetPasswordData.changeUserPassword(
-          user.value.usersId!,
-          password.text.trim(),
-          oldPassword.text,
-        );
-        statusRequest = handlingData(response);
-        if (StatusRequest.success == statusRequest) {
-          if (response['status'] == 'success') {
-            Get.offNamed(AppRoutes.userSettings,
-                arguments: {'userId': user.value.usersId!});
-          } else if (response['message'] == 'the old password incorrect') {
-            Get.defaultDialog(
-                title: 'attention'.tr,
-                middleText: "oldPasswordIncorrect".tr,
-                onConfirm: () {
-                  Get.back();
-                },
-                textConfirm: 'ok'.tr);
-          } else {
-            Get.defaultDialog(
-                title: 'attention'.tr,
-                middleText: "emailOrPhoneUsed".tr,
-                onConfirm: () {
-                  Get.back();
-                },
-                textConfirm: 'ok'.tr);
-            statusRequest = StatusRequest.failed;
-          }
-        }
-        update();
-      } else {
-        Get.defaultDialog(
-            title: 'attention'.tr,
-            middleText: "passwordDontMatch".tr,
-            actions: [
-              ElevatedButton(
-                  onPressed: () {
+    try {
+      if (formState.currentState!.validate()) {
+        if (password.text == rePassword.text) {
+          statusRequest = StatusRequest.loading;
+          update();
+          var response = await resetPasswordData.changeUserPassword(
+            user.value.usersId!,
+            password.text.trim(),
+            oldPassword.text,
+          );
+          statusRequest = handlingData(response);
+          if (StatusRequest.success == statusRequest) {
+            if (response['status'] == 'success') {
+              Get.offNamed(AppRoutes.userSettings,
+                  arguments: {'userId': user.value.usersId!});
+            } else if (response['message'] == 'the old password incorrect') {
+              Get.defaultDialog(
+                  title: 'attention'.tr,
+                  middleText: "oldPasswordIncorrect".tr,
+                  onConfirm: () {
                     Get.back();
                   },
-                  child: Text('ok'.tr)),
-            ]);
+                  textConfirm: 'ok'.tr);
+            } else {
+              Get.defaultDialog(
+                  title: 'attention'.tr,
+                  middleText: "emailOrPhoneUsed".tr,
+                  onConfirm: () {
+                    Get.back();
+                  },
+                  textConfirm: 'ok'.tr);
+              statusRequest = StatusRequest.failed;
+            }
+          }
+          update();
+        } else {
+          Get.defaultDialog(
+              title: 'attention'.tr,
+              middleText: "passwordDontMatch".tr,
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: Text('ok'.tr)),
+              ]);
+        }
       }
+    } catch (e) {
+      throw Exception("Error User Settings Reset Password : $e");
     }
   }
 

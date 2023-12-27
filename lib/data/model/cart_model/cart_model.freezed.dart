@@ -30,16 +30,16 @@ mixin _$CartModel {
   String? get cartItemNote => throw _privateConstructorUsedError;
   @JsonKey(name: "cart_orders")
   int? get cartOrders => throw _privateConstructorUsedError;
-  @JsonKey(name: "cart_size_weight_id")
-  int? get cartSizeWeightId => throw _privateConstructorUsedError;
   @JsonKey(name: "cart_item_price")
   num? get cartItemPrice => throw _privateConstructorUsedError;
-  @JsonKey(name: "cart_branch_id")
-  int? get cartBranchId => throw _privateConstructorUsedError;
-  @JsonKey(name: "Item_point_count")
-  num? get cartItemPoint => throw _privateConstructorUsedError;
   @JsonKey(name: "cart_item_count")
   int? get cartItemCount => throw _privateConstructorUsedError;
+  @JsonKey(name: "Item_point_count")
+  num? get itemPointCount => throw _privateConstructorUsedError;
+  @JsonKey(name: "cart_branch_id")
+  int? get cartBranchId => throw _privateConstructorUsedError;
+  @JsonKey(name: "cart_sub_items_id")
+  int? get cartSubItemsId => throw _privateConstructorUsedError;
   @JsonKey(name: "items_id")
   int? get itemsId => throw _privateConstructorUsedError;
   @JsonKey(name: "items_name")
@@ -50,14 +50,16 @@ mixin _$CartModel {
   String? get itemsImage => throw _privateConstructorUsedError;
   @JsonKey(name: "items_active")
   int? get itemsActive => throw _privateConstructorUsedError;
-  @JsonKey(name: "weight_size_id")
-  int? get weightSizeId => throw _privateConstructorUsedError;
-  @JsonKey(name: "sub_item_name")
-  String? get subItemName => throw _privateConstructorUsedError;
-  @JsonKey(name: "sub_item_name_ar")
-  String? get subItemNameAr => throw _privateConstructorUsedError;
-  @JsonKey(name: "sub_item_value")
-  num? get subItemValue => throw _privateConstructorUsedError;
+  @JsonKey(name: "sub_item_id")
+  int? get subItemId => throw _privateConstructorUsedError;
+  @JsonKey(name: "item_id")
+  int? get itemId => throw _privateConstructorUsedError;
+  @JsonKey(name: "sub_items_name")
+  String? get subItemsName => throw _privateConstructorUsedError;
+  @JsonKey(name: "sub_items_name_ar")
+  String? get subItemsNameAr => throw _privateConstructorUsedError;
+  @JsonKey(name: "sub_items_price")
+  num? get subItemsPrice => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -76,20 +78,21 @@ abstract class $CartModelCopyWith<$Res> {
       @JsonKey(name: "cart_itemid") int? cartItemid,
       @JsonKey(name: "cart_item_note") String? cartItemNote,
       @JsonKey(name: "cart_orders") int? cartOrders,
-      @JsonKey(name: "cart_size_weight_id") int? cartSizeWeightId,
       @JsonKey(name: "cart_item_price") num? cartItemPrice,
-      @JsonKey(name: "cart_branch_id") int? cartBranchId,
-      @JsonKey(name: "Item_point_count") num? cartItemPoint,
       @JsonKey(name: "cart_item_count") int? cartItemCount,
+      @JsonKey(name: "Item_point_count") num? itemPointCount,
+      @JsonKey(name: "cart_branch_id") int? cartBranchId,
+      @JsonKey(name: "cart_sub_items_id") int? cartSubItemsId,
       @JsonKey(name: "items_id") int? itemsId,
       @JsonKey(name: "items_name") String? itemsName,
       @JsonKey(name: "items_name_ar") String? itemsNameAr,
       @JsonKey(name: "items_image") String? itemsImage,
       @JsonKey(name: "items_active") int? itemsActive,
-      @JsonKey(name: "weight_size_id") int? weightSizeId,
-      @JsonKey(name: "sub_item_name") String? subItemName,
-      @JsonKey(name: "sub_item_name_ar") String? subItemNameAr,
-      @JsonKey(name: "sub_item_value") num? subItemValue});
+      @JsonKey(name: "sub_item_id") int? subItemId,
+      @JsonKey(name: "item_id") int? itemId,
+      @JsonKey(name: "sub_items_name") String? subItemsName,
+      @JsonKey(name: "sub_items_name_ar") String? subItemsNameAr,
+      @JsonKey(name: "sub_items_price") num? subItemsPrice});
 }
 
 /// @nodoc
@@ -110,20 +113,21 @@ class _$CartModelCopyWithImpl<$Res, $Val extends CartModel>
     Object? cartItemid = freezed,
     Object? cartItemNote = freezed,
     Object? cartOrders = freezed,
-    Object? cartSizeWeightId = freezed,
     Object? cartItemPrice = freezed,
-    Object? cartBranchId = freezed,
-    Object? cartItemPoint = freezed,
     Object? cartItemCount = freezed,
+    Object? itemPointCount = freezed,
+    Object? cartBranchId = freezed,
+    Object? cartSubItemsId = freezed,
     Object? itemsId = freezed,
     Object? itemsName = freezed,
     Object? itemsNameAr = freezed,
     Object? itemsImage = freezed,
     Object? itemsActive = freezed,
-    Object? weightSizeId = freezed,
-    Object? subItemName = freezed,
-    Object? subItemNameAr = freezed,
-    Object? subItemValue = freezed,
+    Object? subItemId = freezed,
+    Object? itemId = freezed,
+    Object? subItemsName = freezed,
+    Object? subItemsNameAr = freezed,
+    Object? subItemsPrice = freezed,
   }) {
     return _then(_value.copyWith(
       cartId: freezed == cartId
@@ -146,25 +150,25 @@ class _$CartModelCopyWithImpl<$Res, $Val extends CartModel>
           ? _value.cartOrders
           : cartOrders // ignore: cast_nullable_to_non_nullable
               as int?,
-      cartSizeWeightId: freezed == cartSizeWeightId
-          ? _value.cartSizeWeightId
-          : cartSizeWeightId // ignore: cast_nullable_to_non_nullable
-              as int?,
       cartItemPrice: freezed == cartItemPrice
           ? _value.cartItemPrice
           : cartItemPrice // ignore: cast_nullable_to_non_nullable
+              as num?,
+      cartItemCount: freezed == cartItemCount
+          ? _value.cartItemCount
+          : cartItemCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      itemPointCount: freezed == itemPointCount
+          ? _value.itemPointCount
+          : itemPointCount // ignore: cast_nullable_to_non_nullable
               as num?,
       cartBranchId: freezed == cartBranchId
           ? _value.cartBranchId
           : cartBranchId // ignore: cast_nullable_to_non_nullable
               as int?,
-      cartItemPoint: freezed == cartItemPoint
-          ? _value.cartItemPoint
-          : cartItemPoint // ignore: cast_nullable_to_non_nullable
-              as num?,
-      cartItemCount: freezed == cartItemCount
-          ? _value.cartItemCount
-          : cartItemCount // ignore: cast_nullable_to_non_nullable
+      cartSubItemsId: freezed == cartSubItemsId
+          ? _value.cartSubItemsId
+          : cartSubItemsId // ignore: cast_nullable_to_non_nullable
               as int?,
       itemsId: freezed == itemsId
           ? _value.itemsId
@@ -186,21 +190,25 @@ class _$CartModelCopyWithImpl<$Res, $Val extends CartModel>
           ? _value.itemsActive
           : itemsActive // ignore: cast_nullable_to_non_nullable
               as int?,
-      weightSizeId: freezed == weightSizeId
-          ? _value.weightSizeId
-          : weightSizeId // ignore: cast_nullable_to_non_nullable
+      subItemId: freezed == subItemId
+          ? _value.subItemId
+          : subItemId // ignore: cast_nullable_to_non_nullable
               as int?,
-      subItemName: freezed == subItemName
-          ? _value.subItemName
-          : subItemName // ignore: cast_nullable_to_non_nullable
+      itemId: freezed == itemId
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      subItemsName: freezed == subItemsName
+          ? _value.subItemsName
+          : subItemsName // ignore: cast_nullable_to_non_nullable
               as String?,
-      subItemNameAr: freezed == subItemNameAr
-          ? _value.subItemNameAr
-          : subItemNameAr // ignore: cast_nullable_to_non_nullable
+      subItemsNameAr: freezed == subItemsNameAr
+          ? _value.subItemsNameAr
+          : subItemsNameAr // ignore: cast_nullable_to_non_nullable
               as String?,
-      subItemValue: freezed == subItemValue
-          ? _value.subItemValue
-          : subItemValue // ignore: cast_nullable_to_non_nullable
+      subItemsPrice: freezed == subItemsPrice
+          ? _value.subItemsPrice
+          : subItemsPrice // ignore: cast_nullable_to_non_nullable
               as num?,
     ) as $Val);
   }
@@ -220,20 +228,21 @@ abstract class _$$CartModelImplCopyWith<$Res>
       @JsonKey(name: "cart_itemid") int? cartItemid,
       @JsonKey(name: "cart_item_note") String? cartItemNote,
       @JsonKey(name: "cart_orders") int? cartOrders,
-      @JsonKey(name: "cart_size_weight_id") int? cartSizeWeightId,
       @JsonKey(name: "cart_item_price") num? cartItemPrice,
-      @JsonKey(name: "cart_branch_id") int? cartBranchId,
-      @JsonKey(name: "Item_point_count") num? cartItemPoint,
       @JsonKey(name: "cart_item_count") int? cartItemCount,
+      @JsonKey(name: "Item_point_count") num? itemPointCount,
+      @JsonKey(name: "cart_branch_id") int? cartBranchId,
+      @JsonKey(name: "cart_sub_items_id") int? cartSubItemsId,
       @JsonKey(name: "items_id") int? itemsId,
       @JsonKey(name: "items_name") String? itemsName,
       @JsonKey(name: "items_name_ar") String? itemsNameAr,
       @JsonKey(name: "items_image") String? itemsImage,
       @JsonKey(name: "items_active") int? itemsActive,
-      @JsonKey(name: "weight_size_id") int? weightSizeId,
-      @JsonKey(name: "sub_item_name") String? subItemName,
-      @JsonKey(name: "sub_item_name_ar") String? subItemNameAr,
-      @JsonKey(name: "sub_item_value") num? subItemValue});
+      @JsonKey(name: "sub_item_id") int? subItemId,
+      @JsonKey(name: "item_id") int? itemId,
+      @JsonKey(name: "sub_items_name") String? subItemsName,
+      @JsonKey(name: "sub_items_name_ar") String? subItemsNameAr,
+      @JsonKey(name: "sub_items_price") num? subItemsPrice});
 }
 
 /// @nodoc
@@ -252,20 +261,21 @@ class __$$CartModelImplCopyWithImpl<$Res>
     Object? cartItemid = freezed,
     Object? cartItemNote = freezed,
     Object? cartOrders = freezed,
-    Object? cartSizeWeightId = freezed,
     Object? cartItemPrice = freezed,
-    Object? cartBranchId = freezed,
-    Object? cartItemPoint = freezed,
     Object? cartItemCount = freezed,
+    Object? itemPointCount = freezed,
+    Object? cartBranchId = freezed,
+    Object? cartSubItemsId = freezed,
     Object? itemsId = freezed,
     Object? itemsName = freezed,
     Object? itemsNameAr = freezed,
     Object? itemsImage = freezed,
     Object? itemsActive = freezed,
-    Object? weightSizeId = freezed,
-    Object? subItemName = freezed,
-    Object? subItemNameAr = freezed,
-    Object? subItemValue = freezed,
+    Object? subItemId = freezed,
+    Object? itemId = freezed,
+    Object? subItemsName = freezed,
+    Object? subItemsNameAr = freezed,
+    Object? subItemsPrice = freezed,
   }) {
     return _then(_$CartModelImpl(
       cartId: freezed == cartId
@@ -288,25 +298,25 @@ class __$$CartModelImplCopyWithImpl<$Res>
           ? _value.cartOrders
           : cartOrders // ignore: cast_nullable_to_non_nullable
               as int?,
-      cartSizeWeightId: freezed == cartSizeWeightId
-          ? _value.cartSizeWeightId
-          : cartSizeWeightId // ignore: cast_nullable_to_non_nullable
-              as int?,
       cartItemPrice: freezed == cartItemPrice
           ? _value.cartItemPrice
           : cartItemPrice // ignore: cast_nullable_to_non_nullable
+              as num?,
+      cartItemCount: freezed == cartItemCount
+          ? _value.cartItemCount
+          : cartItemCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      itemPointCount: freezed == itemPointCount
+          ? _value.itemPointCount
+          : itemPointCount // ignore: cast_nullable_to_non_nullable
               as num?,
       cartBranchId: freezed == cartBranchId
           ? _value.cartBranchId
           : cartBranchId // ignore: cast_nullable_to_non_nullable
               as int?,
-      cartItemPoint: freezed == cartItemPoint
-          ? _value.cartItemPoint
-          : cartItemPoint // ignore: cast_nullable_to_non_nullable
-              as num?,
-      cartItemCount: freezed == cartItemCount
-          ? _value.cartItemCount
-          : cartItemCount // ignore: cast_nullable_to_non_nullable
+      cartSubItemsId: freezed == cartSubItemsId
+          ? _value.cartSubItemsId
+          : cartSubItemsId // ignore: cast_nullable_to_non_nullable
               as int?,
       itemsId: freezed == itemsId
           ? _value.itemsId
@@ -328,21 +338,25 @@ class __$$CartModelImplCopyWithImpl<$Res>
           ? _value.itemsActive
           : itemsActive // ignore: cast_nullable_to_non_nullable
               as int?,
-      weightSizeId: freezed == weightSizeId
-          ? _value.weightSizeId
-          : weightSizeId // ignore: cast_nullable_to_non_nullable
+      subItemId: freezed == subItemId
+          ? _value.subItemId
+          : subItemId // ignore: cast_nullable_to_non_nullable
               as int?,
-      subItemName: freezed == subItemName
-          ? _value.subItemName
-          : subItemName // ignore: cast_nullable_to_non_nullable
+      itemId: freezed == itemId
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      subItemsName: freezed == subItemsName
+          ? _value.subItemsName
+          : subItemsName // ignore: cast_nullable_to_non_nullable
               as String?,
-      subItemNameAr: freezed == subItemNameAr
-          ? _value.subItemNameAr
-          : subItemNameAr // ignore: cast_nullable_to_non_nullable
+      subItemsNameAr: freezed == subItemsNameAr
+          ? _value.subItemsNameAr
+          : subItemsNameAr // ignore: cast_nullable_to_non_nullable
               as String?,
-      subItemValue: freezed == subItemValue
-          ? _value.subItemValue
-          : subItemValue // ignore: cast_nullable_to_non_nullable
+      subItemsPrice: freezed == subItemsPrice
+          ? _value.subItemsPrice
+          : subItemsPrice // ignore: cast_nullable_to_non_nullable
               as num?,
     ));
   }
@@ -357,20 +371,21 @@ class _$CartModelImpl implements _CartModel {
       @JsonKey(name: "cart_itemid") this.cartItemid,
       @JsonKey(name: "cart_item_note") this.cartItemNote,
       @JsonKey(name: "cart_orders") this.cartOrders,
-      @JsonKey(name: "cart_size_weight_id") this.cartSizeWeightId,
       @JsonKey(name: "cart_item_price") this.cartItemPrice,
-      @JsonKey(name: "cart_branch_id") this.cartBranchId,
-      @JsonKey(name: "Item_point_count") this.cartItemPoint,
       @JsonKey(name: "cart_item_count") this.cartItemCount,
+      @JsonKey(name: "Item_point_count") this.itemPointCount,
+      @JsonKey(name: "cart_branch_id") this.cartBranchId,
+      @JsonKey(name: "cart_sub_items_id") this.cartSubItemsId,
       @JsonKey(name: "items_id") this.itemsId,
       @JsonKey(name: "items_name") this.itemsName,
       @JsonKey(name: "items_name_ar") this.itemsNameAr,
       @JsonKey(name: "items_image") this.itemsImage,
       @JsonKey(name: "items_active") this.itemsActive,
-      @JsonKey(name: "weight_size_id") this.weightSizeId,
-      @JsonKey(name: "sub_item_name") this.subItemName,
-      @JsonKey(name: "sub_item_name_ar") this.subItemNameAr,
-      @JsonKey(name: "sub_item_value") this.subItemValue});
+      @JsonKey(name: "sub_item_id") this.subItemId,
+      @JsonKey(name: "item_id") this.itemId,
+      @JsonKey(name: "sub_items_name") this.subItemsName,
+      @JsonKey(name: "sub_items_name_ar") this.subItemsNameAr,
+      @JsonKey(name: "sub_items_price") this.subItemsPrice});
 
   factory _$CartModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CartModelImplFromJson(json);
@@ -391,20 +406,20 @@ class _$CartModelImpl implements _CartModel {
   @JsonKey(name: "cart_orders")
   final int? cartOrders;
   @override
-  @JsonKey(name: "cart_size_weight_id")
-  final int? cartSizeWeightId;
-  @override
   @JsonKey(name: "cart_item_price")
   final num? cartItemPrice;
+  @override
+  @JsonKey(name: "cart_item_count")
+  final int? cartItemCount;
+  @override
+  @JsonKey(name: "Item_point_count")
+  final num? itemPointCount;
   @override
   @JsonKey(name: "cart_branch_id")
   final int? cartBranchId;
   @override
-  @JsonKey(name: "Item_point_count")
-  final num? cartItemPoint;
-  @override
-  @JsonKey(name: "cart_item_count")
-  final int? cartItemCount;
+  @JsonKey(name: "cart_sub_items_id")
+  final int? cartSubItemsId;
   @override
   @JsonKey(name: "items_id")
   final int? itemsId;
@@ -421,21 +436,24 @@ class _$CartModelImpl implements _CartModel {
   @JsonKey(name: "items_active")
   final int? itemsActive;
   @override
-  @JsonKey(name: "weight_size_id")
-  final int? weightSizeId;
+  @JsonKey(name: "sub_item_id")
+  final int? subItemId;
   @override
-  @JsonKey(name: "sub_item_name")
-  final String? subItemName;
+  @JsonKey(name: "item_id")
+  final int? itemId;
   @override
-  @JsonKey(name: "sub_item_name_ar")
-  final String? subItemNameAr;
+  @JsonKey(name: "sub_items_name")
+  final String? subItemsName;
   @override
-  @JsonKey(name: "sub_item_value")
-  final num? subItemValue;
+  @JsonKey(name: "sub_items_name_ar")
+  final String? subItemsNameAr;
+  @override
+  @JsonKey(name: "sub_items_price")
+  final num? subItemsPrice;
 
   @override
   String toString() {
-    return 'CartModel(cartId: $cartId, cartUserid: $cartUserid, cartItemid: $cartItemid, cartItemNote: $cartItemNote, cartOrders: $cartOrders, cartSizeWeightId: $cartSizeWeightId, cartItemPrice: $cartItemPrice, cartBranchId: $cartBranchId, cartItemPoint: $cartItemPoint, cartItemCount: $cartItemCount, itemsId: $itemsId, itemsName: $itemsName, itemsNameAr: $itemsNameAr, itemsImage: $itemsImage, itemsActive: $itemsActive, weightSizeId: $weightSizeId, subItemName: $subItemName, subItemNameAr: $subItemNameAr, subItemValue: $subItemValue)';
+    return 'CartModel(cartId: $cartId, cartUserid: $cartUserid, cartItemid: $cartItemid, cartItemNote: $cartItemNote, cartOrders: $cartOrders, cartItemPrice: $cartItemPrice, cartItemCount: $cartItemCount, itemPointCount: $itemPointCount, cartBranchId: $cartBranchId, cartSubItemsId: $cartSubItemsId, itemsId: $itemsId, itemsName: $itemsName, itemsNameAr: $itemsNameAr, itemsImage: $itemsImage, itemsActive: $itemsActive, subItemId: $subItemId, itemId: $itemId, subItemsName: $subItemsName, subItemsNameAr: $subItemsNameAr, subItemsPrice: $subItemsPrice)';
   }
 
   @override
@@ -452,16 +470,16 @@ class _$CartModelImpl implements _CartModel {
                 other.cartItemNote == cartItemNote) &&
             (identical(other.cartOrders, cartOrders) ||
                 other.cartOrders == cartOrders) &&
-            (identical(other.cartSizeWeightId, cartSizeWeightId) ||
-                other.cartSizeWeightId == cartSizeWeightId) &&
             (identical(other.cartItemPrice, cartItemPrice) ||
                 other.cartItemPrice == cartItemPrice) &&
-            (identical(other.cartBranchId, cartBranchId) ||
-                other.cartBranchId == cartBranchId) &&
-            (identical(other.cartItemPoint, cartItemPoint) ||
-                other.cartItemPoint == cartItemPoint) &&
             (identical(other.cartItemCount, cartItemCount) ||
                 other.cartItemCount == cartItemCount) &&
+            (identical(other.itemPointCount, itemPointCount) ||
+                other.itemPointCount == itemPointCount) &&
+            (identical(other.cartBranchId, cartBranchId) ||
+                other.cartBranchId == cartBranchId) &&
+            (identical(other.cartSubItemsId, cartSubItemsId) ||
+                other.cartSubItemsId == cartSubItemsId) &&
             (identical(other.itemsId, itemsId) || other.itemsId == itemsId) &&
             (identical(other.itemsName, itemsName) ||
                 other.itemsName == itemsName) &&
@@ -471,14 +489,15 @@ class _$CartModelImpl implements _CartModel {
                 other.itemsImage == itemsImage) &&
             (identical(other.itemsActive, itemsActive) ||
                 other.itemsActive == itemsActive) &&
-            (identical(other.weightSizeId, weightSizeId) ||
-                other.weightSizeId == weightSizeId) &&
-            (identical(other.subItemName, subItemName) ||
-                other.subItemName == subItemName) &&
-            (identical(other.subItemNameAr, subItemNameAr) ||
-                other.subItemNameAr == subItemNameAr) &&
-            (identical(other.subItemValue, subItemValue) ||
-                other.subItemValue == subItemValue));
+            (identical(other.subItemId, subItemId) ||
+                other.subItemId == subItemId) &&
+            (identical(other.itemId, itemId) || other.itemId == itemId) &&
+            (identical(other.subItemsName, subItemsName) ||
+                other.subItemsName == subItemsName) &&
+            (identical(other.subItemsNameAr, subItemsNameAr) ||
+                other.subItemsNameAr == subItemsNameAr) &&
+            (identical(other.subItemsPrice, subItemsPrice) ||
+                other.subItemsPrice == subItemsPrice));
   }
 
   @JsonKey(ignore: true)
@@ -490,20 +509,21 @@ class _$CartModelImpl implements _CartModel {
         cartItemid,
         cartItemNote,
         cartOrders,
-        cartSizeWeightId,
         cartItemPrice,
-        cartBranchId,
-        cartItemPoint,
         cartItemCount,
+        itemPointCount,
+        cartBranchId,
+        cartSubItemsId,
         itemsId,
         itemsName,
         itemsNameAr,
         itemsImage,
         itemsActive,
-        weightSizeId,
-        subItemName,
-        subItemNameAr,
-        subItemValue
+        subItemId,
+        itemId,
+        subItemsName,
+        subItemsNameAr,
+        subItemsPrice
       ]);
 
   @JsonKey(ignore: true)
@@ -527,20 +547,21 @@ abstract class _CartModel implements CartModel {
           @JsonKey(name: "cart_itemid") final int? cartItemid,
           @JsonKey(name: "cart_item_note") final String? cartItemNote,
           @JsonKey(name: "cart_orders") final int? cartOrders,
-          @JsonKey(name: "cart_size_weight_id") final int? cartSizeWeightId,
           @JsonKey(name: "cart_item_price") final num? cartItemPrice,
-          @JsonKey(name: "cart_branch_id") final int? cartBranchId,
-          @JsonKey(name: "Item_point_count") final num? cartItemPoint,
           @JsonKey(name: "cart_item_count") final int? cartItemCount,
+          @JsonKey(name: "Item_point_count") final num? itemPointCount,
+          @JsonKey(name: "cart_branch_id") final int? cartBranchId,
+          @JsonKey(name: "cart_sub_items_id") final int? cartSubItemsId,
           @JsonKey(name: "items_id") final int? itemsId,
           @JsonKey(name: "items_name") final String? itemsName,
           @JsonKey(name: "items_name_ar") final String? itemsNameAr,
           @JsonKey(name: "items_image") final String? itemsImage,
           @JsonKey(name: "items_active") final int? itemsActive,
-          @JsonKey(name: "weight_size_id") final int? weightSizeId,
-          @JsonKey(name: "sub_item_name") final String? subItemName,
-          @JsonKey(name: "sub_item_name_ar") final String? subItemNameAr,
-          @JsonKey(name: "sub_item_value") final num? subItemValue}) =
+          @JsonKey(name: "sub_item_id") final int? subItemId,
+          @JsonKey(name: "item_id") final int? itemId,
+          @JsonKey(name: "sub_items_name") final String? subItemsName,
+          @JsonKey(name: "sub_items_name_ar") final String? subItemsNameAr,
+          @JsonKey(name: "sub_items_price") final num? subItemsPrice}) =
       _$CartModelImpl;
 
   factory _CartModel.fromJson(Map<String, dynamic> json) =
@@ -562,20 +583,20 @@ abstract class _CartModel implements CartModel {
   @JsonKey(name: "cart_orders")
   int? get cartOrders;
   @override
-  @JsonKey(name: "cart_size_weight_id")
-  int? get cartSizeWeightId;
-  @override
   @JsonKey(name: "cart_item_price")
   num? get cartItemPrice;
+  @override
+  @JsonKey(name: "cart_item_count")
+  int? get cartItemCount;
+  @override
+  @JsonKey(name: "Item_point_count")
+  num? get itemPointCount;
   @override
   @JsonKey(name: "cart_branch_id")
   int? get cartBranchId;
   @override
-  @JsonKey(name: "Item_point_count")
-  num? get cartItemPoint;
-  @override
-  @JsonKey(name: "cart_item_count")
-  int? get cartItemCount;
+  @JsonKey(name: "cart_sub_items_id")
+  int? get cartSubItemsId;
   @override
   @JsonKey(name: "items_id")
   int? get itemsId;
@@ -592,17 +613,20 @@ abstract class _CartModel implements CartModel {
   @JsonKey(name: "items_active")
   int? get itemsActive;
   @override
-  @JsonKey(name: "weight_size_id")
-  int? get weightSizeId;
+  @JsonKey(name: "sub_item_id")
+  int? get subItemId;
   @override
-  @JsonKey(name: "sub_item_name")
-  String? get subItemName;
+  @JsonKey(name: "item_id")
+  int? get itemId;
   @override
-  @JsonKey(name: "sub_item_name_ar")
-  String? get subItemNameAr;
+  @JsonKey(name: "sub_items_name")
+  String? get subItemsName;
   @override
-  @JsonKey(name: "sub_item_value")
-  num? get subItemValue;
+  @JsonKey(name: "sub_items_name_ar")
+  String? get subItemsNameAr;
+  @override
+  @JsonKey(name: "sub_items_price")
+  num? get subItemsPrice;
   @override
   @JsonKey(ignore: true)
   _$$CartModelImplCopyWith<_$CartModelImpl> get copyWith =>

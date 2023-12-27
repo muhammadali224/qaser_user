@@ -43,16 +43,29 @@ openLocationBottomSheet() {
                               SmartDialog.showLoading(
                                   msg: "calculateDelivery".tr);
                               await getDistance(
-                                lat2: controller.addressController
-                                    .data[controller.locationList].addressLat!,
-                                lon2: controller.addressController
-                                    .data[controller.locationList].addressLong!,
-                                lat1: selectedBranch.value.branchLat!,
-                                lon1: selectedBranch.value.branchLang!,
+                                destinationLatitude: controller
+                                    .addressController
+                                    .data[controller.locationList]
+                                    .addressLat!,
+                                destinationLongitude: controller
+                                    .addressController
+                                    .data[controller.locationList]
+                                    .addressLong!,
+                                startLatitude: selectedBranch.value.branchLat!,
+                                startLongitude:
+                                    selectedBranch.value.branchLang!,
                               );
-                              controller.distance = double.parse(dest!);
-                              await controller.calculateDeliveryCharge();
-                              SmartDialog.dismiss();
+                              if (selectedBranch.value.branchMaxZone! >
+                                  controller.distance) {
+                                controller.distance = double.parse(dest!);
+                                await controller.calculateDeliveryCharge();
+
+                                SmartDialog.dismiss();
+                              } else {
+                                SmartDialog.showNotify(
+                                    msg: "distanceError",
+                                    notifyType: NotifyType.error);
+                              }
                             },
                           ),
                         ),

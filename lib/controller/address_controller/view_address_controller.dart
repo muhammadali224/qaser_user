@@ -17,28 +17,36 @@ class ViewAddressController extends GetxController {
   Rx<UserModel> user = Get.find<UserController>().user.obs;
 
   getData() async {
-    data.clear();
-    statusRequest = StatusRequest.loading;
-    var response = await addressData.getAddress(user.value.usersId!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        List responseData = response['data'];
-        data.addAll(responseData.map((e) => AddressModel.fromJson(e)));
-        if (data.isEmpty) {
+    try {
+      data.clear();
+      statusRequest = StatusRequest.loading;
+      var response = await addressData.getAddress(user.value.usersId!);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          List responseData = response['data'];
+          data.addAll(responseData.map((e) => AddressModel.fromJson(e)));
+          if (data.isEmpty) {
+            statusRequest = StatusRequest.failed;
+            update();
+          }
+        } else {
           statusRequest = StatusRequest.failed;
-          update();
         }
-      } else {
-        statusRequest = StatusRequest.failed;
       }
+    } catch (e) {
+      throw Exception("Error Get View Address : $e");
     }
     update();
   }
 
   deleteAddress(int addressId) {
-    addressData.deleteAddress(addressId);
-    data.removeWhere((element) => element.addressId == addressId);
+    try {
+      addressData.deleteAddress(addressId);
+      data.removeWhere((element) => element.addressId == addressId);
+    } catch (e) {
+      throw Exception("Error Delete Address : $e");
+    }
     update();
   }
 

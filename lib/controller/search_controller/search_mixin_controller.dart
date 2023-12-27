@@ -16,34 +16,43 @@ class SearchMixController extends GetxController {
   HomeData homeData = HomeData(Get.find());
 
   onSearchItems() {
-    if (search.text.isNotEmpty) {
-      isSearch = true;
-      getSearchResult();
-      update();
-    } else {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(
-        SnackBar(
-          content: Text("searchEmpty".tr),
-          backgroundColor: Colors.red,
-        ),
-      );
+    try {
+      if (search.text.isNotEmpty) {
+        isSearch = true;
+        getSearchResult();
+        update();
+      } else {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Text("searchEmpty".tr),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      throw Exception("Error On Search Item : $e");
     }
   }
 
   getSearchResult() async {
-    statusRequest = StatusRequest.searching;
-    var response = await homeData.searchItems(search.text, selectedValue);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        listSearchResult.clear();
-        List responseData = response['data'];
-        listSearchResult.addAll(responseData.map((e) => ItemModel.fromJson(e)));
-      } else {
-        //statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.searching;
+      var response = await homeData.searchItems(search.text, selectedValue);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          listSearchResult.clear();
+          List responseData = response['data'];
+          listSearchResult
+              .addAll(responseData.map((e) => ItemModel.fromJson(e)));
+        } else {
+          //statusRequest = StatusRequest.failed;
+        }
       }
+      goToSearchResult(listSearchResult);
+    } catch (e) {
+      throw Exception("Error Get Search Items : $e");
     }
-    goToSearchResult(listSearchResult);
     update();
   }
 

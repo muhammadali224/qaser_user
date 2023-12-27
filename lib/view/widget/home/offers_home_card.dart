@@ -53,7 +53,7 @@ class OffersHomeCard extends GetView<HomeControllerImp> {
             top: 0,
             left: 1,
             child: Badge(
-              showBadge: itemsModel.itemsDiscount == 0 ? false : true,
+              showBadge: true,
               badgeContent: Text(
                 "${itemsModel.itemsDiscount}%",
                 style: TextStyle(color: AppColor.backgroundColor, fontSize: 20),

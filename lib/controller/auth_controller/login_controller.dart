@@ -83,7 +83,7 @@ class LoginControllerImp extends LoginController {
         update();
       }
     } catch (e) {
-      print(e.toString());
+      throw Exception("Error Login : $e");
     }
   }
 

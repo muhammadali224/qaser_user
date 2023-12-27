@@ -34,9 +34,8 @@ class OrderDetailsController extends GetxController {
     completerController = Completer<GoogleMapController>();
     if (ordersModel.ordersType == 1) {
       kGooglePlex = CameraPosition(
-        target: LatLng(ordersModel.addressLat!, ordersModel.addressLong!),
-        zoom: 17,
-      );
+          target: LatLng(ordersModel.addressLat!, ordersModel.addressLong!),
+          zoom: 17);
       markers.add(Marker(
         markerId: const MarkerId("1"),
         position: LatLng(
@@ -48,50 +47,62 @@ class OrderDetailsController extends GetxController {
   }
 
   orderDelete() async {
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await ordersData.ordersDelete(ordersModel.ordersId!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        Get.back();
-        ordersController.refreshOrders();
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await ordersData.ordersDelete(ordersModel.ordersId!);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          Get.back();
+          ordersController.refreshOrders();
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Order Delete : $e");
     }
     update();
   }
 
   orderCancel() async {
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await ordersData.ordersCancel(ordersModel.ordersId!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        Get.back();
-        ordersController.refreshOrders();
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await ordersData.ordersCancel(ordersModel.ordersId!);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          Get.back();
+          ordersController.refreshOrders();
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Order Cancel : $e");
     }
     update();
   }
 
   getOrderDetails() async {
-    data.clear();
-    statusRequest = StatusRequest.loading;
-    update();
-    var response = await ordersData.ordersDetails(ordersModel.ordersId!);
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == 'success') {
-        List responseData = response['data'];
-        data.addAll(responseData.map((e) => OrderDetailsModel.fromJson(e)));
-      } else {
-        statusRequest = StatusRequest.failed;
+    try {
+      data.clear();
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await ordersData.ordersDetails(ordersModel.ordersId!);
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == 'success') {
+          List responseData = response['data'];
+          data.addAll(responseData.map((e) => OrderDetailsModel.fromJson(e)));
+        } else {
+          statusRequest = StatusRequest.failed;
+        }
       }
+    } catch (e) {
+      throw Exception("Error Get Order Details : $e");
     }
     update();
   }
