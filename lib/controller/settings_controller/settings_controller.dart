@@ -25,6 +25,10 @@ class SettingsController extends GetxController {
     Get.toNamed(AppRoutes.myFavorite);
   }
 
+  goToUserPoint() {
+    Get.toNamed(AppRoutes.userPoint);
+  }
+
   goToAddressView() {
     if (user.value.usersIsAnonymous == 0) {
       Get.toNamed(AppRoutes.addressView);

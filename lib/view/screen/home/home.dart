@@ -7,6 +7,7 @@ import '../../../controller/home_controller/home_controller.dart';
 import '../../../core/class/handling_data_view.dart';
 import '../../widget/home/action_appbar_widget.dart';
 import '../../widget/home/branch_dropdown.dart';
+import '../../widget/home/chips_section.dart';
 import '../../widget/home/custom_home_title.dart';
 import '../../widget/home/discount_card.dart';
 import '../../widget/home/expandable_floating.dart';
@@ -64,6 +65,7 @@ class Home extends StatelessWidget {
                           // onChanged: (val) => controller.checkSearch(val),
                         ),
                         const SwiperCard(),
+                        ChipsSection(),
                         const CustomHomeTitle(title: 'categories'),
                         const HomeCategoriesList(),
                         if (controller.itemsOfferList.isNotEmpty)

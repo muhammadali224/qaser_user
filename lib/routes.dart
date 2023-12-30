@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:qaser_user/view/screen/auth/sms/send_sms.dart';
 import 'package:qaser_user/view/screen/auth/sms/verify_sms.dart';
 import 'package:qaser_user/view/screen/setting/setting_screen/info_screen.dart';
+import 'package:qaser_user/view/screen/user_point/user_point.dart';
 
 import 'binding/initial_binding.dart';
 import 'core/constant/routes.dart';
@@ -116,4 +117,5 @@ List<GetPage<dynamic>>? routes = [
       transition: Transition.cupertino),
   GetPage(name: AppRoutes.searchResult, page: () => const SearchListResult()),
   GetPage(name: AppRoutes.infoScreen, page: () => const InfoScreen()),
+  GetPage(name: AppRoutes.userPoint, page: () => const UserPoint()),
 ];

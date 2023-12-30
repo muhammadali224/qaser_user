@@ -12,8 +12,6 @@ class HeaderCardSetting extends StatelessWidget {
   final VoidCallback? onTap;
   final String? userName;
   final String? imageUrl;
-
-  // final String? userEmail;
   final Widget? userMoreInfo;
 
   const HeaderCardSetting({

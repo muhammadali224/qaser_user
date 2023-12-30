@@ -36,4 +36,5 @@ class AppRoutes {
   static const String appSettings = "/appSettings";
   static const String searchResult = "/searchResult";
   static const String infoScreen = "/infoScreen";
+  static const String userPoint = "/userPoint";
 }

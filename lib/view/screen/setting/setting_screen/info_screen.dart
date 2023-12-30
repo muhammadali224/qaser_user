@@ -8,8 +8,9 @@ import '../../../widget/back_appbar.dart';
 class InfoScreen extends StatelessWidget {
   const InfoScreen({super.key});
 
-  Widget _infoTile(String title, String subtitle) {
+  Widget _infoTile(String title, String subtitle, {void Function()? onTap}) {
     return ListTile(
+      onTap: onTap,
       title: Text(title),
       subtitle: Text(subtitle.isEmpty ? 'Not set' : subtitle),
     );
@@ -40,12 +41,10 @@ class InfoScreen extends StatelessWidget {
             ),
             _infoTile(
                 'program_by'.tr, "MHJ Code  For Mobile Application Solution"),
+            _infoTile('phone'.tr, "+962787860080",
+                onTap: controller.launchCall),
             _infoTile('App_name'.tr, controller.packageInfo.appName),
             _infoTile('App_version'.tr, controller.packageInfo.version),
-            _infoTile(
-              'Installer_store'.tr,
-              controller.packageInfo.installerStore ?? 'not available',
-            ),
           ],
         );
       }),

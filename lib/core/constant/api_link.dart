@@ -2,6 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppLink {
   AppLink._();
+
   static String server = dotenv.env['SERVER']!;
   static String test = "$server/test.php";
 
@@ -92,4 +93,7 @@ class AppLink {
 //============================ Branches ==============================//
   static String changeUserBranch = '$server/branches/change_user_branch.php';
   static String viewBranches = '$server/branches/view.php';
+
+//============================ User Point ==============================//
+  static String getPoint = '$server/user_point/get_point.php';
 }

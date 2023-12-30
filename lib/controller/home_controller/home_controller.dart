@@ -32,6 +32,8 @@ abstract class HomeController extends SearchMixController {
 
   void goToNotifications();
 
+  void goToOffers();
+
   @override
   getSearchResult();
 
@@ -215,6 +217,14 @@ class HomeControllerImp extends HomeController {
 
   goToOffers() {
     Get.toNamed(AppRoutes.offers);
+  }
+
+  goToFavorite() {
+    Get.toNamed(AppRoutes.myFavorite);
+  }
+
+  goToMyPoint() {
+    Get.toNamed(AppRoutes.userPoint);
   }
 
   @override
