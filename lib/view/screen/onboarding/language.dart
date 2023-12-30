@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/constant/routes.dart';
-import '../../core/localization/change_local.dart';
-import '../widget/auth/logo.dart';
-import '../widget/language/languages_button.dart';
+import '../../../core/constant/routes.dart';
+import '../../../core/localization/change_local.dart';
+import '../../widget/auth/logo.dart';
+import '../../widget/language/languages_button.dart';
 
 class LanguageScreen extends GetView<LocalController> {
   const LanguageScreen({Key? key}) : super(key: key);

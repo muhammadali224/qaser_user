@@ -24,6 +24,7 @@ class SubItemModel with _$SubItemModel {
     @JsonKey(name: "sub_items_name") String? subItemsName,
     @JsonKey(name: "sub_items_name_ar") String? subItemsNameAr,
     @JsonKey(name: "sub_items_price") num? subItemsPrice,
+    @JsonKey(name: "sub_items_discount") num? subItemsDiscount,
   }) = _SubItemModel;
 
   factory SubItemModel.fromJson(Map<String, dynamic> json) =>

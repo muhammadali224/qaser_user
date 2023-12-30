@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/favorite_controller/my_favorite_controller.dart';
-import '../../controller/offers_controller/offers_controller.dart';
-import '../../core/class/handling_data_view.dart';
-import '../widget/back_appbar.dart';
-import '../widget/items/custom_list_items.dart';
+import '../../../controller/favorite_controller/my_favorite_controller.dart';
+import '../../../controller/offers_controller/offers_controller.dart';
+import '../../../core/class/handling_data_view.dart';
+import '../../widget/back_appbar.dart';
+import '../../widget/items/custom_list_items.dart';
 
 class Offers extends StatelessWidget {
   const Offers({Key? key}) : super(key: key);

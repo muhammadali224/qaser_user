@@ -116,8 +116,19 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   }
 
   setSelectedWeightAndSize(SubItemModel subItemsModel) {
-    selectedSubItems = subItemsModel;
-    itemPrice = subItemsModel.subItemsPrice!.toDouble().obs;
+    if (selectedSubItems == subItemsModel) {
+      selectedSubItems = null;
+      itemPrice = itemsModel.itemDiscounntPrice!.toDouble().obs;
+    } else {
+      selectedSubItems = subItemsModel;
+      itemPrice = subItemsModel.subItemsDiscount! > 0
+          ? (subItemsModel.subItemsPrice! -
+                  (subItemsModel.subItemsPrice! *
+                      (subItemsModel.subItemsDiscount! / 100)))
+              .toDouble()
+              .obs
+          : subItemsModel.subItemsPrice!.toDouble().obs;
+    }
     update();
   }
 }

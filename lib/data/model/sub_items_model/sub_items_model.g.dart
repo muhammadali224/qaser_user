@@ -13,6 +13,7 @@ _$SubItemModelImpl _$$SubItemModelImplFromJson(Map<String, dynamic> json) =>
       subItemsName: json['sub_items_name'] as String?,
       subItemsNameAr: json['sub_items_name_ar'] as String?,
       subItemsPrice: json['sub_items_price'] as num?,
+      subItemsDiscount: json['sub_items_discount'] as num?,
     );
 
 Map<String, dynamic> _$$SubItemModelImplToJson(_$SubItemModelImpl instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$$SubItemModelImplToJson(_$SubItemModelImpl instance) =>
       'sub_items_name': instance.subItemsName,
       'sub_items_name_ar': instance.subItemsNameAr,
       'sub_items_price': instance.subItemsPrice,
+      'sub_items_discount': instance.subItemsDiscount,
     };

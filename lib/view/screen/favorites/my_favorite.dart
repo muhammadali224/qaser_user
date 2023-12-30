@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/favorite_controller/my_favorite_controller.dart';
-import '../../core/class/handling_data_view.dart';
-import '../widget/back_appbar.dart';
-import '../widget/my_favorite/custom_list_favorite_items.dart';
+import '../../../controller/favorite_controller/my_favorite_controller.dart';
+import '../../../core/class/handling_data_view.dart';
+import '../../widget/back_appbar.dart';
+import '../../widget/my_favorite/custom_list_favorite_items.dart';
 
 class MyFavorite extends StatelessWidget {
   const MyFavorite({super.key});

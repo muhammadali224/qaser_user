@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
 
-import '../../controller/favorite_controller/my_favorite_controller.dart';
-import '../../controller/items_controller/items_controller.dart';
-import '../../core/class/handling_data_view.dart';
-import '../widget/back_appbar.dart';
-import '../widget/items/custom_list_items.dart';
-import '../widget/items/list_items_categories.dart';
+import '../../../controller/favorite_controller/my_favorite_controller.dart';
+import '../../../controller/items_controller/items_controller.dart';
+import '../../../core/class/handling_data_view.dart';
+import '../../widget/back_appbar.dart';
+import '../../widget/items/custom_list_items.dart';
+import '../../widget/items/list_items_categories.dart';
 
 class Items extends StatelessWidget {
   const Items({super.key});

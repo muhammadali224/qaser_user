@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 
-import '../../controller/notification_controller/notifications_controller.dart';
-import '../../core/class/handling_data_view.dart';
-import '../widget/back_appbar.dart';
+import '../../../controller/notification_controller/notifications_controller.dart';
+import '../../../core/class/handling_data_view.dart';
+import '../../widget/back_appbar.dart';
 
 class MyNotifications extends StatelessWidget {
   const MyNotifications({Key? key}) : super(key: key);
