@@ -16,6 +16,7 @@ import '../../widget/home/leading_appbar.dart';
 import '../../widget/home/list_home_categories.dart';
 import '../../widget/home/list_home_items.dart';
 import '../../widget/home/list_home_top_selling.dart';
+import '../../widget/home/timer_prize.dart';
 import '../../widget/login_container.dart';
 import '../../widget/search_form_field.dart';
 
@@ -65,6 +66,7 @@ class Home extends StatelessWidget {
                           // onChanged: (val) => controller.checkSearch(val),
                         ),
                         const SwiperCard(),
+                        TimerPrize(),
                         ChipsSection(),
                         const CustomHomeTitle(title: 'categories'),
                         const HomeCategoriesList(),

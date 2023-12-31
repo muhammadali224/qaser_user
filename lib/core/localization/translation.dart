@@ -271,6 +271,8 @@ class MyTranslation extends Translations {
           "distanceError": "العنوان الذي اخترته ليس داخل نطاق التوصيل",
           "expired": "منتهي الصلاحية",
           "rewards": "المكافئات",
+          "prizeAfter": "جائزتك بعد",
+          "getPrize": "أحصل على جائزتك!",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -541,6 +543,8 @@ class MyTranslation extends Translations {
           "distanceError": "Your Address is not in the Range",
           "expired": "Expired",
           "rewards": "Rewards",
+          "prizeAfter": "Your Prize After",
+          "getPrize": "Get Your Prize!",
         },
       };
 }

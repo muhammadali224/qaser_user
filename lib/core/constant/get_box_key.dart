@@ -8,4 +8,7 @@ class GetBoxKey {
   static const String step = "step";
   static const String switchValueNotification = "switchVal";
   static const String user = "user";
+  static const String lastPressedTime = "lastPressedTime";
+  static const String secondsRemaining = "secondsRemaining";
+  static const String prizeTimestamp = "prizeTimestamp";
 }

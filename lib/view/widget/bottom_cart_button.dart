@@ -5,6 +5,7 @@ class ButtomNavigatButton extends StatelessWidget {
   final void Function() onPressed;
   final String title;
   final Color color;
+  final Color? iconColor;
   final IconData icon;
 
   const ButtomNavigatButton(
@@ -12,7 +13,8 @@ class ButtomNavigatButton extends StatelessWidget {
       required this.onPressed,
       required this.title,
       required this.color,
-      required this.icon});
+      required this.icon,
+      this.iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,10 @@ class ButtomNavigatButton extends StatelessWidget {
                   .copyWith(fontWeight: FontWeight.w500),
             ),
             const SizedBox(width: 10),
-            Icon(icon)
+            Icon(
+              icon,
+              color: iconColor,
+            )
           ],
         ),
       ),
