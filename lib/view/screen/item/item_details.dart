@@ -48,12 +48,16 @@ class ItemDetails extends StatelessWidget {
                             child: CounterSection(
                                 itemsModel: controller.itemsModel)),
                         SubItemsContainer(),
-                        SectionTitle(title: "description"),
-                        Card(
-                            child: ItemsDetailsDesc(
-                          title: controller.itemsModel.itemsDesc!,
-                          titleAr: controller.itemsModel.itemsDescAr!,
-                        )),
+                        if (controller.itemsModel.itemsDesc != "" ||
+                            controller.itemsModel.itemsDesc != "")
+                          SectionTitle(title: "description"),
+                        if (controller.itemsModel.itemsDesc != "" ||
+                            controller.itemsModel.itemsDesc != "")
+                          Card(
+                              child: ItemsDetailsDesc(
+                            title: controller.itemsModel.itemsDesc!,
+                            titleAr: controller.itemsModel.itemsDescAr!,
+                          )),
                       ],
                     ),
                   ),

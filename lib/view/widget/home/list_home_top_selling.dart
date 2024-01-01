@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../data/model/items_model/items_model.dart';
-import 'list_home_items.dart';
+import '../items/custom_list_items.dart';
 
 class ListTopSellingHome extends GetView<HomeControllerImp> {
   const ListTopSellingHome({required this.itemList, super.key});
+
   final List<ItemModel> itemList;
 
   @override
@@ -23,7 +24,10 @@ class ListTopSellingHome extends GetView<HomeControllerImp> {
             mainAxisSpacing: 10,
             crossAxisSpacing: 10),
         itemBuilder: (context, i) {
-          return Items(itemsModel: itemList[i]);
+          return CustomListItems(
+            itemsModel: itemList[i],
+            onTap: () => controller.goToDetails(itemList[i]),
+          );
         },
       ),
     );

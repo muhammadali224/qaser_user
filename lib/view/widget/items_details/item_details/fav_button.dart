@@ -14,23 +14,34 @@ class FavoriteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(MyFavoriteController());
     return GetBuilder<MyFavoriteController>(
-      builder: (controller) => IconButton(
-          onPressed: () {
-            if (controller.isFavorite[itemsModel.itemsId] == 1) {
-              controller.setFavorite(itemsModel.itemsId!, 0);
-              controller.removeFavorite(itemsModel.itemsId!);
-            } else {
-              controller.setFavorite(itemsModel.itemsId!, 1);
-              controller.addFavorite(itemsModel.itemsId!);
-            }
-          },
-          icon: Icon(
-            controller.isFavorite[itemsModel.itemsId] == 1
-                ? Icons.favorite
-                : Icons.favorite_border_outlined,
-            color: AppColor.red,
-            size: size,
-          )),
+      builder: (controller) => Container(
+        margin: EdgeInsets.all(5),
+        height: 40,
+        width: 40,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.7),
+          borderRadius: BorderRadius.circular(100),
+        ),
+        child: Center(
+          child: IconButton(
+              onPressed: () {
+                if (controller.isFavorite[itemsModel.itemsId] == 1) {
+                  controller.setFavorite(itemsModel.itemsId!, 0);
+                  controller.removeFavorite(itemsModel.itemsId!);
+                } else {
+                  controller.setFavorite(itemsModel.itemsId!, 1);
+                  controller.addFavorite(itemsModel.itemsId!);
+                }
+              },
+              icon: Icon(
+                controller.isFavorite[itemsModel.itemsId] == 1
+                    ? Icons.favorite
+                    : Icons.favorite_border_outlined,
+                color: AppColor.red,
+                size: size,
+              )),
+        ),
+      ),
     );
   }
 }

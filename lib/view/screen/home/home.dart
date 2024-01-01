@@ -14,7 +14,7 @@ import '../../widget/home/expandable_floating.dart';
 import '../../widget/home/header_hello_text.dart';
 import '../../widget/home/leading_appbar.dart';
 import '../../widget/home/list_home_categories.dart';
-import '../../widget/home/list_home_items.dart';
+import '../../widget/home/list_home_offers_items.dart';
 import '../../widget/home/list_home_top_selling.dart';
 import '../../widget/home/timer_prize.dart';
 import '../../widget/login_container.dart';

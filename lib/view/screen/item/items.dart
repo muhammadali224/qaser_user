@@ -54,7 +54,10 @@ class Items extends StatelessWidget {
                               .isFavorite[controller.items[index].itemsId] =
                           controller.items[index].isFavorite;
                       return CustomListItems(
-                          itemsModel: controller.items[index]);
+                        itemsModel: controller.items[index],
+                        onTap: () =>
+                            controller.goToDetails(controller.items[index]),
+                      );
                     }),
               )
             ],

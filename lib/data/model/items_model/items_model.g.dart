@@ -20,6 +20,7 @@ _$ItemModelImpl _$$ItemModelImplFromJson(Map<String, dynamic> json) =>
       itemsPrice: json['items_price'] as num?,
       itemsDiscount: json['items_discount'] as num?,
       itemsPointPerVal: json['items_point_per_val'] as num?,
+      itemsMaxCount: json['items_max_count'] as int?,
       itemsData: json['items_data'] == null
           ? null
           : DateTime.parse(json['items_data'] as String),
@@ -51,6 +52,7 @@ Map<String, dynamic> _$$ItemModelImplToJson(_$ItemModelImpl instance) =>
       'items_price': instance.itemsPrice,
       'items_discount': instance.itemsDiscount,
       'items_point_per_val': instance.itemsPointPerVal,
+      'items_max_count': instance.itemsMaxCount,
       'items_data': instance.itemsData?.toIso8601String(),
       'items_cat': instance.itemsCat,
       'branch_id': instance.branchId,

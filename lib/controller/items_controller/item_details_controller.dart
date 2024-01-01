@@ -62,11 +62,15 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
 
   @override
   add() {
-    if (itemsCount.value < itemsModel.itemsCount!) {
-      itemsCount.value++;
-      totalPrice();
+    if (itemsCount.value < itemsModel.itemsMaxCount!) {
+      if (itemsCount.value < itemsModel.itemsCount!) {
+        itemsCount.value++;
+        totalPrice();
+      } else {
+        SmartDialog.showToast("itemCountLimit".tr);
+      }
     } else {
-      SmartDialog.showToast("itemCountLimit".tr);
+      SmartDialog.showToast("itemMaxCountLimit".tr);
     }
   }
 

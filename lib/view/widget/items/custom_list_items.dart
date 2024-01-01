@@ -1,10 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart' hide Badge;
-import 'package:get/get.dart';
 import 'package:string_capitalize/string_capitalize.dart';
 
-import '../../../controller/items_controller/items_controller.dart';
 import '../../../core/constant/api_link.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
@@ -12,15 +10,17 @@ import '../../../data/model/items_model/items_model.dart';
 import '../cached_network.dart';
 import '../items_details/item_details/fav_button.dart';
 
-class CustomListItems extends GetView<ItemsControllerImp> {
+class CustomListItems extends StatelessWidget {
   final ItemModel itemsModel;
+  final void Function() onTap;
 
-  const CustomListItems({super.key, required this.itemsModel});
+  const CustomListItems(
+      {super.key, required this.itemsModel, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => controller.goToDetails(itemsModel),
+      onTap: onTap,
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 10,
@@ -29,7 +29,6 @@ class CustomListItems extends GetView<ItemsControllerImp> {
         child: Column(
           children: [
             Expanded(
-              flex: 2,
               child: Container(
                 width: double.infinity,
                 color: Colors.white,
@@ -49,58 +48,40 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                             )),
                           ),
                         ),
-                        Badge(
-                          showBadge:
-                              itemsModel.itemsDiscount == 0 ? false : true,
-                          badgeContent: Text(
-                            "${itemsModel.itemsDiscount}%",
-                            style: TextStyle(
-                                color: AppColor.backgroundColor, fontSize: 20),
-                          ),
-                          badgeStyle: const BadgeStyle(
-                            padding: EdgeInsets.all(5),
-                            shape: BadgeShape.instagram,
-                            elevation: 5,
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Badge(
+                            showBadge:
+                                itemsModel.itemsDiscount == 0 ? false : true,
+                            badgeContent: Text("${itemsModel.itemsDiscount}%",
+                                style: TextStyle(
+                                    color: AppColor.backgroundColor,
+                                    fontSize: 20)),
+                            badgeStyle: const BadgeStyle(
+                              padding: EdgeInsets.all(5),
+                              shape: BadgeShape.instagram,
+                              elevation: 5,
+                            ),
                           ),
                         ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: FavoriteButton(itemsModel: itemsModel),
+                        )
                       ],
                     ),
                   ),
                 ),
               ),
             ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: AutoSizeText(
-                        "${translateDatabase(itemsModel.itemsNameAr!, itemsModel.itemsName!.capitalizeEach())}",
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("${itemsModel.itemsPrice} ${'jd'.tr}",
-                              style: TextStyle(
-                                  color: AppColor.marron,
-                                  fontWeight: FontWeight.bold)),
-                          FavoriteButton(itemsModel: itemsModel)
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
+              child: AutoSizeText(
+                "${translateDatabase(itemsModel.itemsNameAr!, itemsModel.itemsName!.capitalizeEach())}",
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 20),
               ),
             )
           ],

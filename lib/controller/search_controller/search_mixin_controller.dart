@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qaser_user/data/shared/branches.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/items_model/items_model.dart';
+import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/home_data/home_data.dart';
+import '../user_controller/user_controller.dart';
 
 class SearchMixController extends GetxController {
   TextEditingController search = TextEditingController();
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
+
   bool isSearch = false;
-  int selectedValue = 1;
+  int selectedValue = 0;
   List<ItemModel> listSearchResult = [];
   StatusRequest statusRequest = StatusRequest.loading;
   HomeData homeData = HomeData(Get.find());
@@ -37,7 +42,8 @@ class SearchMixController extends GetxController {
   getSearchResult() async {
     try {
       statusRequest = StatusRequest.searching;
-      var response = await homeData.searchItems(search.text, selectedValue);
+      var response = await homeData.searchItems(search.text.trim(),
+          selectedBranch.value.branchId!, user.value.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
@@ -45,8 +51,6 @@ class SearchMixController extends GetxController {
           List responseData = response['data'];
           listSearchResult
               .addAll(responseData.map((e) => ItemModel.fromJson(e)));
-        } else {
-          //statusRequest = StatusRequest.failed;
         }
       }
       goToSearchResult(listSearchResult);

@@ -44,6 +44,8 @@ mixin _$ItemModel {
   num? get itemsDiscount => throw _privateConstructorUsedError;
   @JsonKey(name: "items_point_per_val")
   num? get itemsPointPerVal => throw _privateConstructorUsedError;
+  @JsonKey(name: "items_max_count")
+  int? get itemsMaxCount => throw _privateConstructorUsedError;
   @JsonKey(name: "items_data")
   DateTime? get itemsData => throw _privateConstructorUsedError;
   @JsonKey(name: "items_cat")
@@ -93,6 +95,7 @@ abstract class $ItemModelCopyWith<$Res> {
       @JsonKey(name: "items_price") num? itemsPrice,
       @JsonKey(name: "items_discount") num? itemsDiscount,
       @JsonKey(name: "items_point_per_val") num? itemsPointPerVal,
+      @JsonKey(name: "items_max_count") int? itemsMaxCount,
       @JsonKey(name: "items_data") DateTime? itemsData,
       @JsonKey(name: "items_cat") int? itemsCat,
       @JsonKey(name: "branch_id") int? branchId,
@@ -132,6 +135,7 @@ class _$ItemModelCopyWithImpl<$Res, $Val extends ItemModel>
     Object? itemsPrice = freezed,
     Object? itemsDiscount = freezed,
     Object? itemsPointPerVal = freezed,
+    Object? itemsMaxCount = freezed,
     Object? itemsData = freezed,
     Object? itemsCat = freezed,
     Object? branchId = freezed,
@@ -194,6 +198,10 @@ class _$ItemModelCopyWithImpl<$Res, $Val extends ItemModel>
           ? _value.itemsPointPerVal
           : itemsPointPerVal // ignore: cast_nullable_to_non_nullable
               as num?,
+      itemsMaxCount: freezed == itemsMaxCount
+          ? _value.itemsMaxCount
+          : itemsMaxCount // ignore: cast_nullable_to_non_nullable
+              as int?,
       itemsData: freezed == itemsData
           ? _value.itemsData
           : itemsData // ignore: cast_nullable_to_non_nullable
@@ -267,6 +275,7 @@ abstract class _$$ItemModelImplCopyWith<$Res>
       @JsonKey(name: "items_price") num? itemsPrice,
       @JsonKey(name: "items_discount") num? itemsDiscount,
       @JsonKey(name: "items_point_per_val") num? itemsPointPerVal,
+      @JsonKey(name: "items_max_count") int? itemsMaxCount,
       @JsonKey(name: "items_data") DateTime? itemsData,
       @JsonKey(name: "items_cat") int? itemsCat,
       @JsonKey(name: "branch_id") int? branchId,
@@ -304,6 +313,7 @@ class __$$ItemModelImplCopyWithImpl<$Res>
     Object? itemsPrice = freezed,
     Object? itemsDiscount = freezed,
     Object? itemsPointPerVal = freezed,
+    Object? itemsMaxCount = freezed,
     Object? itemsData = freezed,
     Object? itemsCat = freezed,
     Object? branchId = freezed,
@@ -366,6 +376,10 @@ class __$$ItemModelImplCopyWithImpl<$Res>
           ? _value.itemsPointPerVal
           : itemsPointPerVal // ignore: cast_nullable_to_non_nullable
               as num?,
+      itemsMaxCount: freezed == itemsMaxCount
+          ? _value.itemsMaxCount
+          : itemsMaxCount // ignore: cast_nullable_to_non_nullable
+              as int?,
       itemsData: freezed == itemsData
           ? _value.itemsData
           : itemsData // ignore: cast_nullable_to_non_nullable
@@ -434,6 +448,7 @@ class _$ItemModelImpl implements _ItemModel {
       @JsonKey(name: "items_price") this.itemsPrice,
       @JsonKey(name: "items_discount") this.itemsDiscount,
       @JsonKey(name: "items_point_per_val") this.itemsPointPerVal,
+      @JsonKey(name: "items_max_count") this.itemsMaxCount,
       @JsonKey(name: "items_data") this.itemsData,
       @JsonKey(name: "items_cat") this.itemsCat,
       @JsonKey(name: "branch_id") this.branchId,
@@ -488,6 +503,9 @@ class _$ItemModelImpl implements _ItemModel {
   @JsonKey(name: "items_point_per_val")
   final num? itemsPointPerVal;
   @override
+  @JsonKey(name: "items_max_count")
+  final int? itemsMaxCount;
+  @override
   @JsonKey(name: "items_data")
   final DateTime? itemsData;
   @override
@@ -534,7 +552,7 @@ class _$ItemModelImpl implements _ItemModel {
 
   @override
   String toString() {
-    return 'ItemModel(itemsId: $itemsId, itemsName: $itemsName, itemsNameAr: $itemsNameAr, itemsDesc: $itemsDesc, itemsDescAr: $itemsDescAr, itemsImage: $itemsImage, itemsGroup: $itemsGroup, itemsCount: $itemsCount, itemsActive: $itemsActive, itemsPrice: $itemsPrice, itemsDiscount: $itemsDiscount, itemsPointPerVal: $itemsPointPerVal, itemsData: $itemsData, itemsCat: $itemsCat, branchId: $branchId, categoriesId: $categoriesId, categoriesName: $categoriesName, categoriesNameAr: $categoriesNameAr, categoriesImage: $categoriesImage, itemDiscounntPrice: $itemDiscounntPrice, isFavorite: $isFavorite, images: $images, itemCount: $itemCount, selectedSubItemsId: $selectedSubItemsId)';
+    return 'ItemModel(itemsId: $itemsId, itemsName: $itemsName, itemsNameAr: $itemsNameAr, itemsDesc: $itemsDesc, itemsDescAr: $itemsDescAr, itemsImage: $itemsImage, itemsGroup: $itemsGroup, itemsCount: $itemsCount, itemsActive: $itemsActive, itemsPrice: $itemsPrice, itemsDiscount: $itemsDiscount, itemsPointPerVal: $itemsPointPerVal, itemsMaxCount: $itemsMaxCount, itemsData: $itemsData, itemsCat: $itemsCat, branchId: $branchId, categoriesId: $categoriesId, categoriesName: $categoriesName, categoriesNameAr: $categoriesNameAr, categoriesImage: $categoriesImage, itemDiscounntPrice: $itemDiscounntPrice, isFavorite: $isFavorite, images: $images, itemCount: $itemCount, selectedSubItemsId: $selectedSubItemsId)';
   }
 
   @override
@@ -565,6 +583,8 @@ class _$ItemModelImpl implements _ItemModel {
                 other.itemsDiscount == itemsDiscount) &&
             (identical(other.itemsPointPerVal, itemsPointPerVal) ||
                 other.itemsPointPerVal == itemsPointPerVal) &&
+            (identical(other.itemsMaxCount, itemsMaxCount) ||
+                other.itemsMaxCount == itemsMaxCount) &&
             (identical(other.itemsData, itemsData) ||
                 other.itemsData == itemsData) &&
             (identical(other.itemsCat, itemsCat) ||
@@ -606,6 +626,7 @@ class _$ItemModelImpl implements _ItemModel {
         itemsPrice,
         itemsDiscount,
         itemsPointPerVal,
+        itemsMaxCount,
         itemsData,
         itemsCat,
         branchId,
@@ -648,6 +669,7 @@ abstract class _ItemModel implements ItemModel {
           @JsonKey(name: "items_price") final num? itemsPrice,
           @JsonKey(name: "items_discount") final num? itemsDiscount,
           @JsonKey(name: "items_point_per_val") final num? itemsPointPerVal,
+          @JsonKey(name: "items_max_count") final int? itemsMaxCount,
           @JsonKey(name: "items_data") final DateTime? itemsData,
           @JsonKey(name: "items_cat") final int? itemsCat,
           @JsonKey(name: "branch_id") final int? branchId,
@@ -701,6 +723,9 @@ abstract class _ItemModel implements ItemModel {
   @override
   @JsonKey(name: "items_point_per_val")
   num? get itemsPointPerVal;
+  @override
+  @JsonKey(name: "items_max_count")
+  int? get itemsMaxCount;
   @override
   @JsonKey(name: "items_data")
   DateTime? get itemsData;

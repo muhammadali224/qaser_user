@@ -259,6 +259,8 @@ class MyTranslation extends Translations {
           "signInFirst": "يجب تسجيل الدخول أولا",
           "addToCartFirst": "السلة فارغة",
           "itemCountLimit": "لا يمكن إضافة أكثر من هذا العدد",
+          "itemMaxCountLimit":
+              "لا يمكن إضافة أكثر من هذا العدد في الطلب الواحد",
           "totalPoints": "مجموع النقاط",
           "appInfo": "معلومات التطبيق",
           "App_name": "إسم التطبيق",
@@ -531,6 +533,7 @@ class MyTranslation extends Translations {
           "signInFirst": "You Must Sign In First",
           "addToCartFirst": "Cart Is Empty!",
           "itemCountLimit": "Can't Add More than Limit",
+          "itemMaxCountLimit": "Can't Add More in One Orders",
           "totalPoints": "Total Points",
           "appInfo": "Application Info",
           "App_name": "Application Name",

@@ -35,8 +35,8 @@ class OffersController extends GetxController {
     update();
   }
 
-  goToDetails(itemsModel) {
-    Get.toNamed(AppRoutes.itemDetails, arguments: {'itemsModel': itemsModel});
+  goToDetails(ItemModel itemsModel) {
+    Get.toNamed(AppRoutes.itemDetails, arguments: itemsModel);
   }
 
   @override

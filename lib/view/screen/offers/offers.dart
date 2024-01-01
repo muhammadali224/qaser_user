@@ -14,13 +14,9 @@ class Offers extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(OffersController());
     Get.put(MyFavoriteController());
-    // Get.put(ItemsControllerImp());
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("offers".tr),
-        leading: BackAppBar(),
-      ),
+      appBar: AppBar(title: Text("offers".tr), leading: BackAppBar()),
       body: GetBuilder<OffersController>(
         builder: (controller) => Container(
           padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -38,7 +34,10 @@ class Offers extends StatelessWidget {
                             crossAxisCount: 2, childAspectRatio: 0.7),
                     itemBuilder: (context, index) {
                       return CustomListItems(
-                          itemsModel: controller.offersItems[index]);
+                        itemsModel: controller.offersItems[index],
+                        onTap: () => controller
+                            .goToDetails(controller.offersItems[index]),
+                      );
                     }),
               )
             ],

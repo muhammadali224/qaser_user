@@ -35,10 +35,11 @@ class HomeData {
     return response.fold((l) => l, (r) => r);
   }
 
-  searchItems(String search, int branchId) async {
+  searchItems(String search, int branchId, int userId) async {
     var response = await crud.postData(AppLink.searchItems, {
       'search': search,
       'branch_id': branchId.toString(),
+      'user_id': userId.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }

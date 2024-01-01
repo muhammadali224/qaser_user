@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
-import 'package:qaser_user/core/constant/routes.dart';
 
 import '../../../controller/cart_controller/cart_controller.dart';
 import '../../../core/class/handling_data_view.dart';
+import '../../../core/constant/routes.dart';
 import '../../../core/function/open_select_location_bottom_sheet.dart';
 import '../../../data/shared/branches.dart';
 import '../../widget/back_appbar.dart';
@@ -38,57 +38,59 @@ class Cart extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Obx(() {
-        return selectedBranch.value.branchIsOpen == 1 &&
-                controller.user.value.usersIsAnonymous == 0
-            ? Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ButtomNavigatButton(
-                    icon: IconBroken.Wallet,
-                    color: Colors.red,
-                    title: 'checkout',
-                    onPressed: () => controller.checkout(),
+        if (selectedBranch.value.branchIsOpen == 0) {
+          return Container(
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            height: 40,
+            width: double.infinity,
+            color: Colors.red,
+            child: Center(
+              child: Text(
+                "closeBranch".tr,
+                style: TextStyle(
+                    fontSize: 23,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
+            ),
+          );
+        } else if (selectedBranch.value.branchIsOpen == 1) {
+          if (controller.user.value.usersIsAnonymous == 0) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ButtomNavigatButton(
+                  icon: IconBroken.Wallet,
+                  color: Colors.red,
+                  title: 'checkout',
+                  onPressed: () => controller.checkout(),
+                ),
+              ],
+            );
+          } else {
+            return InkWell(
+              onTap: () => Get.toNamed(AppRoutes.login),
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                height: 40,
+                width: double.infinity,
+                color: Colors.red,
+                child: Center(
+                  child: Text(
+                    "signInFirst".tr,
+                    style: TextStyle(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
                   ),
-                ],
-              )
-            : selectedBranch.value.branchIsOpen == 0
-                ? Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    height: 40,
-                    width: double.infinity,
-                    color: Colors.red,
-                    child: Center(
-                      child: Text(
-                        "closeBranch".tr,
-                        style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
-                      ),
-                    ),
-                  )
-                : controller.user.value.usersIsAnonymous == 1
-                    ? InkWell(
-                        onTap: () => Get.toNamed(AppRoutes.login),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          height: 40,
-                          width: double.infinity,
-                          color: Colors.red,
-                          child: Center(
-                            child: Text(
-                              "signInFirst".tr,
-                              style: TextStyle(
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      )
-                    : Container();
+                ),
+              ),
+            );
+          }
+        } else {
+          return Container();
+        }
       }),
       body: GetBuilder<CartControllerImp>(builder: (controller) {
         return HandlingDataView(

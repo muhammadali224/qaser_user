@@ -30,6 +30,7 @@ class ItemModel with _$ItemModel {
     @JsonKey(name: "items_price") num? itemsPrice,
     @JsonKey(name: "items_discount") num? itemsDiscount,
     @JsonKey(name: "items_point_per_val") num? itemsPointPerVal,
+    @JsonKey(name: "items_max_count") int? itemsMaxCount,
     @JsonKey(name: "items_data") DateTime? itemsData,
     @JsonKey(name: "items_cat") int? itemsCat,
     @JsonKey(name: "branch_id") int? branchId,
