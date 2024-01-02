@@ -17,14 +17,12 @@ class TimerPrize extends StatelessWidget {
           children: [
             Obx(() {
               return Visibility(
-                visible: controller.secondsRemaining.value <= 0,
+                visible: controller.canGetPrize.value,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: ButtomNavigatButton(
                     onPressed: () async {
-                      controller.secondsRemaining.value =
-                          controller.totalSeconds;
-                      controller.startTimer();
+                      controller.getPrize();
                     },
                     color: Colors.red,
                     title: 'getPrize',
@@ -38,9 +36,10 @@ class TimerPrize extends StatelessWidget {
             TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
               return Obx(() {
                 return Visibility(
-                  visible: controller.secondsRemaining.value > 0,
+                  visible: !controller.canGetPrize.value &&
+                      controller.eta.value.isNotEmpty,
                   child: Text(
-                    '${"prizeAfter".tr} : ${controller.getEta()}'.tr,
+                    '${"prizeAfter".tr} : ${controller.eta}'.tr,
                     style: TextStyle(fontSize: 20),
                   ),
                 );

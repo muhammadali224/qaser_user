@@ -275,6 +275,7 @@ class MyTranslation extends Translations {
           "rewards": "المكافئات",
           "prizeAfter": "جائزتك بعد",
           "getPrize": "أحصل على جائزتك!",
+          "somethingError": "حدث خطا ما  يرجى المحاولة لاحقا!",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -548,6 +549,7 @@ class MyTranslation extends Translations {
           "rewards": "Rewards",
           "prizeAfter": "Your Prize After",
           "getPrize": "Get Your Prize!",
+          "somethingError": "Somethings Error, Try Again Later!",
         },
       };
 }

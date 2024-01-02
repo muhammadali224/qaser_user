@@ -1,71 +1,121 @@
 import 'dart:async';
 
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:qaser_user/core/constant/get_box_key.dart';
+import 'package:qaser_user/core/services/app.service.dart';
+import 'package:qaser_user/data/model/user_point_model/user_point_model.dart';
+import 'package:qaser_user/data/source/remote/user_point_data/user_point_data.dart';
+
+import '../../data/model/user_model/user_model.dart';
+import '../user_controller/user_controller.dart';
 
 class TimerController extends GetxController {
-  RxInt secondsRemaining = 0.obs;
-  int totalSeconds = 24 * 60 * 60; // 24 hours in seconds
-
-  final box = GetStorage();
+  RxBool canGetPrize = true.obs;
+  RxString eta = ''.obs;
+  Rx<UserModel> user = Get.find<UserController>().user.obs;
+  final box = Get.find<MyServices>().getBox;
+  UserPointData _pointData = UserPointData(Get.find());
 
   @override
   void onInit() {
-    super.onInit();
+    // box.remove(GetBoxKey.canGetPrize);
+    canGetPrize.value = box.read(GetBoxKey.canGetPrize) ?? true;
     _loadTimerState();
+    // rmove();
+    super.onInit();
   }
 
   Future<void> _loadTimerState() async {
-    int savedTimestamp = box.read('prizeTimestamp') ?? 0;
+    try {
+      String? nextPrize = await box.read(GetBoxKey.nextPrizeTime);
 
-    if (savedTimestamp > 0) {
-      DateTime savedDateTime =
-          DateTime.fromMillisecondsSinceEpoch(savedTimestamp);
-      DateTime currentDateTime = DateTime.now();
+      if (nextPrize != null) {
+        DateTime? nextPrizeTime = DateTime.parse(nextPrize);
 
-      Duration difference = currentDateTime.difference(savedDateTime);
+        DateTime now = DateTime.now();
 
-      if (difference.inSeconds < totalSeconds) {
-        // Calculate remaining time
-        secondsRemaining.value = totalSeconds - difference.inSeconds;
-
-        // Start the timer
-        startTimer();
-      } else {
-        // If the elapsed time is greater than or equal to the total seconds, clear the saved timestamp
-        await _clearTimerState();
+        if (now.isAfter(nextPrizeTime)) {
+          // User can get the prize now
+          canGetPrize.value = true;
+          await box.write(GetBoxKey.canGetPrize, true);
+        } else {
+          // Calculate ETA
+          _startEtaTimer(nextPrizeTime);
+        }
       }
+
+      update();
+    } catch (e) {
+      throw Exception("Error Load Timer $e");
     }
   }
 
-  void startTimer() {
-    Timer.periodic(Duration(seconds: 1), (Timer t) async {
-      if (secondsRemaining.value == 0) {
-        t.cancel(); // Stop the timer when countdown reaches 0
-        await _clearTimerState();
+  void getPrize() async {
+    try {
+      if (user.value.usersIsAnonymous == 1) {
+        SmartDialog.showToast("signInFirst".tr);
       } else {
-        secondsRemaining--;
+        var response = await _pointData.addPoint(
+            user.value.usersId!,
+            UserPointModel(
+              createDate: DateTime.now(),
+              expireDate: DateTime.now().add(Duration(days: 90)),
+              pointDescreption: "المكافئة اليومية",
+              pointDescreptionEn: "Daily Prize",
+              pointsCount: 5,
+            ));
+        if (response["status"] == "success") {
+          DateTime nextPrizeTime = DateTime.now().add(Duration(days: 1));
+          box.write(GetBoxKey.nextPrizeTime, nextPrizeTime.toString());
 
-        await _saveTimerState();
+          // User can get the prize now
+          canGetPrize.value = false;
+          await box.write(GetBoxKey.canGetPrize, false);
+          // Start ETA timer
+          _startEtaTimer(nextPrizeTime);
+        } else {
+          SmartDialog.showToast("somethingError".tr);
+        }
       }
-    });
+    } catch (e) {
+      throw Exception("Error Get Prize $e");
+    }
   }
 
-  Future<void> _saveTimerState() async {
-    box.write('secondsRemaining', secondsRemaining.value);
+  void _startEtaTimer(DateTime targetTime) {
+    try {
+      Timer.periodic(Duration(seconds: 1), (Timer t) async {
+        DateTime now = DateTime.now();
+        Duration difference = targetTime.difference(now);
+
+        if (difference.isNegative) {
+          t.cancel();
+          canGetPrize.value = true;
+          await box.write(GetBoxKey.canGetPrize, true);
+          eta.value = '';
+          box.remove(GetBoxKey.nextPrizeTime);
+        } else {
+          eta.value = _formatDuration(difference);
+        }
+      });
+    } catch (e) {
+      throw Exception("Error Start ETA Timer $e");
+    }
   }
 
-  Future<void> _clearTimerState() async {
-    box.remove('prizeTimestamp');
-    box.remove('secondsRemaining');
-  }
-
-  String getEta() {
-    int hours = (secondsRemaining.value / 3600).floor();
-    int minutes = ((secondsRemaining.value % 3600) / 60).floor();
-    int seconds = secondsRemaining.value % 60;
+  String _formatDuration(Duration duration) {
+    int hours = duration.inHours;
+    int minutes = (duration.inMinutes % 60);
+    int seconds = (duration.inSeconds % 60);
     return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
+
+  // rmove() {
+  //   canGetPrize.value = true;
+  //   eta.value = '';
+  //   box.remove(GetBoxKey.nextPrizeTime);
+  // }
 
   @override
   void onClose() {

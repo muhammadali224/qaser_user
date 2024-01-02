@@ -96,4 +96,5 @@ class AppLink {
 
 //============================ User Point ==============================//
   static String getPoint = '$server/user_point/get_point.php';
+  static String addPoint = '$server/user_point/add_point.php';
 }
