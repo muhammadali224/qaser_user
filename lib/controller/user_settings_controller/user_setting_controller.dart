@@ -66,19 +66,22 @@ class UserSettingController extends GetxController {
       update();
       var response = await userDetailsData.changeUserImage(
         {
-          'id': user.value.usersId!,
+          'id': user.value.usersId.toString(),
           'oldFile': user.value.usersImage!,
         },
         file!,
       );
       print("            File            $file");
       statusRequest = handlingData(response);
+      print(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
           getData();
         } else {
           statusRequest = StatusRequest.failed;
         }
+      } else {
+        print(response);
       }
     } catch (e) {
       throw Exception("Error Update User Image : $e");

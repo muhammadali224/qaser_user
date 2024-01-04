@@ -21,7 +21,7 @@ class ChipsSection extends GetView<HomeControllerImp> {
           ),
         ),
         ActionChip(
-          onPressed: () {},
+          onPressed: controller.goToAwards,
           avatar: Icon(
             FontAwesome.crown_solid,
             color: Colors.amber,

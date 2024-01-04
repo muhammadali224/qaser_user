@@ -2,15 +2,14 @@
 class Assets {
   Assets._();
 
-  static const String cairoCairoBlack = 'assets/fonts/Cairo/Cairo-Black.ttf';
-  static const String cairoCairoBold = 'assets/fonts/Cairo/Cairo-Bold.ttf';
-  static const String cairoCairoExtraLight =
-      'assets/fonts/Cairo/Cairo-ExtraLight.ttf';
-  static const String cairoCairoLight = 'assets/fonts/Cairo/Cairo-Light.ttf';
-  static const String cairoCairoRegular =
-      'assets/fonts/Cairo/Cairo-Regular.ttf';
-  static const String cairoCairoSemiBold =
-      'assets/fonts/Cairo/Cairo-SemiBold.ttf';
+  static const String almaraiAlmaraiBold =
+      'assets/fonts/Almarai/Almarai-Bold.ttf';
+  static const String almaraiAlmaraiExtraBold =
+      'assets/fonts/Almarai/Almarai-ExtraBold.ttf';
+  static const String almaraiAlmaraiLight =
+      'assets/fonts/Almarai/Almarai-Light.ttf';
+  static const String almaraiAlmaraiRegular =
+      'assets/fonts/Almarai/Almarai-Regular.ttf';
   static const String imagesAvatar = 'assets/images/avatar.png';
   static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesLogo2 = 'assets/images/logo_2.jpg';

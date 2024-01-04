@@ -22,11 +22,10 @@ class CategoriesHomeCard extends GetView<HomeControllerImp> {
       children: [
         SizedBox(
           height: 90,
-          // width: 90,
           child: InkWell(
             borderRadius: BorderRadius.circular(15),
             onTap: () => controller.goToItems(
-                controller.categoriesList, i, categoriesModel.categoriesId!),
+                controller.categoriesList, categoriesModel, i),
             child: CachedImage(
               imageUrl:
                   "${AppLink.imagesCategories}${categoriesModel.categoriesImage}",

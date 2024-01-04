@@ -32,7 +32,6 @@ class TimerPrize extends StatelessWidget {
                 ),
               );
             }),
-            SizedBox(height: 20),
             TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
               return Obx(() {
                 return Visibility(

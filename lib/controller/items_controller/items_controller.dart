@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qaser_user/data/model/categories_model.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
@@ -6,7 +8,6 @@ import '../../core/function/handling_data_controller.dart';
 import '../../data/model/items_model/items_model.dart';
 import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/items_data.dart';
-import '../cart_controller/cart_controller.dart';
 import '../user_controller/user_controller.dart';
 
 abstract class ItemsController extends GetxController {
@@ -14,15 +15,17 @@ abstract class ItemsController extends GetxController {
 
   Future<void> getData(int categoriesId);
 
-  changeChips(int i, catVal);
-
   goToDetails(ItemModel itemModel);
 }
 
-class ItemsControllerImp extends ItemsController {
-  late List categories;
-  late int selectedCategory;
-  late int id;
+class ItemsControllerImp extends ItemsController
+    with GetTickerProviderStateMixin {
+  late List<CategoriesModel> categories;
+  late CategoriesModel selectedCategory;
+  late int index;
+  late TabController tabController;
+  late PageController pageController;
+
   Rx<UserModel> user = Get.find<UserController>().user.obs;
 
   ItemsData itemsData = ItemsData(Get.find());
@@ -30,19 +33,10 @@ class ItemsControllerImp extends ItemsController {
   List<ItemModel> items = [];
   List<ItemModel> offersList = [];
 
-  CartControllerImp cartController =
-      Get.put(CartControllerImp(), permanent: true);
-
   @override
   void onInit() {
     initData();
     super.onInit();
-  }
-
-  appbarBack() {
-    cartController.refreshCart();
-    Get.back();
-    update();
   }
 
   goToFavorite() async {
@@ -53,24 +47,25 @@ class ItemsControllerImp extends ItemsController {
     try {
       selectedCategory = Get.arguments['selectedCategories'];
       categories = Get.arguments['categories'];
-      id = Get.arguments['id'];
+      index = Get.arguments['index'];
 
-      await getData(id);
+      tabController = TabController(
+        vsync: this,
+        length: categories.length,
+        initialIndex: index,
+      );
+
+      await getData(selectedCategory.categoriesId!);
     } catch (e) {
       throw Exception("Error Init Items Controller : $e");
     }
-  }
-
-  changeChips(int i, catVal) {
-    selectedCategory = i;
-    getData(catVal);
-    update();
   }
 
   getData(int categoriesId) async {
     try {
       items.clear();
       statusRequest = StatusRequest.loading;
+      update();
       var response = await itemsData.getData(
         categoriesId,
         user.value.usersId!,
@@ -93,5 +88,17 @@ class ItemsControllerImp extends ItemsController {
 
   goToDetails(itemsModel) {
     Get.toNamed(AppRoutes.itemDetails, arguments: itemsModel);
+  }
+
+  @override
+  void onClose() {
+    tabController.dispose();
+    super.onClose();
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
   }
 }

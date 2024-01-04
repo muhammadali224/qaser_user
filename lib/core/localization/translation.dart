@@ -276,6 +276,12 @@ class MyTranslation extends Translations {
           "prizeAfter": "جائزتك بعد",
           "getPrize": "أحصل على جائزتك!",
           "somethingError": "حدث خطا ما  يرجى المحاولة لاحقا!",
+          "yourPoints": "نقاطك",
+          "expireIn": "تنتهي",
+          "startIn": "تبدأ",
+          "remaining": "متبقي",
+          "redeem": "إستبدال",
+          "pointsNotEnough": "نقاطك غير كافية",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -550,6 +556,12 @@ class MyTranslation extends Translations {
           "prizeAfter": "Your Prize After",
           "getPrize": "Get Your Prize!",
           "somethingError": "Somethings Error, Try Again Later!",
+          "yourPoints": "Your Points",
+          "expireIn": "Expire",
+          "startIn": "Start",
+          "remaining": "Remaining",
+          "redeem": "Redeem",
+          "pointsNotEnough": "Your Points Not Enough!",
         },
       };
 }

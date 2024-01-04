@@ -12,10 +12,14 @@ import '../items_details/item_details/fav_button.dart';
 
 class CustomListItems extends StatelessWidget {
   final ItemModel itemsModel;
+  final String heroTag;
   final void Function() onTap;
 
   const CustomListItems(
-      {super.key, required this.itemsModel, required this.onTap});
+      {super.key,
+      required this.itemsModel,
+      required this.onTap,
+      required this.heroTag});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class CustomListItems extends StatelessWidget {
                 color: Colors.white,
                 child: Center(
                   child: Hero(
-                    tag: "${itemsModel.itemsId}",
+                    tag: "${itemsModel.itemsId}$heroTag",
                     child: Stack(
                       children: [
                         CachedImage(

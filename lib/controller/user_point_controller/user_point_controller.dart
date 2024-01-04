@@ -15,7 +15,7 @@ class UserPointController extends GetxController {
   List<UserPointModel> userPointList = [];
   Rx<UserModel> user = Get.find<UserController>().user.obs;
 
-  getPoint() async {
+  Future<void> getPoint() async {
     try {
       userPointList.clear();
       statusRequest = StatusRequest.loading;

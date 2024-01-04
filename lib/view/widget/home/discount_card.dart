@@ -18,7 +18,7 @@ class SwiperCard extends GetView<HomeControllerImp> {
       child: Swiper(
         autoplay: true,
         pagination: const SwiperPagination(
-          builder: SwiperPagination.dots,
+          builder: SwiperPagination.rect,
         ),
         itemBuilder: (context, index) {
           return CachedNetworkImage(

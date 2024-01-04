@@ -12,6 +12,7 @@ class AppLink {
   static String imageUserProfile = "$images/user_profile/";
   static String imageOffer = "$images/offers/";
   static String imagesItems = "$images/items/";
+  static String imagesAwards = "$images/items_point/";
 
 //=============================== Auth ===============================//
   static String signup = "$server/auth/signup.php";
@@ -97,4 +98,7 @@ class AppLink {
 //============================ User Point ==============================//
   static String getPoint = '$server/user_point/get_point.php';
   static String addPoint = '$server/user_point/add_point.php';
+
+//============================ Awards ==============================//
+  static String getAwards = '$server/awards/view.php';
 }

@@ -13,7 +13,7 @@ ThemeData themeEnglish = ThemeData(
             states.contains(MaterialState.selected)
                 ? Colors.green
                 : Colors.grey)),
-    fontFamily: 'Cairo',
+    fontFamily: 'Almarai',
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.red,
       secondary: Colors.redAccent,
@@ -56,7 +56,7 @@ ThemeData themeArabic = ThemeData(
             states.contains(MaterialState.selected)
                 ? Colors.green
                 : Colors.grey)),
-    fontFamily: 'Cairo',
+    fontFamily: 'Almarai',
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.red,
       secondary: Colors.redAccent,

@@ -37,6 +37,7 @@ class Offers extends StatelessWidget {
                         itemsModel: controller.offersItems[index],
                         onTap: () => controller
                             .goToDetails(controller.offersItems[index]),
+                        heroTag: 'offers',
                       );
                     }),
               )

@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:qaser_user/controller/items_controller/item_details_controller.dart';
 
-import 'fav_button.dart';
-
 class ButtomNaviBar extends GetView<ItemDetailsControllerImpl> {
   const ButtomNaviBar({super.key});
 
@@ -31,11 +29,6 @@ class ButtomNaviBar extends GetView<ItemDetailsControllerImpl> {
                     controller.itemsCount.value.toString(),
                     controller.totalPoint.value.toString(),
                   );
-                  print(controller.itemsModel.itemsId!);
-
-                  print(controller.totalPrice);
-                  print(controller.itemsCount.value);
-                  print(controller.totalPoint.value);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -54,16 +47,6 @@ class ButtomNaviBar extends GetView<ItemDetailsControllerImpl> {
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.all(7),
-            decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(10)),
-            child: FavoriteButton(
-              itemsModel: controller.itemsModel,
-              size: 40,
-            ),
-          )
         ],
       ),
     );

@@ -27,6 +27,7 @@ class ListTopSellingHome extends GetView<HomeControllerImp> {
           return CustomListItems(
             itemsModel: itemList[i],
             onTap: () => controller.goToDetails(itemList[i]),
+            heroTag: 'topSelling',
           );
         },
       ),

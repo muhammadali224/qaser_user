@@ -37,7 +37,8 @@ abstract class HomeController extends SearchMixController {
   @override
   getSearchResult();
 
-  void goToItems(List categories, int selectedCategories, int categoriesId);
+  void goToItems(List<CategoriesModel> categories,
+      CategoriesModel selectedCategory, int index);
 
   @override
   onSearchItems();
@@ -200,11 +201,11 @@ class HomeControllerImp extends HomeController {
   }
 
   @override
-  goToItems(categories, selectedCategories, categoriesId) {
+  goToItems(categories, selectedCategories, index) {
     Get.toNamed(AppRoutes.items, arguments: {
       'categories': categories,
       'selectedCategories': selectedCategories,
-      'id': categoriesId,
+      'index': index,
     });
   }
 
@@ -225,6 +226,10 @@ class HomeControllerImp extends HomeController {
 
   goToMyPoint() {
     Get.toNamed(AppRoutes.userPoint);
+  }
+
+  goToAwards() {
+    Get.toNamed(AppRoutes.awardsView);
   }
 
   @override
