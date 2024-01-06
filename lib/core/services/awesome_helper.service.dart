@@ -72,11 +72,7 @@ class AwesomeNotificationsHelper {
       {required String title,
       required String body,
       required int id,
-      String? channelKey,
-      String? groupKey,
-      NotificationLayout? notificationLayout,
       String? summary,
-      List<NotificationActionButton>? actionButtons,
       Map<String, String>? payload,
       String? largeIcon}) async {
     awesomeNotifications.isNotificationAllowed().then((isAllowed) {
@@ -89,14 +85,13 @@ class AwesomeNotificationsHelper {
             id: id,
             title: title,
             body: body,
-            groupKey: groupKey ?? NotificationChannels.generalGroupKey,
-            channelKey: channelKey ?? NotificationChannels.generalChannelKey,
+            groupKey: NotificationChannels.generalGroupKey,
+            channelKey: NotificationChannels.generalChannelKey,
             showWhen: true,
             // Hide/show the time elapsed since notification was displayed
             payload: payload,
             // data of the notification (it will be used when user clicks on notification)
-            notificationLayout:
-                notificationLayout ?? NotificationLayout.Default,
+            notificationLayout: NotificationLayout.Default,
             // notification shape (message,media player..etc) For ex => NotificationLayout.Messaging
             autoDismissible: true,
             // dismiss notification when user clicks on it
@@ -107,7 +102,6 @@ class AwesomeNotificationsHelper {
             largeIcon:
                 largeIcon, // image of sender for ex (when someone send you message his image will be shown)
           ),
-          actionButtons: actionButtons,
         );
       }
     });

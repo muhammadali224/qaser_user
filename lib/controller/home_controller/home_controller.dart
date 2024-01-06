@@ -2,6 +2,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:qaser_user/controller/cart_controller/cart_controller.dart';
+import 'package:qaser_user/controller/favorite_controller/my_favorite_controller.dart';
 import 'package:qaser_user/controller/user_controller/user_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -61,6 +62,7 @@ class HomeControllerImp extends HomeController {
   List<ItemModel> itemsOfferList = [];
   List<ItemModel> suggestItem = [];
   List<OffersImageModel> offerImagesList = [];
+  MyFavoriteController favController = Get.put(MyFavoriteController());
 
   @override
   getData(int branchId) async {

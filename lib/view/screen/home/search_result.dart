@@ -28,22 +28,24 @@ class SearchListResult extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: controller.listData.length,
               itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () =>
-                      controller.goToDetails(controller.listData[index]),
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 5),
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10),
+                  child: InkWell(
+                    onTap: () =>
+                        controller.goToDetails(controller.listData[index]),
                     child: Card(
+                      elevation: 20,
                       child: Container(
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           children: [
                             Expanded(
-                              flex: 1,
-                              child: CachedNetworkImage(
-                                  imageUrl:
-                                      "${AppLink.imagesItems}${controller.listData[index].itemsImage}"),
-                            ),
+                                child: CachedNetworkImage(
+                              imageUrl:
+                                  "${AppLink.imagesItems}${controller.listData[index].itemsImage}",
+                              fit: BoxFit.fill,
+                            )),
                             Expanded(
                               flex: 2,
                               child: ListTile(

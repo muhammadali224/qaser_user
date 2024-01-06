@@ -21,8 +21,6 @@ class UserPointData {
       'count': pointModel.pointsCount.toString(),
       'desc': pointModel.pointDescreptionEn,
       'descAr': pointModel.pointDescreption,
-      'createDate': pointModel.createDate.toString(),
-      'expireDate': pointModel.expireDate.toString(),
     });
     return response.fold((l) => l, (r) => r);
   }

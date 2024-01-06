@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
@@ -17,66 +16,33 @@ Map<String, String> myHeader = {
 };
 
 class CRUD {
-  // final Dio dio = Dio(BaseOptions(
-  //   connectTimeout: const Duration(seconds: 60),
-  //   receiveTimeout: const Duration(seconds: 60),
-  //   headers: {},
-  //   contentType: 'application/json; charset=utf-8',
-  //   responseType: ResponseType.json,
-  // ));
-
   Future<Either<StatusRequest, Map>> postData(
       String url, Map<String, dynamic> data) async {
     try {
-      if (await checkInternet()) {
-        var response = await http.post(Uri.parse(url), body: data);
-        if (response.statusCode == 200 || response.statusCode == 201) {
-          var responseBody = jsonDecode(response.body);
-          // ignore: avoid_print
-          print(responseBody);
-          return right(responseBody);
+      try {
+        if (await checkInternet()) {
+          var response = await http.post(Uri.parse(url), body: data);
+          if (response.statusCode == 200 || response.statusCode == 201) {
+            var responseBody = jsonDecode(response.body);
+            // ignore: avoid_print
+            print(responseBody);
+            return right(responseBody);
+          } else {
+            return left(StatusRequest.serverFail);
+          }
         } else {
-          return left(StatusRequest.serverFail);
+          return left(StatusRequest.offline);
         }
-      } else {
-        return left(StatusRequest.offline);
+      } catch (e) {
+        return left(StatusRequest.serverException);
       }
     } catch (e) {
-      SmartDialog.showToast(e.toString(),
-          displayTime: const Duration(seconds: 3));
-      print(e.toString());
-      return left(StatusRequest.serverException);
+      throw Exception("Error CRUD $e");
     }
   }
 
-  // Future<Either<StatusRequest, Map>> postData(String url, Map data) async {
-  //   try {
-  //     if (await checkInternet()) {
-  //       var response = await dio.post(url, data: data);
-  //       if (response.statusCode == 200 || response.statusCode == 201) {
-  //         var responseBody = jsonDecode(response.data);
-  //         // ignore: avoid_print
-  //         print(responseBody);
-  //         return right(responseBody);
-  //       } else {
-  //         return left(StatusRequest.serverFail);
-  //       }
-  //     } else {
-  //       return left(StatusRequest.offline);
-  //     }
-  //   } catch (e) {
-  //     SmartDialog.showToast(e.toString(),
-  //         displayTime: const Duration(seconds: 3));
-  //     print(e.toString());
-  //     return left(StatusRequest.serverException);
-  //   }
-  // }
-
   Future<Either<StatusRequest, Map>> addRequestWithImage(
-    String url,
-    Map data,
-    File? image,
-  ) async {
+      String url, Map data, File? image) async {
     try {
       var uri = Uri.parse(url);
       var request = http.MultipartRequest("POST", uri);

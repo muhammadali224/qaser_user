@@ -66,10 +66,6 @@ mixin _$ItemModel {
   int? get isFavorite => throw _privateConstructorUsedError;
   @JsonKey(name: "images")
   List<String>? get images => throw _privateConstructorUsedError;
-  @JsonKey(name: "item_count")
-  int? get itemCount => throw _privateConstructorUsedError;
-  @JsonKey(name: "selectedSubItemsId")
-  int? get selectedSubItemsId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -105,9 +101,7 @@ abstract class $ItemModelCopyWith<$Res> {
       @JsonKey(name: "categories_image") String? categoriesImage,
       @JsonKey(name: "itemDiscounnt_price") num? itemDiscounntPrice,
       @JsonKey(name: "is_favorite") int? isFavorite,
-      @JsonKey(name: "images") List<String>? images,
-      @JsonKey(name: "item_count") int? itemCount,
-      @JsonKey(name: "selectedSubItemsId") int? selectedSubItemsId});
+      @JsonKey(name: "images") List<String>? images});
 }
 
 /// @nodoc
@@ -146,8 +140,6 @@ class _$ItemModelCopyWithImpl<$Res, $Val extends ItemModel>
     Object? itemDiscounntPrice = freezed,
     Object? isFavorite = freezed,
     Object? images = freezed,
-    Object? itemCount = freezed,
-    Object? selectedSubItemsId = freezed,
   }) {
     return _then(_value.copyWith(
       itemsId: freezed == itemsId
@@ -242,14 +234,6 @@ class _$ItemModelCopyWithImpl<$Res, $Val extends ItemModel>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      itemCount: freezed == itemCount
-          ? _value.itemCount
-          : itemCount // ignore: cast_nullable_to_non_nullable
-              as int?,
-      selectedSubItemsId: freezed == selectedSubItemsId
-          ? _value.selectedSubItemsId
-          : selectedSubItemsId // ignore: cast_nullable_to_non_nullable
-              as int?,
     ) as $Val);
   }
 }
@@ -285,9 +269,7 @@ abstract class _$$ItemModelImplCopyWith<$Res>
       @JsonKey(name: "categories_image") String? categoriesImage,
       @JsonKey(name: "itemDiscounnt_price") num? itemDiscounntPrice,
       @JsonKey(name: "is_favorite") int? isFavorite,
-      @JsonKey(name: "images") List<String>? images,
-      @JsonKey(name: "item_count") int? itemCount,
-      @JsonKey(name: "selectedSubItemsId") int? selectedSubItemsId});
+      @JsonKey(name: "images") List<String>? images});
 }
 
 /// @nodoc
@@ -324,8 +306,6 @@ class __$$ItemModelImplCopyWithImpl<$Res>
     Object? itemDiscounntPrice = freezed,
     Object? isFavorite = freezed,
     Object? images = freezed,
-    Object? itemCount = freezed,
-    Object? selectedSubItemsId = freezed,
   }) {
     return _then(_$ItemModelImpl(
       itemsId: freezed == itemsId
@@ -420,14 +400,6 @@ class __$$ItemModelImplCopyWithImpl<$Res>
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      itemCount: freezed == itemCount
-          ? _value.itemCount
-          : itemCount // ignore: cast_nullable_to_non_nullable
-              as int?,
-      selectedSubItemsId: freezed == selectedSubItemsId
-          ? _value.selectedSubItemsId
-          : selectedSubItemsId // ignore: cast_nullable_to_non_nullable
-              as int?,
     ));
   }
 }
@@ -458,9 +430,7 @@ class _$ItemModelImpl implements _ItemModel {
       @JsonKey(name: "categories_image") this.categoriesImage,
       @JsonKey(name: "itemDiscounnt_price") this.itemDiscounntPrice,
       @JsonKey(name: "is_favorite") this.isFavorite,
-      @JsonKey(name: "images") final List<String>? images,
-      @JsonKey(name: "item_count") this.itemCount,
-      @JsonKey(name: "selectedSubItemsId") this.selectedSubItemsId})
+      @JsonKey(name: "images") final List<String>? images})
       : _images = images;
 
   factory _$ItemModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -544,15 +514,8 @@ class _$ItemModelImpl implements _ItemModel {
   }
 
   @override
-  @JsonKey(name: "item_count")
-  final int? itemCount;
-  @override
-  @JsonKey(name: "selectedSubItemsId")
-  final int? selectedSubItemsId;
-
-  @override
   String toString() {
-    return 'ItemModel(itemsId: $itemsId, itemsName: $itemsName, itemsNameAr: $itemsNameAr, itemsDesc: $itemsDesc, itemsDescAr: $itemsDescAr, itemsImage: $itemsImage, itemsGroup: $itemsGroup, itemsCount: $itemsCount, itemsActive: $itemsActive, itemsPrice: $itemsPrice, itemsDiscount: $itemsDiscount, itemsPointPerVal: $itemsPointPerVal, itemsMaxCount: $itemsMaxCount, itemsData: $itemsData, itemsCat: $itemsCat, branchId: $branchId, categoriesId: $categoriesId, categoriesName: $categoriesName, categoriesNameAr: $categoriesNameAr, categoriesImage: $categoriesImage, itemDiscounntPrice: $itemDiscounntPrice, isFavorite: $isFavorite, images: $images, itemCount: $itemCount, selectedSubItemsId: $selectedSubItemsId)';
+    return 'ItemModel(itemsId: $itemsId, itemsName: $itemsName, itemsNameAr: $itemsNameAr, itemsDesc: $itemsDesc, itemsDescAr: $itemsDescAr, itemsImage: $itemsImage, itemsGroup: $itemsGroup, itemsCount: $itemsCount, itemsActive: $itemsActive, itemsPrice: $itemsPrice, itemsDiscount: $itemsDiscount, itemsPointPerVal: $itemsPointPerVal, itemsMaxCount: $itemsMaxCount, itemsData: $itemsData, itemsCat: $itemsCat, branchId: $branchId, categoriesId: $categoriesId, categoriesName: $categoriesName, categoriesNameAr: $categoriesNameAr, categoriesImage: $categoriesImage, itemDiscounntPrice: $itemDiscounntPrice, isFavorite: $isFavorite, images: $images)';
   }
 
   @override
@@ -603,11 +566,7 @@ class _$ItemModelImpl implements _ItemModel {
                 other.itemDiscounntPrice == itemDiscounntPrice) &&
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite) &&
-            const DeepCollectionEquality().equals(other._images, _images) &&
-            (identical(other.itemCount, itemCount) ||
-                other.itemCount == itemCount) &&
-            (identical(other.selectedSubItemsId, selectedSubItemsId) ||
-                other.selectedSubItemsId == selectedSubItemsId));
+            const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @JsonKey(ignore: true)
@@ -636,9 +595,7 @@ class _$ItemModelImpl implements _ItemModel {
         categoriesImage,
         itemDiscounntPrice,
         isFavorite,
-        const DeepCollectionEquality().hash(_images),
-        itemCount,
-        selectedSubItemsId
+        const DeepCollectionEquality().hash(_images)
       ]);
 
   @JsonKey(ignore: true)
@@ -657,32 +614,29 @@ class _$ItemModelImpl implements _ItemModel {
 
 abstract class _ItemModel implements ItemModel {
   const factory _ItemModel(
-          {@JsonKey(name: "items_id") final int? itemsId,
-          @JsonKey(name: "items_name") final String? itemsName,
-          @JsonKey(name: "items_name_ar") final String? itemsNameAr,
-          @JsonKey(name: "items_desc") final String? itemsDesc,
-          @JsonKey(name: "items_desc_ar") final String? itemsDescAr,
-          @JsonKey(name: "items_image") final String? itemsImage,
-          @JsonKey(name: "items_group") final int? itemsGroup,
-          @JsonKey(name: "items_count") final int? itemsCount,
-          @JsonKey(name: "items_active") final int? itemsActive,
-          @JsonKey(name: "items_price") final num? itemsPrice,
-          @JsonKey(name: "items_discount") final num? itemsDiscount,
-          @JsonKey(name: "items_point_per_val") final num? itemsPointPerVal,
-          @JsonKey(name: "items_max_count") final int? itemsMaxCount,
-          @JsonKey(name: "items_data") final DateTime? itemsData,
-          @JsonKey(name: "items_cat") final int? itemsCat,
-          @JsonKey(name: "branch_id") final int? branchId,
-          @JsonKey(name: "categories_id") final int? categoriesId,
-          @JsonKey(name: "categories_name") final String? categoriesName,
-          @JsonKey(name: "categories_name_ar") final String? categoriesNameAr,
-          @JsonKey(name: "categories_image") final String? categoriesImage,
-          @JsonKey(name: "itemDiscounnt_price") final num? itemDiscounntPrice,
-          @JsonKey(name: "is_favorite") final int? isFavorite,
-          @JsonKey(name: "images") final List<String>? images,
-          @JsonKey(name: "item_count") final int? itemCount,
-          @JsonKey(name: "selectedSubItemsId") final int? selectedSubItemsId}) =
-      _$ItemModelImpl;
+      {@JsonKey(name: "items_id") final int? itemsId,
+      @JsonKey(name: "items_name") final String? itemsName,
+      @JsonKey(name: "items_name_ar") final String? itemsNameAr,
+      @JsonKey(name: "items_desc") final String? itemsDesc,
+      @JsonKey(name: "items_desc_ar") final String? itemsDescAr,
+      @JsonKey(name: "items_image") final String? itemsImage,
+      @JsonKey(name: "items_group") final int? itemsGroup,
+      @JsonKey(name: "items_count") final int? itemsCount,
+      @JsonKey(name: "items_active") final int? itemsActive,
+      @JsonKey(name: "items_price") final num? itemsPrice,
+      @JsonKey(name: "items_discount") final num? itemsDiscount,
+      @JsonKey(name: "items_point_per_val") final num? itemsPointPerVal,
+      @JsonKey(name: "items_max_count") final int? itemsMaxCount,
+      @JsonKey(name: "items_data") final DateTime? itemsData,
+      @JsonKey(name: "items_cat") final int? itemsCat,
+      @JsonKey(name: "branch_id") final int? branchId,
+      @JsonKey(name: "categories_id") final int? categoriesId,
+      @JsonKey(name: "categories_name") final String? categoriesName,
+      @JsonKey(name: "categories_name_ar") final String? categoriesNameAr,
+      @JsonKey(name: "categories_image") final String? categoriesImage,
+      @JsonKey(name: "itemDiscounnt_price") final num? itemDiscounntPrice,
+      @JsonKey(name: "is_favorite") final int? isFavorite,
+      @JsonKey(name: "images") final List<String>? images}) = _$ItemModelImpl;
 
   factory _ItemModel.fromJson(Map<String, dynamic> json) =
       _$ItemModelImpl.fromJson;
@@ -756,12 +710,6 @@ abstract class _ItemModel implements ItemModel {
   @override
   @JsonKey(name: "images")
   List<String>? get images;
-  @override
-  @JsonKey(name: "item_count")
-  int? get itemCount;
-  @override
-  @JsonKey(name: "selectedSubItemsId")
-  int? get selectedSubItemsId;
   @override
   @JsonKey(ignore: true)
   _$$ItemModelImplCopyWith<_$ItemModelImpl> get copyWith =>

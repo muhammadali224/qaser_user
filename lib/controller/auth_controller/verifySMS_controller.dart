@@ -26,7 +26,9 @@ class VerifySMSController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await checkSMSData.checkSMS(
-          phoneNumber.trim().substring(1), verificationCode);
+          phoneNumber.trim().substring(1),
+          verificationCode,
+          user.value.usersId.toString());
 
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {

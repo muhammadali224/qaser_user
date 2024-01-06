@@ -110,7 +110,10 @@ class MyFavoriteController extends GetxController {
   }
 
   goToDetails(ItemModel ItemsModel) {
-    Get.toNamed(AppRoutes.itemDetails, arguments: ItemsModel);
+    Get.toNamed(AppRoutes.itemDetails, arguments: {
+      "model": ItemsModel,
+      "tag": "favorite",
+    });
   }
 
   @override

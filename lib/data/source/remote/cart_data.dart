@@ -13,7 +13,7 @@ class CartData {
     var response = await crud.postData(AppLink.addCart, {
       'userid': userId,
       'itemid': itemId,
-      'weight_size_id': weightAndSizeId ?? "",
+      'weight_size_id': weightAndSizeId ?? "0",
       'cart_item_price': cartItemPrice,
       'cart_item_count': itemCount,
       "item_point_count": itemPointCount,

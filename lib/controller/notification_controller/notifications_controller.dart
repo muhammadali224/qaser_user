@@ -43,7 +43,6 @@ class NotificationsController extends GetxController {
   markRead(int notificationId) async {
     try {
       if (user.value.usersIsAnonymous == 0) {
-        statusRequest = StatusRequest.loading;
         var response =
             await notificationsData.setNotificationsRead(notificationId);
         statusRequest = handlingData(response);

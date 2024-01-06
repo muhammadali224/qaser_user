@@ -10,4 +10,5 @@ class GetBoxKey {
   static const String user = "user";
   static const String nextPrizeTime = "nextPrizeTime";
   static const String canGetPrize = "canGetPrize";
+  static const String fcmToken = "fcmToken";
 }

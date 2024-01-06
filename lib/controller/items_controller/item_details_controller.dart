@@ -23,6 +23,7 @@ abstract class ItemDetailsController extends GetxController {
 
 class ItemDetailsControllerImpl extends ItemDetailsController {
   late ItemModel itemsModel;
+  late String tag;
   StatusRequest statusRequest = StatusRequest.none;
   ItemsData itemsData = ItemsData(Get.find());
   RxInt itemsCount = 0.obs;
@@ -44,17 +45,12 @@ class ItemDetailsControllerImpl extends ItemDetailsController {
   @override
   initData() async {
     try {
-      itemsModel = Get.arguments;
-      itemsCount.value = itemsModel.itemCount!;
+      itemsModel = Get.arguments['model'];
+      tag = Get.arguments['tag'];
+
       await getSubItems();
 
-      if (itemsModel.selectedSubItemsId != null) {
-        selectedSubItems = subItemsList.firstWhere(
-            (element) => element.subItemId == itemsModel.selectedSubItemsId!);
-        itemPrice = selectedSubItems!.subItemsPrice!.toDouble().obs;
-      } else {
-        itemPrice = itemsModel.itemDiscounntPrice!.toDouble().obs;
-      }
+      itemPrice = itemsModel.itemDiscounntPrice!.toDouble().obs;
     } catch (e) {
       throw Exception("Error Init Item Details : $e");
     }

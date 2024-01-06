@@ -87,7 +87,10 @@ class ItemsControllerImp extends ItemsController
   }
 
   goToDetails(itemsModel) {
-    Get.toNamed(AppRoutes.itemDetails, arguments: itemsModel);
+    Get.toNamed(AppRoutes.itemDetails, arguments: {
+      "model": itemsModel,
+      "tag": "items",
+    });
   }
 
   @override

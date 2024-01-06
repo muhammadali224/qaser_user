@@ -39,7 +39,7 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
                 color: Colors.white,
                 child: Center(
                   child: Hero(
-                    tag: "${itemsModel.itemsId}",
+                    tag: "${itemsModel.itemsId}favorite",
                     child: Stack(
                       children: [
                         CachedImage(

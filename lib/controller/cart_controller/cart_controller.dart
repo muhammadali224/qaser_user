@@ -81,6 +81,7 @@ class CartControllerImp extends CartController {
     if (int.parse(itemCount) > 0) {
       try {
         SmartDialog.showLoading(msg: "loading".tr);
+
         var response = await cartData.addToCart(
           user.value.usersId!.toString(),
           itemsId,

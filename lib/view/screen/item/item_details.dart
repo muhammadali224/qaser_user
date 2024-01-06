@@ -31,7 +31,7 @@ class ItemDetails extends StatelessWidget {
         builder: (controller) => HandlingDataView(
           statusRequest: controller.statusRequest,
           widget: Hero(
-            tag: "${controller.itemsModel.itemsId}",
+            tag: "${controller.itemsModel.itemsId}${controller.tag}",
             child: CustomScrollView(
               slivers: [
                 ItemSliverAppbar(),

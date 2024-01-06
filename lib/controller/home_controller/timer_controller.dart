@@ -59,8 +59,8 @@ class TimerController extends GetxController {
         var response = await _pointData.addPoint(
             user.value.usersId!,
             UserPointModel(
-              createDate: DateTime.now(),
-              expireDate: DateTime.now().add(Duration(days: 90)),
+              // createDate: DateTime.now(),
+              // expireDate: DateTime.now().add(Duration(days: 90)),
               pointDescreption: "المكافئة اليومية",
               pointDescreptionEn: "Daily Prize",
               pointsCount: 5,

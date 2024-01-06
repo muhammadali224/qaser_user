@@ -41,8 +41,6 @@ class ItemModel with _$ItemModel {
     @JsonKey(name: "itemDiscounnt_price") num? itemDiscounntPrice,
     @JsonKey(name: "is_favorite") int? isFavorite,
     @JsonKey(name: "images") List<String>? images,
-    @JsonKey(name: "item_count") int? itemCount,
-    @JsonKey(name: "selectedSubItemsId") int? selectedSubItemsId,
   }) = _ItemModel;
 
   factory ItemModel.fromJson(Map<String, dynamic> json) =>

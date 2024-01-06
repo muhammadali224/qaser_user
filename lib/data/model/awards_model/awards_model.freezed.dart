@@ -22,36 +22,26 @@ AwardsModel _$AwardsModelFromJson(Map<String, dynamic> json) {
 mixin _$AwardsModel {
   @JsonKey(name: "items_point_id")
   int? get itemsPointId => throw _privateConstructorUsedError;
-
   @JsonKey(name: "items_point_name")
   String? get itemsPointName => throw _privateConstructorUsedError;
-
   @JsonKey(name: "items_point_name_ar")
   String? get itemsPointNameAr => throw _privateConstructorUsedError;
-
   @JsonKey(name: "items_point_start_date")
   DateTime? get itemsPointStartDate => throw _privateConstructorUsedError;
-
   @JsonKey(name: "items_point_expire_date")
   DateTime? get itemsPointExpireDate => throw _privateConstructorUsedError;
-
   @JsonKey(name: "items_point_count")
   int? get itemsPointCount => throw _privateConstructorUsedError;
-
   @JsonKey(name: "items_point_user_replacment")
   int? get itemsPointUserReplacment => throw _privateConstructorUsedError;
-
   @JsonKey(name: "items_point_price")
   int? get itemsPointPrice => throw _privateConstructorUsedError;
-
   @JsonKey(name: "items_point_is_active")
   int? get itemsPointIsActive => throw _privateConstructorUsedError;
-
   @JsonKey(name: "items_point_image")
   String? get itemsPointImage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $AwardsModelCopyWith<AwardsModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -62,7 +52,6 @@ abstract class $AwardsModelCopyWith<$Res> {
   factory $AwardsModelCopyWith(
           AwardsModel value, $Res Function(AwardsModel) then) =
       _$AwardsModelCopyWithImpl<$Res, AwardsModel>;
-
   @useResult
   $Res call(
       {@JsonKey(name: "items_point_id") int? itemsPointId,
@@ -85,7 +74,6 @@ class _$AwardsModelCopyWithImpl<$Res, $Val extends AwardsModel>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -154,7 +142,6 @@ abstract class _$$AwardsModelImplCopyWith<$Res>
   factory _$$AwardsModelImplCopyWith(
           _$AwardsModelImpl value, $Res Function(_$AwardsModelImpl) then) =
       __$$AwardsModelImplCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call(
@@ -373,43 +360,33 @@ abstract class _AwardsModel implements AwardsModel {
   @override
   @JsonKey(name: "items_point_id")
   int? get itemsPointId;
-
   @override
   @JsonKey(name: "items_point_name")
   String? get itemsPointName;
-
   @override
   @JsonKey(name: "items_point_name_ar")
   String? get itemsPointNameAr;
-
   @override
   @JsonKey(name: "items_point_start_date")
   DateTime? get itemsPointStartDate;
-
   @override
   @JsonKey(name: "items_point_expire_date")
   DateTime? get itemsPointExpireDate;
-
   @override
   @JsonKey(name: "items_point_count")
   int? get itemsPointCount;
-
   @override
   @JsonKey(name: "items_point_user_replacment")
   int? get itemsPointUserReplacment;
-
   @override
   @JsonKey(name: "items_point_price")
   int? get itemsPointPrice;
-
   @override
   @JsonKey(name: "items_point_is_active")
   int? get itemsPointIsActive;
-
   @override
   @JsonKey(name: "items_point_image")
   String? get itemsPointImage;
-
   @override
   @JsonKey(ignore: true)
   _$$AwardsModelImplCopyWith<_$AwardsModelImpl> get copyWith =>

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +19,7 @@ class LoginContainer extends StatelessWidget {
             WidgetSpan(
                 child: GestureDetector(
               onTap: () => Get.toNamed(AppRoutes.login),
-              child: Text(
+              child: AutoSizeText(
                 'goToLogin'.tr,
                 style: DefaultTextStyle.of(context)
                     .style

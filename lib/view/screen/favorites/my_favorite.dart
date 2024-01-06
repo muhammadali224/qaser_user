@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../controller/favorite_controller/my_favorite_controller.dart';
 import '../../../core/class/handling_data_view.dart';
 import '../../widget/back_appbar.dart';
-import '../../widget/my_favorite/custom_list_favorite_items.dart';
+import '../../widget/items/custom_list_items.dart';
 
 class MyFavorite extends StatelessWidget {
   const MyFavorite({super.key});
@@ -32,8 +32,15 @@ class MyFavorite extends StatelessWidget {
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2, childAspectRatio: 0.7),
                       itemBuilder: (context, index) {
-                        return CustomListFavoriteItems(
-                            itemsModel: controller.favData[index]);
+                        controller
+                                .isFavorite[controller.favData[index].itemsId] =
+                            controller.favData[index].isFavorite;
+                        return CustomListItems(
+                          itemsModel: controller.favData[index],
+                          onTap: () =>
+                              controller.goToDetails(controller.favData[index]),
+                          heroTag: 'favorite',
+                        );
                       }),
                 )
               ],

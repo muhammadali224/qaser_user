@@ -38,14 +38,14 @@ class HeaderHelloText extends StatelessWidget {
                               text: "${"hello".tr} , ",
                               style: const TextStyle(
                                 color: Colors.red,
-                                fontFamily: 'Cairo',
+                                fontFamily: 'Almarai',
                                 fontSize: 20,
                               )),
                           TextSpan(
                               text: name,
                               style: TextStyle(
                                 color: AppColor.black,
-                                fontFamily: 'Cairo',
+                                fontFamily: 'Almarai',
                                 fontSize: 18,
                               )),
                         ],

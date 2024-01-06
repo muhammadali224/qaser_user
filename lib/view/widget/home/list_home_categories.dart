@@ -18,7 +18,6 @@ class HomeCategoriesList extends GetView<HomeControllerImp> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
               childAspectRatio: 0.6,
-              mainAxisSpacing: 15,
               crossAxisSpacing: 15,
             ),
             itemBuilder: (context, index) {

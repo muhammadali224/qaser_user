@@ -79,12 +79,17 @@ class Home extends StatelessWidget {
                         if (controller.itemsOfferList.isNotEmpty)
                           const ListOffersHome(),
                         const CustomHomeTitle(title: 'suggestProduct'),
-                        ListTopSellingHome(itemList: controller.suggestItem),
+                        ListTopSellingHome(
+                          itemList: controller.suggestItem,
+                          tag: 'suggestProduct',
+                        ),
                         if (controller.topSellingList.isNotEmpty)
                           const CustomHomeTitle(title: 'topSelling'),
                         if (controller.topSellingList.isNotEmpty)
                           ListTopSellingHome(
-                              itemList: controller.topSellingList),
+                            itemList: controller.topSellingList,
+                            tag: 'topSelling',
+                          ),
                       ],
                     ))
               ],

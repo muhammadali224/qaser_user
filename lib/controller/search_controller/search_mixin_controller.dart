@@ -60,8 +60,11 @@ class SearchMixController extends GetxController {
     update();
   }
 
-  goToDetails(ItemModel itemsModel) {
-    Get.toNamed(AppRoutes.itemDetails, arguments: itemsModel);
+  goToDetails(ItemModel itemsModel, String tag) {
+    Get.toNamed(AppRoutes.itemDetails, arguments: {
+      "model": itemsModel,
+      "tag": tag,
+    });
   }
 
   goToSearchResult(List<ItemModel> itemsModel) {

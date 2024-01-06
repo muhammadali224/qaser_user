@@ -7,7 +7,10 @@ class SearchResultController extends GetxController {
   List<ItemModel> listData = [];
 
   goToDetails(ItemModel itemModel) {
-    Get.toNamed(AppRoutes.itemDetails, arguments: itemModel);
+    Get.toNamed(AppRoutes.itemDetails, arguments: {
+      "model": itemModel,
+      "tag": "search",
+    });
   }
 
   @override

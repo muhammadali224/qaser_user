@@ -32,7 +32,7 @@ class OffersHomeCard extends GetView<HomeControllerImp> {
             tag: "${itemsModel.itemsId}offers",
             child: InkWell(
               borderRadius: BorderRadius.circular(15),
-              onTap: () => controller.goToDetails(itemsModel),
+              onTap: () => controller.goToDetails(itemsModel, "offers"),
               child: CachedImage(
                 fit: BoxFit.cover,
                 imageUrl: "${AppLink.imagesItems}${itemsModel.itemsImage}",

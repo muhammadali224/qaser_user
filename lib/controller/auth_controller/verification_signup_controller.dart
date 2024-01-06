@@ -29,7 +29,11 @@ class VerifiedSignUpControllerImp extends VerifiedSignUpController {
     try {
       statusRequest = StatusRequest.loading;
       update();
-      var response = await verifyData.postData(email!, code);
+      var response = await verifyData.postData(
+        email!,
+        code,
+        user.value.usersId.toString(),
+      );
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {

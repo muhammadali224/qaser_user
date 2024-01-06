@@ -15,8 +15,8 @@ class CachedImage extends StatelessWidget {
       imageUrl: imageUrl,
       imageBuilder: imageBuilder,
       fit: fit ?? BoxFit.contain,
-      placeholder: (context, url) =>
-          const Center(child: CircularProgressIndicator()),
+      // placeholder: (context, url) =>
+      //     const Center(child: CircularProgressIndicator()),
       errorWidget: (context, url, error) => const Center(
         child: Icon(
           Icons.broken_image_rounded,
