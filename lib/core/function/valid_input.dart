@@ -6,23 +6,23 @@ validInput(String val, int min, int max, String type) {
   // }
 
   if (type == "email") {
-    if (!GetUtils.isEmail(val)) {
+    if (!GetUtils.isEmail(val.trim())) {
       return 'emailValidError'.tr;
     }
   }
   if (type == "phone") {
-    if (!GetUtils.isPhoneNumber(val)) {
+    if (!GetUtils.isPhoneNumber(val.trim())) {
       return 'phoneValidError'.tr;
     }
   }
 
-  if (val.isEmpty) {
+  if (val.trim().isEmpty) {
     return 'emptyValidError'.tr;
   }
-  if (val.length < min) {
+  if (val.trim().length < min) {
     return 'minValidError'.tr + min.toString();
   }
-  if (val.length > max) {
+  if (val.trim().length > max) {
     return 'maxValidError'.tr + max.toString();
   }
 }

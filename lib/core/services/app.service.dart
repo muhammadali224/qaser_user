@@ -17,7 +17,7 @@ import 'awesome_helper.service.dart';
 import 'fcm_helper.service.dart';
 
 class MyServices extends GetxService {
-  late GetStorage getBox;
+  GetStorage getBox = GetStorage();
   String? deviceId;
   late AndroidDeviceInfo androidDeviceInfo;
   late FirebaseMessaging fireMessaging;
@@ -34,7 +34,7 @@ class MyServices extends GetxService {
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
       return true;
     };
-    getBox = GetStorage();
+
     await dotenv.load(fileName: ".env");
     androidDeviceInfo = await deviceInfo.androidInfo;
 

@@ -25,7 +25,6 @@ class SearchListResult extends StatelessWidget {
           ? const NoResultSearch()
           : ListView.builder(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
               itemCount: controller.listData.length,
               itemBuilder: (context, index) {
                 return Padding(

@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:get/get.dart';
 import 'package:qaser_user/core/constant/get_box_key.dart';
+import 'package:qaser_user/core/services/app.service.dart';
 
 import 'awesome_helper.service.dart';
 
@@ -14,6 +15,7 @@ class FcmHelper {
   /// this function will initialize firebase and fcm instance
   static Future<void> initFcm() async {
     try {
+      Get.put(MyServices());
       // initialize firebase
       messaging = FirebaseMessaging.instance;
 
@@ -31,7 +33,7 @@ class FcmHelper {
       // check the todo up in the function else ignore the error
       // or stop fcm service from main.dart class
       // Logger().e(error);
-      throw Exception("error $error");
+      throw Exception("Error init Firebase $error");
     }
   }
 
@@ -55,11 +57,9 @@ class FcmHelper {
 
   static Future<void> _generateFcmToken() async {
     try {
-      await GetStorage.init();
-      GetStorage getBox = GetStorage();
       var token = await messaging.getToken();
       if (token != null) {
-        getBox.write(GetBoxKey.fcmToken, token);
+        Get.find<MyServices>().getBox.write(GetBoxKey.fcmToken, token);
 
         _sendFcmTokenToServer();
       } else {
@@ -75,9 +75,7 @@ class FcmHelper {
   /// this method will be triggered when the app generate fcm
   /// token successfully
   static _sendFcmTokenToServer() async {
-    await GetStorage.init();
-    GetStorage getBox = GetStorage();
-    getBox.read(GetBoxKey.fcmToken);
+    Get.find<MyServices>().getBox.read(GetBoxKey.fcmToken);
     // TODO SEND FCM TOKEN TO SERVER
   }
 
@@ -86,18 +84,6 @@ class FcmHelper {
   /// https://stackoverflow.com/a/67083337
   @pragma('vm:entry-point')
   static Future<void> _fcmBackgroundHandler(RemoteMessage message) async {
-    print(message.contentAvailable);
-    print(message.data);
-    print(message.from);
-    print(message.messageId);
-    print(message.messageType);
-    print(message.mutableContent);
-    print(message.notification);
-    print(message.senderId);
-    print(message.sentTime);
-    print(message.threadId);
-    print(message.ttl);
-
     AwesomeNotificationsHelper.showNotification(
       id: 1,
       title: message.notification!.title!,
@@ -110,18 +96,6 @@ class FcmHelper {
 
   //handle fcm notification when app is open
   static Future<void> _fcmForegroundHandler(RemoteMessage message) async {
-    print(message.contentAvailable);
-    print(message.data);
-    print(message.from);
-    print(message.messageId);
-    print(message.messageType);
-    print(message.mutableContent);
-    print(message.notification);
-    print(message.senderId);
-    print(message.sentTime);
-    print(message.threadId);
-    print(message.ttl);
-
     AwesomeNotificationsHelper.showNotification(
       id: 1,
       summary: message.notification!.title!,

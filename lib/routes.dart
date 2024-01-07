@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
+import 'package:qaser_user/core/constant/get_box_key.dart';
+import 'package:qaser_user/core/services/app.service.dart';
 import 'package:qaser_user/view/screen/auth/sms/send_sms.dart';
 import 'package:qaser_user/view/screen/auth/sms/verify_sms.dart';
 import 'package:qaser_user/view/screen/awards/awards.dart';
 import 'package:qaser_user/view/screen/setting/setting_screen/info_screen.dart';
 import 'package:qaser_user/view/screen/user_point/user_point.dart';
+import 'package:upgrader/upgrader.dart';
 
 import 'binding/initial_binding.dart';
 import 'core/constant/routes.dart';
@@ -48,7 +51,18 @@ List<GetPage<dynamic>>? routes = [
   ),
   GetPage(
     name: AppRoutes.home,
-    page: () => const Home(),
+    page: () => UpgradeAlert(
+      upgrader: Upgrader(
+        languageCode:
+            Get.find<MyServices>().getBox.read(GetBoxKey.language) ?? 'ar',
+        canDismissDialog: true,
+        showIgnore: false,
+        dialogStyle: GetPlatform.isIOS
+            ? UpgradeDialogStyle.cupertino
+            : UpgradeDialogStyle.material,
+      ),
+      child: const Home(),
+    ),
     bindings: [
       // CartBindings(),
       InitBindings(),
