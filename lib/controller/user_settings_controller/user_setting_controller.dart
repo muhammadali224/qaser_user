@@ -27,9 +27,8 @@ class UserSettingController extends GetxController {
     XFile? xFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (xFile?.path == null) {
       showSnackBar(
-        "error".tr,
         "لم تقم بإختيار صورة",
-        IconBroken.Image,
+        widget: Icon(IconBroken.Image),
         color: Colors.red,
       );
     } else {

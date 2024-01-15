@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
-import 'package:crypto/crypto.dart';
+import 'package:encrypt/encrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
@@ -11,6 +8,7 @@ import 'package:qaser_user/data/source/remote/awards_data/awards_data.dart';
 import 'package:qaser_user/generated/assets.dart';
 
 import '../../core/function/handling_data_controller.dart';
+import '../../core/services/encrypt.service.dart';
 import '../../data/model/awards_model/awards_model.dart';
 import '../../data/model/user_model/user_model.dart';
 import '../user_controller/user_controller.dart';
@@ -48,18 +46,10 @@ class AwardsController extends GetxController {
   }
 
   void generateQRCode(String id) {
-    String productId = id;
-    DateTime dateTime = DateTime.now();
-    String encryptedData = _encryptData(productId, dateTime);
+    String planText = "$id|${user.value.usersId}";
+    Encrypted encrypted = EncryptData.encryptWithAES(planText);
+    String encryptedData = encrypted.base64;
     qrCodeData.value = encryptedData;
-  }
-
-  String _encryptData(String productId, DateTime dateTime) {
-    final key = utf8.encode('qaser_sharqi'); // Replace with your secret key
-    final bytes = utf8.encode('$productId|${dateTime.toIso8601String()}');
-    final hmacSha256 = Hmac(sha256, key);
-    final digest = hmacSha256.convert(bytes);
-    return base64Encode(Uint8List.fromList(digest.bytes));
   }
 
   showQRCode(int id) {

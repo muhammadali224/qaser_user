@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-showSnackBar(String title, String message, IconData icon, {Color? color}) {
-  return Get.showSnackbar(
-    GetSnackBar(
-      title: title,
-      message: message,
-      icon: Icon(
-        icon,
-        color: color ?? Colors.green,
+showSnackBar(String message, {Color? color, Widget? widget}) {
+  return ScaffoldMessenger.of(Get.context!).showSnackBar(
+    SnackBar(
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(message),
+          widget ?? Container(),
+        ],
       ),
-      duration: const Duration(seconds: 3),
-      snackStyle: SnackStyle.GROUNDED,
+      elevation: 10,
+      backgroundColor: color,
     ),
   );
 }

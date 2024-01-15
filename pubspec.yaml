@@ -2,7 +2,7 @@ name: qaser_user
 description: A new Flutter project.
 publish_to: 'none'
 
-version: 2.0.3+11
+version: 2.0.4+12
 
 
 environment:
@@ -57,6 +57,7 @@ dependencies:
   crypto: ^3.0.3
   pretty_qr_code: ^3.0.0
   upgrader: ^8.4.0
+  encrypt: ^5.0.2
 
 
 
