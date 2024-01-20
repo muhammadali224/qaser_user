@@ -2,6 +2,7 @@ import 'package:encrypt/encrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:qaser_user/core/class/status_request.dart';
 import 'package:qaser_user/data/source/remote/awards_data/awards_data.dart';
@@ -74,7 +75,9 @@ class AwardsController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
+
+    await Jiffy.setLocale("ar");
     getAwards();
     super.onInit();
   }

@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
+import 'package:qaser_user/controller/awards_controller/awards_controller.dart';
 import 'package:qaser_user/core/constant/get_box_key.dart';
 import 'package:qaser_user/core/services/app.service.dart';
 
@@ -64,7 +65,7 @@ class FcmHelper {
         _sendFcmTokenToServer();
       } else {
         // retry generating token
-        await Future.delayed(const Duration(seconds: 5));
+        // await Future.delayed(const Duration(seconds: 5));
         _generateFcmToken();
       }
     } catch (error) {
@@ -96,6 +97,10 @@ class FcmHelper {
 
   //handle fcm notification when app is open
   static Future<void> _fcmForegroundHandler(RemoteMessage message) async {
+    if (message.data["pageid"] == "userPoint" &&
+        message.data["pagename"] == Get.currentRoute) {
+      Get.find<AwardsController>().getAwards();
+    }
     AwesomeNotificationsHelper.showNotification(
       id: 1,
       summary: message.notification!.title!,

@@ -46,9 +46,48 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:164161370503:android:50356c6ff23df9e7befb22",
+        "mobilesdk_app_id": "1:164161370503:android:cea348dc6b91432fbefb22",
         "android_client_info": {
-          "package_name": "com.qaser.cash_order"
+          "package_name": "com.qaser.cash_qaser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164161370503-rop815j5rvpsa58pdov9cna78g7ko72p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-UyXTKBpMEZTBuu2gQ0Cs1Pw_DyVF-vU"
+        },
+        {
+          "current_key": "AIzaSyB3Gs2DZrpcYt6H6JbvbB9LSy1tYm9BuBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164161370503-1oaau1vvu65qj8l5tpkc4nnr2sqkf3nb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "164161370503-2r2d5e5qigv30dlefhr5b3d6o3atkoes.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.qaser.user"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164161370503:android:d44078f29f79c772befb22",
+        "android_client_info": {
+          "package_name": "com.qaser.qaser_cash"
         }
       },
       "oauth_client": [

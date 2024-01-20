@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:qaser_user/core/constant/get_box_key.dart';
-import 'package:qaser_user/core/services/app.service.dart';
 import 'package:qaser_user/view/screen/auth/sms/send_sms.dart';
 import 'package:qaser_user/view/screen/auth/sms/verify_sms.dart';
 import 'package:qaser_user/view/screen/awards/awards.dart';
@@ -53,8 +51,6 @@ List<GetPage<dynamic>>? routes = [
     name: AppRoutes.home,
     page: () => UpgradeAlert(
       upgrader: Upgrader(
-        languageCode:
-            Get.find<MyServices>().getBox.read(GetBoxKey.language) ?? 'ar',
         canDismissDialog: true,
         showIgnore: false,
         dialogStyle: GetPlatform.isIOS
