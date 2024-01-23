@@ -37,6 +37,7 @@ class AddressAdd extends StatelessWidget {
                               myLocationButtonEnabled: true,
                               markers: myController.markers.toSet(),
                               onTap: (latlong) {
+                                print(latlong);
                                 myController.addMarkers(latlong);
                               },
                               mapType: MapType.normal,

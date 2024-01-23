@@ -3,19 +3,17 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/user_details_data.dart';
 import '../user_controller/user_controller.dart';
 import 'user_setting_controller.dart';
 
 class ChangeEmailController extends GetxController {
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
-
+  UserController userController = Get.find<UserController>();
   TextEditingController userTextController = TextEditingController();
 
   StatusRequest statusRequest = StatusRequest.none;
   UserDetailsData userData = UserDetailsData(Get.find());
-  UserSettingController userController = Get.find();
+  UserSettingController userSettingController = Get.find();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -27,16 +25,16 @@ class ChangeEmailController extends GetxController {
       update();
 
       var response = await userData.verifyCode(
-        user.value.usersId!,
+        userController.user.usersId!,
         userTextController.text,
-        user.value.usersEmail!,
+        userController.user.usersEmail!,
         code,
       );
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
           Get.back();
-          userController.getData();
+          userSettingController.getData();
         } else {
           Get.defaultDialog(
               title: 'attention'.tr,
@@ -79,7 +77,7 @@ class ChangeEmailController extends GetxController {
         statusRequest = StatusRequest.loading;
         update();
         var response = await userData.checkEmail(
-          user.value.usersId!,
+          userController.user.usersId!,
           userTextController.text,
         );
         statusRequest = handlingData(response);

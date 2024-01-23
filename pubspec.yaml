@@ -15,7 +15,7 @@ dependencies:
   flutter_otp_text_field:
   jiffy:
   http: ^1.1.0
-  cached_network_image: ^3.3.0
+  cached_network_image_plus:
   google_maps_flutter:
   geolocator:
   auto_size_text: ^3.0.0

@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image_plus/flutter_cached_network_image_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:get/get.dart';
@@ -21,10 +21,10 @@ class SwiperCard extends GetView<HomeControllerImp> {
           builder: SwiperPagination.rect,
         ),
         itemBuilder: (context, index) {
-          return CachedNetworkImage(
+          return CacheNetworkImagePlus(
             imageUrl:
                 "${AppLink.imageOffer}${controller.offerImagesList[index].offerImageUrl}",
-            fit: BoxFit.fill,
+            boxFit: BoxFit.fill,
             imageBuilder: (_, imageProvider) => Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -33,9 +33,7 @@ class SwiperCard extends GetView<HomeControllerImp> {
                     fit: BoxFit.fill,
                   )),
             ),
-            placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator()),
-            errorWidget: (context, url, error) => const Icon(
+            errorWidget: const Icon(
               Icons.broken_image_rounded,
               color: Colors.red,
             ),

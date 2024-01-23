@@ -20,15 +20,14 @@ class OnBoardingControllerImp extends OnBoardingController {
   late PageController pageController;
   MyServices myServices = Get.find();
   final LoginData _loginData = LoginData(Get.find());
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
   UserController userController = Get.find<UserController>();
 
   Future<void> loginAnonymous() async {
     try {
       var response = await _loginData.loginAnonymous(
-        user.value.usersEmail!,
-        user.value.userFavBranchId!,
-        user.value.usersName!,
+        userController.user.usersEmail!,
+        userController.user.userFavBranchId!,
+        userController.user.usersName!,
       );
       if (response['status'] == 'success') {
         UserModel loginUser = UserModel.fromJson(response['data']);

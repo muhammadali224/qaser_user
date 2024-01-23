@@ -5,8 +5,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/order_details_model.dart';
-import '../../data/model/orders_model.dart';
+import '../../data/model/order_details_model/order_details_model.dart';
+import '../../data/model/orders_model/orders_model.dart';
 import '../../data/source/remote/orders_data.dart';
 import 'orders_controller.dart';
 
@@ -34,13 +34,14 @@ class OrderDetailsController extends GetxController {
     completerController = Completer<GoogleMapController>();
     if (ordersModel.ordersType == 1) {
       kGooglePlex = CameraPosition(
-          target: LatLng(ordersModel.addressLat!, ordersModel.addressLong!),
+          target: LatLng(ordersModel.addressLat!.toDouble(),
+              ordersModel.addressLong!.toDouble()),
           zoom: 17);
       markers.add(Marker(
         markerId: const MarkerId("1"),
         position: LatLng(
-          ordersModel.addressLat!,
-          ordersModel.addressLong!,
+          ordersModel.addressLat!.toDouble(),
+          ordersModel.addressLong!.toDouble(),
         ),
       ));
     }

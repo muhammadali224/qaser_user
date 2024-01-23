@@ -20,6 +20,7 @@ class Orders extends StatelessWidget {
             title: Text('myOrders'.tr),
             leading: BackAppBar(),
             bottom: TabBar(
+              tabAlignment: TabAlignment.center,
               isScrollable: true,
               tabs: [
                 ...List.generate(
@@ -32,21 +33,11 @@ class Orders extends StatelessWidget {
             ),
           ),
           body: TabBarView(children: [
-            TabAll(
-                // statusRequest: controller.statusRequest,
-                data: controller.dataAll),
-            TabAll(
-                // statusRequest: controller.statusRequest,
-                data: controller.dataPending),
-            TabAll(
-                // statusRequest: controller.statusRequest,
-                data: controller.dataOnTheRoad),
-            TabAll(
-                // statusRequest: controller.statusRequest,
-                data: controller.dataCompleted),
-            TabAll(
-                // statusRequest: controller.statusRequest,
-                data: controller.dataCanceled),
+            TabAll(data: controller.dataAll),
+            TabAll(data: controller.dataPending),
+            TabAll(data: controller.dataOnTheRoad),
+            TabAll(data: controller.dataCompleted),
+            TabAll(data: controller.dataCanceled),
           ]),
         ),
       );

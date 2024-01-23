@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:icon_broken/icon_broken.dart';
-import 'package:jiffy/jiffy.dart';
 
 import '../../../controller/orders/orders_controller.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/constant/routes.dart';
-import '../../../core/function/copy_text.dart';
-import '../../../core/function/translate_database.dart';
-import '../../../core/shared/rate_dialog.dart';
-import '../../../data/model/orders_model.dart';
+import '../../../data/model/orders_model/orders_model.dart';
+import 'custom_card/card_header.dart';
+import 'custom_card/card_order_details_footer.dart';
+import 'custom_card/card_total_container.dart';
+import 'custom_card/card_type_time_branch.dart';
+import 'custom_card/card_user_info.dart';
 
 class OrdersCard extends GetView<OrdersController> {
   final OrdersModel ordersModel;
@@ -20,11 +20,11 @@ class OrdersCard extends GetView<OrdersController> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(AppRoutes.ordersDetails,
-            arguments: {'ordersModel': ordersModel});
+        Get.toNamed(AppRoutes.ordersDetails, arguments: {
+          'ordersModel': ordersModel,
+        });
       },
       child: Container(
-        height: 270,
         margin: const EdgeInsets.symmetric(vertical: 13),
         decoration: BoxDecoration(
           color: Colors.grey[100],
@@ -40,61 +40,14 @@ class OrdersCard extends GetView<OrdersController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${controller.orderStatus[ordersModel.ordersState.toString()]}"
-                        .tr,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: AppColor.red),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "#${ordersModel.ordersId.toString()}",
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                        ),
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            copyText(ordersModel.ordersId.toString());
-                          },
-                          icon: const Icon(
-                            Icons.copy_all_outlined,
-                            color: Colors.blue,
-                          ))
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${controller.orderType[ordersModel.ordersType.toString()]}"
-                        .tr,
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                  Text(Jiffy.parse(ordersModel.ordersTime!).fromNow(),
-                      style: const TextStyle(fontSize: 18)),
-                ],
-              ),
-            ),
-            Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text(translateDatabase(
-                    ordersModel.branchNameAr!, ordersModel.branchNameEn!))),
+            OrderCardHeader(
+                ordersModel: ordersModel,
+                orderState: controller.orderStatus[ordersModel.ordersState!]!),
+            CardTimeBranchTitle(
+                ordersModel: ordersModel,
+                orderType: controller.orderType[ordersModel.ordersType!]!),
+            CardUserInfo(ordersModel: ordersModel),
+            const SizedBox(height: 20),
             if (ordersModel.ordersState == 3 && ordersModel.ordersRating != 0)
               Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -106,55 +59,62 @@ class OrdersCard extends GetView<OrdersController> {
                               fontSize: 20, color: AppColor.primaryColor)),
                       Row(
                         children: [
+                          Text(ordersModel.ordersRating.toString(),
+                              style: TextStyle(
+                                  fontSize: 20, color: AppColor.primaryColor)),
                           const Icon(
                             Icons.star,
                             color: Colors.amber,
                           ),
-                          Text(ordersModel.ordersRating.toString(),
-                              style: TextStyle(
-                                  fontSize: 20, color: AppColor.primaryColor)),
                         ],
                       ),
                     ],
                   )),
-            if (ordersModel.ordersState == 3 && ordersModel.ordersRating == 0)
-              TextButton(
-                  onPressed: () {
-                    showRatingDialog(context, ordersModel.ordersId!,
-                        isOrderScreen: true);
-                  },
-                  child: Text("${"rate".tr}${"order".tr}",
-                      style: const TextStyle(
-                          fontSize: 20, decoration: TextDecoration.underline))),
-            const Spacer(),
-            Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("total".tr,
-                        style: TextStyle(fontSize: 20, color: AppColor.red)),
-                    Text("${ordersModel.ordersTotalPrice} ${"jd".tr}",
-                        style: TextStyle(fontSize: 20, color: AppColor.red)),
-                  ],
-                )),
-            const Divider(),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            CardTotalContainer(ordersModel: ordersModel),
+            if (ordersModel.ordersState == 0)
+              Column(
                 children: [
-                  Text(
-                    "ordersDetails".tr,
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor, fontSize: 20),
+                  const Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [],
                   ),
-                  Icon(IconBroken.Arrow___Right_Circle,
-                      color: Theme.of(context).primaryColor, size: 35),
                 ],
               ),
-            ),
+            if (ordersModel.ordersState == 1)
+              Column(
+                children: [
+                  const Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [],
+                  ),
+                ],
+              ),
+            if (ordersModel.ordersState == 2)
+              Column(
+                children: [
+                  const Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      MaterialButton(
+                        onPressed: () {},
+                        color: Colors.green,
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Text(
+                          'completed'.tr,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            const Divider(),
+            const OrdersCardFooter(),
             const SizedBox(height: 10),
           ],
         ),

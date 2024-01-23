@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:qaser_user/controller/user_controller/user_controller.dart';
 import 'package:qaser_user/core/services/app.service.dart';
-import 'package:qaser_user/data/model/user_model/user_model.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/constant/color.dart';
@@ -43,8 +42,7 @@ class CartControllerImp extends CartController {
   StatusRequest statusRequest = StatusRequest.none;
   CheckoutData checkoutData = CheckoutData(Get.find());
   ViewAddressController addressController = Get.put(ViewAddressController());
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
-
+  UserController userController = Get.find<UserController>();
   String deliveryFee = "0";
   RxBool isLoading = false.obs;
   double totalPrice = 0.0;
@@ -83,7 +81,7 @@ class CartControllerImp extends CartController {
         SmartDialog.showLoading(msg: "loading".tr);
 
         var response = await cartData.addToCart(
-          user.value.usersId!.toString(),
+          userController.user.usersId!.toString(),
           itemsId,
           weightAndSizeId,
           cartItemPrice,
@@ -153,7 +151,7 @@ class CartControllerImp extends CartController {
       statusRequest = StatusRequest.loading;
       isLoading.value = true;
       update();
-      var response = await cartData.getCart(user.value.usersId!);
+      var response = await cartData.getCart(userController.user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
@@ -242,7 +240,7 @@ class CartControllerImp extends CartController {
   addNoteToItem(int cartId) async {
     try {
       var response = await cartData.addNoteToItem(
-        user.value.usersId!,
+        userController.user.usersId!,
         cartId,
         noteController.text,
       );
@@ -305,7 +303,7 @@ class CartControllerImp extends CartController {
         }
 
         var response = await checkoutData.checkout(
-          user.value.usersId!,
+          userController.user.usersId!,
           selectedLocation.toString(),
           selectedOrderType.toString(),
           deliveryFee,
@@ -313,7 +311,7 @@ class CartControllerImp extends CartController {
           discount.toStringAsFixed(2),
           getTotalOrderPrice(),
           couponId ?? 0,
-          user.value.userFavBranchId!,
+          userController.user.userFavBranchId!,
         );
         statusRequest = handlingData(response);
         if (statusRequest == StatusRequest.success) {
@@ -382,7 +380,7 @@ class CartControllerImp extends CartController {
     try {
       SmartDialog.showLoading(msg: "loading".tr);
       var response = await checkoutData.checkCoupon(
-          couponController.text.trim(), user.value.userFavBranchId!);
+          couponController.text.trim(), userController.user.userFavBranchId!);
 
       if (response['status'] == 'success') {
         couponValue = response['data']['coupon_discount'];

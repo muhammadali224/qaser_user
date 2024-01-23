@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image_plus/flutter_cached_network_image_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
@@ -29,22 +29,16 @@ class UserSettingHeader extends GetView<UserSettingController> {
                     color: Colors.black.withOpacity(0.3),
                     offset: const Offset(0, 10))
               ],
-              // image: DecorationImage(
-              //   fit: BoxFit.cover,
-              //   image: AssetImage(Assets.imagesAvatar),
-              // ),
             ),
             child: controller.file == null
-                ? CachedNetworkImage(
+                ? CacheNetworkImagePlus(
                     imageBuilder: (context, imageProvider) => CircleAvatar(
                       backgroundImage: imageProvider,
                       radius: 35,
                     ),
                     imageUrl:
-                        "${AppLink.imageUserProfile}${controller.user.value.usersImage}",
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) => const Icon(
+                        "${AppLink.imageUserProfile}${controller.userController.user.usersImage}",
+                    errorWidget: const Icon(
                       IconBroken.Profile,
                     ),
                   )

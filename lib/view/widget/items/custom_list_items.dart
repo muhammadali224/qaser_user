@@ -44,13 +44,7 @@ class CustomListItems extends StatelessWidget {
                         CachedImage(
                           imageUrl:
                               "${AppLink.imagesItems}${itemsModel.itemsImage}",
-                          imageBuilder: (_, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            )),
-                          ),
+                          fit: BoxFit.cover,
                         ),
                         Align(
                           alignment: Alignment.topRight,

@@ -13,7 +13,6 @@ abstract class VerifiedController extends GetxController {
 class VerifiedControllerImp extends VerifiedController {
   String? email;
   VerifyResetCodeData verifyData = VerifyResetCodeData(Get.find());
-
   StatusRequest statusRequest = StatusRequest.none;
 
   @override

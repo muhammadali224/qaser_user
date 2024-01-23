@@ -17,7 +17,7 @@ class MyNotifications extends StatelessWidget {
         title: Text("notification".tr),
         leading: BackAppBar(),
         actions: [
-          if (controller.user.value.usersIsAnonymous == 0)
+          if (controller.userController.user.usersIsAnonymous == 0)
             IconButton(
               onPressed: controller.markAllRead,
               icon: const Icon(
@@ -69,7 +69,9 @@ class MyNotifications extends StatelessWidget {
                                     ? Colors.black
                                     : Colors.grey.shade600),
                           ),
-                          leading: controller.user.value.usersIsAnonymous == 0
+                          leading: controller
+                                      .userController.user.usersIsAnonymous ==
+                                  0
                               ? controller.data[index].notificationsIsRead ==
                                           0 &&
                                       controller.data[index]

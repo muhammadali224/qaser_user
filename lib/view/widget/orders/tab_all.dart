@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../controller/orders/orders_controller.dart';
 import '../../../core/class/handling_data_view.dart';
-import '../../../data/model/orders_model.dart';
+import '../../../data/model/orders_model/orders_model.dart';
 import 'order_custom_card.dart';
 
 class TabAll extends GetView<OrdersController> {

@@ -7,13 +7,12 @@ import 'package:qaser_user/core/services/app.service.dart';
 import 'package:qaser_user/data/model/user_point_model/user_point_model.dart';
 import 'package:qaser_user/data/source/remote/user_point_data/user_point_data.dart';
 
-import '../../data/model/user_model/user_model.dart';
 import '../user_controller/user_controller.dart';
 
 class TimerController extends GetxController {
   RxBool canGetPrize = true.obs;
   RxString eta = ''.obs;
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
+  UserController userController = Get.find<UserController>();
   final box = Get.find<MyServices>().getBox;
   UserPointData _pointData = UserPointData(Get.find());
 
@@ -53,11 +52,11 @@ class TimerController extends GetxController {
 
   void getPrize() async {
     try {
-      if (user.value.usersIsAnonymous == 1) {
+      if (userController.user.usersIsAnonymous == 1) {
         SmartDialog.showToast("signInFirst".tr);
       } else {
         var response = await _pointData.addPoint(
-            user.value.usersId!,
+            userController.user.usersId!,
             UserPointModel(
               // createDate: DateTime.now(),
               // expireDate: DateTime.now().add(Duration(days: 90)),

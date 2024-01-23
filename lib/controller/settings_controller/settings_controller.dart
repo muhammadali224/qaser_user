@@ -67,7 +67,7 @@ class SettingsController extends GetxController {
       await myServices.getBox.remove(GetBoxKey.user);
       await myServices.getBox.write(GetBoxKey.isSigned, false);
       // await _homeControllerImp.loginAnonymous();
-      await userController.clearUser();
+      await userController.clear();
       await myServices.getBox.remove(GetBoxKey.step);
       Get.offAllNamed('/');
     } catch (e) {

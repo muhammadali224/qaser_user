@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image_plus/flutter_cached_network_image_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
@@ -62,18 +62,16 @@ class HeaderCardSetting extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: CachedNetworkImage(
+                    child: CacheNetworkImagePlus(
                         imageBuilder: (context, imageProvider) => CircleAvatar(
                             backgroundImage: imageProvider,
                             radius: Get.height / 15),
                         imageUrl: "${AppLink.imageUserProfile}$imageUrl",
-                        placeholder: (context, url) =>
-                            const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => const Center(
-                              child: Icon(
-                                IconBroken.Setting,
-                              ),
-                            )),
+                        errorWidget: const Center(
+                          child: Icon(
+                            IconBroken.Setting,
+                          ),
+                        )),
                   ),
                   Expanded(
                     flex: 2,

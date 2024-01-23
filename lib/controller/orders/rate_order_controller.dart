@@ -2,14 +2,12 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/orders_model.dart';
-import '../../data/model/user_model/user_model.dart';
+import '../../data/model/orders_model/orders_model.dart';
 import '../../data/source/remote/rate_orders_data.dart';
 import '../user_controller/user_controller.dart';
 
 class RateOrdersController extends GetxController {
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
-
+  UserController userController = Get.find<UserController>();
   Map orderStatus = {
     '0': 'pending',
     '1': 'approved',
@@ -37,7 +35,7 @@ class RateOrdersController extends GetxController {
       data.clear();
       statusRequest = StatusRequest.loading;
       update();
-      var response = await ordersData.getData(user.value.usersId!);
+      var response = await ordersData.getData(userController.user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {

@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image_plus/flutter_cached_network_image_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
@@ -152,7 +152,7 @@ class CustomListCartItems extends GetView<CartControllerImp> {
                     Center(
                       child: Container(
                         margin: const EdgeInsets.all(5),
-                        child: CachedNetworkImage(
+                        child: CacheNetworkImagePlus(
                           imageUrl:
                               "${AppLink.imagesItems}${cartModel.itemsImage}",
                           height: 100,
@@ -166,9 +166,7 @@ class CustomListCartItems extends GetView<CartControllerImp> {
                                   fit: BoxFit.fill,
                                 )),
                           ),
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) => const Icon(
+                          errorWidget: const Icon(
                             Icons.broken_image_rounded,
                             color: Colors.red,
                           ),

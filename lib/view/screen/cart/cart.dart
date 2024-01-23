@@ -55,7 +55,7 @@ class Cart extends StatelessWidget {
             ),
           );
         } else if (selectedBranch.value.branchIsOpen == 1) {
-          if (controller.user.value.usersIsAnonymous == 0) {
+          if (controller.userController.user.usersIsAnonymous == 0) {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -121,11 +121,13 @@ class Cart extends StatelessWidget {
                             onChanged: () async {
                               controller.selectOrderMethod(i);
                               if (i == 1 &&
-                                  controller.user.value.usersIsAnonymous == 0) {
+                                  controller.userController.user
+                                          .usersIsAnonymous ==
+                                      0) {
                                 await controller.addressController.getData();
                                 openLocationBottomSheet();
                               } else if (controller
-                                      .user.value.usersIsAnonymous ==
+                                      .userController.user.usersIsAnonymous ==
                                   1) {
                                 SmartDialog.showToast("signInFirst".tr);
                               }

@@ -5,7 +5,6 @@ import 'package:qaser_user/data/model/items_model/items_model.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/favorite_data.dart';
 import '../user_controller/user_controller.dart';
 
@@ -14,13 +13,14 @@ class MyFavoriteController extends GetxController {
   List<ItemModel> favData = [];
   Map isFavorite = {};
   StatusRequest statusRequest = StatusRequest.none;
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
+  UserController userController = Get.find<UserController>();
 
   getFavorite() async {
     try {
       favData.clear();
       statusRequest = StatusRequest.loading;
-      var response = await favoriteData.getFavorite(user.value.usersId!);
+      var response =
+          await favoriteData.getFavorite(userController.user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
@@ -38,7 +38,7 @@ class MyFavoriteController extends GetxController {
 
   deleteFavoriteItems(int itemId) {
     try {
-      favoriteData.removeFavorite(user.value.usersId!, itemId);
+      favoriteData.removeFavorite(userController.user.usersId!, itemId);
       favData.removeWhere((element) => element.itemsId == itemId);
     } catch (e) {
       throw Exception("Error Delete Favorite : $e");
@@ -55,7 +55,7 @@ class MyFavoriteController extends GetxController {
     try {
       statusRequest = StatusRequest.loading;
       var response =
-          await favoriteData.addFavorite(user.value.usersId!, itemsId);
+          await favoriteData.addFavorite(userController.user.usersId!, itemsId);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
@@ -83,8 +83,8 @@ class MyFavoriteController extends GetxController {
   removeFavorite(int itemsId) async {
     try {
       statusRequest = StatusRequest.loading;
-      var response =
-          await favoriteData.removeFavorite(user.value.usersId!, itemsId);
+      var response = await favoriteData.removeFavorite(
+          userController.user.usersId!, itemsId);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
