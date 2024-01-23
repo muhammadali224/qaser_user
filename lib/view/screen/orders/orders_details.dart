@@ -7,8 +7,6 @@ import '../../../controller/orders/order_details_controller.dart';
 import '../../../core/class/handling_data_view.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/function/translate_database.dart';
-import '../../widget/back_appbar.dart';
-import '../../widget/bottom_cart_button.dart';
 import '../../widget/orders_details/header_order_number.dart';
 import '../../widget/orders_details/headers_order_details.dart';
 import '../../widget/orders_details/subtitle_details.dart';
@@ -19,26 +17,19 @@ class OrdersDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    OrderDetailsController myController = Get.put(OrderDetailsController());
+    Get.put(OrderDetailsController());
 
     return Scaffold(
       appBar: AppBar(
         title: Text('ordersDetails'.tr),
-        leading: BackAppBar(),
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(
+            Icons.arrow_right,
+            size: 30,
+          ),
+        ),
       ),
-      bottomNavigationBar: myController.ordersModel.ordersState == 0
-          ? ButtomNavigatButton(
-              onPressed: () => myController.orderCancel(),
-              color: AppColor.primaryColor,
-              title: 'cancel',
-              icon: Icons.cancel_outlined)
-          : myController.ordersModel.ordersState == 4
-              ? ButtomNavigatButton(
-                  onPressed: () => myController.orderDelete(),
-                  color: AppColor.primaryColor,
-                  title: 'delete',
-                  icon: Icons.delete_forever_outlined)
-              : null,
       body: GetBuilder<OrderDetailsController>(builder: (controller) {
         return HandlingDataView(
           statusRequest: controller.statusRequest,
@@ -53,10 +44,11 @@ class OrdersDetails extends StatelessWidget {
                 SubtitleDetails(
                     title: 'orderType',
                     subtitle:
-                        "${controller.orderType[controller.ordersModel.ordersType!]}"),
+                        "${controller.orderType[controller.ordersModel.ordersType]}"),
                 SubtitleDetails(
                     title: 'orderTime',
-                    subtitle: Jiffy.parse(controller.ordersModel.ordersTime!)
+                    subtitle: Jiffy.parseFromDateTime(
+                            controller.ordersModel.ordersTime!)
                         .format(pattern: "dd/MM/yyyy  HH:mm a")),
                 SubtitleDetails(
                     title: 'branch',
@@ -64,6 +56,7 @@ class OrdersDetails extends StatelessWidget {
                         controller.ordersModel.branchNameAr!,
                         controller.ordersModel.branchNameEn!)),
                 const SizedBox(height: 20),
+                const HeadersOrderDetails(title: 'ordersDetails'),
                 const OrderTableDetails(),
                 const SizedBox(height: 20),
                 if (controller.ordersModel.ordersType == 1)

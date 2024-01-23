@@ -96,7 +96,6 @@ class Items extends StatelessWidget {
                                         heroTag: 'items',
                                       );
                                     }),
-                                // DynamicTabBarWidget(dynamicTabs: dynamicTabs, onTabControllerUpdated: onTabControllerUpdated)
                               ],
                             ))
                         .toList()),

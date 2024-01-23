@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/auth/check_sms_data.dart';
 import '../../data/source/remote/auth/signup_data.dart';
 import '../user_controller/user_controller.dart';
@@ -19,7 +18,7 @@ abstract class SignUpController extends GetxController {
 }
 
 class SignUpControllerImp extends SignUpController {
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
+  UserController userController = Get.find<UserController>();
   SignupData signupData = SignupData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
 
@@ -46,7 +45,7 @@ class SignUpControllerImp extends SignUpController {
           password.text.trim(),
           email.text.trim(),
           phone.text.trim(),
-          user.value.usersId.toString(),
+          userController.user.usersId.toString(),
         );
         statusRequest = handlingData(response);
         if (StatusRequest.success == statusRequest) {
@@ -81,7 +80,7 @@ class SignUpControllerImp extends SignUpController {
           password.text.trim(),
           email.text.trim().toLowerCase(),
           phone.text.trim(),
-          user.value.usersId.toString(),
+          userController.user.usersId.toString(),
         );
         statusRequest = handlingData(response);
         if (StatusRequest.success == statusRequest) {

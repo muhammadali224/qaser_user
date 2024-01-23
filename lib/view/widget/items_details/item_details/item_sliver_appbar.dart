@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image_plus/flutter_cached_network_image_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
@@ -34,19 +34,17 @@ class ItemSliverAppbar extends GetView<ItemDetailsControllerImpl> {
                 pagination: const SwiperPagination(
                     builder: SwiperPagination.dots,
                     margin: EdgeInsets.only(bottom: 30)),
-                itemBuilder: (_, index) => CachedNetworkImage(
+                itemBuilder: (_, index) => CacheNetworkImagePlus(
                   imageUrl:
                       "${AppLink.imagesItems}${controller.itemsModel.images![index]}",
-                  fit: BoxFit.cover,
-                  filterQuality: FilterQuality.high,
+                  boxFit: BoxFit.cover,
                 ),
               )
             : InstaImageViewer(
-                child: CachedNetworkImage(
+                child: CacheNetworkImagePlus(
                   imageUrl:
                       "${AppLink.imagesItems}${controller.itemsModel.itemsImage}",
-                  fit: BoxFit.cover,
-                  filterQuality: FilterQuality.high,
+                  boxFit: BoxFit.cover,
                 ),
               ),
       ),

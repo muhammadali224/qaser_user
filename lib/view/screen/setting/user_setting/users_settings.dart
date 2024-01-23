@@ -43,7 +43,7 @@ class UserSetting extends StatelessWidget {
                               backgroundColor: Colors.red,
                             ),
                             title: 'userName'.tr,
-                            subtitle: controller.user.value.usersName,
+                            subtitle: controller.userController.user.usersName,
                           ),
                           SettingsTileItem(
                             onTap: controller.goToChangePassword,
@@ -64,7 +64,7 @@ class UserSetting extends StatelessWidget {
                               backgroundColor: Colors.cyan,
                             ),
                             title: 'email'.tr,
-                            subtitle: controller.user.value.usersEmail,
+                            subtitle: controller.userController.user.usersEmail,
                           ),
                           SettingsTileItem(
                             onTap: controller.goToChangePhone,
@@ -75,7 +75,7 @@ class UserSetting extends StatelessWidget {
                               backgroundColor: Colors.amber,
                             ),
                             title: 'phone'.tr,
-                            subtitle: controller.user.value.usersPhone,
+                            subtitle: controller.userController.user.usersPhone,
                           ),
                         ],
                       ),

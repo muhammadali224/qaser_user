@@ -6,7 +6,6 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/items_model/items_model.dart';
-import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/items_data.dart';
 import '../user_controller/user_controller.dart';
 
@@ -26,8 +25,7 @@ class ItemsControllerImp extends ItemsController
   late TabController tabController;
   late PageController pageController;
 
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
-
+  UserController userController = Get.find<UserController>();
   ItemsData itemsData = ItemsData(Get.find());
   StatusRequest statusRequest = StatusRequest.loading;
   List<ItemModel> items = [];
@@ -68,8 +66,8 @@ class ItemsControllerImp extends ItemsController
       update();
       var response = await itemsData.getData(
         categoriesId,
-        user.value.usersId!,
-        user.value.userFavBranchId!,
+        userController.user.usersId!,
+        userController.user.userFavBranchId!,
       );
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {

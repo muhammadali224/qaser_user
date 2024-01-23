@@ -49,13 +49,17 @@ class Home extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         HeaderHelloText(
-                          imageUrl: controller.user.value.usersImage ?? "null",
-                          name: controller.user.value.usersIsAnonymous == 0
-                              ? controller.user.value.usersName!
-                              : "user".tr,
+                          imageUrl: controller.userController.user.usersImage ??
+                              "null",
+                          name:
+                              controller.userController.user.usersIsAnonymous ==
+                                      0
+                                  ? controller.userController.user.usersName!
+                                  : "user".tr,
                           onTapped: controller.goToSettings,
                         ),
-                        if (controller.user.value.usersIsAnonymous == 1)
+                        if (controller.userController.user.usersIsAnonymous ==
+                            1)
                           const LoginContainer(),
                         SearchFormField(
                           controller: controller.search,

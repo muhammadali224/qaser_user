@@ -8,7 +8,7 @@ import '../../../core/constant/color.dart';
 import '../../../core/constant/routes.dart';
 import '../../../core/function/copy_text.dart';
 import '../../../core/shared/rate_dialog.dart';
-import '../../../data/model/orders_model.dart';
+import '../../../data/model/orders_model/orders_model.dart';
 
 class CompletedListCard extends GetView<RateOrdersController> {
   final OrdersModel ordersModel;
@@ -78,13 +78,12 @@ class CompletedListCard extends GetView<RateOrdersController> {
                   style: const TextStyle(fontSize: 18),
                 ),
                 Text(
-                  Jiffy.parse(ordersModel.ordersTime!).fromNow(),
+                  Jiffy.parseFromDateTime(ordersModel.ordersTime!).fromNow(),
                   style: const TextStyle(fontSize: 18),
                 ),
               ],
             ),
           ),
-
           Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(

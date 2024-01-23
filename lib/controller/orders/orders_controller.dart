@@ -3,15 +3,13 @@ import 'package:get/get.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/orders_model.dart';
-import '../../data/model/user_model/user_model.dart';
+import '../../data/model/orders_model/orders_model.dart';
 import '../../data/source/remote/orders_data.dart';
 import '../../data/source/remote/rate_orders_data.dart';
 import '../user_controller/user_controller.dart';
 
 class OrdersController extends GetxController {
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
-
+  UserController userController = Get.find<UserController>();
   List orderTabs = [
     {'title': 'all', 'icon': Icons.all_inbox},
     {'title': 'pending', 'icon': Icons.pending_actions_outlined},
@@ -20,16 +18,16 @@ class OrdersController extends GetxController {
     {'title': 'canceled', 'icon': Icons.cancel_outlined},
   ];
   Map orderStatus = {
-    '0': 'pending',
-    '1': 'approved',
-    '2': 'onTheRoad',
-    '3': 'completed',
-    '4': 'canceled',
-    '5': 'canceled',
+    0: 'pending',
+    1: 'approved',
+    2: 'onTheRoad',
+    3: 'completed',
+    4: 'canceled',
+    5: 'canceled',
   };
   Map orderType = {
-    '0': 'pickup',
-    '1': 'delivery',
+    0: 'pickup',
+    1: 'delivery',
   };
 
   StatusRequest statusRequest = StatusRequest.none;
@@ -51,7 +49,7 @@ class OrdersController extends GetxController {
       dataPending.clear();
       statusRequest = StatusRequest.loading;
       update();
-      var response = await ordersData.getData(user.value.usersId!);
+      var response = await ordersData.getData(userController.user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {

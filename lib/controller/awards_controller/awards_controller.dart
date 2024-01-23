@@ -11,12 +11,11 @@ import 'package:qaser_user/generated/assets.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../core/services/encrypt.service.dart';
 import '../../data/model/awards_model/awards_model.dart';
-import '../../data/model/user_model/user_model.dart';
 import '../user_controller/user_controller.dart';
 
 class AwardsController extends GetxController {
   AwardsData _awardsData = AwardsData(Get.find());
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
+  UserController userController = Get.find<UserController>();
   List<AwardsModel> awardsList = [];
   StatusRequest statusRequest = StatusRequest.none;
   int totalPoint = 0;
@@ -29,7 +28,8 @@ class AwardsController extends GetxController {
       statusRequest = StatusRequest.loading;
 
       update();
-      var response = await _awardsData.getAwardsView(user.value.usersId!);
+      var response =
+          await _awardsData.getAwardsView(userController.user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
@@ -47,7 +47,7 @@ class AwardsController extends GetxController {
   }
 
   void generateQRCode(String id) {
-    String planText = "$id|${user.value.usersId}";
+    String planText = "$id|${userController.user.usersId}";
     Encrypted encrypted = EncryptData.encryptWithAES(planText);
     String encryptedData = encrypted.base64;
     qrCodeData.value = encryptedData;
@@ -76,7 +76,6 @@ class AwardsController extends GetxController {
 
   @override
   void onInit() async {
-
     await Jiffy.setLocale("ar");
     getAwards();
     super.onInit();

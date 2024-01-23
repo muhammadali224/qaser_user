@@ -26,7 +26,6 @@ class LoginControllerImp extends LoginController {
   late TextEditingController password;
   GlobalKey<FormState> formState = GlobalKey<FormState>();
   bool isVisiblePassword = true;
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
   UserController userController = Get.find<UserController>();
   LoginData loginData = LoginData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
@@ -51,13 +50,13 @@ class LoginControllerImp extends LoginController {
 
         if (StatusRequest.success == statusRequest) {
           if (response['status'] == 'success') {
-            var loginUser = UserModel.fromJson(response['data']);
-            userController.user = loginUser;
+            await userController.clear();
+            userController.user = UserModel.fromJson(response["data"]);
 
             if (response['data']["users_approve"] == 1) {
               Get.offAllNamed(AppRoutes.home);
               FirebaseMessaging.instance
-                  .subscribeToTopic("user${user.value.usersId}");
+                  .subscribeToTopic("user${userController.user.usersId}");
               FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");
               FirebaseMessaging.instance.subscribeToTopic("signed");
               await myServices.getBox.write(GetBoxKey.isSigned, true);

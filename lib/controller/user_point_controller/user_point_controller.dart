@@ -4,7 +4,6 @@ import 'package:qaser_user/core/class/status_request.dart';
 import 'package:qaser_user/data/source/remote/user_point_data/user_point_data.dart';
 
 import '../../core/function/handling_data_controller.dart';
-import '../../data/model/user_model/user_model.dart';
 import '../../data/model/user_point_model/user_point_model.dart';
 import '../user_controller/user_controller.dart';
 
@@ -13,7 +12,7 @@ class UserPointController extends GetxController {
   StatusRequest statusRequest = StatusRequest.none;
   UserPointData userPointData = UserPointData(Get.find());
   List<UserPointModel> userPointList = [];
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
+  UserController userController = Get.find<UserController>();
 
   Future<void> getPoint() async {
     try {
@@ -21,7 +20,7 @@ class UserPointController extends GetxController {
       statusRequest = StatusRequest.loading;
 
       update();
-      var response = await userPointData.getPoint(user.value.usersId!);
+      var response = await userPointData.getPoint(userController.user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {

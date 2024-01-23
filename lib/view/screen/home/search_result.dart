@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image_plus/flutter_cached_network_image_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,9 +9,7 @@ import '../../widget/back_appbar.dart';
 import '../../widget/home/no_result_search.dart';
 
 class SearchListResult extends StatelessWidget {
-  const SearchListResult({
-    super.key,
-  });
+  const SearchListResult({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +38,10 @@ class SearchListResult extends StatelessWidget {
                         child: Row(
                           children: [
                             Expanded(
-                                child: CachedNetworkImage(
+                                child: CacheNetworkImagePlus(
                               imageUrl:
                                   "${AppLink.imagesItems}${controller.listData[index].itemsImage}",
-                              fit: BoxFit.fill,
+                              boxFit: BoxFit.fill,
                             )),
                             Expanded(
                               flex: 2,

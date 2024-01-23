@@ -56,8 +56,8 @@ class HomeControllerImp extends HomeController {
   int notificationsCount = 0;
   bool isLoading = false;
   String? branchName;
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
   UserController userController = Get.find<UserController>();
+
   List<CategoriesModel> categoriesList = [];
   List<ItemModel> topSellingList = [];
   List<ItemModel> itemsOfferList = [];
@@ -74,7 +74,7 @@ class HomeControllerImp extends HomeController {
       var response = await homeData.getData(
           branchId,
           "${myServices.getBox.read(GetBoxKey.isSigned) ?? "false"}",
-          user.value.usersId!);
+          userController.user.usersId!);
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
@@ -129,15 +129,15 @@ class HomeControllerImp extends HomeController {
   @override
   initData() async {
     initLocalJiffy();
-    getData(user.value.userFavBranchId!);
-    selectedValue = user.value.userFavBranchId!;
+    getData(userController.user.userFavBranchId!);
+    selectedValue = userController.user.userFavBranchId!;
   }
 
   @override
   updateUserBranch() async {
     try {
-      var response =
-          await homeData.updateBranch(selectedValue, user.value.usersId!);
+      var response = await homeData.updateBranch(
+          selectedValue, userController.user.usersId!);
       if (response['status'] == 'success') {
         var newUser = UserModel.fromJson(response['data']);
         userController.user = newUser;
@@ -153,13 +153,12 @@ class HomeControllerImp extends HomeController {
   Future<void> loginAnonymous() async {
     try {
       var response = await _loginData.loginAnonymous(
-        user.value.usersEmail!,
-        user.value.userFavBranchId!,
-        user.value.usersName!,
+        userController.user.usersEmail!,
+        userController.user.userFavBranchId!,
+        userController.user.usersName!,
       );
       if (response['status'] == 'success') {
         UserModel loginUser = UserModel.fromJson(response['data']);
-        print(loginUser.toString());
         userController.user = loginUser;
       } else {
         statusRequest = StatusRequest.failed;
@@ -173,19 +172,20 @@ class HomeControllerImp extends HomeController {
   @override
   Future<void> getUserDetails() async {
     try {
-      var response = await homeData.getUserDetails(user.value.usersId!);
+      var response =
+          await homeData.getUserDetails(userController.user.usersId!);
       if (response['status'] == 'success') {
         var newUser = UserModel.fromJson(response['data']);
         userController.user = newUser;
 
-        if (user.value.usersApprove == 2) {
+        if (userController.user.usersApprove == 2) {
           SmartDialog.showNotify(
               msg: "userBlocked".tr,
               notifyType: NotifyType.warning,
               onDismiss: () {
                 myServices.getBox.erase();
                 Get.offAllNamed(AppRoutes.login);
-                userController.clearUser();
+                userController.clear();
               });
         }
       }
@@ -287,10 +287,12 @@ class HomeControllerImp extends HomeController {
 
   @override
   void onInit() async {
+    FirebaseMessaging.instance.getToken();
     if (myServices.getBox.read(GetBoxKey.isSigned) != true) {
       await loginAnonymous();
     }
-    FirebaseMessaging.instance.subscribeToTopic("user${user.value.usersId}");
+    FirebaseMessaging.instance
+        .subscribeToTopic("user${userController.user.usersId}");
     initData();
 
     super.onInit();

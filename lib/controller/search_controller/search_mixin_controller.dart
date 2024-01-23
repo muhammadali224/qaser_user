@@ -6,14 +6,12 @@ import '../../core/class/status_request.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/items_model/items_model.dart';
-import '../../data/model/user_model/user_model.dart';
 import '../../data/source/remote/home_data/home_data.dart';
 import '../user_controller/user_controller.dart';
 
 class SearchMixController extends GetxController {
   TextEditingController search = TextEditingController();
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
-
+  UserController userController = Get.find<UserController>();
   bool isSearch = false;
   int selectedValue = 0;
   List<ItemModel> listSearchResult = [];
@@ -43,7 +41,7 @@ class SearchMixController extends GetxController {
     try {
       statusRequest = StatusRequest.searching;
       var response = await homeData.searchItems(search.text.trim(),
-          selectedBranch.value.branchId!, user.value.usersId!);
+          selectedBranch.value.branchId!, userController.user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
