@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 
 import '../../../controller/notification_controller/notifications_controller.dart';
+import '../../../controller/user_controller/user_controller.dart';
 import '../../../core/class/handling_data_view.dart';
 import '../../widget/back_appbar.dart';
 
@@ -17,7 +18,7 @@ class MyNotifications extends StatelessWidget {
         title: Text("notification".tr),
         leading: BackAppBar(),
         actions: [
-          if (controller.userController.user.usersIsAnonymous == 0)
+          if (UserController().user.usersIsAnonymous == 0)
             IconButton(
               onPressed: controller.markAllRead,
               icon: const Icon(
@@ -69,9 +70,7 @@ class MyNotifications extends StatelessWidget {
                                     ? Colors.black
                                     : Colors.grey.shade600),
                           ),
-                          leading: controller
-                                      .userController.user.usersIsAnonymous ==
-                                  0
+                          leading: UserController().user.usersIsAnonymous == 0
                               ? controller.data[index].notificationsIsRead ==
                                           0 &&
                                       controller.data[index]

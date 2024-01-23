@@ -12,7 +12,6 @@ import '../user_controller/user_controller.dart';
 class TimerController extends GetxController {
   RxBool canGetPrize = true.obs;
   RxString eta = ''.obs;
-  UserController userController = Get.find<UserController>();
   final box = Get.find<MyServices>().getBox;
   UserPointData _pointData = UserPointData(Get.find());
 
@@ -52,11 +51,11 @@ class TimerController extends GetxController {
 
   void getPrize() async {
     try {
-      if (userController.user.usersIsAnonymous == 1) {
+      if (UserController().user.usersIsAnonymous == 1) {
         SmartDialog.showToast("signInFirst".tr);
       } else {
         var response = await _pointData.addPoint(
-            userController.user.usersId!,
+            UserController().user.usersId!,
             UserPointModel(
               // createDate: DateTime.now(),
               // expireDate: DateTime.now().add(Duration(days: 90)),

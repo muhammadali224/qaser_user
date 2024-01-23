@@ -13,13 +13,13 @@ class ViewAddressController extends GetxController {
   RxList<AddressModel> data = RxList<AddressModel>([]);
   MyServices myServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
-  UserController userController = Get.find<UserController>();
 
   getData() async {
     try {
       data.clear();
       statusRequest = StatusRequest.loading;
-      var response = await addressData.getAddress(userController.user.usersId!);
+      var response =
+          await addressData.getAddress(UserController().user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {

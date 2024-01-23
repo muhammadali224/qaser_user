@@ -6,15 +6,18 @@ class ButtomNavigatButton extends StatelessWidget {
   final String title;
   final Color color;
   final Color? iconColor;
+  final Color? textColor;
   final IconData icon;
 
-  const ButtomNavigatButton(
-      {super.key,
-      required this.onPressed,
-      required this.title,
-      required this.color,
-      required this.icon,
-      this.iconColor});
+  const ButtomNavigatButton({
+    super.key,
+    required this.onPressed,
+    required this.title,
+    required this.color,
+    required this.icon,
+    this.iconColor,
+    this.textColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class ButtomNavigatButton extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .displayMedium!
-                  .copyWith(fontWeight: FontWeight.w500),
+                  .copyWith(fontWeight: FontWeight.w500, color: textColor),
             ),
             const SizedBox(width: 10),
             Icon(

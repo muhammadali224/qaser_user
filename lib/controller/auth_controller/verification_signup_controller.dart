@@ -20,7 +20,6 @@ class VerifiedSignUpControllerImp extends VerifiedSignUpController {
   String? email;
   MyServices myServices = Get.find();
   VerifyData verifyData = VerifyData(Get.find());
-  UserController userController = Get.find<UserController>();
   StatusRequest statusRequest = StatusRequest.none;
 
   @override
@@ -31,7 +30,7 @@ class VerifiedSignUpControllerImp extends VerifiedSignUpController {
       var response = await verifyData.postData(
         email!,
         code,
-        userController.user.usersId.toString(),
+        UserController().user.usersId.toString(),
       );
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
@@ -39,9 +38,9 @@ class VerifiedSignUpControllerImp extends VerifiedSignUpController {
           Get.offAllNamed(AppRoutes.home);
 
           var loginUser = UserModel.fromJson(response["data"]);
-          userController.user = loginUser;
+          UserController().user = loginUser;
           FirebaseMessaging.instance
-              .subscribeToTopic("user${userController.user.usersId}");
+              .subscribeToTopic("user${UserController().user.usersId}");
           FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");
           FirebaseMessaging.instance.subscribeToTopic("signed");
           await myServices.getBox.write(GetBoxKey.isSigned, true);

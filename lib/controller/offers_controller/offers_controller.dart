@@ -11,14 +11,14 @@ class OffersController extends GetxController {
   List<ItemModel> offersItems = [];
   ItemsData itemsData = ItemsData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
-  UserController userController = Get.find<UserController>();
 
   getOffersItems() async {
     try {
       offersItems.clear();
       statusRequest = StatusRequest.loading;
       var response = await itemsData.getOffers(
-          userController.user.userFavBranchId!, userController.user.usersId!);
+          UserController().user.userFavBranchId!,
+          UserController().user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {

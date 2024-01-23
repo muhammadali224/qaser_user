@@ -58,6 +58,8 @@ dependencies:
   pretty_qr_code: ^3.0.0
   upgrader: ^8.4.0
   encrypt: ^5.0.2
+  firebase_auth: ^4.6.0
+  google_sign_in: ^5.0.8
 
 
 

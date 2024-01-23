@@ -42,7 +42,6 @@ class CartControllerImp extends CartController {
   StatusRequest statusRequest = StatusRequest.none;
   CheckoutData checkoutData = CheckoutData(Get.find());
   ViewAddressController addressController = Get.put(ViewAddressController());
-  UserController userController = Get.find<UserController>();
   String deliveryFee = "0";
   RxBool isLoading = false.obs;
   double totalPrice = 0.0;
@@ -81,7 +80,7 @@ class CartControllerImp extends CartController {
         SmartDialog.showLoading(msg: "loading".tr);
 
         var response = await cartData.addToCart(
-          userController.user.usersId!.toString(),
+          UserController().user.usersId!.toString(),
           itemsId,
           weightAndSizeId,
           cartItemPrice,
@@ -151,7 +150,7 @@ class CartControllerImp extends CartController {
       statusRequest = StatusRequest.loading;
       isLoading.value = true;
       update();
-      var response = await cartData.getCart(userController.user.usersId!);
+      var response = await cartData.getCart(UserController().user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
@@ -240,7 +239,7 @@ class CartControllerImp extends CartController {
   addNoteToItem(int cartId) async {
     try {
       var response = await cartData.addNoteToItem(
-        userController.user.usersId!,
+        UserController().user.usersId!,
         cartId,
         noteController.text,
       );
@@ -303,7 +302,7 @@ class CartControllerImp extends CartController {
         }
 
         var response = await checkoutData.checkout(
-          userController.user.usersId!,
+          UserController().user.usersId!,
           selectedLocation.toString(),
           selectedOrderType.toString(),
           deliveryFee,
@@ -311,7 +310,7 @@ class CartControllerImp extends CartController {
           discount.toStringAsFixed(2),
           getTotalOrderPrice(),
           couponId ?? 0,
-          userController.user.userFavBranchId!,
+          UserController().user.userFavBranchId!,
         );
         statusRequest = handlingData(response);
         if (statusRequest == StatusRequest.success) {
@@ -380,7 +379,7 @@ class CartControllerImp extends CartController {
     try {
       SmartDialog.showLoading(msg: "loading".tr);
       var response = await checkoutData.checkCoupon(
-          couponController.text.trim(), userController.user.userFavBranchId!);
+          couponController.text.trim(), UserController().user.userFavBranchId!);
 
       if (response['status'] == 'success') {
         couponValue = response['data']['coupon_discount'];

@@ -9,7 +9,6 @@ import '../../data/source/remote/rate_orders_data.dart';
 import '../user_controller/user_controller.dart';
 
 class OrdersController extends GetxController {
-  UserController userController = Get.find<UserController>();
   List orderTabs = [
     {'title': 'all', 'icon': Icons.all_inbox},
     {'title': 'pending', 'icon': Icons.pending_actions_outlined},
@@ -49,7 +48,7 @@ class OrdersController extends GetxController {
       dataPending.clear();
       statusRequest = StatusRequest.loading;
       update();
-      var response = await ordersData.getData(userController.user.usersId!);
+      var response = await ordersData.getData(UserController().user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {

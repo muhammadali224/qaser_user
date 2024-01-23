@@ -18,7 +18,6 @@ class VerifySMSController extends GetxController {
   MyServices myServices = Get.find();
   CheckSMSData checkSMSData = CheckSMSData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
-  UserController userController = Get.find<UserController>();
 
   checkSMS(int verificationCode) async {
     try {
@@ -27,7 +26,7 @@ class VerifySMSController extends GetxController {
       var response = await checkSMSData.checkSMS(
           phoneNumber.trim().substring(1),
           verificationCode,
-          userController.user.usersId.toString());
+          UserController().user.usersId.toString());
 
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
@@ -37,9 +36,9 @@ class VerifySMSController extends GetxController {
             Get.offAllNamed(AppRoutes.home);
 
             var loginUser = UserModel.fromJson(response["user"]["data"]);
-            userController.user = loginUser;
+            UserController().user = loginUser;
             FirebaseMessaging.instance
-                .subscribeToTopic("user${userController.user.usersId}");
+                .subscribeToTopic("user${UserController().user.usersId}");
             FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");
             FirebaseMessaging.instance.subscribeToTopic("signed");
             await myServices.getBox.write(GetBoxKey.isSigned, true);

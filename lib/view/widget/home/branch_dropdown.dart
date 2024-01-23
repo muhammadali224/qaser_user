@@ -12,33 +12,35 @@ class BranchDropDownList extends GetView<HomeControllerImp> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeControllerImp>(builder: (controller) {
-      return controller.isLoading
-          ? const CircularProgressIndicator()
-          : DropdownButtonHideUnderline(
-              child: DropdownButton2<int>(
-                isExpanded: true,
-                items: [
-                  ...List.generate(
-                      branchesList.length,
-                      (index) => DropdownMenuItem(
-                            value: branchesList[index].branchId,
-                            child: Text(
-                              "${translateDatabase(branchesList[index].branchNameAr!, branchesList[index].branchNameEn!)}",
-                            ),
-                          )),
-                ],
-                value: controller.selectedValue,
-                onChanged: controller.onChangeDropButton,
-                buttonStyleData: const ButtonStyleData(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  height: 40,
-                  width: double.infinity,
+      return Obx(() {
+        return controller.isLoading.value
+            ? const CircularProgressIndicator()
+            : DropdownButtonHideUnderline(
+                child: DropdownButton2<int>(
+                  isExpanded: true,
+                  items: [
+                    ...List.generate(
+                        branchesList.length,
+                        (index) => DropdownMenuItem(
+                              value: branchesList[index].branchId,
+                              child: Text(
+                                "${translateDatabase(branchesList[index].branchNameAr!, branchesList[index].branchNameEn!)}",
+                              ),
+                            )),
+                  ],
+                  value: controller.selectedValue,
+                  onChanged: controller.onChangeDropButton,
+                  buttonStyleData: const ButtonStyleData(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    height: 40,
+                    width: double.infinity,
+                  ),
+                  menuItemStyleData: const MenuItemStyleData(
+                    height: 40,
+                  ),
                 ),
-                menuItemStyleData: const MenuItemStyleData(
-                  height: 40,
-                ),
-              ),
-            );
+              );
+      });
     });
   }
 }

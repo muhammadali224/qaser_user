@@ -20,19 +20,18 @@ class OnBoardingControllerImp extends OnBoardingController {
   late PageController pageController;
   MyServices myServices = Get.find();
   final LoginData _loginData = LoginData(Get.find());
-  UserController userController = Get.find<UserController>();
 
   Future<void> loginAnonymous() async {
     try {
       var response = await _loginData.loginAnonymous(
-        userController.user.usersEmail!,
-        userController.user.userFavBranchId!,
-        userController.user.usersName!,
+        UserController().user.usersEmail!,
+        UserController().user.userFavBranchId!,
+        UserController().user.usersName!,
       );
       if (response['status'] == 'success') {
         UserModel loginUser = UserModel.fromJson(response['data']);
         print(loginUser.toString());
-        userController.user = loginUser;
+        UserController().user = loginUser;
       }
     } catch (e) {
       throw Exception("Error OnBoarding Login Anon : $e");

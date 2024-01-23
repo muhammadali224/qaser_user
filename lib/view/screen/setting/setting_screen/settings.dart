@@ -4,6 +4,7 @@ import 'package:icon_broken/icon_broken.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../controller/settings_controller/settings_controller.dart';
+import '../../../../controller/user_controller/user_controller.dart';
 import '../../../../core/constant/color.dart';
 import '../../../../core/function/view_select_languages_bottom_sheet.dart';
 import '../../../widget/settings/header_card_setting.dart';
@@ -39,11 +40,11 @@ class AppSettings extends StatelessWidget {
               children: [
                 Obx(() {
                   return HeaderCardSetting(
-                    imageUrl: controller.user.value.usersImage ?? "",
+                    imageUrl: UserController().user.usersImage ?? "",
                     cardColor: Colors.red,
-                    userName: controller.user.value.usersIsAnonymous == 1
+                    userName: UserController().user.usersIsAnonymous == 1
                         ? "user".tr
-                        : controller.user.value.usersName,
+                        : UserController().user.usersName,
                     onTap: controller.goToUserSettings,
                   );
                 }),
@@ -146,16 +147,6 @@ class AppSettings extends StatelessWidget {
                 CustomSettingGroup(
                   settingsGroupTitle: 'support'.tr,
                   items: [
-                    // SettingsTileItem(
-                    //   onTap: () {},
-                    //   icons: Icons.call_rounded,
-                    //   iconStyle: SettingIconStyle(
-                    //     iconsColor: Colors.white,
-                    //     withBackground: true,
-                    //     backgroundColor: Colors.brown,
-                    //   ),
-                    //   title: 'contactUs'.tr,
-                    // ),
                     SettingsTileItem(
                       onTap: controller.goToInfoScreen,
                       icons: Icons.info,
@@ -168,7 +159,7 @@ class AppSettings extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (controller.user.value.usersIsAnonymous == 0)
+                if (UserController().user.usersIsAnonymous == 0)
                   CustomSettingGroup(items: [
                     SettingsTileItem(
                       onTap: controller.logout,

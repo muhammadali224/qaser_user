@@ -8,7 +8,15 @@ import '../../core/constant/get_box_key.dart';
 import '../../data/model/user_model/user_model.dart';
 import '../../main.dart';
 
-class UserController extends GetxController {
+class UserController extends GetxService {
+  // Private constructor to prevent multiple instances
+  UserController._();
+
+  // Singleton instance
+  static final UserController _instance = UserController._();
+  factory UserController() {
+    return _instance;
+  }
   final Rx<UserModel> _userModel = const UserModel().obs;
 
   final _box = GetStorage();
@@ -37,9 +45,9 @@ class UserController extends GetxController {
     saveUserToStorage(value);
   }
 
-  UserController() {
-    user;
-  }
+  // UserController() {
+  //   user;
+  // }
 
   Future<void> saveUserToStorage(UserModel user) async {
     try {

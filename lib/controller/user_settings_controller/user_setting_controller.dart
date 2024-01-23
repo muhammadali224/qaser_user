@@ -15,7 +15,6 @@ import '../user_controller/user_controller.dart';
 
 class UserSettingController extends GetxController {
   StatusRequest statusRequest = StatusRequest.none;
-  UserController userController = Get.find<UserController>();
   UserDetailsData userDetailsData = UserDetailsData(Get.find());
   TextEditingController userTextController = TextEditingController();
   File? file;
@@ -40,12 +39,12 @@ class UserSettingController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response =
-          await userDetailsData.getUserData(userController.user.usersId!);
+          await userDetailsData.getUserData(UserController().user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
           var newUser = UserModel.fromJson(response['data']);
-          userController.user = newUser;
+          UserController().user = newUser;
           update();
         } else {
           statusRequest = StatusRequest.failed;
@@ -63,8 +62,8 @@ class UserSettingController extends GetxController {
       update();
       var response = await userDetailsData.changeUserImage(
         {
-          'id': userController.user.usersId.toString(),
-          'oldFile': userController.user.usersImage!,
+          'id': UserController().user.usersId.toString(),
+          'oldFile': UserController().user.usersImage!,
         },
         file!,
       );

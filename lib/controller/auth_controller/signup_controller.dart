@@ -18,7 +18,6 @@ abstract class SignUpController extends GetxController {
 }
 
 class SignUpControllerImp extends SignUpController {
-  UserController userController = Get.find<UserController>();
   SignupData signupData = SignupData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
 
@@ -28,6 +27,7 @@ class SignUpControllerImp extends SignUpController {
   late TextEditingController password;
   GlobalKey<FormState> formState = GlobalKey<FormState>();
   bool isVisiblePassword = true;
+  bool isEmailValidationEnabled = false;
   CheckSMSData checkSMSData = CheckSMSData(Get.find());
 
   showPassword() {
@@ -38,6 +38,8 @@ class SignUpControllerImp extends SignUpController {
   @override
   signUp() async {
     try {
+      isEmailValidationEnabled = true;
+      update();
       if (formState.currentState!.validate()) {
         SmartDialog.showLoading(msg: "loading".tr);
         var response = await signupData.postData(
@@ -45,7 +47,7 @@ class SignUpControllerImp extends SignUpController {
           password.text.trim(),
           email.text.trim(),
           phone.text.trim(),
-          userController.user.usersId.toString(),
+          UserController().user.usersId.toString(),
         );
         statusRequest = handlingData(response);
         if (StatusRequest.success == statusRequest) {
@@ -73,6 +75,8 @@ class SignUpControllerImp extends SignUpController {
   @override
   Future<void> signUpWithPhone() async {
     try {
+      isEmailValidationEnabled = false;
+      update();
       if (formState.currentState!.validate()) {
         SmartDialog.showLoading(msg: "loading".tr);
         var response = await signupData.postData(
@@ -80,7 +84,7 @@ class SignUpControllerImp extends SignUpController {
           password.text.trim(),
           email.text.trim().toLowerCase(),
           phone.text.trim(),
-          userController.user.usersId.toString(),
+          UserController().user.usersId.toString(),
         );
         statusRequest = handlingData(response);
         if (StatusRequest.success == statusRequest) {

@@ -8,7 +8,6 @@ import '../../data/source/remote/user_details_data.dart';
 import '../user_controller/user_controller.dart';
 
 class ChangePasswordController extends GetxController {
-  UserController userController = Get.find<UserController>();
   late TextEditingController password;
   late TextEditingController rePassword;
   late TextEditingController oldPassword;
@@ -35,7 +34,7 @@ class ChangePasswordController extends GetxController {
           statusRequest = StatusRequest.loading;
           update();
           var response = await resetPasswordData.changeUserPassword(
-            userController.user.usersId!,
+            UserController().user.usersId!,
             password.text.trim(),
             oldPassword.text,
           );
@@ -43,7 +42,7 @@ class ChangePasswordController extends GetxController {
           if (StatusRequest.success == statusRequest) {
             if (response['status'] == 'success') {
               Get.offNamed(AppRoutes.userSettings,
-                  arguments: {'userId': userController.user.usersId!});
+                  arguments: {'userId': UserController().user.usersId!});
             } else if (response['message'] == 'the old password incorrect') {
               Get.defaultDialog(
                   title: 'attention'.tr,

@@ -7,7 +7,6 @@ import '../../data/source/remote/rate_orders_data.dart';
 import '../user_controller/user_controller.dart';
 
 class RateOrdersController extends GetxController {
-  UserController userController = Get.find<UserController>();
   Map orderStatus = {
     '0': 'pending',
     '1': 'approved',
@@ -35,7 +34,7 @@ class RateOrdersController extends GetxController {
       data.clear();
       statusRequest = StatusRequest.loading;
       update();
-      var response = await ordersData.getData(userController.user.usersId!);
+      var response = await ordersData.getData(UserController().user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {

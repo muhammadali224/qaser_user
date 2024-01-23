@@ -10,7 +10,6 @@ import 'user_setting_controller.dart';
 
 class UserSettingFormController extends GetxController {
   TextEditingController userTextController = TextEditingController();
-  UserController userController = Get.find<UserController>();
   MyServices myServices = Get.find();
   StatusRequest statusRequest = StatusRequest.none;
   UserDetailsData userDetailsData = UserDetailsData(Get.find());
@@ -25,7 +24,7 @@ class UserSettingFormController extends GetxController {
         statusRequest = StatusRequest.loading;
         update();
         var response = await userDetailsData.changeUserName(
-            userController.user.usersId!, userTextController.text);
+            UserController().user.usersId!, userTextController.text);
         statusRequest = handlingData(response);
         if (StatusRequest.success == statusRequest) {
           if (response['status'] == 'success') {
@@ -51,7 +50,7 @@ class UserSettingFormController extends GetxController {
         statusRequest = StatusRequest.loading;
         update();
         var response = await userDetailsData.changeUserPhone(
-            userController.user.usersId!, userTextController.text);
+            UserController().user.usersId!, userTextController.text);
         statusRequest = handlingData(response);
         if (StatusRequest.success == statusRequest) {
           if (response['status'] == 'success') {

@@ -12,7 +12,6 @@ class UserPointController extends GetxController {
   StatusRequest statusRequest = StatusRequest.none;
   UserPointData userPointData = UserPointData(Get.find());
   List<UserPointModel> userPointList = [];
-  UserController userController = Get.find<UserController>();
 
   Future<void> getPoint() async {
     try {
@@ -20,7 +19,8 @@ class UserPointController extends GetxController {
       statusRequest = StatusRequest.loading;
 
       update();
-      var response = await userPointData.getPoint(userController.user.usersId!);
+      var response =
+          await userPointData.getPoint(UserController().user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {

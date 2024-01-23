@@ -13,7 +13,6 @@ class NotificationsController extends GetxController {
   NotificationsData notificationsData = NotificationsData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
   List<NotificationModel> data = [];
-  UserController userController = Get.find<UserController>();
   MyServices myServices = Get.find();
 
   getData() async {
@@ -22,7 +21,7 @@ class NotificationsController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await notificationsData.getNotifications(
-          userController.user.usersId!,
+          UserController().user.usersId!,
           "${myServices.getBox.read(GetBoxKey.isSigned) ?? "false"}");
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
@@ -41,7 +40,7 @@ class NotificationsController extends GetxController {
 
   markRead(int notificationId) async {
     try {
-      if (userController.user.usersIsAnonymous == 0) {
+      if (UserController().user.usersIsAnonymous == 0) {
         var response =
             await notificationsData.setNotificationsRead(notificationId);
         statusRequest = handlingData(response);
@@ -62,7 +61,7 @@ class NotificationsController extends GetxController {
   markAllRead() async {
     statusRequest = StatusRequest.loading;
     var response = await notificationsData
-        .setNotificationsRead(userController.user.usersId!);
+        .setNotificationsRead(UserController().user.usersId!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {

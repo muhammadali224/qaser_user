@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
 
+import '../../../../controller/user_controller/user_controller.dart';
 import '../../../../controller/user_settings_controller/user_setting_controller.dart';
 import '../../../../core/constant/api_link.dart';
 import '../../../../core/constant/color.dart';
@@ -37,7 +38,7 @@ class UserSettingHeader extends GetView<UserSettingController> {
                       radius: 35,
                     ),
                     imageUrl:
-                        "${AppLink.imageUserProfile}${controller.userController.user.usersImage}",
+                        "${AppLink.imageUserProfile}${UserController().user.usersImage}",
                     errorWidget: const Icon(
                       IconBroken.Profile,
                     ),

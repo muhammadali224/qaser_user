@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
 
+import '../../../../controller/user_controller/user_controller.dart';
 import '../../../../controller/user_settings_controller/user_setting_controller.dart';
 import '../../../../core/class/handling_data_view.dart';
 import '../../../widget/back_appbar.dart';
@@ -43,7 +44,7 @@ class UserSetting extends StatelessWidget {
                               backgroundColor: Colors.red,
                             ),
                             title: 'userName'.tr,
-                            subtitle: controller.userController.user.usersName,
+                            subtitle: UserController().user.usersName,
                           ),
                           SettingsTileItem(
                             onTap: controller.goToChangePassword,
@@ -64,7 +65,7 @@ class UserSetting extends StatelessWidget {
                               backgroundColor: Colors.cyan,
                             ),
                             title: 'email'.tr,
-                            subtitle: controller.userController.user.usersEmail,
+                            subtitle: UserController().user.usersEmail,
                           ),
                           SettingsTileItem(
                             onTap: controller.goToChangePhone,
@@ -75,7 +76,7 @@ class UserSetting extends StatelessWidget {
                               backgroundColor: Colors.amber,
                             ),
                             title: 'phone'.tr,
-                            subtitle: controller.userController.user.usersPhone,
+                            subtitle: UserController().user.usersPhone,
                           ),
                         ],
                       ),

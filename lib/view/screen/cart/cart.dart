@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
 
 import '../../../controller/cart_controller/cart_controller.dart';
+import '../../../controller/user_controller/user_controller.dart';
 import '../../../core/class/handling_data_view.dart';
 import '../../../core/constant/routes.dart';
 import '../../../core/function/open_select_location_bottom_sheet.dart';
@@ -55,7 +56,7 @@ class Cart extends StatelessWidget {
             ),
           );
         } else if (selectedBranch.value.branchIsOpen == 1) {
-          if (controller.userController.user.usersIsAnonymous == 0) {
+          if (UserController().user.usersIsAnonymous == 0) {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -121,13 +122,12 @@ class Cart extends StatelessWidget {
                             onChanged: () async {
                               controller.selectOrderMethod(i);
                               if (i == 1 &&
-                                  controller.userController.user
-                                          .usersIsAnonymous ==
-                                      0) {
+                                  UserController().user.usersIsAnonymous == 0) {
                                 await controller.addressController.getData();
                                 openLocationBottomSheet();
-                              } else if (controller
-                                      .userController.user.usersIsAnonymous ==
+                              } else if (UserController()
+                                      .user
+                                      .usersIsAnonymous ==
                                   1) {
                                 SmartDialog.showToast("signInFirst".tr);
                               }

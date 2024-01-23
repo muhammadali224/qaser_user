@@ -26,7 +26,6 @@ class LoginControllerImp extends LoginController {
   late TextEditingController password;
   GlobalKey<FormState> formState = GlobalKey<FormState>();
   bool isVisiblePassword = true;
-  UserController userController = Get.find<UserController>();
   LoginData loginData = LoginData(Get.find());
   StatusRequest statusRequest = StatusRequest.none;
 
@@ -50,13 +49,13 @@ class LoginControllerImp extends LoginController {
 
         if (StatusRequest.success == statusRequest) {
           if (response['status'] == 'success') {
-            await userController.clear();
-            userController.user = UserModel.fromJson(response["data"]);
+            await UserController().clear();
+            UserController().user = UserModel.fromJson(response["data"]);
 
             if (response['data']["users_approve"] == 1) {
               Get.offAllNamed(AppRoutes.home);
               FirebaseMessaging.instance
-                  .subscribeToTopic("user${userController.user.usersId}");
+                  .subscribeToTopic("user${UserController().user.usersId}");
               FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");
               FirebaseMessaging.instance.subscribeToTopic("signed");
               await myServices.getBox.write(GetBoxKey.isSigned, true);
@@ -115,4 +114,42 @@ class LoginControllerImp extends LoginController {
   goToLoginWithSMS() {
     Get.toNamed(AppRoutes.loginWithSMS);
   }
+
+  // Future<User?> _signInWithGoogle() async {
+  //   try {
+  //     final GoogleSignInAccount? googleSignInAccount =
+  //         await GoogleSignIn().signIn();
+  //     if (googleSignInAccount != null) {
+  //       final GoogleSignInAuthentication googleSignInAuthentication =
+  //           await googleSignInAccount.authentication;
+  //
+  //       final AuthCredential credential = GoogleAuthProvider.credential(
+  //         accessToken: googleSignInAuthentication.accessToken,
+  //         idToken: googleSignInAuthentication.idToken,
+  //       );
+  //
+  //       final UserCredential authResult =
+  //           await FirebaseAuth.instance.signInWithCredential(credential);
+  //       final User? user = authResult.user;
+  //       return user;
+  //     }
+  //     return null;
+  //   } catch (e) {
+  //     throw Exception("Error _Sign in with Google: $e ");
+  //   }
+  // }
+  //
+  // Future<void> googleSignIn() async {
+  //   try {
+  //     User? user = await _signInWithGoogle();
+  //
+  //     if (user != null) {
+  //       // Save user data to backend
+  //       // await saveUserData(user.displayName ?? '', user.email ?? '');
+  //       print(user);
+  //     }
+  //   } catch (e) {
+  //     throw Exception("Google SignIn Error: $e");
+  //   }
+  // }
 }

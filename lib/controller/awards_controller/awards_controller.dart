@@ -15,7 +15,6 @@ import '../user_controller/user_controller.dart';
 
 class AwardsController extends GetxController {
   AwardsData _awardsData = AwardsData(Get.find());
-  UserController userController = Get.find<UserController>();
   List<AwardsModel> awardsList = [];
   StatusRequest statusRequest = StatusRequest.none;
   int totalPoint = 0;
@@ -26,10 +25,8 @@ class AwardsController extends GetxController {
     try {
       awardsList.clear();
       statusRequest = StatusRequest.loading;
-
-      update();
       var response =
-          await _awardsData.getAwardsView(userController.user.usersId!);
+          await _awardsData.getAwardsView(UserController().user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
@@ -47,7 +44,7 @@ class AwardsController extends GetxController {
   }
 
   void generateQRCode(String id) {
-    String planText = "$id|${userController.user.usersId}";
+    String planText = "$id|${UserController().user.usersId}";
     Encrypted encrypted = EncryptData.encryptWithAES(planText);
     String encryptedData = encrypted.base64;
     qrCodeData.value = encryptedData;
@@ -77,7 +74,7 @@ class AwardsController extends GetxController {
   @override
   void onInit() async {
     await Jiffy.setLocale("ar");
-    getAwards();
+    await getAwards();
     super.onInit();
   }
 }

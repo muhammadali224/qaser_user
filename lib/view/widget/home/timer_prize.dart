@@ -24,6 +24,7 @@ class TimerPrize extends StatelessWidget {
                     onPressed: () async {
                       controller.getPrize();
                     },
+                    textColor: Colors.white,
                     color: Colors.red,
                     title: 'getPrize',
                     icon: FontAwesome.award_solid,

@@ -6,13 +6,10 @@ import 'package:get/get.dart';
 import '../../core/constant/get_box_key.dart';
 import '../../core/constant/routes.dart';
 import '../../core/services/app.service.dart';
-import '../../data/model/user_model/user_model.dart';
 import '../user_controller/user_controller.dart';
 
 class SettingsController extends GetxController {
   MyServices myServices = Get.find();
-  Rx<UserModel> user = Get.find<UserController>().user.obs;
-  UserController userController = Get.find<UserController>();
   late bool switchVal;
 
   String? lang;
@@ -30,25 +27,25 @@ class SettingsController extends GetxController {
   }
 
   goToAddressView() {
-    if (user.value.usersIsAnonymous == 0) {
+    if (UserController().user == 0) {
       Get.toNamed(AppRoutes.addressView);
-    } else if (user.value.usersIsAnonymous == 1) {
+    } else if (UserController().user.usersIsAnonymous == 1) {
       SmartDialog.showToast("signInFirst".tr);
     }
   }
 
   goToOrders() {
-    if (user.value.usersIsAnonymous == 0) {
+    if (UserController().user.usersIsAnonymous == 0) {
       Get.toNamed(AppRoutes.orders);
-    } else if (user.value.usersIsAnonymous == 1) {
+    } else if (UserController().user.usersIsAnonymous == 1) {
       SmartDialog.showToast("signInFirst".tr);
     }
   }
 
   goToOrdersRating() {
-    if (user.value.usersIsAnonymous == 0) {
+    if (UserController().user.usersIsAnonymous == 0) {
       Get.toNamed(AppRoutes.ordersRating);
-    } else if (user.value.usersIsAnonymous == 1) {
+    } else if (UserController().user.usersIsAnonymous == 1) {
       SmartDialog.showToast("signInFirst".tr);
     }
   }
@@ -60,14 +57,14 @@ class SettingsController extends GetxController {
   logout() async {
     try {
       FirebaseMessaging.instance
-          .unsubscribeFromTopic("users${user.value.usersId}");
+          .unsubscribeFromTopic("users${UserController().user.usersId}");
       FirebaseMessaging.instance.unsubscribeFromTopic("signed");
       FirebaseMessaging.instance.subscribeToTopic("notSigned");
-
+      // await _signOutFromGoogle();
       await myServices.getBox.remove(GetBoxKey.user);
       await myServices.getBox.write(GetBoxKey.isSigned, false);
-      // await _homeControllerImp.loginAnonymous();
-      await userController.clear();
+
+      await UserController().clear();
       await myServices.getBox.remove(GetBoxKey.step);
       Get.offAllNamed('/');
     } catch (e) {
@@ -75,10 +72,20 @@ class SettingsController extends GetxController {
     }
   }
 
+  // Future<void> _signOutFromGoogle() async {
+  //   try {
+  //     await FirebaseAuth.instance.signOut();
+  //     await GoogleSignIn().signOut();
+  //     print("Signed out from Google");
+  //   } catch (e) {
+  //     throw Exception("Error signing out from Google: $e");
+  //   }
+  // }
+
   goToUserSettings() {
-    if (user.value.usersIsAnonymous == 0) {
+    if (UserController().user.usersIsAnonymous == 0) {
       Get.toNamed(AppRoutes.userSettings);
-    } else if (user.value.usersIsAnonymous == 1) {
+    } else if (UserController().user.usersIsAnonymous == 1) {
       SmartDialog.showToast("signInFirst".tr);
     }
   }
@@ -90,10 +97,10 @@ class SettingsController extends GetxController {
       update();
       if (val == false) {
         FirebaseMessaging.instance
-            .unsubscribeFromTopic("users${user.value.usersId}");
+            .unsubscribeFromTopic("users${UserController().user.usersId}");
       } else {
         FirebaseMessaging.instance
-            .subscribeToTopic("users${user.value.usersId}");
+            .subscribeToTopic("users${UserController().user.usersId}");
       }
     } catch (e) {
       throw Exception("Error Switch Notification : $e");

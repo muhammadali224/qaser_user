@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:qaser_user/core/function/exit_alert.dart';
 
 import '../../../controller/home_controller/home_controller.dart';
+import '../../../controller/user_controller/user_controller.dart';
 import '../../../core/class/handling_data_view.dart';
 import '../../widget/home/action_appbar_widget.dart';
 import '../../widget/home/branch_dropdown.dart';
@@ -49,17 +50,13 @@ class Home extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         HeaderHelloText(
-                          imageUrl: controller.userController.user.usersImage ??
-                              "null",
-                          name:
-                              controller.userController.user.usersIsAnonymous ==
-                                      0
-                                  ? controller.userController.user.usersName!
-                                  : "user".tr,
+                          imageUrl: UserController().user.usersImage ?? "null",
+                          name: UserController().user.usersIsAnonymous == 0
+                              ? UserController().user.usersName!
+                              : "user".tr,
                           onTapped: controller.goToSettings,
                         ),
-                        if (controller.userController.user.usersIsAnonymous ==
-                            1)
+                        if (UserController().user.usersIsAnonymous == 1)
                           const LoginContainer(),
                         SearchFormField(
                           controller: controller.search,

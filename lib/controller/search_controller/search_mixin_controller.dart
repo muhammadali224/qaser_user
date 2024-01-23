@@ -11,7 +11,6 @@ import '../user_controller/user_controller.dart';
 
 class SearchMixController extends GetxController {
   TextEditingController search = TextEditingController();
-  UserController userController = Get.find<UserController>();
   bool isSearch = false;
   int selectedValue = 0;
   List<ItemModel> listSearchResult = [];
@@ -41,7 +40,7 @@ class SearchMixController extends GetxController {
     try {
       statusRequest = StatusRequest.searching;
       var response = await homeData.searchItems(search.text.trim(),
-          selectedBranch.value.branchId!, userController.user.usersId!);
+          selectedBranch.value.branchId!, UserController().user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {

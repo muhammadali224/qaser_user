@@ -25,7 +25,6 @@ class ItemsControllerImp extends ItemsController
   late TabController tabController;
   late PageController pageController;
 
-  UserController userController = Get.find<UserController>();
   ItemsData itemsData = ItemsData(Get.find());
   StatusRequest statusRequest = StatusRequest.loading;
   List<ItemModel> items = [];
@@ -66,8 +65,8 @@ class ItemsControllerImp extends ItemsController
       update();
       var response = await itemsData.getData(
         categoriesId,
-        userController.user.usersId!,
-        userController.user.userFavBranchId!,
+        UserController().user.usersId!,
+        UserController().user.userFavBranchId!,
       );
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {

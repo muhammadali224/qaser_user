@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:qaser_user/controller/cart_controller/cart_controller.dart';
 import 'package:qaser_user/controller/favorite_controller/my_favorite_controller.dart';
-import 'package:qaser_user/controller/user_controller/user_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/class/status_request.dart';
@@ -20,6 +19,7 @@ import '../../data/model/user_model/user_model.dart';
 import '../../data/shared/branches.dart';
 import '../../data/source/remote/auth/login_data.dart';
 import '../search_controller/search_mixin_controller.dart';
+import '../user_controller/user_controller.dart';
 
 abstract class HomeController extends SearchMixController {
   Future<void> initData();
@@ -54,9 +54,8 @@ class HomeControllerImp extends HomeController {
   MyServices myServices = Get.find();
   final LoginData _loginData = LoginData(Get.find());
   int notificationsCount = 0;
-  bool isLoading = false;
+  RxBool isLoading = false.obs;
   String? branchName;
-  UserController userController = Get.find<UserController>();
 
   List<CategoriesModel> categoriesList = [];
   List<ItemModel> topSellingList = [];
@@ -74,11 +73,12 @@ class HomeControllerImp extends HomeController {
       var response = await homeData.getData(
           branchId,
           "${myServices.getBox.read(GetBoxKey.isSigned) ?? "false"}",
-          userController.user.usersId!);
+          UserController().user.usersId!);
       statusRequest = handlingData(response);
 
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
+          isLoading.toggle();
           if (response['branches']['status'] == 'success') {
             List responseDataBranches = response['branches']['data'];
             branchesList.addAll(
@@ -92,6 +92,7 @@ class HomeControllerImp extends HomeController {
                   .singleWhere((element) => element.branchId == selectedValue);
             }
           }
+          isLoading.toggle();
           if (response['categories']['status'] == 'success') {
             List responseDataCategories = response['categories']['data'];
             categoriesList.addAll(
@@ -129,18 +130,18 @@ class HomeControllerImp extends HomeController {
   @override
   initData() async {
     initLocalJiffy();
-    getData(userController.user.userFavBranchId!);
-    selectedValue = userController.user.userFavBranchId!;
+    getData(UserController().user.userFavBranchId!);
+    selectedValue = UserController().user.userFavBranchId!;
   }
 
   @override
   updateUserBranch() async {
     try {
       var response = await homeData.updateBranch(
-          selectedValue, userController.user.usersId!);
+          selectedValue, UserController().user.usersId!);
       if (response['status'] == 'success') {
         var newUser = UserModel.fromJson(response['data']);
-        userController.user = newUser;
+        UserController().user = newUser;
         selectedValue = newUser.userFavBranchId!;
       }
     } catch (e) {
@@ -153,13 +154,13 @@ class HomeControllerImp extends HomeController {
   Future<void> loginAnonymous() async {
     try {
       var response = await _loginData.loginAnonymous(
-        userController.user.usersEmail!,
-        userController.user.userFavBranchId!,
-        userController.user.usersName!,
+        UserController().user.usersEmail!,
+        UserController().user.userFavBranchId!,
+        UserController().user.usersName!,
       );
       if (response['status'] == 'success') {
         UserModel loginUser = UserModel.fromJson(response['data']);
-        userController.user = loginUser;
+        UserController().user = loginUser;
       } else {
         statusRequest = StatusRequest.failed;
       }
@@ -173,19 +174,19 @@ class HomeControllerImp extends HomeController {
   Future<void> getUserDetails() async {
     try {
       var response =
-          await homeData.getUserDetails(userController.user.usersId!);
+          await homeData.getUserDetails(UserController().user.usersId!);
       if (response['status'] == 'success') {
         var newUser = UserModel.fromJson(response['data']);
-        userController.user = newUser;
+        UserController().user = newUser;
 
-        if (userController.user.usersApprove == 2) {
+        if (UserController().user.usersApprove == 2) {
           SmartDialog.showNotify(
               msg: "userBlocked".tr,
               notifyType: NotifyType.warning,
               onDismiss: () {
                 myServices.getBox.erase();
                 Get.offAllNamed(AppRoutes.login);
-                userController.clear();
+                UserController().clear();
               });
         }
       }
@@ -292,7 +293,7 @@ class HomeControllerImp extends HomeController {
       await loginAnonymous();
     }
     FirebaseMessaging.instance
-        .subscribeToTopic("user${userController.user.usersId}");
+        .subscribeToTopic("user${UserController().user.usersId}");
     initData();
 
     super.onInit();

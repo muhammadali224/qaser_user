@@ -8,9 +8,7 @@ import '../user_controller/user_controller.dart';
 import 'user_setting_controller.dart';
 
 class ChangeEmailController extends GetxController {
-  UserController userController = Get.find<UserController>();
   TextEditingController userTextController = TextEditingController();
-
   StatusRequest statusRequest = StatusRequest.none;
   UserDetailsData userData = UserDetailsData(Get.find());
   UserSettingController userSettingController = Get.find();
@@ -25,9 +23,9 @@ class ChangeEmailController extends GetxController {
       update();
 
       var response = await userData.verifyCode(
-        userController.user.usersId!,
+        UserController().user.usersId!,
         userTextController.text,
-        userController.user.usersEmail!,
+        UserController().user.usersEmail!,
         code,
       );
       statusRequest = handlingData(response);
@@ -77,7 +75,7 @@ class ChangeEmailController extends GetxController {
         statusRequest = StatusRequest.loading;
         update();
         var response = await userData.checkEmail(
-          userController.user.usersId!,
+          UserController().user.usersId!,
           userTextController.text,
         );
         statusRequest = handlingData(response);

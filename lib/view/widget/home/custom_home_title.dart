@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
@@ -27,11 +28,11 @@ class CustomHomeTitle extends GetView<HomeControllerImp> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          AutoSizeText(
             title.tr,
             style: TextStyle(
                 color: AppColor.fourthColor,
-                fontSize: 20,
+                fontSize: 24,
                 fontWeight: FontWeight.bold),
           ),
           if (withSeeAll == true)

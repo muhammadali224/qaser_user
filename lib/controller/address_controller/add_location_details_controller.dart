@@ -11,7 +11,6 @@ import '../user_controller/user_controller.dart';
 
 class AddLocationDetailsController extends GetxController {
   StatusRequest statusRequest = StatusRequest.none;
-  UserController userController = Get.find<UserController>();
   double? lat;
   double? long;
   TextEditingController name = TextEditingController();
@@ -35,7 +34,7 @@ class AddLocationDetailsController extends GetxController {
       statusRequest = StatusRequest.loading;
       update();
       var response = await addressData.addAddress(
-        userController.user.usersId!,
+        UserController().user.usersId!,
         name.text,
         city.text,
         street.text,

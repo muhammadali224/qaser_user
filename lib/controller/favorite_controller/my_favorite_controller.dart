@@ -13,14 +13,13 @@ class MyFavoriteController extends GetxController {
   List<ItemModel> favData = [];
   Map isFavorite = {};
   StatusRequest statusRequest = StatusRequest.none;
-  UserController userController = Get.find<UserController>();
 
   getFavorite() async {
     try {
       favData.clear();
       statusRequest = StatusRequest.loading;
       var response =
-          await favoriteData.getFavorite(userController.user.usersId!);
+          await favoriteData.getFavorite(UserController().user.usersId!);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
@@ -38,7 +37,7 @@ class MyFavoriteController extends GetxController {
 
   deleteFavoriteItems(int itemId) {
     try {
-      favoriteData.removeFavorite(userController.user.usersId!, itemId);
+      favoriteData.removeFavorite(UserController().user.usersId!, itemId);
       favData.removeWhere((element) => element.itemsId == itemId);
     } catch (e) {
       throw Exception("Error Delete Favorite : $e");
@@ -54,8 +53,8 @@ class MyFavoriteController extends GetxController {
   addFavorite(int itemsId) async {
     try {
       statusRequest = StatusRequest.loading;
-      var response =
-          await favoriteData.addFavorite(userController.user.usersId!, itemsId);
+      var response = await favoriteData.addFavorite(
+          UserController().user.usersId!, itemsId);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
@@ -84,7 +83,7 @@ class MyFavoriteController extends GetxController {
     try {
       statusRequest = StatusRequest.loading;
       var response = await favoriteData.removeFavorite(
-          userController.user.usersId!, itemsId);
+          UserController().user.usersId!, itemsId);
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
