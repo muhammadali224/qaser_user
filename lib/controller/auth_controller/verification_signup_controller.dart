@@ -43,6 +43,7 @@ class VerifiedSignUpControllerImp extends VerifiedSignUpController {
               .subscribeToTopic("user${UserController().user.usersId}");
           FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");
           FirebaseMessaging.instance.subscribeToTopic("signed");
+
           await myServices.getBox.write(GetBoxKey.isSigned, true);
         } else {
           Get.defaultDialog(
