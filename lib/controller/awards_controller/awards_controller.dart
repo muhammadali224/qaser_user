@@ -25,6 +25,7 @@ class AwardsController extends GetxController {
     try {
       awardsList.clear();
       statusRequest = StatusRequest.loading;
+      update();
       var response =
           await _awardsData.getAwardsView(UserController().user.usersId!);
       statusRequest = handlingData(response);

@@ -45,12 +45,6 @@ class AwardsView extends StatelessWidget {
                 children: controller.awardsList
                     .map((e) => Container(
                           margin: EdgeInsets.all(10),
-                          width: double.infinity,
-                          height: 290,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                  width: .5, color: AppColor.primaryColor)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,8 +53,6 @@ class AwardsView extends StatelessWidget {
                                 imageUrl:
                                     "${AppLink.imagesAwards}${e.itemsPointImage}",
                                 imageBuilder: (_, imageProvider) => Container(
-                                  height: 180,
-                                  width: double.infinity,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(10),
@@ -111,19 +103,22 @@ class AwardsView extends StatelessWidget {
                                 ],
                               ),
                               controller.totalPoint >= e.itemsPointPrice!
-                                  ? Expanded(
-                                      child: TextButton(
+                                  ? TextButton(
                                       onPressed: () => controller
                                           .showQRCode(e.itemsPointId!),
                                       child: AutoSizeText(
                                         "redeem".tr,
                                         style: TextStyle(fontSize: 25),
                                       ),
-                                    ))
+                                    )
                                   : AutoSizeText("pointsNotEnough".tr,
                                       style: TextStyle(
                                           fontSize: 25,
-                                          color: AppColor.primaryColor))
+                                          color: AppColor.primaryColor)),
+                              Divider(
+                                endIndent: 10,
+                                indent: 10,
+                              )
                             ],
                           ),
                         ))

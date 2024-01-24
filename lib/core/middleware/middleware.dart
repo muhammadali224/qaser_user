@@ -14,7 +14,7 @@ class MyMiddleWare extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     if (myServices.getBox.read(GetBoxKey.step) == "1") {
-      return const RouteSettings(name: AppRoutes.home);
+      return const RouteSettings(name: AppRoutes.splashScreen);
     }
     if (myServices.getBox.read(GetBoxKey.step) == "2") {
       return const RouteSettings(name: AppRoutes.login);

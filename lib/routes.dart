@@ -2,7 +2,9 @@ import 'package:get/get.dart';
 import 'package:qaser_user/view/screen/auth/sms/send_sms.dart';
 import 'package:qaser_user/view/screen/auth/sms/verify_sms.dart';
 import 'package:qaser_user/view/screen/awards/awards.dart';
+import 'package:qaser_user/view/screen/home/home.dart';
 import 'package:qaser_user/view/screen/setting/setting_screen/info_screen.dart';
+import 'package:qaser_user/view/screen/splash_screen/splash_screen.dart';
 import 'package:qaser_user/view/screen/user_point/user_point.dart';
 import 'package:upgrader/upgrader.dart';
 
@@ -21,7 +23,6 @@ import 'view/screen/auth/signup.dart';
 import 'view/screen/auth/verification_signup.dart';
 import 'view/screen/cart/cart.dart';
 import 'view/screen/favorites/my_favorite.dart';
-import 'view/screen/home/home.dart';
 import 'view/screen/home/search_result.dart';
 import 'view/screen/item/item_details.dart';
 import 'view/screen/item/items.dart';
@@ -69,6 +70,7 @@ List<GetPage<dynamic>>? routes = [
     page: () => const Login(),
     binding: InitBindings(),
   ),
+  GetPage(name: AppRoutes.splashScreen, page: () => const SplashScreen()),
   GetPage(name: AppRoutes.signUp, page: () => const SignUp()),
   GetPage(name: AppRoutes.forgetPassword, page: () => const ForgetPassword()),
   GetPage(
