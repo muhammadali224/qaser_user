@@ -38,6 +38,8 @@ mixin _$BranchesModel {
   String? get branchPhone2 => throw _privateConstructorUsedError;
   @JsonKey(name: "branch_facebook_url")
   String? get branchFacebookUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: "branch_start_delivery")
+  num? get branchStartDelivery => throw _privateConstructorUsedError;
   @JsonKey(name: "branch_delivery_charge")
   num? get branchDeliveryCharge => throw _privateConstructorUsedError;
   @JsonKey(name: "branch_isFixed")
@@ -71,6 +73,7 @@ abstract class $BranchesModelCopyWith<$Res> {
       @JsonKey(name: "branch_phone1") String? branchPhone1,
       @JsonKey(name: "branch_phone2") String? branchPhone2,
       @JsonKey(name: "branch_facebook_url") String? branchFacebookUrl,
+      @JsonKey(name: "branch_start_delivery") num? branchStartDelivery,
       @JsonKey(name: "branch_delivery_charge") num? branchDeliveryCharge,
       @JsonKey(name: "branch_isFixed") int? branchIsFixed,
       @JsonKey(name: "branch_zone") num? branchZone,
@@ -100,6 +103,7 @@ class _$BranchesModelCopyWithImpl<$Res, $Val extends BranchesModel>
     Object? branchPhone1 = freezed,
     Object? branchPhone2 = freezed,
     Object? branchFacebookUrl = freezed,
+    Object? branchStartDelivery = freezed,
     Object? branchDeliveryCharge = freezed,
     Object? branchIsFixed = freezed,
     Object? branchZone = freezed,
@@ -143,6 +147,10 @@ class _$BranchesModelCopyWithImpl<$Res, $Val extends BranchesModel>
           ? _value.branchFacebookUrl
           : branchFacebookUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      branchStartDelivery: freezed == branchStartDelivery
+          ? _value.branchStartDelivery
+          : branchStartDelivery // ignore: cast_nullable_to_non_nullable
+              as num?,
       branchDeliveryCharge: freezed == branchDeliveryCharge
           ? _value.branchDeliveryCharge
           : branchDeliveryCharge // ignore: cast_nullable_to_non_nullable
@@ -185,6 +193,7 @@ abstract class _$$BranchesModelImplCopyWith<$Res>
       @JsonKey(name: "branch_phone1") String? branchPhone1,
       @JsonKey(name: "branch_phone2") String? branchPhone2,
       @JsonKey(name: "branch_facebook_url") String? branchFacebookUrl,
+      @JsonKey(name: "branch_start_delivery") num? branchStartDelivery,
       @JsonKey(name: "branch_delivery_charge") num? branchDeliveryCharge,
       @JsonKey(name: "branch_isFixed") int? branchIsFixed,
       @JsonKey(name: "branch_zone") num? branchZone,
@@ -212,6 +221,7 @@ class __$$BranchesModelImplCopyWithImpl<$Res>
     Object? branchPhone1 = freezed,
     Object? branchPhone2 = freezed,
     Object? branchFacebookUrl = freezed,
+    Object? branchStartDelivery = freezed,
     Object? branchDeliveryCharge = freezed,
     Object? branchIsFixed = freezed,
     Object? branchZone = freezed,
@@ -255,6 +265,10 @@ class __$$BranchesModelImplCopyWithImpl<$Res>
           ? _value.branchFacebookUrl
           : branchFacebookUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      branchStartDelivery: freezed == branchStartDelivery
+          ? _value.branchStartDelivery
+          : branchStartDelivery // ignore: cast_nullable_to_non_nullable
+              as num?,
       branchDeliveryCharge: freezed == branchDeliveryCharge
           ? _value.branchDeliveryCharge
           : branchDeliveryCharge // ignore: cast_nullable_to_non_nullable
@@ -292,6 +306,7 @@ class _$BranchesModelImpl implements _BranchesModel {
       @JsonKey(name: "branch_phone1") this.branchPhone1,
       @JsonKey(name: "branch_phone2") this.branchPhone2,
       @JsonKey(name: "branch_facebook_url") this.branchFacebookUrl,
+      @JsonKey(name: "branch_start_delivery") this.branchStartDelivery,
       @JsonKey(name: "branch_delivery_charge") this.branchDeliveryCharge,
       @JsonKey(name: "branch_isFixed") this.branchIsFixed,
       @JsonKey(name: "branch_zone") this.branchZone,
@@ -329,6 +344,9 @@ class _$BranchesModelImpl implements _BranchesModel {
   @JsonKey(name: "branch_facebook_url")
   final String? branchFacebookUrl;
   @override
+  @JsonKey(name: "branch_start_delivery")
+  final num? branchStartDelivery;
+  @override
   @JsonKey(name: "branch_delivery_charge")
   final num? branchDeliveryCharge;
   @override
@@ -346,7 +364,7 @@ class _$BranchesModelImpl implements _BranchesModel {
 
   @override
   String toString() {
-    return 'BranchesModel(branchId: $branchId, branchNameAr: $branchNameAr, branchNameEn: $branchNameEn, branchIsOpen: $branchIsOpen, branchLang: $branchLang, branchLat: $branchLat, branchPhone1: $branchPhone1, branchPhone2: $branchPhone2, branchFacebookUrl: $branchFacebookUrl, branchDeliveryCharge: $branchDeliveryCharge, branchIsFixed: $branchIsFixed, branchZone: $branchZone, branchDeliveryFixCharge: $branchDeliveryFixCharge, branchMaxZone: $branchMaxZone)';
+    return 'BranchesModel(branchId: $branchId, branchNameAr: $branchNameAr, branchNameEn: $branchNameEn, branchIsOpen: $branchIsOpen, branchLang: $branchLang, branchLat: $branchLat, branchPhone1: $branchPhone1, branchPhone2: $branchPhone2, branchFacebookUrl: $branchFacebookUrl, branchStartDelivery: $branchStartDelivery, branchDeliveryCharge: $branchDeliveryCharge, branchIsFixed: $branchIsFixed, branchZone: $branchZone, branchDeliveryFixCharge: $branchDeliveryFixCharge, branchMaxZone: $branchMaxZone)';
   }
 
   @override
@@ -372,6 +390,8 @@ class _$BranchesModelImpl implements _BranchesModel {
                 other.branchPhone2 == branchPhone2) &&
             (identical(other.branchFacebookUrl, branchFacebookUrl) ||
                 other.branchFacebookUrl == branchFacebookUrl) &&
+            (identical(other.branchStartDelivery, branchStartDelivery) ||
+                other.branchStartDelivery == branchStartDelivery) &&
             (identical(other.branchDeliveryCharge, branchDeliveryCharge) ||
                 other.branchDeliveryCharge == branchDeliveryCharge) &&
             (identical(other.branchIsFixed, branchIsFixed) ||
@@ -398,6 +418,7 @@ class _$BranchesModelImpl implements _BranchesModel {
       branchPhone1,
       branchPhone2,
       branchFacebookUrl,
+      branchStartDelivery,
       branchDeliveryCharge,
       branchIsFixed,
       branchZone,
@@ -429,6 +450,7 @@ abstract class _BranchesModel implements BranchesModel {
       @JsonKey(name: "branch_phone1") final String? branchPhone1,
       @JsonKey(name: "branch_phone2") final String? branchPhone2,
       @JsonKey(name: "branch_facebook_url") final String? branchFacebookUrl,
+      @JsonKey(name: "branch_start_delivery") final num? branchStartDelivery,
       @JsonKey(name: "branch_delivery_charge") final num? branchDeliveryCharge,
       @JsonKey(name: "branch_isFixed") final int? branchIsFixed,
       @JsonKey(name: "branch_zone") final num? branchZone,
@@ -467,6 +489,9 @@ abstract class _BranchesModel implements BranchesModel {
   @override
   @JsonKey(name: "branch_facebook_url")
   String? get branchFacebookUrl;
+  @override
+  @JsonKey(name: "branch_start_delivery")
+  num? get branchStartDelivery;
   @override
   @JsonKey(name: "branch_delivery_charge")
   num? get branchDeliveryCharge;

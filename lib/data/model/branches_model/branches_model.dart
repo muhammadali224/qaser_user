@@ -28,6 +28,7 @@ class BranchesModel with _$BranchesModel {
     @JsonKey(name: "branch_phone1") String? branchPhone1,
     @JsonKey(name: "branch_phone2") String? branchPhone2,
     @JsonKey(name: "branch_facebook_url") String? branchFacebookUrl,
+    @JsonKey(name: "branch_start_delivery") num? branchStartDelivery,
     @JsonKey(name: "branch_delivery_charge") num? branchDeliveryCharge,
     @JsonKey(name: "branch_isFixed") int? branchIsFixed,
     @JsonKey(name: "branch_zone") num? branchZone,

@@ -193,13 +193,15 @@ class CartControllerImp extends CartController {
     try {
       if (selectedBranch.value.branchIsFixed == 1 &&
           selectedBranch.value.branchZone! <= distance) {
-        deliveryFee = (distance * selectedBranch.value.branchDeliveryCharge!)
+        deliveryFee = (distance * selectedBranch.value.branchDeliveryCharge! +
+                selectedBranch.value.branchStartDelivery!)
             .toStringAsFixed(2);
       } else if (selectedBranch.value.branchIsFixed == 1 &&
           selectedBranch.value.branchZone! >= distance) {
         deliveryFee = selectedBranch.value.branchDeliveryFixCharge.toString();
       } else if (selectedBranch.value.branchIsFixed == 0) {
-        deliveryFee = (distance * selectedBranch.value.branchDeliveryCharge!)
+        deliveryFee = (distance * selectedBranch.value.branchDeliveryCharge! +
+                selectedBranch.value.branchStartDelivery!)
             .toStringAsFixed(2);
       }
     } catch (e) {

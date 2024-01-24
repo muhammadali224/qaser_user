@@ -63,6 +63,7 @@ class HomeControllerImp extends HomeController {
   List<ItemModel> suggestItem = [];
   List<OffersImageModel> offerImagesList = [];
   MyFavoriteController favController = Get.put(MyFavoriteController());
+  CartControllerImp? cartControllerImp;
 
   @override
   getData(int branchId) async {
@@ -132,6 +133,7 @@ class HomeControllerImp extends HomeController {
     initLocalJiffy();
     getData(UserController().user.userFavBranchId!);
     selectedValue = UserController().user.userFavBranchId!;
+    cartControllerImp = Get.put(CartControllerImp());
   }
 
   @override
@@ -289,9 +291,11 @@ class HomeControllerImp extends HomeController {
   @override
   void onInit() async {
     FirebaseMessaging.instance.getToken();
+
     if (myServices.getBox.read(GetBoxKey.isSigned) != true) {
       await loginAnonymous();
     }
+    await FirebaseMessaging.instance.subscribeToTopic("all");
     FirebaseMessaging.instance
         .subscribeToTopic("user${UserController().user.usersId}");
     initData();

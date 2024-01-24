@@ -9,11 +9,12 @@ import '../../view/widget/cart/checkout_title.dart';
 import '../constant/routes.dart';
 import 'get_polyline.dart';
 
-openLocationBottomSheet() {
+Future<void> openLocationBottomSheet() async {
   CartControllerImp controller = Get.find();
 
-  return Get.bottomSheet(
-    Container(
+  return await showModalBottomSheet(
+    showDragHandle: true,
+    builder: (_) => Container(
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
@@ -21,7 +22,7 @@ openLocationBottomSheet() {
       width: double.infinity,
       child: ListView(
         children: [
-          const CheckoutTitle(title: 'chooseLocation'),
+          Center(child: const CheckoutTitle(title: 'chooseLocation')),
           controller.addressController.data.isNotEmpty
               ? Obx(() {
                   return Column(
@@ -102,5 +103,11 @@ openLocationBottomSheet() {
       ),
     ),
     elevation: 10,
-  );
+    context: Get.context!,
+  ).whenComplete(() {
+    if (controller.selectedLocation == null) {
+      controller.selectedOrderType = 0;
+      controller.update();
+    }
+  });
 }

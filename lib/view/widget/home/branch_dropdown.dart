@@ -18,16 +18,14 @@ class BranchDropDownList extends GetView<HomeControllerImp> {
             : DropdownButtonHideUnderline(
                 child: DropdownButton2<int>(
                   isExpanded: true,
-                  items: [
-                    ...List.generate(
-                        branchesList.length,
-                        (index) => DropdownMenuItem(
-                              value: branchesList[index].branchId,
-                              child: Text(
-                                "${translateDatabase(branchesList[index].branchNameAr!, branchesList[index].branchNameEn!)}",
-                              ),
-                            )),
-                  ],
+                  items: branchesList
+                      .map((e) => DropdownMenuItem(
+                            value: e.branchId,
+                            child: Text(
+                              "${translateDatabase(e.branchNameAr!, e.branchNameEn!)}",
+                            ),
+                          ))
+                      .toList(),
                   value: controller.selectedValue,
                   onChanged: controller.onChangeDropButton,
                   buttonStyleData: const ButtonStyleData(
