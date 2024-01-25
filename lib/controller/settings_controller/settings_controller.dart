@@ -27,7 +27,7 @@ class SettingsController extends GetxController {
   }
 
   goToAddressView() {
-    if (UserController().user == 0) {
+    if (UserController().user.usersIsAnonymous == 0) {
       Get.toNamed(AppRoutes.addressView);
     } else if (UserController().user.usersIsAnonymous == 1) {
       SmartDialog.showToast("signInFirst".tr);
