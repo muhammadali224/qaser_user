@@ -39,4 +39,5 @@ class AppRoutes {
   static const String infoScreen = "/infoScreen";
   static const String userPoint = "/userPoint";
   static const String awardsView = "/awardsView";
+  static const String selectBranch = "/selectBranch";
 }

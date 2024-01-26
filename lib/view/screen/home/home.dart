@@ -1,7 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart' hide Badge;
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:get/get.dart';
+import 'package:qaser_user/core/constant/routes.dart';
 import 'package:qaser_user/core/function/exit_alert.dart';
+import 'package:qaser_user/data/shared/branches.dart';
 
 import '../../../controller/home_controller/home_controller.dart';
 import '../../../controller/user_controller/user_controller.dart';
@@ -37,7 +40,17 @@ class Home extends StatelessWidget {
             floatingActionButtonLocation: ExpandableFab.location,
             floatingActionButton: ExpandFloating(),
             appBar: AppBar(
-              title: const BranchDropDownList(),
+              title: branchesList.length < 2
+                  ? InkWell(
+                      onTap: () {
+                        Get.toNamed(AppRoutes.selectBranch);
+                      },
+                      child: AutoSizeText(
+                        "القصر الشرقي - ش.فلسطين",
+                        maxFontSize: 20,
+                      ),
+                    )
+                  : BranchDropDownList(),
               leading: LeadingAppbar(onTap: controller.goToCart),
               actions: [NotificationIcon()],
             ),
