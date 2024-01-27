@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image_plus/flutter_cached_network_image_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -81,11 +82,11 @@ class HeaderCardSetting extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          AutoSizeText(
                             userName!,
+                            minFontSize: 26,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 26,
                               color: Colors.white,
                             ),
                           ),

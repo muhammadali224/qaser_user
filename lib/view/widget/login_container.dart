@@ -9,19 +9,26 @@ class LoginContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        AutoSizeText("loginMessage".tr),
-        TextButton(
-          onPressed: () => Get.toNamed(AppRoutes.login),
-          child: AutoSizeText(
-            'goToLogin'.tr,
-            style: DefaultTextStyle.of(context)
-                .style
-                .copyWith(color: Colors.red, fontWeight: FontWeight.bold),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(child: AutoSizeText("loginMessage".tr)),
+          Expanded(
+            child: TextButton(
+              onPressed: () => Get.toNamed(AppRoutes.login),
+              child: AutoSizeText(
+                'goToLogin'.tr,
+                style: DefaultTextStyle.of(context)
+                    .style
+                    .copyWith(color: Colors.red, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

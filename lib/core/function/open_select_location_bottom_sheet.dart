@@ -73,7 +73,10 @@ Future<void> openLocationBottomSheet() async {
                       ),
                       Center(
                         child: TextButton(
-                            onPressed: () => Get.toNamed(AppRoutes.addressAdd),
+                            onPressed: () {
+                              controller.selectedLocation = null;
+                              Get.toNamed(AppRoutes.addressAdd);
+                            },
                             child: Text(
                               "goToLocation".tr,
                               style: const TextStyle(

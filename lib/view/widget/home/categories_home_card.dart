@@ -49,7 +49,6 @@ class CategoriesHomeCard extends GetView<HomeControllerImp> {
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 16,
             ),
           ),
         ),

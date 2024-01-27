@@ -69,21 +69,30 @@ class HeaderHelloText extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              child: InkWell(
-                onTap: onTapped,
-                child: CacheNetworkImagePlus(
-                    imageBuilder: (context, imageProvider) => CircleAvatar(
-                        backgroundImage: imageProvider,
-                        radius: Get.height / 15),
-                    imageUrl: "${AppLink.imageUserProfile}$imageUrl",
-                    errorWidget: const Center(
-                      child: Icon(
-                        IconBroken.Setting,
-                      ),
-                    )),
-              ),
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  child: InkWell(
+                    onTap: onTapped,
+                    child: CacheNetworkImagePlus(
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                            backgroundImage: imageProvider,
+                            radius: Get.height / 15),
+                        imageUrl: "${AppLink.imageUserProfile}$imageUrl",
+                        errorWidget: const Center(
+                          child: Icon(
+                            IconBroken.Setting,
+                          ),
+                        )),
+                  ),
+                ),
+                Positioned(
+                  bottom: 5,
+                  child: Icon(Icons.settings, color: Colors.blueGrey),
+                ),
+              ],
             ),
           ),
         ],

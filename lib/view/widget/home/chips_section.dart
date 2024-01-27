@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -11,31 +12,37 @@ class ChipsSection extends GetView<HomeControllerImp> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        ActionChip(
-          onPressed: controller.goToMyPoint,
-          labelStyle: TextStyle(color: Colors.black),
-          label: Text("myPoints".tr),
-          avatar: Icon(
-            FontAwesome.award_solid,
-            color: Colors.teal,
+        Expanded(
+          child: ActionChip(
+            onPressed: controller.goToMyPoint,
+            labelStyle: TextStyle(color: Colors.black),
+            label: AutoSizeText("myPoints".tr),
+            avatar: Icon(
+              FontAwesome.award_solid,
+              color: Colors.teal,
+            ),
           ),
         ),
-        ActionChip(
-          onPressed: controller.goToAwards,
-          avatar: Icon(
-            FontAwesome.crown_solid,
-            color: Colors.amber,
+        Expanded(
+          child: ActionChip(
+            onPressed: controller.goToAwards,
+            avatar: Icon(
+              FontAwesome.crown_solid,
+              color: Colors.amber,
+            ),
+            labelStyle: TextStyle(color: Colors.black),
+            label: AutoSizeText("rewards".tr),
           ),
-          labelStyle: TextStyle(color: Colors.black),
-          label: Text("rewards".tr),
         ),
-        ActionChip(
-          onPressed: controller.goToFavorite,
-          labelStyle: TextStyle(color: Colors.black),
-          label: Text("favorite".tr),
-          avatar: Icon(
-            FontAwesome.star_solid,
-            color: Colors.red,
+        Expanded(
+          child: ActionChip(
+            onPressed: controller.goToFavorite,
+            labelStyle: TextStyle(color: Colors.black),
+            label: AutoSizeText("favorite".tr),
+            avatar: Icon(
+              FontAwesome.star_solid,
+              color: Colors.red,
+            ),
           ),
         ),
       ],

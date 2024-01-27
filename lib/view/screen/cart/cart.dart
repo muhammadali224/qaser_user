@@ -113,7 +113,7 @@ class Cart extends StatelessWidget {
                 const CheckoutCoupon(),
                 const CheckoutTitle(title: 'chooseOrderType'),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ...List.generate(
@@ -125,7 +125,9 @@ class Cart extends StatelessWidget {
                                     UserController().user.usersIsAnonymous ==
                                         0) {
                                   controller.selectedLocation = null;
+                                  SmartDialog.showLoading(msg: "loading".tr);
                                   await controller.addressController.getData();
+                                  SmartDialog.dismiss();
                                   await openLocationBottomSheet();
                                 } else if (UserController()
                                         .user

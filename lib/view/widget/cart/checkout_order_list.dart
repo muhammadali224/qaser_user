@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -45,17 +46,12 @@ class CheckoutOrderList extends GetView<CartControllerImp> {
                 color: value == controller.selectedOrderType
                     ? AppColor.backgroundColor
                     : AppColor.primaryColor),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  title.tr,
-                  style: TextStyle(
-                      color: value == controller.selectedOrderType
-                          ? AppColor.backgroundColor
-                          : AppColor.grey),
-                ),
-              ],
+            AutoSizeText(
+              title.tr,
+              style: TextStyle(
+                  color: value == controller.selectedOrderType
+                      ? AppColor.backgroundColor
+                      : AppColor.grey),
             )
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart' hide Badge;
 import 'package:get/get.dart';
@@ -54,9 +55,12 @@ class OffersHomeCard extends GetView<HomeControllerImp> {
             left: 1,
             child: Badge(
               showBadge: true,
-              badgeContent: Text(
+              badgeContent: AutoSizeText(
                 "${itemsModel.itemsDiscount}%",
-                style: TextStyle(color: AppColor.backgroundColor, fontSize: 20),
+                maxFontSize: 20,
+                style: TextStyle(
+                  color: AppColor.backgroundColor,
+                ),
               ),
               badgeStyle: const BadgeStyle(
                 padding: EdgeInsets.all(5),

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qaser_user/view/widget/cart/total_row_section.dart';
@@ -49,19 +50,19 @@ class CustomTotalPriceText extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        AutoSizeText(
                           "${'total'.tr} :",
+                          maxFontSize: 24,
+                          minFontSize: 22,
                           style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
+                              fontWeight: FontWeight.w700, color: Colors.black),
                         ),
-                        Text(
+                        AutoSizeText(
                           "${controller.getTotalOrderPrice()}",
+                          maxFontSize: 24,
+                          minFontSize: 22,
                           style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
+                              fontWeight: FontWeight.w700, color: Colors.black),
                         )
                       ],
                     ),
