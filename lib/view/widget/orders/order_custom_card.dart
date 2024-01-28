@@ -71,48 +71,7 @@ class OrdersCard extends GetView<OrdersController> {
                     ],
                   )),
             CardTotalContainer(ordersModel: ordersModel),
-            if (ordersModel.ordersState == 0)
-              Column(
-                children: [
-                  const Divider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [],
-                  ),
-                ],
-              ),
-            if (ordersModel.ordersState == 1)
-              Column(
-                children: [
-                  const Divider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [],
-                  ),
-                ],
-              ),
-            if (ordersModel.ordersState == 2)
-              Column(
-                children: [
-                  const Divider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      MaterialButton(
-                        onPressed: () {},
-                        color: Colors.green,
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Text(
-                          'completed'.tr,
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            if (ordersModel.ordersState == 1) const Divider(),
             const Divider(),
             const OrdersCardFooter(),
             const SizedBox(height: 10),

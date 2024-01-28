@@ -16,7 +16,6 @@ class Assets {
   static const String imagesLogo2 = 'assets/images/logo_2.jpg';
   static const String imagesMhj = 'assets/images/mhj.png';
   static const String imagesSplash = 'assets/images/splash.png';
-  static const String imagesSplash1 = 'assets/images/splash1.gif';
   static const String lottieAccountCreated =
       'assets/lottie/accountCreated.json';
   static const String lottieBranchClose = 'assets/lottie/branch_close.json';
@@ -33,8 +32,6 @@ class Assets {
   static const String lottieRating = 'assets/lottie/rating.json';
   static const String lottieSearch = 'assets/lottie/search.json';
   static const String lottieServerError = 'assets/lottie/serverError.json';
-  static const String lottieSplash = 'assets/lottie/splash.json';
-  static const String lottieSplash1 = 'assets/lottie/splash1.json';
   static const String lottieSuccess = 'assets/lottie/success.json';
   static const String qaserUser = '.env';
 }

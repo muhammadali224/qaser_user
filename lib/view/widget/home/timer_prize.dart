@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -38,9 +39,9 @@ class TimerPrize extends StatelessWidget {
                 return Visibility(
                   visible: !controller.canGetPrize.value &&
                       controller.eta.value.isNotEmpty,
-                  child: Text(
+                  child: AutoSizeText(
                     '${"prizeAfter".tr} : ${controller.eta}'.tr,
-                    style: TextStyle(fontSize: 20),
+                    minFontSize: 20,
                   ),
                 );
               });

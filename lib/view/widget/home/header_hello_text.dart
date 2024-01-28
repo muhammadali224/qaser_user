@@ -90,7 +90,17 @@ class HeaderHelloText extends StatelessWidget {
                 ),
                 Positioned(
                   bottom: 5,
-                  child: Icon(Icons.settings, color: Colors.blueGrey),
+                  child: InkWell(
+                    onTap: onTapped,
+                    child: Container(
+                        padding: EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(100)),
+                        child: Center(
+                            child:
+                                Icon(Icons.settings, color: Colors.blueGrey))),
+                  ),
                 ),
               ],
             ),

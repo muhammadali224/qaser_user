@@ -24,9 +24,12 @@ class OrdersData {
     return response.fold((l) => l, (r) => r);
   }
 
-  ordersCancel(int id) async {
-    var response =
-        await crud.postData(AppLink.orderCancel, {'order_id': id.toString()});
+  ordersCancel(int id, int userId, int branchId) async {
+    var response = await crud.postData(AppLink.orderCancel, {
+      'order_id': id.toString(),
+      'user_id': userId.toString(),
+      'branch_id': branchId.toString(),
+    });
     return response.fold((l) => l, (r) => r);
   }
 }

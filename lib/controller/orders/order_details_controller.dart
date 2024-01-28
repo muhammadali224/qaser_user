@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:qaser_user/controller/user_controller/user_controller.dart';
+import 'package:qaser_user/data/shared/branches.dart';
 
 import '../../core/class/status_request.dart';
 import '../../core/function/handling_data_controller.dart';
@@ -45,33 +47,22 @@ class OrderDetailsController extends GetxController {
         ),
       ));
     }
+    print(getTimeDifference());
   }
 
-  orderDelete() async {
-    try {
-      statusRequest = StatusRequest.loading;
-      update();
-      var response = await ordersData.ordersDelete(ordersModel.ordersId!);
-      statusRequest = handlingData(response);
-      if (StatusRequest.success == statusRequest) {
-        if (response['status'] == 'success') {
-          Get.back();
-          ordersController.refreshOrders();
-        } else {
-          statusRequest = StatusRequest.failed;
-        }
-      }
-    } catch (e) {
-      throw Exception("Error Order Delete : $e");
-    }
-    update();
+  int getTimeDifference() {
+    return DateTime.now().difference(ordersModel.ordersTime!).inMinutes;
   }
 
   orderCancel() async {
     try {
       statusRequest = StatusRequest.loading;
       update();
-      var response = await ordersData.ordersCancel(ordersModel.ordersId!);
+      var response = await ordersData.ordersCancel(
+        ordersModel.ordersId!,
+        UserController().user.usersId!,
+        selectedBranch.value.branchId!,
+      );
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == 'success') {
