@@ -7,16 +7,16 @@ class CheckoutData {
   CheckoutData(this.crud);
 
   checkout(
-    int userId,
-    String addressId,
-    String orderType,
-    String deliveryFee,
-    String orderPrice,
-    String discountAmount,
-    String totalPrice,
-    int couponId,
-    int branchId,
-  ) async {
+      {required int userId,
+      required String addressId,
+      required String orderType,
+      required String deliveryFee,
+      required String orderPrice,
+      required String discountAmount,
+      required String totalPrice,
+      required int couponId,
+      required int branchId,
+      required String totalPoints}) async {
     var response = await crud.postData(AppLink.checkout, {
       'userid': userId.toString(),
       'address_id': addressId,
@@ -29,7 +29,9 @@ class CheckoutData {
       'order_state': "0",
       'order_time': DateTime.now().toString(),
       'branch_id': branchId.toString(),
+      'order_points': totalPoints,
     });
+    print(totalPoints);
     return response.fold((l) => l, (r) => r);
   }
 

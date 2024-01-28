@@ -44,6 +44,8 @@ mixin _$OrdersModel {
   DateTime? get ordersTime => throw _privateConstructorUsedError;
   @JsonKey(name: "orders_rating")
   num? get ordersRating => throw _privateConstructorUsedError;
+  @JsonKey(name: "orders_points")
+  num? get ordersPoints => throw _privateConstructorUsedError;
   @JsonKey(name: "orders_note")
   String? get ordersNote => throw _privateConstructorUsedError;
   @JsonKey(name: "orders_branch")
@@ -102,6 +104,7 @@ abstract class $OrdersModelCopyWith<$Res> {
       @JsonKey(name: "orders_state") int? ordersState,
       @JsonKey(name: "orders_time") DateTime? ordersTime,
       @JsonKey(name: "orders_rating") num? ordersRating,
+      @JsonKey(name: "orders_points") num? ordersPoints,
       @JsonKey(name: "orders_note") String? ordersNote,
       @JsonKey(name: "orders_branch") int? ordersBranch,
       @JsonKey(name: "address_id") int? addressId,
@@ -145,6 +148,7 @@ class _$OrdersModelCopyWithImpl<$Res, $Val extends OrdersModel>
     Object? ordersState = freezed,
     Object? ordersTime = freezed,
     Object? ordersRating = freezed,
+    Object? ordersPoints = freezed,
     Object? ordersNote = freezed,
     Object? ordersBranch = freezed,
     Object? addressId = freezed,
@@ -210,6 +214,10 @@ class _$OrdersModelCopyWithImpl<$Res, $Val extends OrdersModel>
       ordersRating: freezed == ordersRating
           ? _value.ordersRating
           : ordersRating // ignore: cast_nullable_to_non_nullable
+              as num?,
+      ordersPoints: freezed == ordersPoints
+          ? _value.ordersPoints
+          : ordersPoints // ignore: cast_nullable_to_non_nullable
               as num?,
       ordersNote: freezed == ordersNote
           ? _value.ordersNote
@@ -300,6 +308,7 @@ abstract class _$$OrdersModelImplCopyWith<$Res>
       @JsonKey(name: "orders_state") int? ordersState,
       @JsonKey(name: "orders_time") DateTime? ordersTime,
       @JsonKey(name: "orders_rating") num? ordersRating,
+      @JsonKey(name: "orders_points") num? ordersPoints,
       @JsonKey(name: "orders_note") String? ordersNote,
       @JsonKey(name: "orders_branch") int? ordersBranch,
       @JsonKey(name: "address_id") int? addressId,
@@ -341,6 +350,7 @@ class __$$OrdersModelImplCopyWithImpl<$Res>
     Object? ordersState = freezed,
     Object? ordersTime = freezed,
     Object? ordersRating = freezed,
+    Object? ordersPoints = freezed,
     Object? ordersNote = freezed,
     Object? ordersBranch = freezed,
     Object? addressId = freezed,
@@ -406,6 +416,10 @@ class __$$OrdersModelImplCopyWithImpl<$Res>
       ordersRating: freezed == ordersRating
           ? _value.ordersRating
           : ordersRating // ignore: cast_nullable_to_non_nullable
+              as num?,
+      ordersPoints: freezed == ordersPoints
+          ? _value.ordersPoints
+          : ordersPoints // ignore: cast_nullable_to_non_nullable
               as num?,
       ordersNote: freezed == ordersNote
           ? _value.ordersNote
@@ -491,6 +505,7 @@ class _$OrdersModelImpl implements _OrdersModel {
       @JsonKey(name: "orders_state") this.ordersState,
       @JsonKey(name: "orders_time") this.ordersTime,
       @JsonKey(name: "orders_rating") this.ordersRating,
+      @JsonKey(name: "orders_points") this.ordersPoints,
       @JsonKey(name: "orders_note") this.ordersNote,
       @JsonKey(name: "orders_branch") this.ordersBranch,
       @JsonKey(name: "address_id") this.addressId,
@@ -548,6 +563,9 @@ class _$OrdersModelImpl implements _OrdersModel {
   @JsonKey(name: "orders_rating")
   final num? ordersRating;
   @override
+  @JsonKey(name: "orders_points")
+  final num? ordersPoints;
+  @override
   @JsonKey(name: "orders_note")
   final String? ordersNote;
   @override
@@ -598,7 +616,7 @@ class _$OrdersModelImpl implements _OrdersModel {
 
   @override
   String toString() {
-    return 'OrdersModel(ordersId: $ordersId, ordersUserid: $ordersUserid, ordersAddress: $ordersAddress, ordersType: $ordersType, ordersDeliveryFee: $ordersDeliveryFee, ordersPrice: $ordersPrice, ordersDiscountAmmount: $ordersDiscountAmmount, ordersTotalPrice: $ordersTotalPrice, ordersCoupon: $ordersCoupon, ordersState: $ordersState, ordersTime: $ordersTime, ordersRating: $ordersRating, ordersNote: $ordersNote, ordersBranch: $ordersBranch, addressId: $addressId, addressUserId: $addressUserId, addressName: $addressName, addressCity: $addressCity, addressStreet: $addressStreet, addressNote: $addressNote, addressLat: $addressLat, addressLong: $addressLong, branchNameAr: $branchNameAr, branchNameEn: $branchNameEn, couponName: $couponName, usersName: $usersName, usersEmail: $usersEmail, usersPhone: $usersPhone)';
+    return 'OrdersModel(ordersId: $ordersId, ordersUserid: $ordersUserid, ordersAddress: $ordersAddress, ordersType: $ordersType, ordersDeliveryFee: $ordersDeliveryFee, ordersPrice: $ordersPrice, ordersDiscountAmmount: $ordersDiscountAmmount, ordersTotalPrice: $ordersTotalPrice, ordersCoupon: $ordersCoupon, ordersState: $ordersState, ordersTime: $ordersTime, ordersRating: $ordersRating, ordersPoints: $ordersPoints, ordersNote: $ordersNote, ordersBranch: $ordersBranch, addressId: $addressId, addressUserId: $addressUserId, addressName: $addressName, addressCity: $addressCity, addressStreet: $addressStreet, addressNote: $addressNote, addressLat: $addressLat, addressLong: $addressLong, branchNameAr: $branchNameAr, branchNameEn: $branchNameEn, couponName: $couponName, usersName: $usersName, usersEmail: $usersEmail, usersPhone: $usersPhone)';
   }
 
   @override
@@ -630,6 +648,8 @@ class _$OrdersModelImpl implements _OrdersModel {
                 other.ordersTime == ordersTime) &&
             (identical(other.ordersRating, ordersRating) ||
                 other.ordersRating == ordersRating) &&
+            (identical(other.ordersPoints, ordersPoints) ||
+                other.ordersPoints == ordersPoints) &&
             (identical(other.ordersNote, ordersNote) ||
                 other.ordersNote == ordersNote) &&
             (identical(other.ordersBranch, ordersBranch) ||
@@ -680,6 +700,7 @@ class _$OrdersModelImpl implements _OrdersModel {
         ordersState,
         ordersTime,
         ordersRating,
+        ordersPoints,
         ordersNote,
         ordersBranch,
         addressId,
@@ -727,6 +748,7 @@ abstract class _OrdersModel implements OrdersModel {
           @JsonKey(name: "orders_state") final int? ordersState,
           @JsonKey(name: "orders_time") final DateTime? ordersTime,
           @JsonKey(name: "orders_rating") final num? ordersRating,
+          @JsonKey(name: "orders_points") final num? ordersPoints,
           @JsonKey(name: "orders_note") final String? ordersNote,
           @JsonKey(name: "orders_branch") final int? ordersBranch,
           @JsonKey(name: "address_id") final int? addressId,
@@ -784,6 +806,9 @@ abstract class _OrdersModel implements OrdersModel {
   @override
   @JsonKey(name: "orders_rating")
   num? get ordersRating;
+  @override
+  @JsonKey(name: "orders_points")
+  num? get ordersPoints;
   @override
   @JsonKey(name: "orders_note")
   String? get ordersNote;

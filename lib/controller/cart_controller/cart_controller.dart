@@ -289,30 +289,22 @@ class CartControllerImp extends CartController {
       } else {
         statusRequest = StatusRequest.loading;
         update();
-        // print("""
-        //   ${myServices.sharedPref.getString('userId')!},
-        //   $selectedLocation,
-        //   ${selectedOrderType.toString()},
-        //   $deliveryFee,
-        //   ${price.toStringAsFixed(2)},
-        //   ${discount.toStringAsFixed(2)},
-        //   ${getTotalOrderPrice()},
-        //   ${couponId ?? "0"},
-        //   ${userData.userFavBranchId!},""");
+
         if (selectedOrderType == 0) {
           selectedLocation = 0;
         }
 
         var response = await checkoutData.checkout(
-          UserController().user.usersId!,
-          selectedLocation.toString(),
-          selectedOrderType.toString(),
-          deliveryFee,
-          price.toStringAsFixed(2),
-          discount.toStringAsFixed(2),
-          getTotalOrderPrice(),
-          couponId ?? 0,
-          UserController().user.userFavBranchId!,
+          userId: UserController().user.usersId!,
+          addressId: selectedLocation.toString(),
+          orderType: selectedOrderType.toString(),
+          deliveryFee: deliveryFee,
+          orderPrice: price.toStringAsFixed(2),
+          discountAmount: discount.toStringAsFixed(2),
+          totalPrice: getTotalOrderPrice(),
+          couponId: couponId ?? 0,
+          branchId: UserController().user.userFavBranchId!,
+          totalPoints: totalPoint,
         );
         statusRequest = handlingData(response);
         if (statusRequest == StatusRequest.success) {

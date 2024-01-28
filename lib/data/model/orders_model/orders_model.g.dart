@@ -22,6 +22,7 @@ _$OrdersModelImpl _$$OrdersModelImplFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['orders_time'] as String),
       ordersRating: json['orders_rating'] as num?,
+      ordersPoints: json['orders_points'] as num?,
       ordersNote: json['orders_note'] as String?,
       ordersBranch: json['orders_branch'] as int?,
       addressId: json['address_id'] as int?,
@@ -54,6 +55,7 @@ Map<String, dynamic> _$$OrdersModelImplToJson(_$OrdersModelImpl instance) =>
       'orders_state': instance.ordersState,
       'orders_time': instance.ordersTime?.toIso8601String(),
       'orders_rating': instance.ordersRating,
+      'orders_points': instance.ordersPoints,
       'orders_note': instance.ordersNote,
       'orders_branch': instance.ordersBranch,
       'address_id': instance.addressId,

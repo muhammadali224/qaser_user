@@ -31,6 +31,7 @@ class OrdersModel with _$OrdersModel {
     @JsonKey(name: "orders_state") int? ordersState,
     @JsonKey(name: "orders_time") DateTime? ordersTime,
     @JsonKey(name: "orders_rating") num? ordersRating,
+    @JsonKey(name: "orders_points") num? ordersPoints,
     @JsonKey(name: "orders_note") String? ordersNote,
     @JsonKey(name: "orders_branch") int? ordersBranch,
     @JsonKey(name: "address_id") int? addressId,

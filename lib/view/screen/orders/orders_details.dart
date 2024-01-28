@@ -103,6 +103,9 @@ class OrdersDetails extends StatelessWidget {
                         subtitle:
                             "${controller.ordersModel.ordersDeliveryFee}"),
                   SubtitleDetails(
+                      title: 'totalPoints',
+                      subtitle: "${controller.ordersModel.ordersPoints}"),
+                  SubtitleDetails(
                       title: 'discount',
                       name: controller.ordersModel.couponName,
                       subtitle:
