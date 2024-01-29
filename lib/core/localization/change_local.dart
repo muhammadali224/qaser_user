@@ -24,8 +24,7 @@ class LocalController extends GetxController {
 
   @override
   void onInit() {
-    // requestNotificationPermissions();
-    // fcmConfig();
+
 
     String? getBoxLanguages = myServices.getBox.read(GetBoxKey.language);
     if (getBoxLanguages == GetBoxKey.arLanguage) {
