@@ -7,10 +7,13 @@ class LogoAuth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      Assets.imagesLogo,
-      fit: BoxFit.fill,
-      filterQuality: FilterQuality.high,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Image.asset(
+        Assets.imagesAppIcon,
+        fit: BoxFit.fill,
+        filterQuality: FilterQuality.high,
+      ),
     );
   }
 }

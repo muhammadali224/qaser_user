@@ -2,7 +2,7 @@ name: qaser_user
 description: A new Flutter project.
 publish_to: 'none'
 
-version: 2.0.56+18
+version: 2.0.6+19
 
 
 environment:

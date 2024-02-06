@@ -282,6 +282,7 @@ class MyTranslation extends Translations {
           "remaining": "متبقي",
           "redeem": "إستبدال",
           "pointsNotEnough": "نقاطك غير كافية",
+          "emptyLocation": "تأكد من أختيارك الموقع ",
         },
         'en': {
           'chooseLang': 'Choose Language',
@@ -562,6 +563,7 @@ class MyTranslation extends Translations {
           "remaining": "Remaining",
           "redeem": "Redeem",
           "pointsNotEnough": "Your Points Not Enough!",
+          "emptyLocation": "Please Check the selected Location",
         },
       };
 }

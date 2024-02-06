@@ -292,53 +292,67 @@ class CartControllerImp extends CartController {
 
         if (selectedOrderType == 0) {
           selectedLocation = 0;
-        }
-
-        var response = await checkoutData.checkout(
-          userId: UserController().user.usersId!,
-          addressId: selectedLocation.toString(),
-          orderType: selectedOrderType.toString(),
-          deliveryFee: deliveryFee,
-          orderPrice: price.toStringAsFixed(2),
-          discountAmount: discount.toStringAsFixed(2),
-          totalPrice: getTotalOrderPrice(),
-          couponId: couponId ?? 0,
-          branchId: UserController().user.userFavBranchId!,
-          totalPoints: totalPoint,
-        );
-        statusRequest = handlingData(response);
-        if (statusRequest == StatusRequest.success) {
-          if (response['status'] == 'success') {
-            refreshCart();
-            Get.offAllNamed(AppRoutes.home);
-            resetCart();
-            Get.snackbar(
-              'success'.tr,
-              'orderSuccess'.tr,
-              icon: const Icon(
-                Icons.local_shipping_outlined,
-                color: Colors.green,
-              ),
-            );
-          } else if (response['status'] == 'failed' &&
-              response['message'] == 'branch_401') {
-            SmartDialog.showNotify(
-              msg: "branch_401".tr,
-              notifyType: NotifyType.error,
-              displayTime: const Duration(seconds: 3),
-            );
-          } else {
-            statusRequest = StatusRequest.none;
-            Get.isSnackbarOpen
+        } else if (selectedOrderType == 1) {
+          if (selectedLocation == null || selectedLocation == 0) {
+            return Get.isSnackbarOpen
                 ? null
                 : Get.snackbar(
-                    'error'.tr,
-                    'tryAgain'.tr,
-                    icon: Icon(
+                    'attention'.tr,
+                    'emptyCart'.tr,
+                    icon: const Icon(
                       Icons.error_outline,
-                      color: AppColor.primaryColor,
+                      color: Colors.red,
                     ),
+                    snackStyle: SnackStyle.GROUNDED,
                   );
+          } else {
+            var response = await checkoutData.checkout(
+              userId: UserController().user.usersId!,
+              addressId: selectedLocation.toString(),
+              orderType: selectedOrderType.toString(),
+              deliveryFee: deliveryFee,
+              orderPrice: price.toStringAsFixed(2),
+              discountAmount: discount.toStringAsFixed(2),
+              totalPrice: getTotalOrderPrice(),
+              couponId: couponId ?? 0,
+              branchId: UserController().user.userFavBranchId!,
+              totalPoints: totalPoint,
+            );
+            statusRequest = handlingData(response);
+            if (statusRequest == StatusRequest.success) {
+              if (response['status'] == 'success') {
+                refreshCart();
+                Get.offAllNamed(AppRoutes.home);
+                resetCart();
+                Get.snackbar(
+                  'success'.tr,
+                  'orderSuccess'.tr,
+                  icon: const Icon(
+                    Icons.local_shipping_outlined,
+                    color: Colors.green,
+                  ),
+                );
+              } else if (response['status'] == 'failed' &&
+                  response['message'] == 'branch_401') {
+                SmartDialog.showNotify(
+                  msg: "branch_401".tr,
+                  notifyType: NotifyType.error,
+                  displayTime: const Duration(seconds: 3),
+                );
+              } else {
+                statusRequest = StatusRequest.none;
+                Get.isSnackbarOpen
+                    ? null
+                    : Get.snackbar(
+                        'error'.tr,
+                        'tryAgain'.tr,
+                        icon: Icon(
+                          Icons.error_outline,
+                          color: AppColor.primaryColor,
+                        ),
+                      );
+              }
+            }
           }
         }
       }

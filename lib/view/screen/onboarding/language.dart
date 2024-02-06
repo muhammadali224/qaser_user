@@ -18,7 +18,7 @@ class LanguageScreen extends GetView<LocalController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const LogoAuth(),
-            SizedBox(height: 50),
+            SizedBox(height: 10),
             Text("chooseLang".tr,
                 style: Theme.of(context).textTheme.displayLarge),
             const SizedBox(height: 20),
