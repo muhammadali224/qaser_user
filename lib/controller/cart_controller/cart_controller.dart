@@ -3,10 +3,10 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:icon_broken/icon_broken.dart';
 import 'package:qaser_user/controller/user_controller/user_controller.dart';
+import 'package:qaser_user/core/function/show_snackbar.dart';
 import 'package:qaser_user/core/services/app.service.dart';
 
 import '../../core/class/status_request.dart';
-import '../../core/constant/color.dart';
 import '../../core/constant/routes.dart';
 import '../../core/function/handling_data_controller.dart';
 import '../../data/model/cart_model/cart_model.dart';
@@ -112,7 +112,12 @@ class CartControllerImp extends CartController {
 
   @override
   selectOrderMethod(int val) {
+    if (val == 0) {
+      deliveryFee = "0";
+      selectedLocation = null;
+    }
     selectedOrderType = val;
+
     update();
   }
 
@@ -212,10 +217,20 @@ class CartControllerImp extends CartController {
 
   @override
   resetCart() {
-    totalPrice = 0;
-    couponId = null;
     couponValue = 0;
+    deliveryFee = "0";
+    isLoading = false.obs;
+    totalPrice = 0.0;
+    discount = 0.0;
+    ordersCount = 0.obs;
+    price = 0.0.obs;
+    totalPoint = "0";
     couponName = null;
+    couponId = null;
+    distance = 0.0;
+    selectedOrderType = 0;
+    locationList = 0;
+    selectedLocation = null;
     couponController.clear();
     data.clear();
   }
@@ -275,84 +290,45 @@ class CartControllerImp extends CartController {
   checkout() async {
     try {
       if (data.isEmpty) {
-        return Get.isSnackbarOpen
-            ? null
-            : Get.snackbar(
-                'attention'.tr,
-                'emptyCart'.tr,
-                icon: const Icon(
-                  Icons.error_outline,
-                  color: Colors.red,
-                ),
-                snackStyle: SnackStyle.GROUNDED,
-              );
+        showSnackBar('emptyCart'.tr,
+            color: Colors.red,
+            widget: Icon(Icons.error_outline, color: Colors.white));
       } else {
-        statusRequest = StatusRequest.loading;
-        update();
-
-        if (selectedOrderType == 0) {
-          selectedLocation = 0;
-        } else if (selectedOrderType == 1) {
-          if (selectedLocation == null || selectedLocation == 0) {
-            return Get.isSnackbarOpen
-                ? null
-                : Get.snackbar(
-                    'attention'.tr,
-                    'emptyCart'.tr,
-                    icon: const Icon(
-                      Icons.error_outline,
-                      color: Colors.red,
-                    ),
-                    snackStyle: SnackStyle.GROUNDED,
-                  );
+        var response;
+        if (selectedOrderType == 1) {
+          if (selectedLocation != null || selectedLocation != 0) {
+            response = await checkoutDelivery();
           } else {
-            var response = await checkoutData.checkout(
-              userId: UserController().user.usersId!,
-              addressId: selectedLocation.toString(),
-              orderType: selectedOrderType.toString(),
-              deliveryFee: deliveryFee,
-              orderPrice: price.toStringAsFixed(2),
-              discountAmount: discount.toStringAsFixed(2),
-              totalPrice: getTotalOrderPrice(),
-              couponId: couponId ?? 0,
-              branchId: UserController().user.userFavBranchId!,
-              totalPoints: totalPoint,
+            showSnackBar('emptyCart'.tr,
+                color: Colors.red,
+                widget: Icon(Icons.error_outline, color: Colors.white));
+          }
+        } else if (selectedOrderType == 0) {
+          response = await checkoutPickup();
+        }
+
+        statusRequest = handlingData(response);
+        if (statusRequest == StatusRequest.success) {
+          if (response['status'] == 'success') {
+            refreshCart();
+            Get.offAllNamed(AppRoutes.home);
+            resetCart();
+            showSnackBar('orderSuccess'.tr,
+                color: Colors.green,
+                widget:
+                    Icon(Icons.local_shipping_outlined, color: Colors.white));
+          } else if (response['status'] == 'failed' &&
+              response['message'] == 'branch_401') {
+            SmartDialog.showNotify(
+              msg: "branch_401".tr,
+              notifyType: NotifyType.error,
+              displayTime: const Duration(seconds: 3),
             );
-            statusRequest = handlingData(response);
-            if (statusRequest == StatusRequest.success) {
-              if (response['status'] == 'success') {
-                refreshCart();
-                Get.offAllNamed(AppRoutes.home);
-                resetCart();
-                Get.snackbar(
-                  'success'.tr,
-                  'orderSuccess'.tr,
-                  icon: const Icon(
-                    Icons.local_shipping_outlined,
-                    color: Colors.green,
-                  ),
-                );
-              } else if (response['status'] == 'failed' &&
-                  response['message'] == 'branch_401') {
-                SmartDialog.showNotify(
-                  msg: "branch_401".tr,
-                  notifyType: NotifyType.error,
-                  displayTime: const Duration(seconds: 3),
-                );
-              } else {
-                statusRequest = StatusRequest.none;
-                Get.isSnackbarOpen
-                    ? null
-                    : Get.snackbar(
-                        'error'.tr,
-                        'tryAgain'.tr,
-                        icon: Icon(
-                          Icons.error_outline,
-                          color: AppColor.primaryColor,
-                        ),
-                      );
-              }
-            }
+          } else {
+            statusRequest = StatusRequest.none;
+            showSnackBar('tryAgain'.tr,
+                color: Colors.red,
+                widget: Icon(Icons.error_outline, color: Colors.white));
           }
         }
       }
@@ -360,6 +336,48 @@ class CartControllerImp extends CartController {
       throw Exception("Error Checkout : $e");
     }
     update();
+  }
+
+  checkoutPickup() async {
+    try {
+      statusRequest = StatusRequest.loading;
+      update();
+      var response = await checkoutData.checkout(
+        userId: UserController().user.usersId!,
+        addressId: "0",
+        orderType: "0",
+        deliveryFee: "0",
+        orderPrice: price.toStringAsFixed(2),
+        discountAmount: discount.toStringAsFixed(2),
+        totalPrice: getTotalOrderPrice(),
+        couponId: couponId ?? 0,
+        branchId: UserController().user.userFavBranchId!,
+        totalPoints: totalPoint,
+      );
+      return response;
+    } catch (e) {
+      throw Exception("Error Checkout Pickup : $e");
+    }
+  }
+
+  checkoutDelivery() async {
+    try {
+      var response = await checkoutData.checkout(
+        userId: UserController().user.usersId!,
+        addressId: selectedLocation.toString(),
+        orderType: "1",
+        deliveryFee: deliveryFee,
+        orderPrice: price.toStringAsFixed(2),
+        discountAmount: discount.toStringAsFixed(2),
+        totalPrice: getTotalOrderPrice(),
+        couponId: couponId ?? 0,
+        branchId: UserController().user.userFavBranchId!,
+        totalPoints: totalPoint,
+      );
+      return response;
+    } catch (e) {
+      throw Exception("Error Checkout Delivery : $e");
+    }
   }
 
   getTotalOrderPrice() {

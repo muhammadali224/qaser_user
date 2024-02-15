@@ -56,6 +56,7 @@ class SettingsController extends GetxController {
 
   logout() async {
     try {
+      Get.offAllNamed('/');
       FirebaseMessaging.instance
           .unsubscribeFromTopic("users${UserController().user.usersId}");
       FirebaseMessaging.instance.unsubscribeFromTopic("signed");
@@ -66,7 +67,6 @@ class SettingsController extends GetxController {
 
       await UserController().clear();
       await myServices.getBox.remove(GetBoxKey.step);
-      Get.offAllNamed('/');
     } catch (e) {
       throw Exception("Error Logout : $e");
     }

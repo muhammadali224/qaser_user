@@ -17,39 +17,40 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(LoginControllerImp());
     return Scaffold(
-        appBar: AppBar(
-          leading: BackAppBar(),
-          title: Text(
-            "signin".tr,
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium!
-                .copyWith(color: AppColor.grey),
+      appBar: AppBar(
+        leading: BackAppBar(),
+        title: Text(
+          "signin".tr,
+          style: Theme.of(context)
+              .textTheme
+              .displayMedium!
+              .copyWith(color: AppColor.grey),
+        ),
+      ),
+      body: GetBuilder<LoginControllerImp>(
+        builder: (controller) => HandlingDataRequest(
+          statusRequest: controller.statusRequest,
+          widget: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+            child: Form(
+              key: controller.formState,
+              child: ListView(
+                children: [
+                  EmailPasswordSignin(),
+                  const SizedBox(height: 10),
+                  OrSection(),
+                  SocialSection(),
+                  CustomSigninText(
+                    account: 'dontHaveAccount',
+                    sign: 'signup',
+                    onTap: controller.goToSignUp,
+                  )
+                ],
+              ),
+            ),
           ),
         ),
-        body: GetBuilder<LoginControllerImp>(
-            builder: (controller) => HandlingDataRequest(
-                  statusRequest: controller.statusRequest,
-                  widget: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 15),
-                    child: Form(
-                      key: controller.formState,
-                      child: ListView(
-                        children: [
-                          EmailPasswordSignin(),
-                          const SizedBox(height: 10),
-                          OrSection(),
-                          SocialSection(),
-                          CustomSigninText(
-                            account: 'dontHaveAccount',
-                            sign: 'signup',
-                            onTap: controller.goToSignUp,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                )));
+      ),
+    );
   }
 }

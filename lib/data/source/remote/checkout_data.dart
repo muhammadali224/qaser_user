@@ -31,7 +31,7 @@ class CheckoutData {
       'branch_id': branchId.toString(),
       'order_points': totalPoints,
     });
-    print(totalPoints);
+
     return response.fold((l) => l, (r) => r);
   }
 

@@ -11,7 +11,7 @@ validInput(String val, int min, int max, String type) {
     }
   }
   if (type == "phone") {
-    if (!GetUtils.isPhoneNumber(val.trim())) {
+    if (!GetUtils.isPhoneNumber(val.trim().removeAllWhitespace)) {
       return 'phoneValidError'.tr;
     }
   }

@@ -17,11 +17,9 @@ class EmailPasswordSignin extends GetView<LoginControllerImp> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const LogoAuth(),
-        const SizedBox(height: 20),
         CustomAuthInput(
           labelText: 'email',
           controller: controller.email,
-          // isDense: true,
           hintText: 'enterEmail',
           validator: (val) {
             return validInput(val!, 7, 50, 'email');

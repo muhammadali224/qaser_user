@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,7 +8,11 @@ showSnackBar(String message, {Color? color, Widget? widget}) {
       content: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(message),
+          AutoSizeText(
+            message,
+            maxLines: 20,
+            minFontSize: 18,
+          ),
           widget ?? Container(),
         ],
       ),
