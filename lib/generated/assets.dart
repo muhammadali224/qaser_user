@@ -2,22 +2,19 @@
 class Assets {
   Assets._();
 
-  static const String almaraiAlmaraiBold =
-      'assets/fonts/Almarai/Almarai-Bold.ttf';
-  static const String almaraiAlmaraiExtraBold =
-      'assets/fonts/Almarai/Almarai-ExtraBold.ttf';
-  static const String almaraiAlmaraiLight =
-      'assets/fonts/Almarai/Almarai-Light.ttf';
-  static const String almaraiAlmaraiRegular =
-      'assets/fonts/Almarai/Almarai-Regular.ttf';
+  static const String almaraiAlmaraiBold = 'assets/fonts/Almarai/Almarai-Bold.ttf';
+  static const String almaraiAlmaraiExtraBold = 'assets/fonts/Almarai/Almarai-ExtraBold.ttf';
+  static const String almaraiAlmaraiLight = 'assets/fonts/Almarai/Almarai-Light.ttf';
+  static const String almaraiAlmaraiRegular = 'assets/fonts/Almarai/Almarai-Regular.ttf';
   static const String imagesAppIcon = 'assets/images/app_icon.png';
+  static const String imagesAppIconRamadan = 'assets/images/app_icon_ramadan.png';
   static const String imagesAvatar = 'assets/images/avatar.png';
   static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesLogo2 = 'assets/images/logo_2.jpg';
   static const String imagesMhj = 'assets/images/mhj.png';
   static const String imagesSplash = 'assets/images/splash.png';
-  static const String lottieAccountCreated =
-      'assets/lottie/accountCreated.json';
+  static const String imagesSplashRamadan = 'assets/images/splash_ramadan.png';
+  static const String lottieAccountCreated = 'assets/lottie/accountCreated.json';
   static const String lottieBranchClose = 'assets/lottie/branch_close.json';
   static const String lottieDelivery = 'assets/lottie/delivery.json';
   static const String lottieEmptyCart = 'assets/lottie/empty_cart.json';
@@ -34,4 +31,5 @@ class Assets {
   static const String lottieServerError = 'assets/lottie/serverError.json';
   static const String lottieSuccess = 'assets/lottie/success.json';
   static const String qaserUser = '.env';
+
 }

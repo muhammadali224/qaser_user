@@ -2,7 +2,7 @@ name: qaser_user
 description: A new Flutter project.
 publish_to: 'none'
 
-version: 2.0.7+20
+version: 2.0.71+21
 
 
 environment:
@@ -53,8 +53,6 @@ dependencies:
   insta_image_viewer:
   animated_number: ^1.0.2
   timer_builder: ^2.0.0
-  dynamic_tabbar: ^1.0.5
-  crypto: ^3.0.3
   pretty_qr_code: ^3.0.0
   upgrader: ^8.4.0
   encrypt: ^5.0.2
@@ -64,13 +62,11 @@ dependencies:
 
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   flutter_lints: ^3.0.1
   build_runner: ^2.4.6
   freezed: ^2.4.5
   dependency_validator:
-  dart_code_metrics_presets: ^2.6.0
+  flutter_launcher_icons: ^0.13.1
 
 
 
@@ -78,7 +74,7 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/app_icon.png"
+  image_path: "assets/images/app_icon_ramadan.png"
   min_sdk_android: 21
 
 flutter:

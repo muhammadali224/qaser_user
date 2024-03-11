@@ -40,31 +40,31 @@ class AwesomeNotificationsHelper {
     await AwesomeNotifications().setLocalization(
         languageCode: await AwesomeNotifications().getLocalization());
     await awesomeNotifications.initialize(
-        "resource://drawable/app_icon",
-        // null mean it will show app icon on the notification (status bar)
-        [
-          NotificationChannel(
-            channelGroupKey: NotificationChannels.generalChannelGroupKey,
-            channelKey: NotificationChannels.generalChannelKey,
-            channelName: NotificationChannels.generalChannelName,
-            groupKey: NotificationChannels.generalGroupKey,
-            channelDescription: NotificationChannels.generalChannelDescription,
-            defaultColor: Colors.green,
-            ledColor: Colors.white,
-            channelShowBadge: true,
-            enableVibration: true,
-            playSound: true,
-            importance: NotificationImportance.Max,
-            vibrationPattern: Int64List.fromList([0, 1000, 5000, 2000]),
-          ),
-        ],
-        channelGroups: [
-          NotificationChannelGroup(
-            channelGroupKey: NotificationChannels.generalChannelGroupKey,
-            channelGroupName: NotificationChannels.generalChannelGroupName,
-          ),
-        ],
-        languageCode: "ar");
+      "resource://drawable/app_icon",
+      // null mean it will show app icon on the notification (status bar)
+      [
+        NotificationChannel(
+          channelGroupKey: NotificationChannels.generalChannelGroupKey,
+          channelKey: NotificationChannels.generalChannelKey,
+          channelName: NotificationChannels.generalChannelName,
+          groupKey: NotificationChannels.generalGroupKey,
+          channelDescription: NotificationChannels.generalChannelDescription,
+          defaultColor: Colors.green,
+          ledColor: Colors.white,
+          channelShowBadge: true,
+          enableVibration: true,
+          playSound: true,
+          importance: NotificationImportance.Max,
+          vibrationPattern: Int64List.fromList([0, 1000, 5000, 2000]),
+        ),
+      ],
+      channelGroups: [
+        NotificationChannelGroup(
+          channelGroupKey: NotificationChannels.generalChannelGroupKey,
+          channelGroupName: NotificationChannels.generalChannelGroupName,
+        ),
+      ],
+    );
   }
 
   //display notification for user with sound

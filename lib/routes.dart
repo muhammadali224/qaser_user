@@ -61,10 +61,7 @@ List<GetPage<dynamic>>? routes = [
       ),
       child: const Home(),
     ),
-    bindings: [
-      // CartBindings(),
-      InitBindings(),
-    ],
+    binding: InitBindings(),
   ),
   GetPage(
     name: AppRoutes.login,
