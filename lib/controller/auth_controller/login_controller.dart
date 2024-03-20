@@ -53,7 +53,7 @@ class LoginControllerImp extends LoginController {
             UserController().user = UserModel.fromJson(response["data"]);
 
             if (response['data']["users_approve"] == 1) {
-              Get.to(AppRoutes.home);
+              Get.toNamed(AppRoutes.home);
               FirebaseMessaging.instance
                   .subscribeToTopic("user${UserController().user.usersId}");
               FirebaseMessaging.instance.unsubscribeFromTopic("notSigned");

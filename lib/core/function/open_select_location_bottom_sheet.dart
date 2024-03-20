@@ -109,7 +109,8 @@ Future<void> openLocationBottomSheet() async {
     context: Get.context!,
   ).whenComplete(() {
     if (controller.selectedLocation == null) {
-      controller.selectedOrderType = 0;
+      controller.selectedOrderType = 2;
+      // controller.selectedOrderType = 0;
       controller.update();
     }
   });

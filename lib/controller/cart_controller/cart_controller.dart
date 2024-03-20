@@ -289,48 +289,54 @@ class CartControllerImp extends CartController {
 
   checkout() async {
     try {
-      if (data.isEmpty) {
-        showSnackBar('emptyCart'.tr,
+      if (selectedOrderType == 0 || selectedOrderType == 1) {
+        if (data.isEmpty) {
+          showSnackBar('emptyCart'.tr,
+              color: Colors.red,
+              widget: Icon(Icons.error_outline, color: Colors.white));
+        } else {
+          var response;
+          if (selectedOrderType == 1) {
+            if (selectedLocation != null || selectedLocation != 0) {
+              response = await checkoutDelivery();
+            } else {
+              showSnackBar('emptyCart'.tr,
+                  color: Colors.red,
+                  widget: Icon(Icons.error_outline, color: Colors.white));
+            }
+          } else if (selectedOrderType == 0) {
+            response = await checkoutPickup();
+          }
+
+          statusRequest = handlingData(response);
+          if (statusRequest == StatusRequest.success) {
+            if (response['status'] == 'success') {
+              refreshCart();
+              Get.offAllNamed(AppRoutes.home);
+              resetCart();
+              showSnackBar('orderSuccess'.tr,
+                  color: Colors.green,
+                  widget:
+                      Icon(Icons.local_shipping_outlined, color: Colors.white));
+            } else if (response['status'] == 'failed' &&
+                response['message'] == 'branch_401') {
+              SmartDialog.showNotify(
+                msg: "branch_401".tr,
+                notifyType: NotifyType.error,
+                displayTime: const Duration(seconds: 3),
+              );
+            } else {
+              statusRequest = StatusRequest.none;
+              showSnackBar('tryAgain'.tr,
+                  color: Colors.red,
+                  widget: Icon(Icons.error_outline, color: Colors.white));
+            }
+          }
+        }
+      } else {
+        showSnackBar('emptyLocation'.tr,
             color: Colors.red,
             widget: Icon(Icons.error_outline, color: Colors.white));
-      } else {
-        var response;
-        if (selectedOrderType == 1) {
-          if (selectedLocation != null || selectedLocation != 0) {
-            response = await checkoutDelivery();
-          } else {
-            showSnackBar('emptyCart'.tr,
-                color: Colors.red,
-                widget: Icon(Icons.error_outline, color: Colors.white));
-          }
-        } else if (selectedOrderType == 0) {
-          response = await checkoutPickup();
-        }
-
-        statusRequest = handlingData(response);
-        if (statusRequest == StatusRequest.success) {
-          if (response['status'] == 'success') {
-            refreshCart();
-            Get.offAllNamed(AppRoutes.home);
-            resetCart();
-            showSnackBar('orderSuccess'.tr,
-                color: Colors.green,
-                widget:
-                    Icon(Icons.local_shipping_outlined, color: Colors.white));
-          } else if (response['status'] == 'failed' &&
-              response['message'] == 'branch_401') {
-            SmartDialog.showNotify(
-              msg: "branch_401".tr,
-              notifyType: NotifyType.error,
-              displayTime: const Duration(seconds: 3),
-            );
-          } else {
-            statusRequest = StatusRequest.none;
-            showSnackBar('tryAgain'.tr,
-                color: Colors.red,
-                widget: Icon(Icons.error_outline, color: Colors.white));
-          }
-        }
       }
     } catch (e) {
       throw Exception("Error Checkout : $e");

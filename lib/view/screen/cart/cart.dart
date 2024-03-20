@@ -116,30 +116,48 @@ class Cart extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ...List.generate(
-                        controller.orderMethod.length,
-                        (i) => CheckoutOrderList(
-                              onChanged: () async {
-                                controller.selectOrderMethod(i);
-                                if (i == 1 &&
-                                    UserController().user.usersIsAnonymous ==
-                                        0) {
-                                  controller.selectedLocation = null;
-                                  SmartDialog.showLoading(msg: "loading".tr);
-                                  await controller.addressController.getData();
-                                  SmartDialog.dismiss();
-                                  await openLocationBottomSheet();
-                                } else if (UserController()
-                                        .user
-                                        .usersIsAnonymous ==
-                                    1) {
-                                  SmartDialog.showToast("signInFirst".tr);
-                                }
-                              },
-                              value: i,
-                              title: controller.orderMethod[i]['title'],
-                              icon: controller.orderMethod[i]['icon'],
-                            )),
+                    // ...List.generate(
+                    //     controller.orderMethod.length,
+                    //     (i) => CheckoutOrderList(
+                    //           onChanged: () async {
+                    //             controller.selectOrderMethod(i);
+                    //             if (i == 1 &&
+                    //                 UserController().user.usersIsAnonymous ==
+                    //                     0) {
+                    //               controller.selectedLocation = null;
+                    //               SmartDialog.showLoading(msg: "loading".tr);
+                    //               await controller.addressController.getData();
+                    //               SmartDialog.dismiss();
+                    //               await openLocationBottomSheet();
+                    //             } else if (UserController()
+                    //                     .user
+                    //                     .usersIsAnonymous ==
+                    //                 1) {
+                    //               SmartDialog.showToast("signInFirst".tr);
+                    //             }
+                    //           },
+                    //           value: i,
+                    //           title: controller.orderMethod[i]['title'],
+                    //           icon: controller.orderMethod[i]['icon'],
+                    //         )),
+                    CheckoutOrderList(
+                      onChanged: () async {
+                        controller.selectOrderMethod(1);
+                        if (UserController().user.usersIsAnonymous == 0) {
+                          controller.selectedLocation = null;
+                          SmartDialog.showLoading(msg: "loading".tr);
+                          await controller.addressController.getData();
+                          SmartDialog.dismiss();
+                          await openLocationBottomSheet();
+                        } else if (UserController().user.usersIsAnonymous ==
+                            1) {
+                          SmartDialog.showToast("signInFirst".tr);
+                        }
+                      },
+                      value: 1,
+                      title: controller.orderMethod[1]['title'],
+                      icon: controller.orderMethod[1]['icon'],
+                    )
                   ],
                 ),
                 if (controller.selectedOrderType == 1 &&
