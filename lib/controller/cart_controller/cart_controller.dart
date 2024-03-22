@@ -55,7 +55,7 @@ class CartControllerImp extends CartController {
   int? couponId;
   double distance = 0.0;
 
-  int selectedOrderType = 0;
+  int selectedOrderType = 2;
   int locationList = 0;
   int? selectedLocation;
 
