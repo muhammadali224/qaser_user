@@ -26,6 +26,8 @@ class MyServices extends GetxService {
     await GetStorage.init();
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
+    // await MellotippetFirebaseRemoteConfig.initialize();
+    // await GetIt.instance.get<MellotippetPackageInfo>().initialize();
     FlutterError.onError = (errorDetails) {
       FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
     };

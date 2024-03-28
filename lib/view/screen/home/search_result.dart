@@ -31,33 +31,36 @@ class SearchListResult extends StatelessWidget {
                   child: InkWell(
                     onTap: () =>
                         controller.goToDetails(controller.listData[index]),
-                    child: Card(
-                      elevation: 20,
-                      child: Container(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: CacheNetworkImagePlus(
-                              imageUrl:
-                                  "${AppLink.imagesItems}${controller.listData[index].itemsImage}",
-                              boxFit: BoxFit.fill,
-                            )),
-                            Expanded(
-                              flex: 2,
-                              child: ListTile(
-                                title: Text(
-                                  "${translateDatabase(controller.listData[index].itemsNameAr!, controller.listData[index].itemsName!)}",
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600),
+                    child: Container(
+                      height: 170,
+                      child: Card(
+                        elevation: 20,
+                        child: Container(
+                          padding: const EdgeInsets.all(15),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: CacheNetworkImagePlus(
+                                imageUrl:
+                                    "${AppLink.imagesItems}${controller.listData[index].itemsImage}",
+                                boxFit: BoxFit.fill,
+                              )),
+                              Expanded(
+                                flex: 2,
+                                child: ListTile(
+                                  title: Text(
+                                    "${translateDatabase(controller.listData[index].itemsNameAr!, controller.listData[index].itemsName!)}",
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  subtitle: Text(
+                                    "${translateDatabase(controller.listData[index].categoriesNameAr!, controller.listData[index].categoriesName!)}",
+                                  ),
                                 ),
-                                subtitle: Text(
-                                  "${translateDatabase(controller.listData[index].categoriesNameAr!, controller.listData[index].categoriesName!)}",
-                                ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

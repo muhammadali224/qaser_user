@@ -63,6 +63,7 @@ class TimerController extends GetxController {
               pointDescreptionEn: "Daily Prize",
               pointsCount: 5,
             ));
+        print(response);
         if (response["status"] == "success") {
           DateTime nextPrizeTime = DateTime.now().add(Duration(days: 1));
           box.write(GetBoxKey.nextPrizeTime, nextPrizeTime.toString());
