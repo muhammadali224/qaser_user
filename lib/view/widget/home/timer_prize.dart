@@ -21,16 +21,18 @@ class TimerPrize extends StatelessWidget {
                 visible: controller.canGetPrize.value,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: ButtomNavigatButton(
-                    onPressed: () async {
-                      controller.getPrize();
-                    },
-                    textColor: Colors.white,
-                    color: Colors.red,
-                    title: 'getPrize',
-                    icon: FontAwesome.award_solid,
-                    iconColor: Colors.amber,
-                  ),
+                  child: controller.isLoading.value
+                      ? Center(child: CircularProgressIndicator())
+                      : ButtomNavigatButton(
+                          onPressed: () async {
+                            controller.getPrize();
+                          },
+                          textColor: Colors.white,
+                          color: Colors.red,
+                          title: 'getPrize',
+                          icon: FontAwesome.award_solid,
+                          iconColor: Colors.amber,
+                        ),
                 ),
               );
             }),

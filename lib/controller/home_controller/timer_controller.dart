@@ -14,13 +14,13 @@ class TimerController extends GetxController {
   RxString eta = ''.obs;
   final box = Get.find<MyServices>().getBox;
   UserPointData _pointData = UserPointData(Get.find());
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
-    // box.remove(GetBoxKey.canGetPrize);
     canGetPrize.value = box.read(GetBoxKey.canGetPrize) ?? true;
     _loadTimerState();
-    // rmove();
+
     super.onInit();
   }
 
@@ -34,11 +34,9 @@ class TimerController extends GetxController {
         DateTime now = DateTime.now();
 
         if (now.isAfter(nextPrizeTime)) {
-          // User can get the prize now
           canGetPrize.value = true;
           await box.write(GetBoxKey.canGetPrize, true);
         } else {
-          // Calculate ETA
           _startEtaTimer(nextPrizeTime);
         }
       }
@@ -51,19 +49,19 @@ class TimerController extends GetxController {
 
   void getPrize() async {
     try {
+      isLoading.value = true;
       if (UserController().user.usersIsAnonymous == 1) {
         SmartDialog.showToast("signInFirst".tr);
+        isLoading.value = false;
       } else {
         var response = await _pointData.addPoint(
             UserController().user.usersId!,
             UserPointModel(
-              // createDate: DateTime.now(),
-              // expireDate: DateTime.now().add(Duration(days: 90)),
               pointDescreption: "المكافئة اليومية",
               pointDescreptionEn: "Daily Prize",
               pointsCount: 5,
             ));
-        print(response);
+
         if (response["status"] == "success") {
           DateTime nextPrizeTime = DateTime.now().add(Duration(days: 1));
           box.write(GetBoxKey.nextPrizeTime, nextPrizeTime.toString());
@@ -73,13 +71,17 @@ class TimerController extends GetxController {
           await box.write(GetBoxKey.canGetPrize, false);
           // Start ETA timer
           _startEtaTimer(nextPrizeTime);
+          isLoading.value = false;
         } else {
+          isLoading.value = false;
           SmartDialog.showToast("somethingError".tr);
         }
       }
     } catch (e) {
+      isLoading.value = false;
       throw Exception("Error Get Prize $e");
     }
+    update();
   }
 
   void _startEtaTimer(DateTime targetTime) {
