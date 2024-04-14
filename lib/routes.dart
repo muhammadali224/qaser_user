@@ -68,17 +68,7 @@ List<GetPage<dynamic>>? routes = [
     page: () => const Login(),
     binding: InitBindings(),
   ),
-  GetPage(
-      name: AppRoutes.splashScreen,
-      page: () => UpgradeAlert(
-          upgrader: Upgrader(
-            canDismissDialog: true,
-            showIgnore: false,
-            dialogStyle: GetPlatform.isIOS
-                ? UpgradeDialogStyle.cupertino
-                : UpgradeDialogStyle.material,
-          ),
-          child: const SplashScreen())),
+  GetPage(name: AppRoutes.splashScreen, page: () => const SplashScreen()),
   GetPage(name: AppRoutes.signUp, page: () => const SignUp()),
   GetPage(name: AppRoutes.forgetPassword, page: () => const ForgetPassword()),
   GetPage(

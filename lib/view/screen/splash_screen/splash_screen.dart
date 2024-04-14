@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
           Image.asset(
-            Assets.imagesSplashRamadan,
+            Assets.imagesSplash,
             fit: BoxFit.fill,
             height: Get.height,
             width: Get.width,

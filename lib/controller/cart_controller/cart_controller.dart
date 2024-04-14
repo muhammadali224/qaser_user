@@ -228,7 +228,7 @@ class CartControllerImp extends CartController {
     couponName = null;
     couponId = null;
     distance = 0.0;
-    selectedOrderType = 0;
+    selectedOrderType = 2;
     locationList = 0;
     selectedLocation = null;
     couponController.clear();
@@ -305,7 +305,7 @@ class CartControllerImp extends CartController {
                   widget: Icon(Icons.error_outline, color: Colors.white));
             }
           } else if (selectedOrderType == 0) {
-            response = await checkoutPickup();
+            // response = await checkoutPickup();
           }
 
           statusRequest = handlingData(response);

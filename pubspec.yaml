@@ -2,7 +2,7 @@ name: qaser_user
 description: A new Flutter project.
 publish_to: 'none'
 
-version: 2.1.0+25
+version: 2.1.2+27
 
 
 environment:
@@ -76,7 +76,7 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/app_icon_ramadan.png"
+  image_path: "assets/images/app_icon.png"
   min_sdk_android: 21
 
 flutter:

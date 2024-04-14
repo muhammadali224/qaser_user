@@ -22,7 +22,11 @@ class TimerPrize extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: controller.isLoading.value
-                      ? Center(child: CircularProgressIndicator())
+                      ? Center(
+                          child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(),
+                        ))
                       : ButtomNavigatButton(
                           onPressed: () async {
                             controller.getPrize();
